@@ -300,8 +300,8 @@
 
     <section class="page-header">
         <div class="header-content">
-            <h1>Medjugorje 2024</h1>
-            <p>Spiritual renewal in Bosnia and Herzegovina</p>
+            <h1>Tierra Santa 2022</h1>
+            <p>Walking in the footsteps of Jesus</p>
         </div>
     </section>
 
@@ -309,60 +309,63 @@
         <a href="../experiences.html" class="back-link">← Back to All Experiences</a>
         
         <div class="description">
-            <p>In 2024, we embarked on a profound spiritual journey to Medjugorje, a place known for reported apparitions of the Virgin Mary. Our pilgrimage offered moments of deep prayer, reflection, and spiritual renewal in this peaceful sanctuary in Bosnia and Herzegovina.</p>
+            <p>In 2022, we embarked on a transformative pilgrimage to the Holy Land, walking the paths where Jesus once walked. Our journey took us through Jerusalem, Bethlehem, Nazareth, and the Sea of Galilee, connecting with the profound spiritual history of these sacred places.</p>
         </div>
+
         <div class="slideshow-container">
             <div class="slideshow">
-                <?php
-                // Path to the image directory
-                $image_dir = "../experiences/images/medjugorje2024/";
-                
-                // Get all image files with a .jpg, .jpeg, .png, or .gif extension
-                $images = glob($image_dir . "*.{jpg,jpeg,png,gif}", GLOB_BRACE);
-                
-                // Check if directory exists and has images
-                if (empty($images)) {
-                    echo "<p>No images found in the directory. Please check the path.</p>";
-                } else {
-                    // Loop through all images
-                    foreach ($images as $image) {
-                        // Get the filename without extension
-                        $filename = pathinfo($image, PATHINFO_FILENAME);
-                        
-                        // Format the title (replace underscores with spaces and capitalize words)
-                        $title = ucwords(str_replace('_', ' ', $filename));
-                        
-                        echo '<div class="slide">';
-                        echo '<img src="' . $image . '" alt="' . $title . '">';
-                        echo '<div class="slide-caption">';
-                        echo '<h3>' . $title . '</h3>';
-                        echo '<p>Medjugorje 2024 Pilgrimage</p>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                }
-                ?>
+                <div class="slide">
+                    <img src="/api/placeholder/900/675" alt="Jerusalem Old City">
+                    <div class="slide-caption">
+                        <h3>Jerusalem Old City</h3>
+                        <p>Walking through the ancient streets where history and faith come alive</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/api/placeholder/900/675" alt="Church of the Holy Sepulchre">
+                    <div class="slide-caption">
+                        <h3>Church of the Holy Sepulchre</h3>
+                        <p>Visiting the site of Jesus' crucifixion, burial, and resurrection</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/api/placeholder/900/675" alt="Western Wall">
+                    <div class="slide-caption">
+                        <h3>Western Wall</h3>
+                        <p>A moment of prayer at Judaism's most sacred site</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/api/placeholder/900/675" alt="Sea of Galilee">
+                    <div class="slide-caption">
+                        <h3>Sea of Galilee</h3>
+                        <p>Sailing on the waters where Jesus walked and called his disciples</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/api/placeholder/900/675" alt="Church of the Nativity">
+                    <div class="slide-caption">
+                        <h3>Church of the Nativity</h3>
+                        <p>Visiting the birthplace of Jesus in Bethlehem</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/api/placeholder/900/675" alt="Mount of Olives">
+                    <div class="slide-caption">
+                        <h3>Mount of Olives</h3>
+                        <p>Overlooking Jerusalem from this significant biblical location</p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="image-thumbnails">
-            <?php
-            // Check if directory exists and has images
-            if (!empty($images)) {
-                // Loop through all images again for thumbnails
-                foreach ($images as $index => $image) {
-                    $filename = pathinfo($image, PATHINFO_FILENAME);
-                    $title = ucwords(str_replace('_', ' ', $filename));
-                    
-                    // Add 'active' class to the first thumbnail
-                    $active_class = ($index === 0) ? ' active' : '';
-                    
-                    echo '<div class="thumbnail' . $active_class . '">';
-                    echo '<img src="' . $image . '" alt="' . $title . '">';
-                    echo '</div>';
-                }
-            }
-            ?>
+            <div class="thumbnail active"><img src="/api/placeholder/100/75" alt="Jerusalem Old City"></div>
+            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Church of the Holy Sepulchre"></div>
+            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Western Wall"></div>
+            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Sea of Galilee"></div>
+            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Church of the Nativity"></div>
+            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Mount of Olives"></div>
         </div>
     </div>
 
