@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Travel - Luxury Travel Agency</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-container">
+        <nav>
+            <a href="#" class="logo">
+                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Destinations</a>
+                <a href="experiences.html" class="nav-item">Experiences</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="contact.html" class="nav-item">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <title>YouTube Video Implementation</title>
+      <style>
+        /* Hero Section */
+        .hero {
+          position: relative;
+          height: 100vh;
+          width: 100%;
+          overflow: hidden;
+        }
+    
+        .video-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          /* Remove pointer-events if you want the user to be able to click elements inside */
+          pointer-events: none;
+        }
+    
+        /* The container for the YouTube player */
+        #ytplayer {
+          width: 100vw;
+          height: 56.25vw; /* Maintains 16:9 aspect ratio */
+          min-height: 100vh;
+          min-width: 177.77vh; /* 16:9 aspect ratio */
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+    
+        .video-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 1;
+        }
+    
+        .hero-content {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          color: white;
+          padding: 0 20px;
+        }
+    
+        /* Play Button (to trigger video playback) */
+        .play-button {
+          position: absolute;
+          z-index: 3;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          padding: 1rem 2rem;
+          font-size: 1.2rem;
+          background: rgba(0, 0, 0, 0.7);
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      </style>
+    </head>
+    <body>
+    
+      <div class="hero">
+        <div class="video-background">
+          <!-- YouTube player will be injected here -->
+          <div id="ytplayer"></div>
+        </div>
+        <div class="video-overlay"></div>
+        <div class="hero-content">
+          <h1></h1> <!-- Add your title here -->
+          <p></p> <!-- Add your description here -->
+        </div>
+        <!-- Play Button to start the video -->
+        <button id="playButton" class="play-button">Play Video</button>
+      </div>
+    
+      <!-- Load the YouTube IFrame API asynchronously -->
+      <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+        var player;
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('ytplayer', {
+            videoId: 'MCGpL9tazVc', // Video ID from your URL
+            playerVars: {
+              autoplay: 1,
+              mute: 0,
+              loop: 1,
+              playlist: 'MCGpL9tazVc',
+              controls: 0,
+              showinfo: 0,
+              rel: 0,
+              enablejsapi: 1,
+              version: 3,
+              playerapiid: 'ytplayer'
+            },
+            events: {
+              'onReady': onPlayerReady
+            }
+          });
+        }
+    
+        function onPlayerReady(event) {
+          // Optionally, you can start playing here.
+          // However, most browsers require a user gesture for sound, so we'll use a play button.
+          // event.target.playVideo();
+        }
+    
+        // When the play button is clicked, start the video and hide the button
+        document.getElementById('playButton').addEventListener('click', function() {
+          if (player && player.playVideo) {
+            player.playVideo();
+          }
+          this.style.display = 'none';
+        });
+      </script>
+    </body>
+    </html>
+
+    <!-- Featured Destinations Section -->
+    <section class="featured-section" id="featured">
+        <h2 class="section-title">Featured Destinations</h2>
+        <div class="destinations-grid">
+            <!-- Destination 1 -->
+            <div class="destination-card rome">
+                <div class="card-content">
+                    <h3>Jubileo Roma e Italia</h3>
+                    <p>Asís, Padre Pio, San Miguel Arcangel y Loreto</p>
+                    <a href="Italy.html" class="cta-button">Learn More</a>
+                </div>
+            </div>
+            <!-- Destination 2 -->
+            <div class="destination-card medjugorje">
+                <div class="card-content">
+                    <h3>Medjugorje</h3>
+                    <p>Colina de las apariciones: Podbrdo Colina de la cruz: monte Križevac Tihaljina.</p>
+                    <a href="Medjugorje.html" class="cta-button">Learn More</a>
+                </div>
+            </div>
+            <!-- Destination 3 -->
+            <div class="destination-card marianos">
+                <div class="card-content">
+                    <h3>Santuarios Marianos</h3>
+                    <p>Fátima - Lourdes y a Medjugorje.</p>
+                    <a href="SantuariosMarianos.html" class="cta-button">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Sky Travel J&M. Creating extraordinary journeys for travelers.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 50) {
+                $('.nav-container').css({
+                    'background': 'rgba(255, 255, 255, 0.95)',
+                    'box-shadow': '0px 4px 8px rgba(0, 0, 0, 0.1)'
+                });
+            } else {
+                $('.nav-container').css({
+                    'background': 'transparent',
+                    'box-shadow': 'none'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

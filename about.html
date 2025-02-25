@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Sky Travel</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="nav-container">
+    <nav>
+      <a href="index.html" class="logo">
+        <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Destinations</a>
+        <a href="experiences.html">Experiences</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero Section for About Us -->
+  <section class="hero about-hero">
+    <div class="hero-content">
+      <h1>About Sky Travel</h1> <!-- Title for background picture -->
+      <p></p> <!-- Tagline -->
+    </div>
+  </section>
+  
+  <!-- About Content Section -->
+  <section class="destination-info">
+    <h2>About Sky Travel</h2>
+    <div class="info-container">
+      <div class="info-section">
+        <h3>Our Story</h3>
+        <p>
+          At Sky Travel, we believe every journey is an opportunity to reconnect with your inner self and experience the divine in everyday life. Our journey began with a passion for travel that transcends the ordinary, inspired by the transformative spiritual retreats of Medjugorje.
+        </p>
+      </div>
+      <div class="info-section">
+        <h3>Our Inspiration & Mission</h3>
+        <p>
+          Drawing inspiration from the profound spiritual experiences in Medjugorje—where fasting, prayer, and silence open the door to inner peace—we are committed to crafting travel experiences that not only offer luxury but also invite you to explore your soul.
+        </p>
+      </div>
+      <div class="info-section">
+        <h3>Meet Our Team</h3>
+        <p>
+          Our dedicated team of travel experts and passionate spiritual guides work tirelessly to ensure every detail of your journey is flawlessly executed. United by a shared commitment to excellence, we blend global expertise with personal insights to deliver transformative travel experiences.
+        </p>
+      </div>
+      <div class="info-section">
+        <h3>Why Choose Us?</h3>
+        <p>
+          With personalized itineraries, insider access to exclusive events, and a focus on the enriching power of travel, Sky Travel turns luxury travel dreams into reality. We invite you to embark on a journey that nourishes both your body and soul.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Sky Travel. Creating extraordinary journeys for discerning travelers.</p>
+  </footer>
+
+  <!-- JavaScript for Navigation Background -->
+  <script>
+    $(window).scroll(function() {
+      if ($(window).scrollTop() > 50) {
+        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+      } else {
+        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+      }
+    });
+  </script>
+</body>
+</html>

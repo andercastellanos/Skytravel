@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Pilgrimages - Sky Travel</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .nav-container {
+            background-color: #ffffff;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+            padding-right: 2rem;
+        }
+
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+        }
+        
+        .logo-image {
+            height: 100%;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #c8a97e;
+        }
+
+        .page-header {
+            margin-top: 90px;
+            padding: 4rem 2rem;
+            background: url('/api/placeholder/1920/400') center/cover;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .year-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .year-heading {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #333;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #c8a97e;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 3/4;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: white;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .gallery-overlay p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .year-heading {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/Logo.jpg" alt="Sky Travel" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Destinations</a>
+                <a href="experiences.html">Experiences</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <section class="page-header">
+        <div class="header-content">
+            <h1>Our Sacred Journeys</h1>
+            <p>Explore our past pilgrimages and spiritual experiences</p>
+        </div>
+    </section>
+
+
+    <!-- 2024 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2024</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="../Skytravel/experiences/medjugorje2024.php">
+                    <img src="/api/placeholder/400/500" alt="Medjugorje 2024" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Medjugorje 2024</h3>
+                        <p>Spiritual renewal in Bosnia and Herzegovina</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2023 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2023</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="experiences/medjugorje-2023.html">
+                    <img src="/api/placeholder/400/500" alt="Medjugorje 2023" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Medjugorje 2023</h3>
+                        <p>A journey of faith and prayer</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2022 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2022</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="experiences/tierra-santa-2022.html">
+                    <img src="/api/placeholder/400/500" alt="Tierra Santa 2022" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Tierra Santa 2022</h3>
+                        <p>Walking in the footsteps of Jesus</p>
+                    </div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="experiences/medjugorje-2022.html">
+                    <img src="/api/placeholder/400/500" alt="Medjugorje 2022" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Medjugorje 2022</h3>
+                        <p>Experiencing the presence of Our Lady</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2021 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2021</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="experiences/tierra-santa-2021.html">
+                    <img src="/api/placeholder/400/500" alt="Tierra Santa 2021" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Tierra Santa 2021</h3>
+                        <p>Discovering the Holy Land's sacred sites</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2019 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2019</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="experiences/tierra-santa-2019.html">
+                    <img src="/api/placeholder/400/500" alt="Tierra Santa 2019" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Tierra Santa 2019</h3>
+                        <p>A transformative journey through Israel</p>
+                    </div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="experiences/medjugorje-2019.html">
+                    <img src="/api/placeholder/400/500" alt="Medjugorje 2019" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Medjugorje 2019</h3>
+                        <p>Prayer and reflection in a place of apparitions</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2018 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2018</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="experiences/tierra-santa-2018.html">
+                    <img src="/api/placeholder/400/500" alt="Tierra Santa 2018" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Tierra Santa 2018</h3>
+                        <p>Exploring the biblical landmarks of Israel</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2017 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2017</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="experiences/tierra-santa-2017.html">
+                    <img src="/api/placeholder/400/500" alt="Tierra Santa 2017" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Tierra Santa 2017</h3>
+                        <p>A spiritual pilgrimage to the Holy Land</p>
+                    </div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="experiences/medjugorje-2017.html">
+                    <img src="/api/placeholder/400/500" alt="Medjugorje 2017" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Medjugorje 2017</h3>
+                        <p>Encountering faith at the site of apparitions</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2016 Section -->
+    <section class="year-section">
+        <h2 class="year-heading">2016</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <a href="experiences/tierra-santa-2016.html">
+                    <img src="/api/placeholder/400/500" alt="Tierra Santa 2016" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Tierra Santa 2016</h3>
+                        <p>Following the path of Jesus in the Holy Land</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Voyage Luxury Travel Agency. Creating extraordinary journeys for discerning travelers.</p>
+    </footer>
+
+    <script>
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 50) {
+                $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+            } else {
+                $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+            }
+        });
+    </script>
+</body>
+</html>

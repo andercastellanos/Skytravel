@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marian Sanctuaries - Sky Travel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Destinations</a>
+                <a href="experiences.html" class="nav-item">Experiences</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="contact.html" class="nav-item">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Destination Header & Slideshow -->
+    <div class="destination-header">
+        <div class="slideshow">
+            <div class="slide active">
+                <img src="images/SantuariosMarianos/SantuarioFatima.jpg" alt="Fatima at night">
+            </div>
+            <div class="slide">
+                <img src="images/SantuariosMarianos/loudesgrotto1.jpg" alt="Lourdes Grotto">
+            </div>
+            <div class="slide">
+                <img src="images/SantuariosMarianos/medjugorje.jpg" alt="Medjugorje Pilgrims">
+            </div>
+            <button class="slide-arrow prev">&#10094;</button>
+            <button class="slide-arrow next">&#10095;</button>
+            <div class="slide-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trip Details Section -->
+    <section class="trip-details">
+        <h2>Marian Pilgrimage: Fatima - Lourdes - Medjugorje</h2>
+        <p>A unique spiritual journey to the world's most significant Marian sanctuaries</p>
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>All-Inclusive Package</h3>
+                <p>$3,299 per person</p>
+                <ul>
+                    <li>Flights from Miami</li>
+                    <li>7 nights accommodation</li>
+                    <li>All meals included</li>
+                    <li>Ground transportation</li>
+                </ul>
+            </div>
+            <div class="highlight-card">
+                <h3>Spiritual Guidance</h3>
+                <p>Complete accompaniment with:</p>
+                <ul>
+                    <li>Bilingual tour guide</li>
+                    <li>Spiritual guidance from a priest</li>
+                    <li>All program visits included</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Information Section -->
+    <section class="destination-info">
+        <h2>Journey Details</h2>
+        <div class="info-container">
+            <div class="info-section">
+                <h3>Fatima</h3>
+                <p>Visit the Sanctuary of Our Lady of Fatima, participate in the candlelight procession, and enjoy personal prayer time at this sacred site where the Virgin Mary appeared to three shepherd children.</p>
+            </div>
+            <div class="info-section">
+                <h3>Lourdes</h3>
+                <p>Experience the sacred Grotto of Apparitions, join the evening Marian procession, and have the opportunity to visit the healing baths where countless miracles have been reported.</p>
+            </div>
+            <div class="info-section">
+                <h3>Medjugorje</h3>
+                <p>Visit Apparition Hill (Podbrdo), climb Cross Mountain (Križevac), and spend time in spiritual reflection at this modern site of Marian devotion.</p>
+            </div>
+        </div>
+        <div class="cta-section">
+            <h3>Reserve Your Place</h3>
+            <p>Contact us to secure your participation in this unique pilgrimage</p>
+            <p class="phone">786-290-9114</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Sky Travel J&M. Creating extraordinary journeys for discerning travelers.</p>
+    </footer>
+
+    <!-- JavaScript for Slideshow -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            slides[n].classList.add('active');
+            indicators[n].classList.add('active');
+            currentSlide = n;
+        }
+
+        document.querySelector('.next').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => showSlide(index));
+        });
+
+        // Auto advance slides every 5 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 5000);
+    </script>
+</body>
+</html>

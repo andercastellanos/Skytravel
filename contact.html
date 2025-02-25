@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - Sky Travel</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="nav-container">
+    <nav>
+      <a href="index.html" class="logo">
+        <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Destinations</a>
+        <a href="experiences.html">Experiences</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero Section for Contact -->
+  <section class="hero contact-hero">
+    <div class="hero-content">
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you!</p>
+    </div>
+  </section>
+
+<!-- Contact Information Section -->
+<section class="contact-info-section">
+    <h2>Get in Touch</h2>
+    <p>If you have any questions or need assistance, please feel free to contact us.</p>
+    <div class="contact-details">
+      <p><strong>Phone:</strong> +1 (786) 290-9114</p>
+      <p><strong>Email:</strong> <a href="mailto:contact@skytraveljm.com">contact@skytraveljm.com</a></p>
+      <p>
+        <strong>WhatsApp:</strong>
+        <a href="https://wa.me/17862909114" target="_blank" rel="noopener noreferrer" class="whatsapp-link">
+          <img src="images/whatsapp-icon.png" alt="WhatsApp Icon" class="whatsapp-icon">
+          Message us on WhatsApp
+        </a>
+      </p>
+      
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-form-section">
+    <h2>Send Us a Message</h2>
+    <form action="#" method="post" class="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit" class="cta-button">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Sky Travel. Creating extraordinary journeys for discerning travelers.</p>
+  </footer>
+
+  <!-- JavaScript for Navigation Background on Scroll -->
+  <script>
+    $(window).scroll(function() {
+      if ($(window).scrollTop() > 50) {
+        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+      } else {
+        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+      }
+    });
+  </script>
+</body>
+</html>
