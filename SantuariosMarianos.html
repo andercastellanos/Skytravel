@@ -20,6 +20,7 @@
                 <a href="about.html" class="nav-item">About</a>
                 <a href="contact.html" class="nav-item">Contact</a>
             </div>
+            <div class="menu-toggle">☰</div>
         </nav>
     </div>
 
@@ -198,6 +199,28 @@
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
         }, 5000);
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Mobile menu toggle
+            $('.menu-toggle').click(function() {
+                $('.nav-links').toggleClass('active');
+            });
+            
+            // Close menu when a link is clicked
+            $('.nav-links a').click(function() {
+                $('.nav-links').removeClass('active');
+            });
+            
+            // Original scroll effect
+            $(window).scroll(function() {
+              if ($(window).scrollTop() > 50) {
+                $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+              } else {
+                $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+              }
+            });
+        });
     </script>
 </body>
 </html>
