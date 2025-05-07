@@ -363,10 +363,16 @@ footer p {
 
 .about-hero {
   
-    background: url("/images/SantuariosMarianos/virgin11.jpeg") center / cover no-repeat;
+    background: url("images/SantuariosMarianos/virgin11.jpeg") center / cover no-repeat;
     min-height: 120vh;
 }
-
+/* For mobile about hero */
+@media (max-width: 768px) {
+  .about-hero {
+      min-height: 100vh; /* Slightly shorter on mobile */
+      background-attachment: scroll; /* Ensures better compatibility on mobile */
+  }
+}
 /* Additional Contact Page Styles */
 .contact-hero {
     background: url("images/wall.jpeg") center/cover no-repeat;
