@@ -211,6 +211,7 @@
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
             </div>
+            <div class="menu-toggle">☰</div>
         </nav>
     </div>
 
@@ -392,5 +393,19 @@
             }
         });
     </script>
+<script>
+    $(document).ready(function() {
+        // Mobile menu toggle
+        $('.menu-toggle').click(function() {
+            $('.nav-links').toggleClass('active');
+        });
+        
+        // Close menu when a link is clicked
+        $('.nav-links a').click(function() {
+            $('.nav-links').removeClass('active');
+        });
+    });
+</script>
+
 </body>
 </html>

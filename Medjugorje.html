@@ -17,9 +17,10 @@
       <div class="nav-links">
         <a href="index.html">Destinations</a>
         <a href="experiences.html">Experiences</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </div>
+      <div class="menu-toggle">☰</div>
     </nav>
   </div>
   <!-- Destination Header with Slideshow -->
@@ -279,5 +280,27 @@
       }
     });
   </script>
+  <script>
+    $(document).ready(function() {
+        // Mobile menu toggle
+        $('.menu-toggle').click(function() {
+            $('.nav-links').toggleClass('active');
+        });
+        
+        // Close menu when a link is clicked
+        $('.nav-links a').click(function() {
+            $('.nav-links').removeClass('active');
+        });
+        
+        // Original scroll effect
+        $(window).scroll(function() {
+          if ($(window).scrollTop() > 50) {
+            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+          } else {
+            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+          }
+        });
+    });
+</script>
 </body>
 </html>
