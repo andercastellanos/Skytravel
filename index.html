@@ -6,28 +6,7 @@
     <title>Sky Travel - Luxury Travel Agency</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <div class="nav-container">
-        <nav>
-            <a href="#" class="logo">
-                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-item">Destinations</a>
-                <a href="experiences.html" class="nav-item">Experiences</a>
-                <a href="about.html" class="nav-item">About</a>
-                <a href="contact.html" class="nav-item">Contact</a>
-            </div>
-        </nav>
-    </div>
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <title>YouTube Video Implementation</title>
-      <style>
+    <style>
         /* Hero Section */
         .hero {
           position: relative;
@@ -92,68 +71,39 @@
           cursor: pointer;
         }
       </style>
-    </head>
-    <body>
-    
-      <div class="hero">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-container">
+        <nav>
+            <a href="#" class="logo">
+                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Destinations</a>
+                <a href="experiences.html" class="nav-item">Experiences</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="contact.html" class="nav-item">Contact</a>
+            </div>
+            <!-- Added mobile menu toggle button -->
+            <div class="menu-toggle">☰</div>
+        </nav>
+    </div>
+
+    <!-- Hero Section with YouTube Video -->
+    <div class="hero">
         <div class="video-background">
-          <!-- YouTube player will be injected here -->
-          <div id="ytplayer"></div>
+            <!-- YouTube player will be injected here -->
+            <div id="ytplayer"></div>
         </div>
         <div class="video-overlay"></div>
         <div class="hero-content">
-          <h1></h1> <!-- Add your title here -->
-          <p></p> <!-- Add your description here -->
+            <h1></h1> <!-- Add your title here -->
+            <p></p> <!-- Add your description here -->
         </div>
         <!-- Play Button to start the video -->
         <button id="playButton" class="play-button">Play Video</button>
-      </div>
-    
-      <!-- Load the YouTube IFrame API asynchronously -->
-      <script>
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    
-        var player;
-        function onYouTubeIframeAPIReady() {
-          player = new YT.Player('ytplayer', {
-            videoId: 'MCGpL9tazVc', // Video ID from your URL
-            playerVars: {
-              autoplay: 1,
-              mute: 0,
-              loop: 1,
-              playlist: 'MCGpL9tazVc',
-              controls: 0,
-              showinfo: 0,
-              rel: 0,
-              enablejsapi: 1,
-              version: 3,
-              playerapiid: 'ytplayer'
-            },
-            events: {
-              'onReady': onPlayerReady
-            }
-          });
-        }
-    
-        function onPlayerReady(event) {
-          // Optionally, you can start playing here.
-          // However, most browsers require a user gesture for sound, so we'll use a play button.
-          // event.target.playVideo();
-        }
-    
-        // When the play button is clicked, start the video and hide the button
-        document.getElementById('playButton').addEventListener('click', function() {
-          if (player && player.playVideo) {
-            player.playVideo();
-          }
-          this.style.display = 'none';
-        });
-      </script>
-    </body>
-    </html>
+    </div>
 
     <!-- Featured Destinations Section -->
     <section class="featured-section" id="featured">
@@ -193,18 +143,73 @@
 
     <!-- JavaScript -->
     <script>
-        $(window).scroll(function() {
-            if ($(window).scrollTop() > 50) {
-                $('.nav-container').css({
-                    'background': 'rgba(255, 255, 255, 0.95)',
-                    'box-shadow': '0px 4px 8px rgba(0, 0, 0, 0.1)'
-                });
-            } else {
-                $('.nav-container').css({
-                    'background': 'transparent',
-                    'box-shadow': 'none'
-                });
+        $(document).ready(function() {
+            // Scroll effects
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 50) {
+                    $('.nav-container').css({
+                        'background': 'rgba(255, 255, 255, 0.95)',
+                        'box-shadow': '0px 4px 8px rgba(0, 0, 0, 0.1)'
+                    });
+                } else {
+                    $('.nav-container').css({
+                        'background': 'transparent',
+                        'box-shadow': 'none'
+                    });
+                }
+            });
+
+            // Mobile menu toggle
+            $('.menu-toggle').click(function() {
+                $('.nav-links').toggleClass('active');
+            });
+            
+            // Close menu when a link is clicked
+            $('.nav-links a').click(function() {
+                $('.nav-links').removeClass('active');
+            });
+        });
+
+        // YouTube video functionality
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+        var player;
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('ytplayer', {
+            videoId: 'MCGpL9tazVc', // Video ID from your URL
+            playerVars: {
+              autoplay: 1,
+              mute: 0,
+              loop: 1,
+              playlist: 'MCGpL9tazVc',
+              controls: 0,
+              showinfo: 0,
+              rel: 0,
+              enablejsapi: 1,
+              version: 3,
+              playerapiid: 'ytplayer'
+            },
+            events: {
+              'onReady': onPlayerReady
             }
+          });
+        }
+    
+        function onPlayerReady(event) {
+          // Optionally, you can start playing here.
+          // However, most browsers require a user gesture for sound, so we'll use a play button.
+          // event.target.playVideo();
+        }
+    
+        // When the play button is clicked, start the video and hide the button
+        document.getElementById('playButton').addEventListener('click', function() {
+          if (player && player.playVideo) {
+            player.playVideo();
+          }
+          this.style.display = 'none';
         });
     </script>
 </body>
