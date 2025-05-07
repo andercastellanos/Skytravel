@@ -363,7 +363,7 @@ footer p {
 
 .about-hero {
   
-    background: url("images/SantuariosMarianos/medjugorje.jpg") center / cover no-repeat;
+    background: url("/images/SantuariosMarianos/virgin11.jpeg") center / cover no-repeat;
     min-height: 120vh;
 }
 
@@ -456,3 +456,502 @@ footer p {
   height: 24px;
   margin-right: 0.75rem;
 }
+
+/* End Whats APP * /
+
+
+/*  Sacred Destinations Gallery Section ABOUT HTML SECTION */
+.section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .sacred-gallery {
+    padding: 1rem 0 2rem;
+  }
+  
+  .gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .gallery-item {
+    width: 30%;
+    min-width: 280px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .gallery-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  .gallery-caption {
+    padding: 1.5rem;
+  }
+  
+  .gallery-caption h3 {
+    color: #c8a97e;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+  }
+  
+  .gallery-caption p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .gallery-cta {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .gallery-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .gallery-item {
+      width: 90%;
+    }
+  }
+
+  /*  Sacred Destinations Gallery Section ABOUT HTML SECTION */
+
+  /*  OPTIONS Gallery Section ABOUT HTML SECTION */
+  /* Pilgrimage Options Section Styles */
+.pilgrimage-options {
+    padding: 4rem 2rem;
+    background-color: #e6f4ff;  /* Light blue background as shown in the image */
+  }
+  
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  
+  .section-description {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    max-width: 900px;
+  }
+  
+  .options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .option-card {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .option-image {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .card-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .option-content h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .option-content p {
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 968px) {
+    .options-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .option-card {
+      width: 100%;
+      max-width: 500px;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .pilgrimage-options {
+      padding: 3rem 1rem;
+    }
+  }
+  /*  OPTIONS Gallery Section ABOUT HTML SECTION */
+
+    /*  Faith Journey Section ABOUT HTML SECTION */
+.faith-journey-section {
+    padding: 0;
+    background-color: #fff;
+    overflow: hidden;
+  }
+  
+  .journey-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    min-height: 550px;
+  }
+  
+  .journey-image-column {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .journey-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .journey-content-column {
+    flex: 1;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .journey-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .journey-text {
+    color: #555;
+  }
+  
+  .journey-text p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .journey-container {
+      flex-direction: column;
+    }
+    
+    .journey-image-column {
+      height: 400px;
+    }
+    
+    .journey-content-column {
+      padding: 3rem 2rem;
+    }
+    
+    .journey-title {
+      font-size: 2.2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .journey-image-column {
+      height: 300px;
+    }
+    
+    .journey-content-column {
+      padding: 2rem 1.5rem;
+    }
+    
+    .journey-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+  }
+      /*  Faith Journey Section ABOUT HTML SECTION */
+
+
+      /* Testimonials Section Styles */
+.testimonials-section {
+    padding: 5rem 2rem;
+    background-color: #1b2731; /* Dark blue-gray background */
+    color: white;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .testimonials-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    color: white;
+  }
+  
+  .testimonials-slider {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .testimonials-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    transition: transform 0.5s ease;
+  }
+  
+  .testimonial-card {
+    flex: 0 0 calc(50% - 1rem);
+    min-width: calc(50% - 1rem);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .testimonial-content p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .testimonial-author {
+    font-weight: 500;
+    color: #c8a97e; /* Gold accent color */
+  }
+  
+  .testimonial-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  
+  .nav-arrow {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .testimonial-card {
+      flex: 0 0 100%;
+      min-width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .testimonials-section {
+      padding: 4rem 1.5rem;
+    }
+    
+    .testimonials-title {
+      font-size: 1.8rem;
+    }
+    
+    .testimonial-card {
+      padding: 1.5rem;
+    }
+  }
+
+      /* Testimonials Section Styles */
+
+      /* Contact Teaser Section Additional Styles */
+/* Elegant Contact Section Styles */
+/* Elegant Contact Section Styles */
+/* Elegant Contact Section Styles */
+.elegant-contact {
+    background-color: #f9f9f9;
+    padding: 4rem 2rem;
+  }
+  
+  .elegant-contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .elegant-contact-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .elegant-contact-header h2 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .elegant-contact-header p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+  
+  .elegant-separator {
+    width: 80px;
+    height: 3px;
+    background-color: #c8a97e;
+    margin: 1.5rem auto;
+  }
+  
+  .elegant-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .elegant-contact-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .elegant-contact-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .elegant-contact-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    margin-right: 1.5rem;
+  }
+  
+  .elegant-contact-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #666;
+  }
+  
+  .whatsapp-icon {
+    background-color: #e9f7ef;
+  }
+  
+  .whatsapp-icon svg {
+    color: #25D366;
+  }
+  
+  .elegant-contact-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+  }
+  
+  .elegant-contact-info p {
+    color: #666;
+    font-size: 1rem;
+  }
+  
+  .elegant-contact-action {
+    text-align: center;
+  }
+  
+  .elegant-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: #c8a97e;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .elegant-button:hover {
+    background-color: #b69268;
+    transform: scale(1.05);
+  }
+  
+  .phone-contact-link, .email-contact-link, .whatsapp-contact-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .phone-contact-link:hover .elegant-contact-item,
+  .email-contact-link:hover .elegant-contact-item,
+  .whatsapp-contact-link:hover .elegant-contact-item {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+   /* Contact Teaser Section Additional Styles */
