@@ -1,293 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medjugorje 2024 - Sky Travel</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
+<!-- HEAD -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 
-        .nav-container {
-            background-color: #ffffff;
-            padding: 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
+<style>
+  .slideshow-container {
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      /* Removed the fixed height: 500px; */
+  }
+  
+  
+  .slide {
+      position: relative;
+      /* No padding-bottom hack needed if you’re letting images define height */
+  }
 
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 90px;
-            padding-right: 2rem;
-        }
+  .slide img {
+      width: 100%;
+      height: auto;     /* keep original aspect ratio */
+      object-fit: cover;  /* optional; can remove if you don’t want any cropping */
+      display: block;
+  }
 
-        .logo {
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            height: 100%;
-            padding: 0;
-        }
-        
-        .logo-image {
-            height: 100%;
-            width: auto;
-            display: block;
-            object-fit: contain;
-        }
+  /* Thumbnails can remain the same size if you want them small: */
+  .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-size: 1.1rem;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #c8a97e;
-        }
-
-        .page-header {
-            margin-top: 90px;
-            padding: 4rem 2rem;
-            background: url('/api/placeholder/1920/400') center/cover;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .header-content h1 {
-            font-size: 3rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
-        }
-
-        .page-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .description {
-            max-width: 800px;
-            margin: 0 auto 3rem auto;
-            text-align: center;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 2rem;
-            color: #c8a97e;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        .back-link:hover {
-            color: #a58863;
-        }
-
-        /* Slideshow container */
-        .slideshow-container {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-        }
-
-        .slideshow {
-            width: 100%;
-            height: 100%;
-        }
-
-        .slide {
-            position: relative;
-            height: 0;
-            padding-bottom: 75%;
-        }
-
-        .slide img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slide-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-            padding: 1.5rem;
-            color: white;
-        }
-
-        .slide-caption h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-        }
-
-        .slide-caption p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* Slick carousel customization */
-        .slick-prev,
-        .slick-next {
-            z-index: 10;
-            width: 50px;
-            height: 50px;
-        }
-
-        .slick-prev {
-            left: 20px;
-        }
-
-        .slick-next {
-            right: 20px;
-        }
-
-        .slick-prev:before,
-        .slick-next:before {
-            font-size: 30px;
-            opacity: 0.8;
-        }
-
-        .slick-dots {
-            bottom: 20px;
-            z-index: 5;
-        }
-
-        .slick-dots li button:before {
-            color: white;
-            font-size: 12px;
-            opacity: 0.7;
-        }
-
-        .slick-dots li.slick-active button:before {
-            color: white;
-            opacity: 1;
-        }
-
-        .image-thumbnails {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-            justify-content: center;
-        }
-
-        .thumbnail {
-            width: 100px;
-            height: 75px;
-            cursor: pointer;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .thumbnail.active {
-            border-color: #c8a97e;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        footer p {
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .header-content h1 {
-                font-size: 2.5rem;
-            }
-            
-            .slideshow-container {
-                aspect-ratio: 1/1;
-            }
-            
-            .slide {
-                padding-bottom: 100%;
-            }
-            
-            .thumbnail {
-                width: 80px;
-                height: 60px;
-            }
-        }
-    </style>
+  @media (max-width: 768px) {
+      /* Remove aspect-ratio rules and padding-bottom: 100%; */
+      .thumbnail {
+          width: 80px;
+          height: 60px;
+      }
+  }
+</style>
 </head>
 <body>
+
+
+
+
+    
     <div class="nav-container">
         <nav>
             <a href="../index.html" class="logo">
-                <img src="../images/Logo.jpg" alt="Sky Travel" class="logo-image">
+                <img src="/api/placeholder/200/90" alt="Sky Travel" class="logo-image">
             </a>
             <div class="nav-links">
                 <a href="../index.html">Destinations</a>
@@ -312,60 +78,319 @@
             <p>In 2022, we embarked on a transformative pilgrimage to the Holy Land, walking the paths where Jesus once walked. Our journey took us through Jerusalem, Bethlehem, Nazareth, and the Sea of Galilee, connecting with the profound spiritual history of these sacred places.</p>
         </div>
 
+
+
+
         <div class="slideshow-container">
             <div class="slideshow">
                 <div class="slide">
-                    <img src="/api/placeholder/900/675" alt="Jerusalem Old City">
+                    <img src="/experiences/images/medjugorje2024/image1.JPG" alt="Pilgrimage Image 1">
                     <div class="slide-caption">
-                        <h3>Jerusalem Old City</h3>
-                        <p>Walking through the ancient streets where history and faith come alive</p>
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 1 of our spiritual pilgrimage</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="/api/placeholder/900/675" alt="Church of the Holy Sepulchre">
+                    <img src="/experiences/images/medjugorje2024/image2.JPG" alt="Pilgrimage Image 2">
                     <div class="slide-caption">
-                        <h3>Church of the Holy Sepulchre</h3>
-                        <p>Visiting the site of Jesus' crucifixion, burial, and resurrection</p>
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 2 of our spiritual pilgrimage</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="/api/placeholder/900/675" alt="Western Wall">
+                    <img src="/experiences/images/medjugorje2024/image3.JPG" alt="Pilgrimage Image 3">
                     <div class="slide-caption">
-                        <h3>Western Wall</h3>
-                        <p>A moment of prayer at Judaism's most sacred site</p>
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 3 of our spiritual pilgrimage</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="/api/placeholder/900/675" alt="Sea of Galilee">
+                    <img src="/experiences/images/medjugorje2024/image4.JPG" alt="Pilgrimage Image 4">
                     <div class="slide-caption">
-                        <h3>Sea of Galilee</h3>
-                        <p>Sailing on the waters where Jesus walked and called his disciples</p>
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 4 of our spiritual pilgrimage</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="/api/placeholder/900/675" alt="Church of the Nativity">
+                    <img src="/experiences/images/medjugorje2024/image5.JPG" alt="Pilgrimage Image 5">
                     <div class="slide-caption">
-                        <h3>Church of the Nativity</h3>
-                        <p>Visiting the birthplace of Jesus in Bethlehem</p>
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 5 of our spiritual pilgrimage</p>
                     </div>
                 </div>
                 <div class="slide">
-                    <img src="/api/placeholder/900/675" alt="Mount of Olives">
+                    <img src="/experiences/images/medjugorje2024/image6.JPG" alt="Pilgrimage Image 6">
                     <div class="slide-caption">
-                        <h3>Mount of Olives</h3>
-                        <p>Overlooking Jerusalem from this significant biblical location</p>
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 6 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image7.JPG" alt="Pilgrimage Image 7">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 7 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image8.JPG" alt="Pilgrimage Image 8">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 8 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image9.JPG" alt="Pilgrimage Image 9">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 9 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image10.JPG" alt="Pilgrimage Image 10">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 10 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image11.JPG" alt="Pilgrimage Image 11">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 11 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image12.JPG" alt="Pilgrimage Image 12">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 12 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image13.JPG" alt="Pilgrimage Image 13">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 13 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image14.JPG" alt="Pilgrimage Image 14">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 14 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image15.JPG" alt="Pilgrimage Image 15">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 15 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image16.JPG" alt="Pilgrimage Image 16">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 16 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image17.JPG" alt="Pilgrimage Image 17">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 17 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image18.JPG" alt="Pilgrimage Image 18">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 18 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image19.JPG" alt="Pilgrimage Image 19">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 19 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image20.JPG" alt="Pilgrimage Image 20">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 20 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image21.JPG" alt="Pilgrimage Image 21">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 21 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image22.JPG" alt="Pilgrimage Image 22">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 22 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image23.JPG" alt="Pilgrimage Image 23">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 23 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image24.JPG" alt="Pilgrimage Image 24">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 24 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image25.JPG" alt="Pilgrimage Image 25">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 25 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image26.JPG" alt="Pilgrimage Image 26">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 26 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image27.JPG" alt="Pilgrimage Image 27">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 27 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image28.JPG" alt="Pilgrimage Image 28">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 28 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image29.JPG" alt="Pilgrimage Image 29">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 29 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image30.JPG" alt="Pilgrimage Image 30">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 30 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image31.JPG" alt="Pilgrimage Image 31">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 31 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image32.JPG" alt="Pilgrimage Image 32">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 32 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image33.JPG" alt="Pilgrimage Image 33">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 33 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image34.JPG" alt="Pilgrimage Image 34">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 34 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image35.JPG" alt="Pilgrimage Image 35">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 35 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image36.JPG" alt="Pilgrimage Image 36">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 36 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image37.JPG" alt="Pilgrimage Image 37">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 37 of our spiritual pilgrimage</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="/experiences/images/medjugorje2024/image38.JPG" alt="Pilgrimage Image 38">
+                    <div class="slide-caption">
+                        <h3>Holy Land Journey</h3>
+                        <p>Image 38 of our spiritual pilgrimage</p>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="image-thumbnails">
-            <div class="thumbnail active"><img src="/api/placeholder/100/75" alt="Jerusalem Old City"></div>
-            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Church of the Holy Sepulchre"></div>
-            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Western Wall"></div>
-            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Sea of Galilee"></div>
-            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Church of the Nativity"></div>
-            <div class="thumbnail"><img src="/api/placeholder/100/75" alt="Mount of Olives"></div>
+            <div class="thumbnail active"><img src="/experiences/images/medjugorje2024/image1.JPG" alt="Thumbnail 1"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image2.JPG" alt="Thumbnail 2"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image3.JPG" alt="Thumbnail 3"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image4.JPG" alt="Thumbnail 4"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image5.JPG" alt="Thumbnail 5"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image6.JPG" alt="Thumbnail 6"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image7.JPG" alt="Thumbnail 7"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image8.JPG" alt="Thumbnail 8"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image9.JPG" alt="Thumbnail 9"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image10.JPG" alt="Thumbnail 10"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image11.JPG" alt="Thumbnail 11"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image12.JPG" alt="Thumbnail 12"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image13.JPG" alt="Thumbnail 13"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image14.JPG" alt="Thumbnail 14"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image15.JPG" alt="Thumbnail 15"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image16.JPG" alt="Thumbnail 16"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image17.JPG" alt="Thumbnail 17"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image18.JPG" alt="Thumbnail 18"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image19.JPG" alt="Thumbnail 19"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image20.JPG" alt="Thumbnail 20"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image21.JPG" alt="Thumbnail 21"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image22.JPG" alt="Thumbnail 22"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image23.JPG" alt="Thumbnail 23"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image24.JPG" alt="Thumbnail 24"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image25.JPG" alt="Thumbnail 25"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image26.JPG" alt="Thumbnail 26"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image27.JPG" alt="Thumbnail 27"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image28.JPG" alt="Thumbnail 28"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image29.JPG" alt="Thumbnail 29"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image30.JPG" alt="Thumbnail 30"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image31.JPG" alt="Thumbnail 31"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image32.JPG" alt="Thumbnail 32"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image33.JPG" alt="Thumbnail 33"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image34.JPG" alt="Thumbnail 34"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image35.JPG" alt="Thumbnail 35"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image36.JPG" alt="Thumbnail 36"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image37.JPG" alt="Thumbnail 37"></div>
+            <div class="thumbnail"><img src="/experiences/images/medjugorje2024/image38.JPG" alt="Thumbnail 38"></div>
         </div>
     </div>
 
@@ -373,69 +398,39 @@
         <p>© 2025 Voyage Luxury Travel Agency. Creating extraordinary journeys for discerning travelers.</p>
     </footer>
 
-    <script>
-        $(document).ready(function(){
-            // Initialize the main slideshow
-            $('.slideshow').slick({
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                arrows: true,
-                fade: true,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                dots: true,
-                adaptiveHeight: true,
-                asNavFor: '.image-thumbnails'
-            });
-            
-            // Initialize the thumbnail navigation
-            $('.image-thumbnails').slick({
-                slidesToShow: 6,
-                slidesToScroll: 1,
-                asNavFor: '.slideshow',
-                dots: false,
-                arrows: false,
-                centerMode: false,
-                focusOnSelect: true,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 4
-                        }
-                    },
-                    {
-                        breakpoint: 576,
-                        settings: {
-                            slidesToShow: 3
-                        }
-                    }
-                ]
-            });
-            
-            // Update active thumbnail class
-            $('.slideshow').on('beforeChange', function(event, slick, currentSlide, nextSlide){
-                $('.thumbnail').removeClass('active');
-                $('.thumbnail').eq(nextSlide).addClass('active');
-            });
-            
-            // Thumbnail click event
-            $('.thumbnail').on('click', function(){
-                var index = $(this).index();
-                $('.slideshow').slick('slickGoTo', index);
-                $('.thumbnail').removeClass('active');
-                $(this).addClass('active');
-            });
 
-            // Navbar transparency effect
-            $(window).scroll(function() {
-                if ($(window).scrollTop() > 50) {
-                    $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-                } else {
-                    $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-                }
-            });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        // Main slideshow
+        $('.slideshow').slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: true,
+          fade: true,
+          cssEase: 'linear',
+          autoplay: true,
+          autoplaySpeed: 3000,
+          dots: true,
+          asNavFor: '.image-thumbnails'
         });
+        
+        // Thumbnail nav
+        $('.image-thumbnails').slick({
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          asNavFor: '.slideshow',
+          focusOnSelect: true,
+          dots: false,
+          arrows: false,
+          centerMode: false,
+          responsive: [
+            {
+              breakpoint: 768,
+              settings: { slidesToShow: 3 }
+            }
+          ]
+        });
+      });
     </script>
-</body>
-</html>
