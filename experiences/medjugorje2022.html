@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medjugorje 2022 - Sky Travel</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  <style>
+    .slideshow-container {
+        max-width: 800px;
+        margin: 0 auto 20px auto;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .slide {
+        position: relative;
+    }
+
+    .slide img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+    }
+
+    .slide-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 15px;
+    }
+
+    .slide-caption h3 {
+        margin: 0 0 5px 0;
+        font-size: 18px;
+    }
+
+    .slide-caption p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .image-thumbnails {
+        max-width: 800px;
+        margin: 0 auto 40px auto;
+    }
+
+    .thumbnail {
+        padding: 5px;
+    }
+
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .thumbnail.slick-current img {
+        border-color: #c8a97e;
+    }
+
+    .page-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back-link:hover {
+        color: #c8a97e;
+    }
+
+    .description {
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .page-header {
+        margin-top: 90px;
+        padding: 4rem 2rem;
+        background: url('../images/Medjugorje/Cross.jpg') center/cover;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .header-content h1 {
+        font-size: 3rem;
+        font-weight: 300;
+        margin-bottom: 1rem;
+        letter-spacing: 2px;
+    }
+    
+    /* Add language switcher styles */
+    .language-switcher {
+      margin-left: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .lang-option {
+      text-decoration: none;
+      color: #333;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .lang-option:hover {
+      color: #c8a97e;
+    }
+
+    .lang-separator {
+      margin: 0 0.3rem;
+      color: #666;
+    }
+
+    .active-lang {
+      font-weight: bold;
+      color: #c8a97e;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="nav-container">
+    <nav>
+      <a href="../index.html" class="logo">
+        <img src="../images/Logo.jpg" alt="Sky Travel" class="logo-image">
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Destinations</a>
+        <a href="../experiences.html">Experiences</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <div class="language-switcher">
+          <a href="../experiences/medjugorje2022.html" class="lang-option active-lang">EN</a>
+          <span class="lang-separator">|</span>
+          <a href="../es/experiences/medjugorje-2022-es.html" class="lang-option">ES</a>
+        </div>
+      </div>
+      <div class="menu-toggle">☰</div>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+      <h1>Medjugorje 2022</h1>
+      <p>Experiencing the presence of Our Lady</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="page-content">
+    <a href="../experiences.html" class="back-link">← Back to All Experiences</a>
+    
+    <div class="description">
+      <p>In 2022, our pilgrimage to Medjugorje was a deeply moving spiritual experience for all participants. Our group climbed Apparition Hill where the Virgin Mary first appeared to the visionaries, prayed the Stations of the Cross on Cross Mountain, and participated in the powerful evening programs at St. James Church. Pilgrims had time for personal reflection, confession, and community worship in this sacred place where many report experiencing a special peace and spiritual renewal. As one pilgrim shared, "The presence of Mary's love was palpable throughout our journey, touching hearts and transforming lives."</p>
+    </div>
+
+    <!-- Slideshow with Slick Carousel -->
+    <div class="slideshow-container">
+      <div class="slideshow">
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image1.JPG" alt="Medjugorje Pilgrimage Image 1">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Our pilgrimage group at St. James Church</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image2.JPG" alt="Medjugorje Pilgrimage Image 2">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Evening Adoration of the Blessed Sacrament</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image3.JPG" alt="Medjugorje Pilgrimage Image 3">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Climbing Apparition Hill with our group</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image4.JPG" alt="Medjugorje Pilgrimage Image 4">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Praying at the Blue Cross</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image5.JPG" alt="Medjugorje Pilgrimage Image 5">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>International Mass at the outdoor altar</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image6.JPG" alt="Medjugorje Pilgrimage Image 6">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Statue of Our Lady of Medjugorje</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image7.JPG" alt="Medjugorje Pilgrimage Image 7">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Praying the Stations of the Cross on Cross Mountain</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image8.JPG" alt="Medjugorje Pilgrimage Image 8">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Candlelight procession after evening Mass</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image9.JPG" alt="Medjugorje Pilgrimage Image 9">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Group prayer and spiritual reflection</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image10.JPG" alt="Medjugorje Pilgrimage Image 10">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>At the summit of Cross Mountain</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image11.JPG" alt="Medjugorje Pilgrimage Image 11">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Panoramic view of Medjugorje village</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image12.JPG" alt="Medjugorje Pilgrimage Image 12">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Time for personal prayer and meditation</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image13.JPG" alt="Medjugorje Pilgrimage Image 13">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Morning Mass in St. James Church</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image14.JPG" alt="Medjugorje Pilgrimage Image 14">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Visiting the bronze reliefs on Apparition Hill</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image15.JPG" alt="Medjugorje Pilgrimage Image 15">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Group dinner and fellowship</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image16.JPG" alt="Medjugorje Pilgrimage Image 16">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Meeting with one of the visionaries</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image17.JPG" alt="Medjugorje Pilgrimage Image 17">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Pilgrims sharing their conversion experiences</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image18.JPG" alt="Medjugorje Pilgrimage Image 18">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Praying the Rosary as a group</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image19.JPG" alt="Medjugorje Pilgrimage Image 19">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Beautiful sunset over Medjugorje</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/medjugorje2022/image20.JPG" alt="Medjugorje Pilgrimage Image 20">
+          <div class="slide-caption">
+            <h3>Medjugorje 2022</h3>
+            <p>Final group photo before departure</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="image-thumbnails">
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image1.JPG" alt="Thumbnail 1"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image2.JPG" alt="Thumbnail 2"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image3.JPG" alt="Thumbnail 3"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image4.JPG" alt="Thumbnail 4"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image5.JPG" alt="Thumbnail 5"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image6.JPG" alt="Thumbnail 6"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image7.JPG" alt="Thumbnail 7"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image8.JPG" alt="Thumbnail 8"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image9.JPG" alt="Thumbnail 9"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image10.JPG" alt="Thumbnail 10"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image11.JPG" alt="Thumbnail 11"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image12.JPG" alt="Thumbnail 12"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image13.JPG" alt="Thumbnail 13"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image14.JPG" alt="Thumbnail 14"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image15.JPG" alt="Thumbnail 15"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image16.JPG" alt="Thumbnail 16"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image17.JPG" alt="Thumbnail 17"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image18.JPG" alt="Thumbnail 18"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image19.JPG" alt="Thumbnail 19"></div>
+      <div class="thumbnail"><img src="../experiences/images/medjugorje2022/image20.JPG" alt="Thumbnail 20"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Sky Travel. Creating meaningful spiritual journeys.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Main slideshow
+      $('.slideshow').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: true,
+        asNavFor: '.image-thumbnails'
+      });
+      
+      // Thumbnail nav
+      $('.image-thumbnails').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        asNavFor: '.slideshow',
+        focusOnSelect: true,
+        dots: false,
+        arrows: false,
+        centerMode: false,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: { slidesToShow: 3 }
+          }
+        ]
+      });
+      
+      // Navigation background on scroll
+      $(window).scroll(function() {
+        if ($(window).scrollTop() > 50) {
+          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+        } else {
+          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+        }
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+        // Mobile menu toggle
+        $('.menu-toggle').click(function() {
+            $('.nav-links').toggleClass('active');
+        });
+        
+        // Close menu when a link is clicked
+        $('.nav-links a').click(function() {
+            $('.nav-links').removeClass('active');
+        });
+        
+        // Original scroll effect
+        $(window).scroll(function() {
+          if ($(window).scrollTop() > 50) {
+            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+          } else {
+            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+          }
+        });
+    });
+  </script>
+</body>
+</html>

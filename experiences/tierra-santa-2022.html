@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tierra Santa 2022 - Sky Travel</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  <style>
+    .slideshow-container {
+        max-width: 800px;
+        margin: 0 auto 20px auto;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .slide {
+        position: relative;
+    }
+
+    .slide img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+    }
+
+    .slide-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 15px;
+    }
+
+    .slide-caption h3 {
+        margin: 0 0 5px 0;
+        font-size: 18px;
+    }
+
+    .slide-caption p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .image-thumbnails {
+        max-width: 800px;
+        margin: 0 auto 40px auto;
+    }
+
+    .thumbnail {
+        padding: 5px;
+    }
+
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .thumbnail.slick-current img {
+        border-color: #c8a97e;
+    }
+
+    .page-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back-link:hover {
+        color: #c8a97e;
+    }
+
+    .description {
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .page-header {
+        margin-top: 90px;
+        padding: 4rem 2rem;
+        background: url('../experiences/images/experiencesimages.jpg') center/cover;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .header-content h1 {
+        font-size: 3rem;
+        font-weight: 300;
+        margin-bottom: 1rem;
+        letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="nav-container">
+    <nav>
+      <a href="../index.html" class="logo">
+        <img src="../images/Logo.jpg" alt="Sky Travel" class="logo-image">
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Destinations</a>
+        <a href="../experiences.html">Experiences</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="menu-toggle">☰</div>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+      <h1>Tierra Santa 2022</h1>
+      <p>Walking in the footsteps of Jesus</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="page-content">
+    <a href="../experiences.html" class="back-link">← Back to All Experiences</a>
+    
+    <div class="description">
+      <p>In 2022, our pilgrimage to the Holy Land offered a profound spiritual journey through the places where Jesus lived and ministered. Our group traveled through Bethlehem, Jerusalem, Nazareth, the Sea of Galilee, and many other biblical sites. From praying at the birthplace of Christ to walking the Via Dolorosa and celebrating Mass at the Holy Sepulchre, pilgrims experienced the Gospels coming alive in these sacred locations. Many described the journey as transformative, deepening their faith and understanding of Scripture through this tangible encounter with the roots of Christianity.</p>
+    </div>
+
+    <!-- Slideshow with Slick Carousel -->
+    <div class="slideshow-container">
+      <div class="slideshow">
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image1.JPG" alt="Holy Land Pilgrimage Image 1">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Our pilgrimage group at the Mount of Olives</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image2.JPG" alt="Holy Land Pilgrimage Image 2">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Church of the Nativity in Bethlehem</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image3.JPG" alt="Holy Land Pilgrimage Image 3">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Praying at the Western Wall in Jerusalem</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image4.JPG" alt="Holy Land Pilgrimage Image 4">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Boat ride on the Sea of Galilee</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image5.JPG" alt="Holy Land Pilgrimage Image 5">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Via Dolorosa procession in Jerusalem</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image6.JPG" alt="Holy Land Pilgrimage Image 6">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Church of the Holy Sepulchre</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image7.JPG" alt="Holy Land Pilgrimage Image 7">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Celebrating Mass at Capernaum</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image8.JPG" alt="Holy Land Pilgrimage Image 8">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Visiting the Jordan River baptismal site</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image9.JPG" alt="Holy Land Pilgrimage Image 9">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Church of the Annunciation in Nazareth</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image10.JPG" alt="Holy Land Pilgrimage Image 10">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Garden of Gethsemane</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image11.JPG" alt="Holy Land Pilgrimage Image 11">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Mount of Beatitudes overlooking the Sea of Galilee</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image12.JPG" alt="Holy Land Pilgrimage Image 12">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Group prayer at the Mount of Olives</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image13.JPG" alt="Holy Land Pilgrimage Image 13">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Church of the Multiplication at Tabgha</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image14.JPG" alt="Holy Land Pilgrimage Image 14">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>View of Jerusalem from Mount Scopus</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image15.JPG" alt="Holy Land Pilgrimage Image 15">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Renewal of baptismal promises at the Jordan River</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image16.JPG" alt="Holy Land Pilgrimage Image 16">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Cana Church where couples renewed vows</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image17.JPG" alt="Holy Land Pilgrimage Image 17">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Shared meal in Bethlehem</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image18.JPG" alt="Holy Land Pilgrimage Image 18">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Visiting Jericho, the world's oldest city</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image19.JPG" alt="Holy Land Pilgrimage Image 19">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Dome of the Rock and Temple Mount</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="../experiences/images/tierrasanta2022/image20.JPG" alt="Holy Land Pilgrimage Image 20">
+          <div class="slide-caption">
+            <h3>Tierra Santa 2022</h3>
+            <p>Final group photo in Jerusalem</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="image-thumbnails">
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image1.JPG" alt="Thumbnail 1"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image2.JPG" alt="Thumbnail 2"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image3.JPG" alt="Thumbnail 3"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image4.JPG" alt="Thumbnail 4"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image5.JPG" alt="Thumbnail 5"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image6.JPG" alt="Thumbnail 6"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image7.JPG" alt="Thumbnail 7"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image8.JPG" alt="Thumbnail 8"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image9.JPG" alt="Thumbnail 9"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image10.JPG" alt="Thumbnail 10"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image11.JPG" alt="Thumbnail 11"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image12.JPG" alt="Thumbnail 12"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image13.JPG" alt="Thumbnail 13"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image14.JPG" alt="Thumbnail 14"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image15.JPG" alt="Thumbnail 15"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image16.JPG" alt="Thumbnail 16"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image17.JPG" alt="Thumbnail 17"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image18.JPG" alt="Thumbnail 18"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image19.JPG" alt="Thumbnail 19"></div>
+      <div class="thumbnail"><img src="../experiences/images/tierrasanta2022/image20.JPG" alt="Thumbnail 20"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Sky Travel. Creating meaningful spiritual journeys.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Main slideshow
+      $('.slideshow').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: true,
+        asNavFor: '.image-thumbnails'
+      });
+      
+      // Thumbnail nav
+      $('.image-thumbnails').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        asNavFor: '.slideshow',
+        focusOnSelect: true,
+        dots: false,
+        arrows: false,
+        centerMode: false,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: { slidesToShow: 3 }
+          }
+        ]
+      });
+      
+      // Navigation background on scroll
+      $(window).scroll(function() {
+        if ($(window).scrollTop() > 50) {
+          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+        } else {
+          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+        }
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+        // Mobile menu toggle
+        $('.menu-toggle').click(function() {
+            $('.nav-links').toggleClass('active');
+        });
+        
+        // Close menu when a link is clicked
+        $('.nav-links a').click(function() {
+            $('.nav-links').removeClass('active');
+        });
+        
+        // Original scroll effect
+        $(window).scroll(function() {
+          if ($(window).scrollTop() > 50) {
+            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+          } else {
+            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+          }
+        });
+    });
+  </script>
+</body>
+</html>
