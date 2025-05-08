@@ -22,13 +22,14 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Update your style.css with these values */
 nav {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 90px;
+  height: 90px; /* This height is important */
   padding-right: 2rem;
 }
 
@@ -36,13 +37,14 @@ nav {
   text-decoration: none;
   display: flex;
   align-items: center;
-  height: 100%;
-  padding-left: 10px;
+  height: 100%; /* This makes logo take full nav height */
+  padding: 0;
 }
-
+      
 .logo-image {
-  height: 85%;
+  height: 100%; /* This makes the image take full logo height */
   width: auto;
+  display: block;
   object-fit: contain;
 }
 
