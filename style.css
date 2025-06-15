@@ -296,6 +296,10 @@ nav {
     line-height: 1.6;
 }
 
+.highlight-list {
+  list-style-type: none;
+}
+
 /* CTA Button */
 .cta-button {
     display: inline-block;
