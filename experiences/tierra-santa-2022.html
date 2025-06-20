@@ -121,6 +121,34 @@
         margin-bottom: 1rem;
         letter-spacing: 2px;
     }
+    /* Add language switcher styles */
+    .language-switcher {
+      margin-left: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .lang-option {
+      text-decoration: none;
+      color: #333;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .lang-option:hover {
+      color: #c8a97e;
+    }
+
+    .lang-separator {
+      margin: 0 0.3rem;
+      color: #666;
+    }
+
+    .active-lang {
+      font-weight: bold;
+      color: #c8a97e;
+    }
   </style>
 </head>
 <body>
@@ -135,6 +163,11 @@
         <a href="../experiences.html">Experiences</a>
         <a href="../about.html">About</a>
         <a href="../contact.html">Contact</a>
+        <div class="language-switcher">
+          <a href="../experiences/tierra-santa-2022.html" class="lang-option">EN</a>
+          <span class="lang-separator">|</span>
+          <a href="../es/experiences/tierra-santa-2022-es.html" class="lang-option active-lang">ES</a>
+        </div>
       </div>
       <div class="menu-toggle">☰</div>
     </nav>
