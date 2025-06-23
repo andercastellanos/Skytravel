@@ -100,6 +100,241 @@ nav {
     }
 }
 
+/* ============================================
+   ELEGANT LANGUAGE SWITCHER STYLES
+   ============================================ */
+
+/* Desktop Language Switcher (stays in navigation) */
+.language-switcher {
+  margin-left: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.lang-option {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lang-option:hover {
+  color: #c8a97e;
+  background: rgba(200, 169, 126, 0.1);
+}
+
+.lang-option.active-lang {
+  color: #c8a97e;
+  font-weight: 700;
+  background: rgba(200, 169, 126, 0.15);
+}
+
+.lang-separator {
+  margin: 0 0.3rem;
+  color: #999;
+  font-weight: 300;
+}
+
+/* Mobile Language Switcher - Always Visible */
+.mobile-language-switcher {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(200, 169, 126, 0.2);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Feature-query for Safari/iOS */
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .mobile-language-switcher {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.mobile-lang-toggle {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 0.5px;
+  min-width: 60px;
+  justify-content: center;
+}
+
+.mobile-lang-toggle:focus {
+  outline: none;
+}
+
+/* Current language indicator */
+.mobile-lang-current {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+.mobile-lang-current::after {
+  content: '▼';
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+  color: #c8a97e;
+}
+
+/* Dropdown menu */
+.mobile-lang-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.mobile-language-switcher.open .mobile-lang-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-language-switcher.open .mobile-lang-current::after {
+  transform: rotate(180deg);
+}
+
+.mobile-lang-option {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mobile-lang-option:last-child {
+  border-bottom: none;
+}
+
+.mobile-lang-option:hover {
+  background: rgba(200, 169, 126, 0.1);
+  color: #c8a97e;
+}
+
+.mobile-lang-option.active {
+  background: rgba(200, 169, 126, 0.15);
+  color: #c8a97e;
+  font-weight: 700;
+}
+
+/* Flag icons for elegance */
+.mobile-lang-flag {
+  display: inline-block;
+  width: 16px;
+  height: 12px;
+  margin-right: 8px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.mobile-lang-flag.en {
+  background: linear-gradient(to bottom, #012169 33%, #fff 33%, #fff 66%, #c8102e 66%);
+}
+
+.mobile-lang-flag.es {
+  background: linear-gradient(to bottom, #c60b1e 33%, #ffc400 33%, #ffc400 66%, #c60b1e 66%);
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  /* Hide desktop language switcher */
+  .nav-links .language-switcher {
+    display: none;
+  }
+  
+  /* Show mobile language switcher */
+  .mobile-language-switcher {
+    display: block;
+  }
+  
+  /* Adjust position when navigation is open */
+  .nav-links.active ~ .mobile-language-switcher {
+    top: 25px;
+    right: 25px;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 992px) and (min-width: 769px) {
+  .mobile-language-switcher {
+    display: none;
+  }
+  
+  .nav-links .language-switcher {
+    display: flex;
+    margin-left: 1rem;
+  }
+}
+
+/* Accessibility improvements */
+.mobile-language-switcher:focus-within {
+  box-shadow: 0 4px 20px rgba(200, 169, 126, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-language-switcher,
+  .mobile-lang-menu,
+  .mobile-lang-current::after {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .mobile-language-switcher {
+    background: white;
+    border: 2px solid #333;
+  }
+  
+  .mobile-lang-option {
+    border-bottom: 1px solid #333;
+  }
+}
+
+/* Scrolled state - make it more subtle */
+.scrolled .mobile-language-switcher {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   END LANGUAGE SWITCHER STYLES
+   ============================================ */
+
 /* Hero Section */
 .hero h1 {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
@@ -558,6 +793,7 @@ footer p {
   /*  Sacred Destinations Gallery Section ABOUT HTML SECTION */
 
   /*  OPTIONS Gallery Section ABOUT HTML SECTION */
+
   /* Pilgrimage Options Section Styles */
 .pilgrimage-options {
     padding: 4rem 2rem;
@@ -859,11 +1095,9 @@ footer p {
   }
 
       /* Testimonials Section Styles */
-
       /* Contact Teaser Section Additional Styles */
 /* Elegant Contact Section Styles */
-/* Elegant Contact Section Styles */
-/* Elegant Contact Section Styles */
+
 .elegant-contact {
     background-color: #f9f9f9;
     padding: 4rem 2rem;
@@ -1007,7 +1241,6 @@ footer p {
       flex-direction: column;
       position: absolute;
       top: 90px;
-      left: 0;
       right: 0;
       background: white;
       width: 100%;
