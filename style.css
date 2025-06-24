@@ -110,47 +110,63 @@ nav {
 }
 
 /* Desktop language switcher (existing) */
+/* Language Switcher Styles - Add this to your style.css */
 .language-switcher {
-  margin-left: 1.5rem;
-  display: flex;
-  align-items: center;
+    margin-left: 1.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .lang-option {
-  text-decoration: none;
-  color: #333;
-  font-size: 0.9rem;
-  padding: 0.3rem 0.5rem;
-  transition: color 0.3s ease;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+    transition: color 0.3s ease;
+    font-weight: normal;
 }
 
 .lang-option:hover {
-  color: #c8a97e;
+    color: #c8a97e;
 }
 
 .lang-separator {
-  color: #ccc;
-  margin: 0 0.2rem;
+    margin: 0 0.3rem;
+    color: #666;
 }
 
 .active-lang {
-  color: #c8a97e;
-  font-weight: bold;
+    font-weight: bold;
+    color: #c8a97e !important;
 }
 
-/* Mobile Language Switcher - FIXED POSITIONING */
-.mobile-language-switcher {
-  display: none;
-  position: fixed;
-  top: 20px;
-  right: 70px; /* MOVED AWAY FROM HAMBURGER - was 20px */
-  z-index: 9998; /* LOWERED - below nav menu when active */
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 25px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(200, 169, 126, 0.2);
-  overflow: hidden;
-  transition: all 0.3s ease;
+/* Desktop-specific language switcher styles */
+@media (min-width: 769px) {
+    .language-switcher {
+        margin-left: 1.5rem;
+    }
+}
+
+/* Mobile-specific language switcher styles */
+@media (max-width: 768px) {
+    .language-switcher {
+        margin-left: 0;
+        margin-top: 1rem;
+        justify-content: center;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+    
+    .lang-option {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .lang-separator {
+        margin: 0 0.5rem;
+        font-size: 1rem;
+    }
 }
 
 /* Feature-query for Safari/iOS backdrop filter */
