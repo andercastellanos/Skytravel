@@ -329,14 +329,8 @@ nav {
       z-index: 1002;                      /* above nav links but below mobile menu */
       }
 
-    /* Override any inline styles from jQuery */
-    .mobile-language-switcher[style*="visibility"] {
-        visibility: visible !important;
-    }
-
     /* Hide Switcher while the slide out menu is opem */
     .nav-container.nav-menu-open .mobile-language-switcher {
-        /*visibility: hidden !important;*/ 
         display: none !important;
     }
 
