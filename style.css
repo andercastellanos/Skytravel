@@ -283,36 +283,44 @@ nav {
 }
 
 /* Mobile breakpoint - UPDATED BEHAVIOR */
+/* Hide the mobile switcher by default */
+.mobile-language-switcher {
+  display: none;
+}
+
+/* Mobile layout tweaks */
 @media (max-width: 768px) {
-  /* Hide desktop language switcher */
-  .nav-links .language-switcher,
-  .language-switcher {
+  /* Hide all desktop switchers (anything not .mobile-language-switcher) */
+  .nav-container .language-switcher:not(.mobile-language-switcher) {
     display: none;
   }
-  
-  /* Show mobile language switcher */
+
+  /* Show the mobile switcher */
   .mobile-language-switcher {
-    display: block;
+    display: flex;
+    position: absolute;
+    top: 1rem;
+    right: 4rem;      /* leaves room for the burger icon */
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1002;
   }
-  
-  /* FIXED: Hide when navigation menu is open */
-  .nav-links.active ~ .mobile-language-switcher,
-  .nav-container:has(.nav-links.active) .mobile-language-switcher {
-    visibility: hidden;
+
+  /* Make the nav a flex container so children spread */
+  .nav-container nav {
+    display: flex;
+    align-items: center;
+    position: relative; /* for absolute positioning of the switcher */
   }
-  
-  /* Alternative fallback for browsers without :has() support */
-  .nav-links.active
-    /* This will be handled by JavaScript */
-  
-  
-  /* Ensure hamburger menu has enough space and priority */
+
+  /* Push the hamburger to the far right */
   .menu-toggle {
-    padding: 0.5rem;
-    margin-right: 1rem;
-    z-index: 1002; /* Above everything */
+    margin-left: auto;
     position: relative;
+    z-index: 1003;
   }
+}
+
   
   /* Adjust nav container to accommodate both elements */
   nav {
@@ -352,7 +360,7 @@ nav {
   .nav-links a:hover {
     color: #c8a97e;
   }
-}
+
 
 /* Tablet adjustments */
 @media (max-width: 992px) and (min-width: 769px) {
