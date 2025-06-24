@@ -3,146 +3,167 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us - Sky Travel</title>
+  <title>Contact Us – Sky Travel</title>
+
+  <!-- Global stylesheet -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- jQuery (must load before navigation / language-switcher scripts) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+
 <body>
-  <!-- Navigation -->
+  <!-- ============ NAVIGATION ============ -->
   <div class="nav-container">
     <nav>
+      <!-- Logo -->
       <a href="index.html" class="logo">
-        <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+        <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image" />
       </a>
-      <div class="nav-links">
-        <a href="index.html">Destinations</a>
-        <a href="experiences.html">Experiences</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-                    <!-- Language Switcher -->
-                   <div class="language-switcher">
-                <a href="contact.html" class="lang-option active-lang">EN</a>
-                <span class="lang-separator">|</span>
-                <a href="contact-es.html" class="lang-option">ES</a>
-            </div>
-      </div>
-                  <!-- Added mobile menu toggle button -->
-      <div class="menu-toggle">☰</div>
+
+      <!-- Semantic nav list -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Destinations</a></li>
+        <li><a href="experiences.html">Experiences</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+        <li>
+          <!-- Desktop language switcher (mobile version injected by JS) -->
+          <div class="language-switcher">
+            <a href="contact.html"      class="lang-option active-lang">EN</a>
+            <span class="lang-separator">|</span>
+            <a href="contact-es.html"   class="lang-option">ES</a>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Hamburger button -->
+      <button class="menu-toggle"
+              aria-label="Toggle navigation"
+              aria-expanded="false"
+              aria-controls="nav-links">
+        ☰
+      </button>
     </nav>
   </div>
-  
-  <!-- Hero Section for Contact -->
+
+  <!-- ============ HERO ============ -->
   <section class="hero contact-hero">
     <div class="hero-content">
       <h1>Contact Us</h1>
-      <p>We'd love to hear from you!</p>
+      <p>We’d love to hear from you!</p>
     </div>
   </section>
 
-<!-- Elegant Contact Section -->
-<section class="elegant-contact">
-  <div class="elegant-contact-container">
-    <div class="elegant-contact-header">
-      <h2>Ready to Begin Your Spiritual Journey?</h2>
-      <p>Reach out to our pilgrimage specialists today</p>
-      <div class="elegant-separator"></div>
-    </div>
-    
-    <div class="elegant-contact-grid">
-      <!-- Contact Method: Phone -->
-      <a href="tel:+17862909114" class="phone-contact-link">
-        <div class="elegant-contact-item">
-          <div class="elegant-contact-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </div>
-          <div class="elegant-contact-info">
-            <h3>Call Us</h3>
-            <p>+1 (786) 290-9114</p>
-          </div>
-        </div>
-      </a>
-      
-      <!-- Contact Method: Email -->
-      <a href="mailto:contact@skytraveljm.com" class="email-contact-link">
-        <div class="elegant-contact-item">
-          <div class="elegant-contact-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          </div>
-          <div class="elegant-contact-info">
-            <h3>Email Us</h3>
-            <p>contact@skytraveljm.com</p>
-          </div>
-        </div>
-      </a>
-      
-      <!-- Contact Method: WhatsApp -->
-      <a href="https://wa.me/17862909114" target="_blank" rel="noopener noreferrer" class="whatsapp-contact-link">
-        <div class="elegant-contact-item">
-          <div class="elegant-contact-icon whatsapp-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-          </div>
-          <div class="elegant-contact-info">
-            <h3>WhatsApp</h3>
-            <p>Message us directly</p>
-          </div>
-        </div>
-      </a>
-    </div>
-    
-    <div class="elegant-contact-action">
-      <a href="contact.html" class="elegant-button">Contact Us</a>
-    </div>
-  </div>
-</section>
+  <!-- ============ ELEGANT CONTACT SECTION ============ -->
+  <section class="elegant-contact">
+    <div class="elegant-contact-container">
+      <div class="elegant-contact-header">
+        <h2>Ready to Begin Your Spiritual Journey?</h2>
+        <p>Reach out to our pilgrimage specialists today</p>
+        <div class="elegant-separator"></div>
+      </div>
 
-  <!-- Contact Form Section -->
+      <div class="elegant-contact-grid">
+        <!-- Phone -->
+        <a href="tel:+17862909114" class="phone-contact-link">
+          <div class="elegant-contact-item">
+            <div class="elegant-contact-icon">
+              <!-- phone icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                         19.79 19.79 0 0 1-8.63-3.07
+                         19.5 19.5 0 0 1-6-6
+                         19.79 19.79 0 0 1-3.07-8.67
+                         A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72
+                         12.84 12.84 0 0 0 .7 2.81
+                         2 2 0 0 1-.45 2.11L8.09 9.91
+                         a16 16 0 0 0 6 6
+                         l1.27-1.27a2 2 0 0 1 2.11-.45
+                         12.84 12.84 0 0 0 2.81.7
+                         A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </div>
+            <div class="elegant-contact-info">
+              <h3>Call Us</h3>
+              <p>+1 (786) 290-9114</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:contact@skytraveljm.com" class="email-contact-link">
+          <div class="elegant-contact-item">
+            <div class="elegant-contact-icon">
+              <!-- mail icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="elegant-contact-info">
+              <h3>Email Us</h3>
+              <p>contact@skytraveljm.com</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/17862909114"
+           target="_blank" rel="noopener noreferrer"
+           class="whatsapp-contact-link">
+          <div class="elegant-contact-item">
+            <div class="elegant-contact-icon whatsapp-icon">
+              <!-- WhatsApp icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8
+                         8.5 8.5 0 0 1-7.6 4.7
+                         8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7
+                         a8.38 8.38 0 0 1-.9-3.8
+                         8.5 8.5 0 0 1 4.7-7.6
+                         8.38 8.38 0 0 1 3.8-.9h.5
+                         a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
+            </div>
+            <div class="elegant-contact-info">
+              <h3>WhatsApp</h3>
+              <p>Message us directly</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="elegant-contact-action">
+        <a href="contact.html" class="elegant-button">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT FORM ============ -->
   <section class="contact-form-section">
     <h2>Send Us a Message</h2>
     <form action="#" method="post" class="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <input type="text"   name="name"    placeholder="Your Name"   required />
+      <input type="email"  name="email"   placeholder="Your Email"  required />
+      <textarea name="message" rows="5"
+                placeholder="Your Message" required></textarea>
       <button type="submit" class="cta-button">Send Message</button>
     </form>
   </section>
 
-  <!-- Footer -->
+  <!-- ============ FOOTER ============ -->
   <footer>
     <p>© 2025 Sky Travel. Creating extraordinary journeys for discerning travelers.</p>
   </footer>
 
-  <!-- JavaScript for Navigation Background on Scroll -->
-  <script>
-    $(window).scroll(function() {
-      if ($(window).scrollTop() > 50) {
-        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-      } else {
-        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-      }
-    });
-  </script>
-<script>
-  $(document).ready(function() {
-      // Mobile menu toggle
-      $('.menu-toggle').click(function() {
-          $('.nav-links').toggleClass('active');
-      });
-      
-      // Close menu when a link is clicked
-      $('.nav-links a').click(function() {
-          $('.nav-links').removeClass('active');
-      });
-      
-      // Original scroll effect
-      $(window).scroll(function() {
-        if ($(window).scrollTop() > 50) {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        } else {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        }
-      });
-  });
-</script>
-     <script src="../../js/elegant-language-switcher.js"></script>
+  <!-- ============ SHARED SCRIPTS ============ -->
+  <script src="js/navigation.js" defer></script>
+  <script src="js/elegant-language-switcher.js" defer></script>
 </body>
 </html>
