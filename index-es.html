@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky Travel - Agencia de Viajes de Lujo</title>
+    <title>Sky Travel - Agencia de Viajes de Lujo | Tours de Peregrinación Sagrados</title>
+    <meta name="description" content="Experimenta tours de peregrinación transformadores a los destinos más sagrados del mundo. Descubre Roma, Medjugorje y santuarios marianos con los viajes espirituales de lujo de Sky Travel.">
+    
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
     <style>
         /* Hero Section */
         .hero {
@@ -21,8 +27,8 @@
           left: 0;
           width: 100%;
           height: 100%;
-          /* Remove pointer-events if you want the user to be able to click elements inside */
-          pointer-events: none;
+          /* Allow pointer events for play button to work */
+          pointer-events: auto;
         }
     
         /* The container for the YouTube player */
@@ -45,6 +51,7 @@
           height: 100%;
           background: rgba(0, 0, 0, 0.4);
           z-index: 1;
+          pointer-events: none; /* Allow clicks to pass through to play button */
         }
     
         .hero-content {
@@ -53,12 +60,18 @@
           text-align: center;
           color: white;
           padding: 0 20px;
+          pointer-events: none; /* Allow clicks to pass through */
+        }
+
+        .hero-content h1,
+        .hero-content p {
+          pointer-events: auto; /* Re-enable for text selection */
         }
     
         /* Play Button (to trigger video playback) */
         .play-button {
           position: absolute;
-          z-index: 3;
+          z-index: 4; /* Higher than overlay to ensure clickability */
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
@@ -69,29 +82,40 @@
           border: none;
           border-radius: 5px;
           cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .play-button:hover {
+          background: rgba(0, 0, 0, 0.9);
+        }
+
+        .play-button:focus {
+          outline: 2px solid #c8a97e;
+          outline-offset: 2px;
         }
       </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <div class="nav-container">
-        <nav>
-            <a href="index-es.html" class="logo">
+        <nav role="navigation" aria-label="Navegación principal">
+            <a href="index.html" class="logo">
                 <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
             </a>
             <div class="nav-links">
-                <a href="index-es.html" class="nav-item">Destinos</a>
+                <a href="#featured" class="nav-item">Destinos</a>
                 <a href="experiences-es.html" class="nav-item">Experiencias</a>
                 <a href="about-es.html" class="nav-item">Sobre Nosotros</a>
                 <a href="contact-es.html" class="nav-item">Contacto</a>
+                <!-- Desktop Language Switcher -->
                 <div class="language-switcher">
                     <a href="index.html" class="lang-option">EN</a>
                     <span class="lang-separator">|</span>
                     <a href="index-es.html" class="lang-option active-lang">ES</a>
                 </div>
             </div>
-            <!-- Added mobile menu toggle button -->
-            <div class="menu-toggle">☰</div>
+            <!-- Accessible mobile menu toggle button -->
+            <button class="menu-toggle" aria-label="Alternar navegación" aria-expanded="false">☰</button>
         </nav>
     </div>
 
@@ -103,11 +127,11 @@
         </div>
         <div class="video-overlay"></div>
         <div class="hero-content">
-            <h1></h1> <!-- Add your title here -->
-            <p></p> <!-- Add your description here -->
+            <h1>Descubre Viajes Sagrados</h1>
+            <p>Experimenta tours de peregrinación transformadores a los destinos más sagrados del mundo</p>
         </div>
         <!-- Play Button to start the video -->
-        <button id="playButton" class="play-button">Reproducir Video</button>
+        <button id="playButton" class="play-button" aria-label="Reproducir video promocional">▶ Reproducir Video</button>
     </div>
 
     <!-- Featured Destinations Section -->
@@ -118,24 +142,24 @@
             <div class="destination-card rome">
                 <div class="card-content">
                     <h3>Jubileo Roma e Italia</h3>
-                    <p>Asís, Padre Pio, San Miguel Arcángel y Loreto</p>
-                    <a href="Italy-es.html" class="cta-button">Más Información</a>
+                    <p>Asís, Padre Pío, San Miguel Arcángel y Loreto</p>
+                    <a href="Italy-es.html" class="cta-button" aria-label="Saber más sobre la peregrinación a Roma e Italia">Saber Más</a>
                 </div>
             </div>
             <!-- Destination 2 -->
             <div class="destination-card medjugorje">
                 <div class="card-content">
                     <h3>Medjugorje</h3>
-                    <p>Colina de las apariciones: Podbrdo Colina de la cruz: monte Križevac Tihaljina.</p>
-                    <a href="Medjugorje-es.html" class="cta-button">Más Información</a>
+                    <p>Colina de las apariciones: Podbrdo, Colina de la cruz: monte Križevac, Tihaljina</p>
+                    <a href="Medjugorje-es.html" class="cta-button" aria-label="Saber más sobre la peregrinación a Medjugorje">Saber Más</a>
                 </div>
             </div>
             <!-- Destination 3 -->
             <div class="destination-card marianos">
                 <div class="card-content">
                     <h3>Santuarios Marianos</h3>
-                    <p>Fátima - Lourdes y a Medjugorje.</p>
-                    <a href="SantuariosMarianos-es.html" class="cta-button">Más Información</a>
+                    <p>Fátima, Lourdes y Medjugorje - viaje de peregrinación</p>
+                    <a href="SantuariosMarianos-es.html" class="cta-button" aria-label="Saber más sobre la peregrinación a los Santuarios Marianos">Saber Más</a>
                 </div>
             </div>
         </div>
@@ -146,30 +170,12 @@
         <p>© 2025 Sky Travel J&M. Creando viajes extraordinarios para viajeros.</p>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="js/elegant-language-switcher.js"></script>
-    <script>
-        $(document).ready(function() {
-           // Scroll effects
-          $(window).scroll(function() {
-            if ($(window).scrollTop() > 50) {
-            $('.nav-container').addClass('nav-scrolled');
-            } else {
-            $('.nav-container').removeClass('nav-scrolled');
-             }
-            });
-
-            // Mobile menu toggle
-            $('.menu-toggle').click(function() {
-                $('.nav-links').toggleClass('active');
-            });
-            
-            // Close menu when a link is clicked
-            $('.nav-links a').click(function() {
-                $('.nav-links').removeClass('active');
-            });
-        });
-
+    <!-- FIXED SCRIPTS: Include navigation fixes FIRST -->
+    <script src="js/navigation.js" defer></script>
+    <script src="js/elegant-language-switcher.js" defer></script>
+    
+    <!-- Page-specific JavaScript - YouTube functionality -->
+    <script defer>
         // YouTube video functionality
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -212,6 +218,5 @@
           this.style.display = 'none';
         });
     </script>
-      <script src="../../js/elegant-language-switcher.js"></script>
 </body>
 </html>

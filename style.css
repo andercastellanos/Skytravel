@@ -100,11 +100,16 @@ nav {
     }
 }
 
-/* ============================================
-   ELEGANT LANGUAGE SWITCHER STYLES
-   ============================================ */
 
-/* Desktop Language Switcher (stays in navigation) */
+/* ================= UPDATED ELEGANT MOBILE LANGUAGE SWITCHER CSS ================= */
+
+/* Page transition effect */
+.page-transitioning {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+/* Desktop language switcher (existing) */
 .language-switcher {
   margin-left: 1.5rem;
   display: flex;
@@ -115,38 +120,31 @@ nav {
   text-decoration: none;
   color: #333;
   font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  padding: 0.3rem 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .lang-option:hover {
   color: #c8a97e;
-  background: rgba(200, 169, 126, 0.1);
-}
-
-.lang-option.active-lang {
-  color: #c8a97e;
-  font-weight: 700;
-  background: rgba(200, 169, 126, 0.15);
 }
 
 .lang-separator {
-  margin: 0 0.3rem;
-  color: #999;
-  font-weight: 300;
+  color: #ccc;
+  margin: 0 0.2rem;
 }
 
-/* Mobile Language Switcher - Always Visible */
+.active-lang {
+  color: #c8a97e;
+  font-weight: bold;
+}
+
+/* Mobile Language Switcher - FIXED POSITIONING */
 .mobile-language-switcher {
   display: none;
   position: fixed;
   top: 20px;
-  right: 20px;
-  z-index: 9999;
+  right: 70px; /* MOVED AWAY FROM HAMBURGER - was 20px */
+  z-index: 9998; /* LOWERED - below nav menu when active */
   background: rgba(255, 255, 255, 0.95);
   border-radius: 25px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -155,7 +153,7 @@ nav {
   transition: all 0.3s ease;
 }
 
-/* Feature-query for Safari/iOS */
+/* Feature-query for Safari/iOS backdrop filter */
 @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
   .mobile-language-switcher {
     -webkit-backdrop-filter: blur(10px);
@@ -163,6 +161,7 @@ nav {
   }
 }
 
+/* Mobile toggle button - UPDATED CLASS NAME */
 .mobile-lang-toggle {
   display: flex;
   align-items: center;
@@ -176,29 +175,43 @@ nav {
   letter-spacing: 0.5px;
   min-width: 60px;
   justify-content: center;
+  gap: 6px;
 }
 
 .mobile-lang-toggle:focus {
-  outline: none;
+  outline: 2px solid #c8a97e;
+  outline-offset: 2px;
 }
 
-/* Current language indicator */
-.mobile-lang-current {
+.mobile-lang-toggle:hover {
+  background: rgba(200, 169, 126, 0.1);
+}
+
+.mobile-lang-toggle.active {
+  background: rgba(200, 169, 126, 0.15);
+}
+
+/* Current language display */
+.current-lang {
+  text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 6px;
-  text-transform: uppercase;
 }
 
-.mobile-lang-current::after {
-  content: '▼';
+/* Arrow with CSS rotation - UPDATED FOR NEW STRUCTURE */
+.toggle-arrow {
   font-size: 0.7rem;
   transition: transform 0.3s ease;
   color: #c8a97e;
+  display: inline-block;
 }
 
-/* Dropdown menu */
-.mobile-lang-menu {
+.toggle-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu - UPDATED CLASS NAME */
+.mobile-lang-options {
   position: absolute;
   top: 100%;
   left: 0;
@@ -206,24 +219,13 @@ nav {
   background: white;
   border-radius: 0 0 15px 15px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
+  display: none; /* Hidden by default, JavaScript will toggle */
   overflow: hidden;
+  z-index: 10001;
 }
 
-.mobile-language-switcher.open .mobile-lang-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.mobile-language-switcher.open .mobile-lang-current::after {
-  transform: rotate(180deg);
-}
-
-.mobile-lang-option {
+/* Language option links - UPDATED STRUCTURE */
+.mobile-lang-options a {
   display: block;
   padding: 12px 16px;
   text-decoration: none;
@@ -234,24 +236,35 @@ nav {
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
-.mobile-lang-option:last-child {
+.mobile-lang-options a:last-child {
   border-bottom: none;
 }
 
-.mobile-lang-option:hover {
+.mobile-lang-options a:hover {
   background: rgba(200, 169, 126, 0.1);
   color: #c8a97e;
 }
 
-.mobile-lang-option.active {
+.mobile-lang-options a:focus {
+  background: rgba(200, 169, 126, 0.15);
+  color: #c8a97e;
+  outline: none;
+}
+
+.mobile-lang-options a.active {
   background: rgba(200, 169, 126, 0.15);
   color: #c8a97e;
   font-weight: 700;
 }
 
-/* Flag icons for elegance */
+.mobile-lang-options a.active:hover {
+  background: rgba(200, 169, 126, 0.2);
+}
+
+/* Flag icons for elegance - OPTIONAL ENHANCEMENT */
 .mobile-lang-flag {
   display: inline-block;
   width: 16px;
@@ -269,10 +282,11 @@ nav {
   background: linear-gradient(to bottom, #c60b1e 33%, #ffc400 33%, #ffc400 66%, #c60b1e 66%);
 }
 
-/* Mobile breakpoint */
+/* Mobile breakpoint - UPDATED BEHAVIOR */
 @media (max-width: 768px) {
   /* Hide desktop language switcher */
-  .nav-links .language-switcher {
+  .nav-links .language-switcher,
+  .language-switcher {
     display: none;
   }
   
@@ -281,10 +295,62 @@ nav {
     display: block;
   }
   
-  /* Adjust position when navigation is open */
-  .nav-links.active ~ .mobile-language-switcher {
-    top: 25px;
-    right: 25px;
+  /* FIXED: Hide when navigation menu is open */
+  .nav-links.active ~ .mobile-language-switcher,
+  .nav-container:has(.nav-links.active) .mobile-language-switcher {
+    visibility: hidden;
+  }
+  
+  /* Alternative fallback for browsers without :has() support */
+  .nav-links.active
+    /* This will be handled by JavaScript */
+  
+  
+  /* Ensure hamburger menu has enough space and priority */
+  .menu-toggle {
+    padding: 0.5rem;
+    margin-right: 1rem;
+    z-index: 1002; /* Above everything */
+    position: relative;
+  }
+  
+  /* Adjust nav container to accommodate both elements */
+  nav {
+    padding-right: 140px; /* Space for hamburger + language switcher */
+  }
+  
+  /* Enhanced mobile navigation positioning */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    right: 0;
+    background: white;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1001; /* Above mobile language switcher */
+  }
+
+  .nav-links.active {
+    display: flex;
+    z-index: 1001;
+  }
+
+  .nav-links a {
+    padding: 1rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-links a:hover {
+    color: #c8a97e;
   }
 }
 
@@ -307,8 +373,10 @@ nav {
 
 @media (prefers-reduced-motion: reduce) {
   .mobile-language-switcher,
-  .mobile-lang-menu,
-  .mobile-lang-current::after {
+  .mobile-lang-options,
+  .toggle-arrow,
+  .mobile-lang-toggle,
+  .page-transitioning {
     transition: none;
   }
 }
@@ -320,8 +388,12 @@ nav {
     border: 2px solid #333;
   }
   
-  .mobile-lang-option {
+  .mobile-lang-options a {
     border-bottom: 1px solid #333;
+  }
+  
+  .mobile-lang-toggle {
+    border: 2px solid;
   }
 }
 
@@ -334,6 +406,8 @@ nav {
 /* ============================================
    END LANGUAGE SWITCHER STYLES
    ============================================ */
+
+
 
 /* Hero Section */
 .hero h1 {
