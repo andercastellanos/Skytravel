@@ -19,12 +19,26 @@
         <a href="experiences.html">Experiences</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <!-- Desktop Language Switcher -->
         <div class="language-switcher">
           <a href="/Italy.html" class="lang-option">EN</a>
           <span class="lang-separator">|</span>
           <a href="/Italy-es.html" class="lang-option active-lang">ES</a>
         </div>
       </div>
+      
+      <!-- Mobile Language Switcher -->
+      <div class="mobile-language-switcher">
+        <button class="mobile-lang-toggle" type="button" aria-label="Change language">
+          <span class="current-lang">ES</span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="mobile-lang-options">
+          <a href="/Italy.html" class="lang-option">EN</a>
+          <a href="/Italy-es.html" class="lang-option active">ES</a>
+        </div>
+      </div>
+      
       <div class="menu-toggle">☰</div>
     </nav>
   </div>
@@ -163,7 +177,7 @@
         <div class="info-section">
           <h3>Loreto</h3>
           <p>
-            Loreto’s Holy House is traditionally revered as the very home where the Virgin Mary was born and received the Annunciation.
+            Loreto's Holy House is traditionally revered as the very home where the Virgin Mary was born and received the Annunciation.
             According to tradition, this house was miraculously transported from Nazareth to Italy by angelic intervention.
           </p>
           <p>
@@ -194,9 +208,9 @@
         </div>
 
         <div class="info-section">
-          <h3>Cave of San Miguel (Monte Sant’Angelo)</h3>
+          <h3>Cave of San Miguel (Monte Sant'Angelo)</h3>
           <p>
-            The Cave of San Miguel, or the Sanctuary of Monte Sant’Angelo, is dedicated to St. Michael the Archangel.
+            The Cave of San Miguel, or the Sanctuary of Monte Sant'Angelo, is dedicated to St. Michael the Archangel.
             One of the oldest shrines in Western Europe, legend holds that St. Michael himself appeared here, sanctifying the grotto.
           </p>
           <p>
@@ -270,6 +284,28 @@
   <!-- JavaScript for Slideshow and Navigation -->
   <script>
     $(document).ready(function() {
+      // Mobile Language Switcher Functionality
+      $('.mobile-lang-toggle').click(function() {
+        const $options = $('.mobile-lang-options');
+        const $arrow = $('.toggle-arrow');
+        
+        if ($options.is(':visible')) {
+          $options.hide();
+          $arrow.removeClass('rotated');
+        } else {
+          $options.show();
+          $arrow.addClass('rotated');
+        }
+      });
+
+      // Close language switcher when clicking outside
+      $(document).click(function(e) {
+        if (!$(e.target).closest('.mobile-language-switcher').length) {
+          $('.mobile-lang-options').hide();
+          $('.toggle-arrow').removeClass('rotated');
+        }
+      });
+
       // Slideshow arrow functionality
       $('.prev').click(function() {
         const $active = $('.slide.active');
@@ -310,52 +346,18 @@
         function() { clearInterval(slideInterval); },
         function() { slideInterval = setInterval(function() { $('.next').click(); }, 5000); }
       );
-    });
 
-    // Navigation background on scroll
-    $(window).scroll(function() {
-      if ($(window).scrollTop() > 50) {
-        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-      } else {
-        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-      }
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
-        // Mobile menu toggle
-        $('.menu-toggle').click(function() {
-            $('.nav-links').toggleClass('active');
-        });
-        
-        // Close menu when a link is clicked
-        $('.nav-links a').click(function() {
-            $('.nav-links').removeClass('active');
-        });
-        
-        // Original scroll effect
-        $(window).scroll(function() {
-          if ($(window).scrollTop() > 50) {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          } else {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          }
-        });
-    });
-</script>
-<script>
-  $(document).ready(function() {
       // Mobile menu toggle
       $('.menu-toggle').click(function() {
-          $('.nav-links').toggleClass('active');
+        $('.nav-links').toggleClass('active');
       });
       
       // Close menu when a link is clicked
       $('.nav-links a').click(function() {
-          $('.nav-links').removeClass('active');
+        $('.nav-links').removeClass('active');
       });
       
-      // Original scroll effect
+      // Navigation background on scroll
       $(window).scroll(function() {
         if ($(window).scrollTop() > 50) {
           $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
@@ -363,7 +365,7 @@
           $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
         }
       });
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
