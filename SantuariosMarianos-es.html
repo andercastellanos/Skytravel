@@ -250,13 +250,18 @@
     </div>
   </section>
 
-
     <!-- Footer -->
     <footer>
         <p>© 2025 Sky Travel J&M. Creando viajes extraordinarios para viajeros exigentes.</p>
     </footer>
 
-    <!-- JavaScript for Slideshow -->
+    <!-- Load the unified navigation system first -->
+    <script src="js/skytravel-navigation.js"></script>
+    
+    <!-- Load the language switcher -->
+    <script src="js/elegant-language-switcher.js"></script>
+
+    <!-- Slideshow JavaScript -->
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
@@ -290,27 +295,10 @@
             showSlide(currentSlide);
         }, 5000);
     </script>
+
+    <!-- Tab functionality JavaScript -->
     <script>
         $(document).ready(function() {
-            // Mobile menu toggle
-            $('.menu-toggle').click(function() {
-                $('.nav-links').toggleClass('active');
-            });
-            
-            // Close menu when a link is clicked
-            $('.nav-links a').click(function() {
-                $('.nav-links').removeClass('active');
-            });
-            
-            // Original scroll effect
-            $(window).scroll(function() {
-              if ($(window).scrollTop() > 50) {
-                $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-              } else {
-                $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-              }
-            });
-
             // Tab functionality
             $('.tab-button').click(function() {
                 const container = $(this).closest('.tab-container');
