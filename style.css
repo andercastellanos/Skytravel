@@ -316,15 +316,15 @@ nav {
     }
 
     /* Show mobile language switcher */
-    .mobile-language-switcher {
-        display: flex;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 4rem;
-        align-items: center;
-        z-index: 1002;
-    }
+      .mobile-language-switcher {
+      display: flex !important;           /* make sure it’s visible */
+      position: fixed;                    /* pin to the viewport */
+      top: 45px;                          /* vertically center in 90px nav */
+      right: 4rem;                        /* match your hamburger’s right offset */
+      transform: translateY(-50%);        /* fine-tune centering */
+      align-items: center;                /* vertical align inside button */
+      z-index: 1002;                      /* above nav links but below mobile menu */
+      }
 
     /* Override any inline styles from jQuery */
     .mobile-language-switcher[style*="visibility"] {
