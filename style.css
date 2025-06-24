@@ -1,4 +1,6 @@
-/* Global Reset */
+/* ===================================
+   GLOBAL RESET & BASE STYLES
+   =================================== */
 * {
     margin: 0;
     padding: 0;
@@ -10,103 +12,112 @@ body {
     background-color: white;
 }
 
-/* Navigation */
+/* Prevent scroll when mobile menu is open */
+body.nav-menu-open,
+body.menu-open {
+    overflow: hidden;
+}
+
+/* ===================================
+   NAVIGATION SYSTEM - COMPLETE
+   =================================== */
+
+/* Base Navigation Container */
 .nav-container {
-  background-color: white;
-  padding: 0;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+    background-color: white;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
-
-nav {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 90px; /* This height is important */
-  padding-right: 2rem;
-}
-
-.logo {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  height: 100%; /* This makes logo take full nav height */
-  padding: 0;
-}
-      
-.logo-image {
-  height: 100%; /* This makes the image take full logo height */
-  width: auto;
-  display: block;
-  object-fit: contain;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1.1rem;
-  padding: 0.5rem 0;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #c8a97e;
-}
-
-/* Scrolled navigation - still white but with stronger shadow */
+/* Scrolled navigation state */
 .nav-scrolled {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 90px;
-        right: 0;
-        background: white;
-        width: 100%;
-        padding: 1rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
+/* Menu open state */
+.nav-container.nav-menu-open {
+    z-index: 1001;
 }
 
-
-/* ================= UPDATED ELEGANT MOBILE LANGUAGE SWITCHER CSS ================= */
-
-/* Page transition effect */
-.page-transitioning {
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
+/* Main navigation */
+nav {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    padding: 0 2rem;
+    position: relative;
 }
 
-/* Desktop language switcher (existing) */
-/* Language Switcher Styles - Add this to your style.css */
-.language-switcher {
-    margin-left: 1.5rem;
+/* Logo Styles */
+.logo {
+    text-decoration: none;
     display: flex;
     align-items: center;
+    height: 100%;
+    padding: 0;
+}
+
+.logo-image {
+    height: 100%;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Navigation Links - Base Styles */
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a,
+.nav-item {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+    display: block;
+}
+
+.nav-links a:hover,
+.nav-item:hover {
+    color: #c8a97e;
+}
+
+/* Menu Toggle Button - Hidden by default */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #333;
+    z-index: 1005;
+}
+
+/* Language Switcher - Desktop */
+.language-switcher {
+    display: flex;
+    align-items: center;
+    margin-left: 1.5rem;
 }
 
 .lang-option {
@@ -132,300 +143,275 @@ nav {
     color: #c8a97e !important;
 }
 
-/* Desktop-specific language switcher styles */
-@media (min-width: 769px) {
-    .language-switcher {
-        margin-left: 1.5rem;
-    }
+/* Mobile Language Switcher - Base Styles */
+.mobile-language-switcher {
+    display: none;
 }
 
-/* Mobile-specific language switcher styles */
-@media (max-width: 768px) {
-    .language-switcher {
-        margin-left: 0;
-        margin-top: 1rem;
-        justify-content: center;
-        padding: 1rem 0;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-        width: 100%;
-    }
-    
-    .lang-option {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-    }
-    
-    .lang-separator {
-        margin: 0 0.5rem;
-        font-size: 1rem;
-    }
-}
-
-/* Feature-query for Safari/iOS backdrop filter */
-@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
-  .mobile-language-switcher {
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-  }
-}
-
-/* Mobile toggle button - UPDATED CLASS NAME */
+/* Mobile language toggle button */
 .mobile-lang-toggle {
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #333;
-  letter-spacing: 0.5px;
-  min-width: 60px;
-  justify-content: center;
-  gap: 6px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.5px;
+    min-width: 60px;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .mobile-lang-toggle:focus {
-  outline: 2px solid #c8a97e;
-  outline-offset: 2px;
+    outline: 2px solid #c8a97e;
+    outline-offset: 2px;
 }
 
 .mobile-lang-toggle:hover {
-  background: rgba(200, 169, 126, 0.1);
+    background: rgba(200, 169, 126, 0.1);
 }
 
 .mobile-lang-toggle.active {
-  background: rgba(200, 169, 126, 0.15);
+    background: rgba(200, 169, 126, 0.15);
 }
 
 /* Current language display */
 .current-lang {
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
 }
 
-/* Arrow with CSS rotation - UPDATED FOR NEW STRUCTURE */
+/* Toggle arrow animation */
 .toggle-arrow {
-  font-size: 0.7rem;
-  transition: transform 0.3s ease;
-  color: #c8a97e;
-  display: inline-block;
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+    color: #c8a97e;
+    display: inline-block;
 }
 
 .toggle-arrow.rotated {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
-/* Dropdown menu - UPDATED CLASS NAME */
+/* Mobile language dropdown */
 .mobile-lang-options {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border-radius: 0 0 15px 15px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  display: none; /* Hidden by default, JavaScript will toggle */
-  overflow: hidden;
-  z-index: 10001;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    display: none;
+    overflow: hidden;
+    z-index: 10001;
+    min-width: 120px;
+    margin-top: 0.5rem;
 }
 
-/* Language option links - UPDATED STRUCTURE */
+/* Support for jQuery's show/hide methods */
+.mobile-lang-options[style*="display: block"] {
+    display: block !important;
+}
+
+.mobile-lang-options.active {
+    display: block;
+}
+
 .mobile-lang-options a {
-  display: block;
-  padding: 12px 16px;
-  text-decoration: none;
-  color: #333;
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 .mobile-lang-options a:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
-.mobile-lang-options a:hover {
-  background: rgba(200, 169, 126, 0.1);
-  color: #c8a97e;
-}
-
+.mobile-lang-options a:hover,
 .mobile-lang-options a:focus {
-  background: rgba(200, 169, 126, 0.15);
-  color: #c8a97e;
-  outline: none;
+    background: rgba(200, 169, 126, 0.1);
+    color: #c8a97e;
 }
 
 .mobile-lang-options a.active {
-  background: rgba(200, 169, 126, 0.15);
-  color: #c8a97e;
-  font-weight: 700;
-}
-
-.mobile-lang-options a.active:hover {
-  background: rgba(200, 169, 126, 0.2);
-}
-
-/* Flag icons for elegance - OPTIONAL ENHANCEMENT */
-.mobile-lang-flag {
-  display: inline-block;
-  width: 16px;
-  height: 12px;
-  margin-right: 8px;
-  border-radius: 2px;
-  vertical-align: middle;
-}
-
-.mobile-lang-flag.en {
-  background: linear-gradient(to bottom, #012169 33%, #fff 33%, #fff 66%, #c8102e 66%);
-}
-
-.mobile-lang-flag.es {
-  background: linear-gradient(to bottom, #c60b1e 33%, #ffc400 33%, #ffc400 66%, #c60b1e 66%);
-}
-
-/* Mobile breakpoint - UPDATED BEHAVIOR */
-/* Hide the mobile switcher by default */
-.mobile-language-switcher {
-  display: none;
-}
-
-/* Mobile layout tweaks */
-@media (max-width: 768px) {
-  /* Hide all desktop switchers (anything not .mobile-language-switcher) */
-  .nav-container .language-switcher:not(.mobile-language-switcher) {
-    display: none;
-  }
-
-  /* Show the mobile switcher */
-  .mobile-language-switcher {
-    display: flex;
-    position: absolute;
-    top: 1rem;
-    right: 4rem;      /* leaves room for the burger icon */
-    align-items: center;
-    gap: 0.5rem;
-    z-index: 1002;
-  }
-
-  /* Make the nav a flex container so children spread */
-  .nav-container nav {
-    display: flex;
-    align-items: center;
-    position: relative; /* for absolute positioning of the switcher */
-  }
-
-  /* Push the hamburger to the far right */
-  .menu-toggle {
-    margin-left: auto;
-    position: relative;
-    z-index: 1003;
-  }
-}
-
-  
-  /* Adjust nav container to accommodate both elements */
-  nav {
-    padding-right: 140px; /* Space for hamburger + language switcher */
-  }
-  
-  /* Enhanced mobile navigation positioning */
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 90px;
-    left: 0;
-    right: 0;
-    background: white;
-    width: 100%;
-    padding: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    z-index: 1001; /* Above mobile language switcher */
-  }
-
-  .nav-links.active {
-    display: flex;
-    z-index: 1001;
-  }
-
-  .nav-links a {
-    padding: 1rem 0;
-    border-bottom: 1px solid #f0f0f0;
-    transition: color 0.2s ease;
-  }
-  
-  .nav-links a:last-child {
-    border-bottom: none;
-  }
-  
-  .nav-links a:hover {
+    background: rgba(200, 169, 126, 0.15);
     color: #c8a97e;
-  }
+    font-weight: 700;
+}
 
+/* ===================================
+   MOBILE STYLES (max-width: 768px)
+   =================================== */
+@media (max-width: 768px) {
+    /* Adjust nav padding for mobile */
+    nav {
+        padding: 0 1rem;
+    }
 
-/* Tablet adjustments */
-@media (max-width: 992px) and (min-width: 769px) {
-  .mobile-language-switcher {
-    display: none;
-  }
-  
-  .nav-links .language-switcher {
+    /* Show hamburger menu */
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Hide and reposition nav links for mobile */
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 90px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        background: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        gap: 0;
+        z-index: 999;
+    }
+
+    /* Show nav links when active */
+    .nav-links.active {
+        display: flex;
+    }
+
+    /* Mobile nav link styles */
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a,
+    .nav-item {
+        width: 100%;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-links li:last-child a {
+        border-bottom: none;
+    }
+
+    /* Hide desktop language switcher in mobile nav */
+    .nav-links .language-switcher {
+        display: none;
+    }
+
+    /* Show mobile language switcher */
+    .mobile-language-switcher {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 4rem;
+        align-items: center;
+        z-index: 1002;
+    }
+
+    /* Override any inline styles from jQuery */
+    .mobile-language-switcher[style*="visibility"] {
+        visibility: visible !important;
+    }
+
+    .nav-container.nav-menu-open .mobile-language-switcher {
+        visibility: hidden !important;
+    }
+
+    /* Page transition effect */
+    .page-transitioning {
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+    }
+}
+
+/* ===================================
+   TABLET STYLES (769px - 991px)
+   =================================== */
+@media (min-width: 769px) and (max-width: 991px) {
+    /* Keep desktop layout but with adjustments */
+    .nav-links {
+        gap: 1.5rem;
+    }
+
+    .nav-links a,
+    .nav-item {
+        font-size: 1rem;
+    }
+
+    /* Hide mobile elements */
+    .menu-toggle,
+    .mobile-language-switcher {
+        display: none !important;
+    }
+
+    /* Show desktop language switcher */
+    .nav-links .language-switcher {
+        display: flex !important;
+    }
+}
+
+/* ===================================
+   DESKTOP STYLES (min-width: 992px)
+   =================================== */
+@media (min-width: 992px) {
+    /* Ensure desktop layout */
+    .nav-links {
+        display: flex !important;
+        position: relative;
+        top: auto;
+        flex-direction: row;
+        background: none;
+        box-shadow: none;
+        width: auto;
+        padding: 0;
+    }
+
+    /* Hide mobile elements */
+    .menu-toggle,
+    .mobile-language-switcher {
+        display: none !important;
+    }
+
+    /* Show desktop language switcher */
+    .nav-links .language-switcher {
+        display: flex !important;
+    }
+}
+
+/* ===================================
+   HERO SECTION
+   =================================== */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
     display: flex;
-    margin-left: 1rem;
-  }
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    background: #333;
 }
 
-/* Accessibility improvements */
-.mobile-language-switcher:focus-within {
-  box-shadow: 0 4px 20px rgba(200, 169, 126, 0.3);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mobile-language-switcher,
-  .mobile-lang-options,
-  .toggle-arrow,
-  .mobile-lang-toggle,
-  .page-transitioning {
-    transition: none;
-  }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-  .mobile-language-switcher {
-    background: white;
-    border: 2px solid #333;
-  }
-  
-  .mobile-lang-options a {
-    border-bottom: 1px solid #333;
-  }
-  
-  .mobile-lang-toggle {
-    border: 2px solid;
-  }
-}
-
-/* Scrolled state - make it more subtle */
-.scrolled .mobile-language-switcher {
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* ============================================
-   END LANGUAGE SWITCHER STYLES
-   ============================================ */
-
-
-
-/* Hero Section */
 .hero h1 {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 300;
@@ -439,12 +425,55 @@ nav {
     margin-bottom: 2rem;
 }
 
-/* Destination Cards */
+/* ===================================
+   SECTIONS & CONTENT
+   =================================== */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #333;
+    text-align: center;
+    margin: 2rem 0;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #c8a97e;
+}
+
+.section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ===================================
+   DESTINATION CARDS
+   =================================== */
+.featured-section {
+    padding: 4rem 2rem;
+    background-color: #f8f8f8;
+}
+
 .destinations-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .destination-card {
@@ -455,6 +484,12 @@ nav {
     background-size: cover;
     background-position: center;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destination-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .destination-card.rome {
@@ -478,10 +513,23 @@ nav {
     padding: 20px;
 }
 
-/* Destination Header & Slideshow */
+.card-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+/* ===================================
+   DESTINATION DETAIL PAGES
+   =================================== */
 .destination-header {
     position: relative;
-    height: 70vh;  /* Ensures the slideshow has visible height */
+    height: 70vh;
     overflow: hidden;
 }
 
@@ -622,48 +670,7 @@ nav {
 }
 
 .highlight-list {
-  list-style-type: none;
-}
-
-/* CTA Button */
-.cta-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background-color: #c8a97e;
-    color: white;
-    text-decoration: none;
-    border-radius: 3px;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.cta-button:hover {
-    background-color: #b69268;
-    transform: scale(1.05);
-}
-
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 3rem 2rem;
-    text-align: center;
-}
-
-footer p {
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-    .highlight-card {
-        width: 90%;
-        margin: 0 auto;
-    }
+    list-style-type: none;
 }
 
 /* Detailed Information Section */
@@ -699,134 +706,47 @@ footer p {
     font-size: 1.4rem;
 }
 
+/* ===================================
+   ABOUT PAGE STYLES
+   =================================== */
 .about-hero {
-  
     background: url("images/SantuariosMarianos/virgin11.jpeg") center / cover no-repeat;
     min-height: 120vh;
-}
-/* For mobile about hero */
-@media (max-width: 768px) {
-  .about-hero {
-      min-height: 100vh; /* Slightly shorter on mobile */
-      background-attachment: scroll; /* Ensures better compatibility on mobile */
-  }
-}
-/* Additional Contact Page Styles */
-.contact-hero {
-    background: url("images/wall.jpeg") center/cover no-repeat;
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .contact-hero .hero-content {
-    text-align: center;
-    color: white;
-  }
-  
-  .contact-info-section,
-  .contact-form-section {
-    padding: 4rem 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .contact-info-section h2,
-  .contact-form-section h2 {
-    margin-bottom: 1.5rem;
-  }
-  
-  .contact-details p {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .contact-form button {
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 3px;
-    background-color: #c8a97e;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .contact-form button:hover {
-    background-color: #b69268;
-    transform: scale(1.05);
-  }
-  
-  /*WHATS APP SECTION : */
-
-.whatsapp-link {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 30px; /* Pill shape */
-  background-color: #25D366;
-  color: #ffffff;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
-.whatsapp-link:hover {
-  background-color: #1ebe5b;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
 }
 
-.whatsapp-link:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.5);
+.about-hero .hero-content {
+    position: relative;
+    z-index: 1;
 }
 
-.whatsapp-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 0.75rem;
-}
-
-/* End Whats APP * /
-
-
-/*  Sacred Destinations Gallery Section ABOUT HTML SECTION */
-.section-description {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    color: #666;
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-  
-  .sacred-gallery {
+/* Sacred Destinations Gallery Section */
+.sacred-gallery {
     padding: 1rem 0 2rem;
-  }
-  
-  .gallery-container {
+}
+
+.gallery-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
     margin-bottom: 2rem;
-  }
-  
-  .gallery-item {
+}
+
+.gallery-item {
     width: 30%;
     min-width: 280px;
     background: white;
@@ -834,317 +754,203 @@ footer p {
     overflow: hidden;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .gallery-item:hover {
+}
+
+.gallery-item:hover {
     transform: translateY(-10px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  .gallery-image {
+}
+
+.gallery-image {
     width: 100%;
     height: 250px;
     object-fit: cover;
-  }
-  
-  .gallery-caption {
+}
+
+.gallery-caption {
     padding: 1.5rem;
-  }
-  
-  .gallery-caption h3 {
+}
+
+.gallery-caption h3 {
     color: #c8a97e;
     margin-bottom: 0.5rem;
     font-size: 1.4rem;
-  }
-  
-  .gallery-caption p {
+}
+
+.gallery-caption p {
     color: #666;
     font-size: 1rem;
     line-height: 1.6;
-  }
-  
-  .gallery-cta {
+}
+
+.gallery-cta {
     text-align: center;
     margin-top: 1rem;
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .gallery-container {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .gallery-item {
-      width: 90%;
-    }
-  }
+}
 
-  /*  Sacred Destinations Gallery Section ABOUT HTML SECTION */
-
-  /*  OPTIONS Gallery Section ABOUT HTML SECTION */
-
-  /* Pilgrimage Options Section Styles */
+/* Pilgrimage Options Section */
 .pilgrimage-options {
     padding: 4rem 2rem;
-    background-color: #e6f4ff;  /* Light blue background as shown in the image */
-  }
-  
-  .container {
+    background-color: #e6f4ff;
+}
+
+.container {
     max-width: 1400px;
     margin: 0 auto;
-  }
-  
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: #333;
-    text-align: center;
-    margin: 2rem 0;
-    letter-spacing: 2px;
-    position: relative;
-    padding-bottom: 1rem;
-  }
-  
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background-color: #c8a97e;  /* This matches your CTA button color */
-  }
-  
-  .section-description {
-    color: #555;
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-    max-width: 900px;
-  }
-  
-  .options-container {
+}
+
+.options-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 2rem;
-  }
-  
-  .option-card {
+}
+
+.option-card {
     flex: 1;
     min-width: 300px;
     display: flex;
     flex-direction: column;
-  }
-  
-  .option-image {
+}
+
+.option-image {
     width: 100%;
     margin-bottom: 1.5rem;
     overflow: hidden;
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-image {
+}
+
+.card-image {
     width: 100%;
     height: 320px;
     object-fit: cover;
     transition: transform 0.3s ease;
-  }
-  
-  .card-image:hover {
+}
+
+.card-image:hover {
     transform: scale(1.05);
-  }
-  
-  .option-content h3 {
+}
+
+.option-content h3 {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 0.75rem;
     font-weight: 500;
-  }
-  
-  .option-content p {
+}
+
+.option-content p {
     color: #555;
     line-height: 1.6;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 968px) {
-    .options-container {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .option-card {
-      width: 100%;
-      max-width: 500px;
-    }
-    
-    .section-title {
-      font-size: 2.5rem;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .section-title {
-      font-size: 2rem;
-    }
-    
-    .pilgrimage-options {
-      padding: 3rem 1rem;
-    }
-  }
-  /*  OPTIONS Gallery Section ABOUT HTML SECTION */
+}
 
-    /*  Faith Journey Section ABOUT HTML SECTION */
+/* Faith Journey Section */
 .faith-journey-section {
     padding: 0;
     background-color: #fff;
     overflow: hidden;
-  }
-  
-  .journey-container {
+}
+
+.journey-container {
     display: flex;
     flex-direction: row;
     max-width: 100%;
     min-height: 550px;
-  }
-  
-  .journey-image-column {
+}
+
+.journey-image-column {
     flex: 1;
     overflow: hidden;
-  }
-  
-  .journey-image {
+}
+
+.journey-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-  }
-  
-  .journey-content-column {
+}
+
+.journey-content-column {
     flex: 1;
     padding: 4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-  
-  .journey-title {
+}
+
+.journey-title {
     font-size: 2.5rem;
     color: #333;
     margin-bottom: 1.5rem;
     font-weight: 500;
-  }
-  
-  .journey-text {
+}
+
+.journey-text {
     color: #555;
-  }
-  
-  .journey-text p {
+}
+
+.journey-text p {
     font-size: 1.05rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 992px) {
-    .journey-container {
-      flex-direction: column;
-    }
-    
-    .journey-image-column {
-      height: 400px;
-    }
-    
-    .journey-content-column {
-      padding: 3rem 2rem;
-    }
-    
-    .journey-title {
-      font-size: 2.2rem;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .journey-image-column {
-      height: 300px;
-    }
-    
-    .journey-content-column {
-      padding: 2rem 1.5rem;
-    }
-    
-    .journey-title {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-  }
-      /*  Faith Journey Section ABOUT HTML SECTION */
+}
 
-
-      /* Testimonials Section Styles */
+/* Testimonials Section */
 .testimonials-section {
     padding: 5rem 2rem;
-    background-color: #1b2731; /* Dark blue-gray background */
+    background-color: #1b2731;
     color: white;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .testimonials-title {
+}
+
+.testimonials-title {
     text-align: center;
     font-size: 2.2rem;
     font-weight: 300;
     margin-bottom: 3rem;
     color: white;
-  }
-  
-  .testimonials-slider {
+}
+
+.testimonials-slider {
     position: relative;
     overflow: hidden;
-  }
-  
-  .testimonials-wrapper {
+}
+
+.testimonials-wrapper {
     display: flex;
     flex-wrap: nowrap;
     gap: 2rem;
     transition: transform 0.5s ease;
-  }
-  
-  .testimonial-card {
+}
+
+.testimonial-card {
     flex: 0 0 calc(50% - 1rem);
     min-width: calc(50% - 1rem);
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 2.5rem;
     transition: all 0.3s ease;
-  }
-  
-  .testimonial-content p {
+}
+
+.testimonial-content p {
     font-size: 1.05rem;
     line-height: 1.7;
     margin-bottom: 1.5rem;
     color: rgba(255, 255, 255, 0.9);
-  }
-  
-  .testimonial-author {
+}
+
+.testimonial-author {
     font-weight: 500;
-    color: #c8a97e; /* Gold accent color */
-  }
-  
-  .testimonial-navigation {
+    color: #c8a97e;
+}
+
+.testimonial-navigation {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-top: 2.5rem;
-  }
-  
-  .nav-arrow {
+}
+
+.nav-arrow {
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
     border-radius: 50%;
@@ -1156,79 +962,114 @@ footer p {
     cursor: pointer;
     color: white;
     transition: background-color 0.3s ease;
-  }
-  
-  .nav-arrow:hover {
+}
+
+.nav-arrow:hover {
     background-color: rgba(255, 255, 255, 0.3);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 992px) {
-    .testimonial-card {
-      flex: 0 0 100%;
-      min-width: 100%;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .testimonials-section {
-      padding: 4rem 1.5rem;
-    }
-    
-    .testimonials-title {
-      font-size: 1.8rem;
-    }
-    
-    .testimonial-card {
-      padding: 1.5rem;
-    }
-  }
+}
 
-      /* Testimonials Section Styles */
-      /* Contact Teaser Section Additional Styles */
-/* Elegant Contact Section Styles */
+/* ===================================
+   CONTACT SECTION & PAGE
+   =================================== */
+.contact-hero {
+    background: url("images/wall.jpeg") center/cover no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.contact-hero .hero-content {
+    text-align: center;
+    color: white;
+}
+
+.contact-info-section,
+.contact-form-section {
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-info-section h2,
+.contact-form-section h2 {
+    margin-bottom: 1.5rem;
+}
+
+.contact-details p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.contact-form button {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #c8a97e;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #b69268;
+    transform: scale(1.05);
+}
+
+/* Elegant Contact Section */
 .elegant-contact {
     background-color: #f9f9f9;
     padding: 4rem 2rem;
-  }
-  
-  .elegant-contact-container {
+}
+
+.elegant-contact-container {
     max-width: 1200px;
     margin: 0 auto;
-  }
-  
-  .elegant-contact-header {
+}
+
+.elegant-contact-header {
     text-align: center;
     margin-bottom: 3rem;
-  }
-  
-  .elegant-contact-header h2 {
+}
+
+.elegant-contact-header h2 {
     font-size: 2.2rem;
     color: #333;
     margin-bottom: 0.5rem;
-  }
-  
-  .elegant-contact-header p {
+}
+
+.elegant-contact-header p {
     color: #666;
     font-size: 1.1rem;
-  }
-  
-  .elegant-separator {
+}
+
+.elegant-separator {
     width: 80px;
     height: 3px;
     background-color: #c8a97e;
     margin: 1.5rem auto;
-  }
-  
-  .elegant-contact-grid {
+}
+
+.elegant-contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
-  }
-  
-  .elegant-contact-item {
+}
+
+.elegant-contact-item {
     background: white;
     padding: 2rem;
     border-radius: 8px;
@@ -1236,14 +1077,14 @@ footer p {
     display: flex;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .elegant-contact-item:hover {
+}
+
+.elegant-contact-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .elegant-contact-icon {
+}
+
+.elegant-contact-icon {
     width: 50px;
     height: 50px;
     display: flex;
@@ -1252,38 +1093,81 @@ footer p {
     border-radius: 50%;
     background-color: #f0f0f0;
     margin-right: 1.5rem;
-  }
-  
-  .elegant-contact-icon svg {
+}
+
+.elegant-contact-icon svg {
     width: 24px;
     height: 24px;
     color: #666;
-  }
-  
-  .whatsapp-icon {
+}
+
+.whatsapp-icon {
     background-color: #e9f7ef;
-  }
-  
-  .whatsapp-icon svg {
+}
+
+.whatsapp-icon svg {
     color: #25D366;
-  }
-  
-  .elegant-contact-info h3 {
+}
+
+.elegant-contact-info h3 {
     font-size: 1.2rem;
     margin-bottom: 0.3rem;
     color: #333;
-  }
-  
-  .elegant-contact-info p {
+}
+
+.elegant-contact-info p {
     color: #666;
     font-size: 1rem;
-  }
-  
-  .elegant-contact-action {
+}
+
+.elegant-contact-action {
     text-align: center;
-  }
-  
-  .elegant-button {
+}
+
+.phone-contact-link,
+.email-contact-link,
+.whatsapp-contact-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* WhatsApp Link */
+.whatsapp-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 30px;
+    background-color: #25D366;
+    color: #ffffff;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-link:hover {
+    background-color: #1ebe5b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.75rem;
+}
+
+/* ===================================
+   CTA BUTTON
+   =================================== */
+.cta-button,
+.elegant-button {
     display: inline-block;
     padding: 1rem 2.5rem;
     background-color: #c8a97e;
@@ -1292,92 +1176,237 @@ footer p {
     border-radius: 3px;
     font-size: 1.1rem;
     letter-spacing: 1px;
+    margin-top: 1rem;
     transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .elegant-button:hover {
-    background-color: #b69268;
-    transform: scale(1.05);
-  }
-  
-  .phone-contact-link, .email-contact-link, .whatsapp-contact-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  
-  .phone-contact-link:hover .elegant-contact-item,
-  .email-contact-link:hover .elegant-contact-item,
-  .whatsapp-contact-link:hover .elegant-contact-item {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  }
-   /* Contact Teaser Section Additional Styles */
-
-
-/*  MENU Section */
-/* Mobile Navigation Styles */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;               /* Hide by default */
-    flex-direction: column;
-    position: absolute;
-    top: 90px;
-    right: 0;
-    background: white;
-    width: 100%;
-    padding: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1001;
-  }
-
-  .nav-links.active {
-      display: flex;
-  }
-
-  .menu-toggle {
-      display: block;
-      margin-left: 0;
-  }
-  
-  .nav-links a {
-      padding: 1rem 0;
-  }
 }
 
-/* ────────────────────────────────────────────────────────────
-   DESKTOP NAVIGATION: show links, language switcher & burger
-   on viewports ≥ 786px
-──────────────────────────────────────────────────────────── */
-@media (min-width: 786px) {
-  /* 1) Flex container for nav */
-  nav {
-    display: flex;
-    align-items: center;
-  }
+.cta-button:hover,
+.elegant-button:hover {
+    background-color: #b69268;
+    transform: scale(1.05);
+}
 
-  /* 2) Always show nav‐links horizontally */
-  .nav-links {
-    display: flex !important;
-    flex-direction: row;
-    gap: 1.5rem;
-    align-items: center;
-  }
+/* ===================================
+   FOOTER
+   =================================== */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+}
 
-  /* 3) Show the hamburger, pushed to far right */
-  .menu-toggle {
-    display: block !important;
-    margin-left: auto;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
+footer p {
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
 
-  /* 4) Keep desktop language‐switcher visible */
-  .language-switcher {
-    display: flex !important;
-    align-items: center;
-    margin-left: 1rem;
-  }
+/* ===================================
+   RESPONSIVE ADJUSTMENTS
+   =================================== */
+@media (max-width: 768px) {
+    /* Hero adjustments */
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* About hero adjustment */
+    .about-hero {
+        min-height: 100vh;
+        background-attachment: scroll;
+    }
+
+    /* Gallery adjustments */
+    .gallery-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .gallery-item {
+        width: 90%;
+    }
+
+    /* Options container */
+    .options-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .option-card {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    /* Journey container */
+    .journey-container {
+        flex-direction: column;
+    }
+    
+    .journey-image-column {
+        height: 400px;
+    }
+    
+    .journey-content-column {
+        padding: 3rem 2rem;
+    }
+    
+    .journey-title {
+        font-size: 2.2rem;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+
+    /* Highlight cards */
+    .highlight-card {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    /* Section titles */
+    .section-title {
+        font-size: 2rem;
+    }
+
+    /* Slideshow arrows */
+    .slide-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .slide-arrow.prev {
+        left: 10px;
+    }
+
+    .slide-arrow.next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Further mobile adjustments */
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .pilgrimage-options {
+        padding: 3rem 1rem;
+    }
+
+    .journey-image-column {
+        height: 300px;
+    }
+    
+    .journey-content-column {
+        padding: 2rem 1.5rem;
+    }
+    
+    .journey-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .testimonials-section {
+        padding: 4rem 1.5rem;
+    }
+    
+    .testimonials-title {
+        font-size: 1.8rem;
+    }
+    
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+}
+
+/* ===================================
+   ACCESSIBILITY FEATURES
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .nav-container {
+        border-bottom: 2px solid #333;
+    }
+    
+    .mobile-lang-toggle {
+        border: 2px solid #333;
+    }
+
+    .mobile-language-switcher {
+        background: white;
+        border: 2px solid #333;
+    }
+    
+    .mobile-lang-options a {
+        border-bottom: 1px solid #333;
+    }
+}
+
+/* Focus visible for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #c8a97e;
+    outline-offset: 2px;
+}
+
+/* Skip to content link for screen readers */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 10000;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Print styles */
+@media print {
+    .nav-container,
+    .menu-toggle,
+    .language-switcher,
+    .mobile-language-switcher,
+    footer {
+        display: none !important;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    .hero {
+        height: auto;
+        padding: 2rem 0;
+    }
 }

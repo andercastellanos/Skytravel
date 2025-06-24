@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky Travel - Agencia de Viajes de Lujo | Tours de Peregrinación Sagrados</title>
-    <meta name="description" content="Experimenta tours de peregrinación transformadores a los destinos más sagrados del mundo. Descubre Roma, Medjugorje y santuarios marianos con los viajes espirituales de lujo de Sky Travel.">
+    <title>Sky Travel - Agencia de Viajes de Lujo | Tours de Peregrinación Sagrada</title>
+    <meta name="description" content="">
     
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://www.youtube.com">
@@ -99,29 +99,26 @@
     <!-- Navigation Bar -->
     <div class="nav-container">
         <nav role="navigation" aria-label="Navegación principal">
-            <a href="index.html" class="logo">
-                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+            <a href="index-es.html" class="logo">
+                <img src="images/Logo.jpg" alt="Logo Sky Travel" class="logo-image">
             </a>
-            <div class="nav-links">
-                <a href="#featured" class="nav-item">Destinos</a>
-                <a href="experiences-es.html" class="nav-item">Experiencias</a>
-                <a href="about-es.html" class="nav-item">Sobre Nosotros</a>
-                <a href="contact-es.html" class="nav-item">Contacto</a>
-                <!-- Desktop Language Switcher -->
-                <div class="language-switcher">
-                    <a href="index.html" class="lang-option">EN</a>
-                    <span class="lang-separator">|</span>
-                    <a href="index-es.html" class="lang-option active-lang">ES</a>
-                </div>
-                <!-- inside <nav> after your desktop language-switcher -->
-                <div class="language-switcher mobile-language-switcher">
-                 <a href="index.html"       class="lang-option">EN</a>
-                <span class="lang-separator">|</span>
-                <a href="index-es.html"    class="lang-option">ES</a>
-                </div>
-            </div>
+            <!-- SEMANTIC NAVIGATION: UL/LI structure with proper ID -->
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#featured" class="nav-item">Destinos</a></li>
+                <li><a href="experiences-es.html" class="nav-item">Experiencias</a></li>
+                <li><a href="about-es.html" class="nav-item">Sobre Nosotros</a></li>
+                <li><a href="contact-es.html" class="nav-item">Contacto</a></li>
+                <li>
+                    <!-- Desktop Language Switcher -->
+                    <div class="language-switcher">
+                        <a href="index.html" class="lang-option">EN</a>
+                        <span class="lang-separator">|</span>
+                        <a href="index-es.html" class="lang-option active-lang">ES</a>
+                    </div>
+                </li>
+            </ul>
             <!-- Accessible mobile menu toggle button -->
-            <button class="menu-toggle" aria-label="Alternar navegación" aria-expanded="false">☰</button>
+            <button class="menu-toggle" aria-label="Alternar navegación" aria-expanded="false" aria-controls="nav-links">☰</button>
         </nav>
     </div>
 
@@ -134,7 +131,7 @@
         <div class="video-overlay"></div>
         <div class="hero-content">
             <h1>Descubre Viajes Sagrados</h1>
-            <p>Experimenta tours de peregrinación transformadores a los destinos más sagrados del mundo</p>
+            <p></p>
         </div>
         <!-- Play Button to start the video -->
         <button id="playButton" class="play-button" aria-label="Reproducir video promocional">▶ Reproducir Video</button>
@@ -149,23 +146,23 @@
                 <div class="card-content">
                     <h3>Jubileo Roma e Italia</h3>
                     <p>Asís, Padre Pío, San Miguel Arcángel y Loreto</p>
-                    <a href="Italy-es.html" class="cta-button" aria-label="Saber más sobre la peregrinación a Roma e Italia">Saber Más</a>
+                    <a href="Italy-es.html" class="cta-button" aria-label="Aprende más sobre la peregrinación a Roma e Italia">Saber Más</a>
                 </div>
             </div>
             <!-- Destination 2 -->
             <div class="destination-card medjugorje">
                 <div class="card-content">
                     <h3>Medjugorje</h3>
-                    <p>Colina de las apariciones: Podbrdo, Colina de la cruz: monte Križevac, Tihaljina</p>
-                    <a href="Medjugorje-es.html" class="cta-button" aria-label="Saber más sobre la peregrinación a Medjugorje">Saber Más</a>
+                    <p>Colina de las Apariciones: Podbrdo, Monte de la Cruz: Križevac, Tihaljina</p>
+                    <a href="Medjugorje-es.html" class="cta-button" aria-label="Aprende más sobre la peregrinación a Medjugorje">Saber Más</a>
                 </div>
             </div>
             <!-- Destination 3 -->
             <div class="destination-card marianos">
                 <div class="card-content">
                     <h3>Santuarios Marianos</h3>
-                    <p>Fátima, Lourdes y Medjugorje - viaje de peregrinación</p>
-                    <a href="SantuariosMarianos-es.html" class="cta-button" aria-label="Saber más sobre la peregrinación a los Santuarios Marianos">Saber Más</a>
+                    <p>Viaje de peregrinación a Fátima, Lourdes y Medjugorje</p>
+                    <a href="SantuariosMarianos-es.html" class="cta-button" aria-label="Aprende más sobre la peregrinación a los Santuarios Marianos">Saber Más</a>
                 </div>
             </div>
         </div>
@@ -176,7 +173,7 @@
         <p>© 2025 Sky Travel J&M. Creando viajes extraordinarios para viajeros.</p>
     </footer>
 
-    <!-- FIXED SCRIPTS: Include navigation fixes FIRST -->
+    <!-- CRITICAL: Correct script loading order -->
     <script src="js/navigation.js" defer></script>
     <script src="js/elegant-language-switcher.js" defer></script>
     

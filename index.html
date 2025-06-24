@@ -102,26 +102,23 @@
             <a href="index.html" class="logo">
                 <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
             </a>
-            <div class="nav-links">
-                <a href="#featured" class="nav-item">Destinations</a>
-                <a href="experiences.html" class="nav-item">Experiences</a>
-                <a href="about.html" class="nav-item">About</a>
-                <a href="contact.html" class="nav-item">Contact</a>
-                <!-- Desktop Language Switcher -->
-                <div class="language-switcher">
-                    <a href="index.html" class="lang-option active-lang">EN</a>
-                    <span class="lang-separator">|</span>
-                    <a href="index-es.html" class="lang-option">ES</a>
-                </div>
-                  <!-- inside <nav> after your desktop language-switcher -->
-                <div class="language-switcher mobile-language-switcher">
-                 <a href="index.html"       class="lang-option">EN</a>
-                <span class="lang-separator">|</span>
-                <a href="index-es.html"    class="lang-option">ES</a>
-                </div>
-            </div>
+            <!-- UPDATED: Semantic navigation structure with proper ID -->
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#featured" class="nav-item">Destinations</a></li>
+                <li><a href="experiences.html" class="nav-item">Experiences</a></li>
+                <li><a href="about.html" class="nav-item">About</a></li>
+                <li><a href="contact.html" class="nav-item">Contact</a></li>
+                <li>
+                    <!-- Desktop Language Switcher -->
+                    <div class="language-switcher">
+                        <a href="index.html" class="lang-option active-lang">EN</a>
+                        <span class="lang-separator">|</span>
+                        <a href="index-es.html" class="lang-option">ES</a>
+                    </div>
+                </li>
+            </ul>
             <!-- Accessible mobile menu toggle button -->
-            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
         </nav>
     </div>
 
@@ -176,7 +173,7 @@
         <p>© 2025 Sky Travel J&M. Creating extraordinary journeys for travelers.</p>
     </footer>
 
-    <!-- FIXED SCRIPTS: Include navigation fixes FIRST -->
+    <!-- CRITICAL: Correct script loading order -->
     <script src="js/navigation.js" defer></script>
     <script src="js/elegant-language-switcher.js" defer></script>
     
