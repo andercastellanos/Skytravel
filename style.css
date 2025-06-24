@@ -70,14 +70,6 @@ nav {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Navigation Toggle */
-.menu-toggle {
-    display: none;
-    font-size: 2rem;
-    color: #333;
-    cursor: pointer;
-}
-
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -1324,14 +1316,6 @@ footer p {
 
 
 /*  MENU Section */
-/* Mobile Navigation Styles */
-.menu-toggle {
-  display: none;
-  font-size: 2rem;
-  color: #333;
-  cursor: pointer;
-  padding: 0.5rem;
-}
 
 @media (max-width: 768px) {
   .nav-links {
@@ -1356,5 +1340,42 @@ footer p {
   
   .nav-links a {
       padding: 1rem 0;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   DESKTOP NAVIGATION: show links, language switcher & burger
+   on viewports ≥ 786px
+──────────────────────────────────────────────────────────── */
+@media (min-width: 786px) {
+  /* 1) Flex container for nav */
+  nav {
+    display: flex;
+    align-items: center;
+  }
+
+  /* 2) Always show nav‐links horizontally */
+  .nav-links {
+    display: flex !important;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  /* 3) Show the hamburger, pushed to far right */
+  .menu-toggle {
+    display: block !important;
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  /* 4) Keep desktop language‐switcher visible */
+  .language-switcher {
+    display: flex !important;
+    align-items: center;
+    margin-left: 1rem;
   }
 }
