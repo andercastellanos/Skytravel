@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -21,15 +21,30 @@
         <a href="experiences.html">Experiencias</a>
         <a href="about.html">Sobre Nosotros</a>
         <a href="contact.html">Contacto</a>
+        <!-- Desktop Language Switcher -->
         <div class="language-switcher">
           <a href="/Medjugorje.html" class="lang-option">EN</a>
           <span class="lang-separator">|</span>
           <a href="/Medjugorje-es.html" class="lang-option active-lang">ES</a>
         </div>
       </div>
+      
+      <!-- Mobile Language Switcher -->
+      <div class="mobile-language-switcher">
+        <button class="mobile-lang-toggle" type="button" aria-label="Cambiar idioma">
+          <span class="current-lang">ES</span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="mobile-lang-options">
+          <a href="/Medjugorje.html" class="lang-option">EN</a>
+          <a href="/Medjugorje-es.html" class="lang-option active">ES</a>
+        </div>
+      </div>
+      
       <div class="menu-toggle">☰</div>
     </nav>
   </div>
+
   <!-- Destination Header with Slideshow -->
   <section class="destination-header">
     <div class="slideshow">
@@ -62,15 +77,20 @@
       <!-- Navigation Arrows -->
       <button class="slide-arrow prev">❮</button>
       <button class="slide-arrow next">❯</button>
-      <!-- Slide Indicators -->
+      
+      <!-- Slide Indicators - Fixed to match 8 slides -->
       <div class="slide-indicators">
         <span class="indicator active"></span>
         <span class="indicator"></span>
         <span class="indicator"></span>
         <span class="indicator"></span>
         <span class="indicator"></span>
+        <span class="indicator"></span>
+        <span class="indicator"></span>
+        <span class="indicator"></span>
       </div>
     </div>
+    
     <div class="header-content">
       <div class="header-text">
         <h1>Peregrinación de Paz</h1>
@@ -78,6 +98,7 @@
       </div>
     </div>
   </section>
+
   <!-- Trip Details Section -->
   <div class="trip-details">
     <h2>Detalles del Viaje</h2>
@@ -86,6 +107,7 @@
     <p>Salidas desde Bogotá, Miami, Madrid y Melbourne</p>
     <p>Acompañamiento Espiritual del P. Juan Carlos Zapata</p>
   </div>
+
   <!-- Main Content -->
   <main class="main-content">
     <!-- Highlights Section -->
@@ -119,6 +141,7 @@
         </p>
       </div>
     </div>
+
     <!-- Detailed Information Section -->
     <section class="destination-info">
       <h2>Información detallada sobre Medjugorje</h2>
@@ -169,11 +192,7 @@
         </div>
       </div>
     </section>
-    <!-- Call-to-Action Section -->
 
-
-
-    <!-- Elegant Contact Section -->
     <!-- Elegant Contact Section -->
     <section class="elegant-contact">
       <div class="elegant-contact-container">
@@ -243,53 +262,89 @@
         </div>
       </div>
     </section>
+  </main>
 
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Sky Travel J&M. Creando viajes espirituales significativos.</p>
+  </footer>
 
-
-    <!-- Footer -->
-    <footer>
-      <p>© 2025 Sky Travel J&M. Creando viajes espirituales significativos.</p>
-    </footer>
-    <!-- JavaScript for Slideshow and Navigation -->
-    <script>
-      $(document).ready(function () {
-        // Slideshow arrow functionality
-        $('.prev').click(function () {
-          const $active = $('.slide.active');
-          const $prev = $active.prev('.slide').length ? $active.prev('.slide') : $('.slide:last');
-          $active.removeClass('active');
-          $prev.addClass('active');
-          const index = $('.slide').index($prev);
-          $('.indicator.active').removeClass('active');
-          $('.indicator').eq(index).addClass('active');
-        });
-        $('.next').click(function () {
-          const $active = $('.slide.active');
-          const $next = $active.next('.slide').length ? $active.next('.slide') : $('.slide:first');
-          $active.removeClass('active');
-          $next.addClass('active');
-          const index = $('.slide').index($next);
-          $('.indicator.active').removeClass('active');
-          $('.indicator').eq(index).addClass('active');
-        });
-        // Indicator functionality
-        $('.indicator').click(function () {
-          const index = $('.indicator').index(this);
-          $('.slide.active').removeClass('active');
-          $('.slide').eq(index).addClass('active');
-          $('.indicator.active').removeClass('active');
-          $(this).addClass('active');
-        });
-        // Auto-advance slideshow every 5 seconds
-        let slideInterval = setInterval(function () {
-          $('.next').click();
-        }, 5000);
-        // Pause auto-advance on hover
-        $('.slideshow').hover(
-          function () { clearInterval(slideInterval); },
-          function () { slideInterval = setInterval(function () { $('.next').click(); }, 5000); }
-        );
+  <!-- JavaScript for Slideshow and Navigation -->
+  <script>
+    $(document).ready(function () {
+      // Mobile Language Switcher Functionality
+      $('.mobile-lang-toggle').click(function() {
+        const $options = $('.mobile-lang-options');
+        const $arrow = $('.toggle-arrow');
+        
+        if ($options.is(':visible')) {
+          $options.hide();
+          $arrow.removeClass('rotated');
+        } else {
+          $options.show();
+          $arrow.addClass('rotated');
+        }
       });
+
+      // Close language switcher when clicking outside
+      $(document).click(function(e) {
+        if (!$(e.target).closest('.mobile-language-switcher').length) {
+          $('.mobile-lang-options').hide();
+          $('.toggle-arrow').removeClass('rotated');
+        }
+      });
+
+      // Slideshow arrow functionality
+      $('.prev').click(function () {
+        const $active = $('.slide.active');
+        const $prev = $active.prev('.slide').length ? $active.prev('.slide') : $('.slide:last');
+        $active.removeClass('active');
+        $prev.addClass('active');
+        const index = $('.slide').index($prev);
+        $('.indicator.active').removeClass('active');
+        $('.indicator').eq(index).addClass('active');
+      });
+
+      $('.next').click(function () {
+        const $active = $('.slide.active');
+        const $next = $active.next('.slide').length ? $active.next('.slide') : $('.slide:first');
+        $active.removeClass('active');
+        $next.addClass('active');
+        const index = $('.slide').index($next);
+        $('.indicator.active').removeClass('active');
+        $('.indicator').eq(index).addClass('active');
+      });
+
+      // Indicator functionality
+      $('.indicator').click(function () {
+        const index = $('.indicator').index(this);
+        $('.slide.active').removeClass('active');
+        $('.slide').eq(index).addClass('active');
+        $('.indicator.active').removeClass('active');
+        $(this).addClass('active');
+      });
+
+      // Auto-advance slideshow every 5 seconds
+      let slideInterval = setInterval(function () {
+        $('.next').click();
+      }, 5000);
+
+      // Pause auto-advance on hover
+      $('.slideshow').hover(
+        function () { clearInterval(slideInterval); },
+        function () { slideInterval = setInterval(function () { $('.next').click(); }, 5000); }
+      );
+
+      // Mobile menu toggle
+      $('.menu-toggle').click(function () {
+        $('.nav-links').toggleClass('active');
+      });
+
+      // Close menu when a link is clicked
+      $('.nav-links a').click(function () {
+        $('.nav-links').removeClass('active');
+      });
+
       // Navigation background on scroll
       $(window).scroll(function () {
         if ($(window).scrollTop() > 50) {
@@ -298,29 +353,8 @@
           $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
         }
       });
-    </script>
-    <script>
-      $(document).ready(function () {
-        // Mobile menu toggle
-        $('.menu-toggle').click(function () {
-          $('.nav-links').toggleClass('active');
-        });
-
-        // Close menu when a link is clicked
-        $('.nav-links a').click(function () {
-          $('.nav-links').removeClass('active');
-        });
-
-        // Original scroll effect
-        $(window).scroll(function () {
-          if ($(window).scrollTop() > 50) {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          } else {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          }
-        });
-      });
-    </script>
+    });
+  </script>
 </body>
 
 </html>
