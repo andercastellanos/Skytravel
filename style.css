@@ -323,7 +323,7 @@ nav {
       display: flex !important;           /* make sure it’s visible */
       position: absolute !important;      /* pin to the viewport */
       top: 50% !important;                          /* vertically center in 90px nav */
-      right: 1rem !important;                        /* match your hamburger’s right offset */
+      right: 4rem !important;                        /* match your hamburger’s right offset */
       transform: translateY(-50%);        /* fine-tune centering */
       align-items: center !important;                /* vertical align inside button */
       z-index: 1002;                      /* above nav links but below mobile menu */
