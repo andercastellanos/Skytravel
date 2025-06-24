@@ -53,7 +53,8 @@
 
     // Create and append mobile switcher
     const $dropdown = $(generateMobileHTML(currentLang, langOptions));
-    $body.append($dropdown);
+    //$body.append($dropdown);
+    $('.menu-toggle').before($dropdown);   // new line
     bindMobileEvents($dropdown);
   }
 

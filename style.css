@@ -314,13 +314,16 @@ nav {
     .nav-links .language-switcher {
         display: none;
     }
-
-    /* Show mobile language switcher */
+     /* 
+    MOBILE LANGUAGE SWITCHER
+    (inside <nav>, phone view)
+    Show mobile language switcher
+     */
       .mobile-language-switcher {
       display: flex !important;           /* make sure it’s visible */
-      position: fixed;                    /* pin to the viewport */
+      position: absolute !important;      /* pin to the viewport */
       top: 45px;                          /* vertically center in 90px nav */
-      right: 4rem;                        /* match your hamburger’s right offset */
+      right: 1rem;                        /* match your hamburger’s right offset */
       transform: translateY(-50%);        /* fine-tune centering */
       align-items: center;                /* vertical align inside button */
       z-index: 1002;                      /* above nav links but below mobile menu */
@@ -331,8 +334,10 @@ nav {
         visibility: visible !important;
     }
 
+    /* Hide Switcher while the slide out menu is opem */
     .nav-container.nav-menu-open .mobile-language-switcher {
-        visibility: hidden !important;
+        /*visibility: hidden !important;*/ 
+        display: none !important;
     }
 
     /* Page transition effect */
