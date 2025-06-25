@@ -14,7 +14,7 @@
             <a href="index.html" class="logo">
                 <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
             </a>
-            <div class="nav-links">
+            <div class="nav-links" id="nav-links">
                 <a href="index.html" class="nav-item">Destinations</a>
                 <a href="experiences.html" class="nav-item">Experiences</a>
                 <a href="about.html" class="nav-item">About</a>
@@ -25,7 +25,13 @@
                   <a href="/SantuariosMarianos-es.html" class="lang-option">ES</a>
                 </div>
             </div>
-            <div class="menu-toggle">☰</div>
+            <button type="button"
+            class="menu-toggle"
+            aria-label="Toggle navigation"
+             aria-expanded="false"
+             aria-controls="nav-links">
+             ☰
+            </button>
         </nav>
     </div>
 
@@ -280,7 +286,7 @@
         </div>
         <div class="elegant-contact-info">
         <h3>Email Us</h3>
-         <p>contact@skytraveljm.com</p>
+         <p>info@skytraveljm.com</p>
         </div>
         </div>
         </a>
@@ -311,7 +317,7 @@
     </footer>
 
     <!-- Load the unified navigation system first -->
-    <script src="js/skytravel-navigation.js"></script>
+    <script src="js/navigation.js" defer></script>
     
     <!-- Load the language switcher -->
     <script src="js/elegant-language-switcher.js"></script>
