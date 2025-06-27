@@ -14,18 +14,20 @@
       <a href="index.html" class="logo">
         <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
       </a>
-      <div class="nav-links">
-        <a href="index.html">Destinations</a>
-        <a href="experiences.html">Experiences</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-item">Destinations</a>
+        <a href="experiences.html" class="nav-item">Experiences</a>
+        <a href="about.html" class="nav-item">About</a>
+        <a href="contact.html" class="nav-item">Contact</a>
         <div class="language-switcher">
           <a href="about.html" class="lang-option active-lang">EN</a>
           <span class="lang-separator">|</span>
           <a href="about-es.html" class="lang-option">ES</a>
         </div>
       </div>
-      <div class="menu-toggle">☰</div>
+      <button type="button" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        ☰
+      </button>
     </nav>
   </div>
 
@@ -282,28 +284,11 @@
     <p>© 2025 Sky Travel. Creating extraordinary journeys for discerning travelers.</p>
   </footer>
 
-  <!-- JavaScript for Navigation Background -->
-  <script>
-    $(window).scroll(function() {
-      if ($(window).scrollTop() > 50) {
-        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-      } else {
-        $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-      }
-    });
-  </script>
-
-  <!-- JavaScript for Menu Toggle -->
-<script>
-  $(document).ready(function() {
-    $('.menu-toggle').click(function() {
-      $('.nav-links').toggleClass('active');
-    });
-    $('.nav-links a').click(function() {
-      $('.nav-links').removeClass('active');
-    });
-  });
-</script>
+  <!-- Load the unified navigation system -->
+  <script src="js/navigation.js" defer></script>
+  
+  <!-- Load the language switcher -->
+  <script src="js/elegant-language-switcher.js"></script>
 
   <!-- JavaScript for Testimonials Slider -->
   <script>
@@ -353,29 +338,5 @@
       });
     });
   </script>
-  <!-- JavaScript for Testimonials Slider -->
-  <script>
-    $(document).ready(function() {
-        // Mobile menu toggle
-        $('.menu-toggle').click(function() {
-            $('.nav-links').toggleClass('active');
-        });
-        
-        // Close menu when a link is clicked
-        $('.nav-links a').click(function() {
-            $('.nav-links').removeClass('active');
-        });
-        
-        // Original scroll effect
-        $(window).scroll(function() {
-          if ($(window).scrollTop() > 50) {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          } else {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          }
-        });
-    });
-</script>
-     <script src="../../js/elegant-language-switcher.js"></script>
 </body>
 </html>

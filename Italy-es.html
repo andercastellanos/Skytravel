@@ -27,21 +27,21 @@
     <!-- Navigation Bar -->
     <div class="nav-container">
         <nav>
-            <a href="index.html" class="logo">
+            <a href="index-es.html" class="logo">
                 <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
             </a>
             <div class="nav-links" id="nav-links">
-                <a href="index.html" class="nav-item">Destinos</a>
-                <a href="experiences.html" class="nav-item">Experiencias</a>
-                <a href="about.html" class="nav-item">Sobre Nosotros</a>
-                <a href="contact.html" class="nav-item">Contacto</a>
+                <a href="index-es.html" class="nav-item">Destinos</a>
+                <a href="experiences-es.html" class="nav-item">Experiencias</a>
+                <a href="about-es.html" class="nav-item">Sobre Nosotros</a>
+                <a href="contact-es.html" class="nav-item">Contacto</a>
                 <div class="language-switcher">
                     <a href="/Italy.html" class="lang-option">EN</a>
                     <span class="lang-separator">|</span>
                     <a href="/Italy-es.html" class="lang-option active-lang">ES</a>
                 </div>
             </div>
-            <button type="button" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+            <button type="button" class="menu-toggle" aria-label="Alternar navegación" aria-expanded="false" aria-controls="nav-links">
                 ☰
             </button>
         </nav>
@@ -324,7 +324,7 @@
     </footer>
 
     <!-- Load the unified navigation system first -->
-    <script src="js/navigation.js"></script>
+    <script src="js/navigation.js" defer></script>
     
     <!-- Load the language switcher -->
     <script src="js/elegant-language-switcher.js"></script>
@@ -362,16 +362,6 @@
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
         }, 5000);
-
-        // Mobile menu toggle
-        $('.menu-toggle').click(function() {
-            $('.nav-links').toggleClass('active');
-        });
-        
-        // Close menu when a link is clicked
-        $('.nav-links a').click(function() {
-            $('.nav-links').removeClass('active');
-        });
     </script>
 
     <!-- Tab functionality JavaScript -->

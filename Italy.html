@@ -323,7 +323,7 @@
     </footer>
 
     <!-- Load the unified navigation system first -->
-    <script src="js/navigation.js"></script>
+    <script src="js/navigation.js" defer></script>
     
     <!-- Load the language switcher -->
     <script src="js/elegant-language-switcher.js"></script>
@@ -361,16 +361,6 @@
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
         }, 5000);
-
-        // Mobile menu toggle
-        $('.menu-toggle').click(function() {
-            $('.nav-links').toggleClass('active');
-        });
-        
-        // Close menu when a link is clicked
-        $('.nav-links a').click(function() {
-            $('.nav-links').removeClass('active');
-        });
     </script>
 
     <!-- Tab functionality JavaScript -->
