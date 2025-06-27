@@ -1,360 +1,455 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Peregrinación de la Paz - Medjugorje 2025 - Sky Travel</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-
-<body>
-  <!-- Navigation -->
-  <div class="nav-container">
-    <nav>
-      <a href="index.html" class="logo">
-        <img src="images/Logo.jpg" alt="Sky Travel" class="logo-image">
-      </a>
-      <div class="nav-links">
-        <a href="index.html">Destinos</a>
-        <a href="experiences.html">Experiencias</a>
-        <a href="about.html">Sobre Nosotros</a>
-        <a href="contact.html">Contacto</a>
-        <!-- Desktop Language Switcher -->
-        <div class="language-switcher">
-          <a href="/Medjugorje.html" class="lang-option">EN</a>
-          <span class="lang-separator">|</span>
-          <a href="/Medjugorje-es.html" class="lang-option active-lang">ES</a>
-        </div>
-      </div>
-      
-      <!-- Mobile Language Switcher -->
-      <div class="mobile-language-switcher">
-        <button class="mobile-lang-toggle" type="button" aria-label="Cambiar idioma">
-          <span class="current-lang">ES</span>
-          <span class="toggle-arrow">▼</span>
-        </button>
-        <div class="mobile-lang-options">
-          <a href="/Medjugorje.html" class="lang-option">EN</a>
-          <a href="/Medjugorje-es.html" class="lang-option active">ES</a>
-        </div>
-      </div>
-      
-      <div class="menu-toggle">☰</div>
-    </nav>
-  </div>
-
-  <!-- Destination Header with Slideshow -->
-  <section class="destination-header">
-    <div class="slideshow">
-      <!-- Slides -->
-      <div class="slide active">
-        <img src="images/Medjugorje/MedjugorjeVirgin.jpg" alt="St. James Church">
-      </div>
-      <div class="slide">
-        <img src="images/Medjugorje/Bridge.jpg" alt="Apparition Hill">
-      </div>
-      <div class="slide">
-        <img src="images/Medjugorje/Cross.jpg" alt="Cross Mountain">
-      </div>
-      <div class="slide">
-        <img src="images/Medjugorje/Church1.jpeg" alt="Evening Adoration">
-      </div>
-      <div class="slide">
-        <img src="images/Medjugorje/Cross.jpg" alt="Virgin Mary Statue">
-      </div>
-      <div class="slide">
-        <img src="images/Medjugorje/mountain.jpg" alt="Virgin Mary Statue">
-      </div>
-      <div class="slide">
-        <img src="images/Medjugorje/Medjugorjechurch3.jpg" alt="Virgin Mary Statue">
-      </div>
-      <div class="slide">
-        <img src="images/Medjugorje/Virgin1.jpeg" alt="Virgin Mary Statue">
-      </div>
-
-      <!-- Navigation Arrows -->
-      <button class="slide-arrow prev">❮</button>
-      <button class="slide-arrow next">❯</button>
-      
-      <!-- Slide Indicators - Fixed to match 8 slides -->
-      <div class="slide-indicators">
-        <span class="indicator active"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-      </div>
-    </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peregrinación de Paz - Medjugorje 2025 - Sky Travel</title>
     
-    <div class="header-content">
-      <div class="header-text">
-        <h1>Peregrinación de Paz</h1>
-        <p>Experimente la gracia de la presencia de Nuestra Señora</p>
-      </div>
+    <!-- FACEBOOK & INSTAGRAM PREVIEW -->
+    <meta property="og:title" content="Peregrinación de Paz - Medjugorje 2025: Experimenta la Gracia de la Presencia de Nuestra Señora">
+    <meta property="og:description" content="Únete a nuestro viaje espiritual de 7 días a Medjugorje. Experimenta la Iglesia de Santiago, la Colina de las Apariciones, el Monte de la Cruz y los programas vespertinos. Salidas desde Miami y Bogotá con acompañamiento espiritual.">
+    <meta property="og:image" content="https://skytraveljm.com/images/Medjugorje/MedjugorjeVirgin.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Destino de peregrinación Sky Travel - Medjugorje">
+    <meta property="og:url" content="https://skytraveljm.com/Medjugorje-es.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sky Travel J&M">
+    <meta property="og:locale" content="es_US">
+    <!-- INSTAGRAM SPECIFIC -->
+    <meta property="instagram:image" content="https://skytraveljm.com/images/Medjugorje/MedjugorjeVirgin.jpg">
+    <meta property="instagram:title" content="Peregrinación de Paz - Medjugorje 2025: Experimenta la Gracia de la Presencia de Nuestra Señora">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-item">Destinos</a>
+                <a href="experiences.html" class="nav-item">Experiencias</a>
+                <a href="about.html" class="nav-item">Sobre Nosotros</a>
+                <a href="contact.html" class="nav-item">Contacto</a>
+                <div class="language-switcher">
+                    <a href="/Medjugorje.html" class="lang-option">EN</a>
+                    <span class="lang-separator">|</span>
+                    <a href="/Medjugorje-es.html" class="lang-option active-lang">ES</a>
+                </div>
+            </div>
+            <button type="button" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+                ☰
+            </button>
+        </nav>
     </div>
-  </section>
 
-  <!-- Trip Details Section -->
-  <div class="trip-details">
-    <h2>Detalles del Viaje</h2>
-    <p>Septiembre 15 - Septiembre 22, 2025</p>
-    <p>7 días / 6 noches</p>
-    <p>Salidas desde Bogotá y Miami</p>
-    <p>Acompañamiento Espiritual con Sacerdote</p>
-  </div>
+    <!-- Encabezado del destino y carrusel de imágenes -->
+    <div class="destination-header">
+        <div class="slideshow">
+            <!-- Diapositivas -->
+            <div class="slide active">
+                <img src="images/Medjugorje/MedjugorjeVirgin.jpg" alt="Iglesia de Santiago">
+            </div>
+            <div class="slide">
+                <img src="images/Medjugorje/Bridge.jpg" alt="Colina de las Apariciones">
+            </div>
+            <div class="slide">
+                <img src="images/Medjugorje/Cross.jpg" alt="Monte de la Cruz">
+            </div>
+            <div class="slide">
+                <img src="images/Medjugorje/Church1.jpeg" alt="Adoración Vespertina">
+            </div>
+            <div class="slide">
+                <img src="images/Medjugorje/mountain.jpg" alt="Vista de la Montaña">
+            </div>
+            <div class="slide">
+                <img src="images/Medjugorje/Medjugorjechurch3.jpg" alt="Interior de la Iglesia">
+            </div>
+            <div class="slide">
+                <img src="images/Medjugorje/Virgin1.jpeg" alt="Estatua de la Virgen María">
+            </div>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <!-- Highlights Section -->
-    <div class="highlights">
-      <div class="highlight-card">
-        <h3>Iglesia de Santiago Apóstol</h3>
-        <p>
-          Experimenta la misa diaria y los programas vespertinos en el corazón de la vida espiritual de Medjugorje,
-          donde miles de personas se reúnen para orar, adorar y buscar paz interior.
-        </p>
-      </div>
-      <div class="highlight-card">
-        <h3>Colina de las Apariciones</h3>
-        <p>
-          Sube a la colina sagrada donde Nuestra Señora se apareció por primera vez a los videntes en 1981. Reza el
-          Rosario y medita junto a la Cruz Azul, un lugar de reflexión y paz.
-        </p>
-      </div>
-      <div class="highlight-card">
-        <h3>Monte de la Cruz</h3>
-        <p>
-          Únete a los peregrinos en la oración de las Estaciones del Vía Crucis mientras asciendes el Monte Krizevac,
-          coronado por la famosa cruz de concreto construida en 1933.
-        </p>
-      </div>
-      <div class="highlight-card">
-        <h3>Adoración Nocturna</h3>
-        <p>
-          Participa en poderosos programas vespertinos que incluyen el Rosario, la Santa Misa y la Adoración Eucarística
-          junto con miles de peregrinos de todo el mundo.
-        </p>
-      </div>
+            <!-- Flechas de navegación -->
+            <button class="slide-arrow prev">&#10094;</button>
+            <button class="slide-arrow next">&#10095;</button>
+
+            <!-- Indicadores de diapositiva -->
+            <div class="slide-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </div>
+        
+        <div class="header-content">
+            <div class="header-text">
+                <h1>Peregrinación de Paz</h1>
+                <p>Experimenta la Gracia de la Presencia de Nuestra Señora</p>
+            </div>
+        </div>
     </div>
+
+    <!-- Trip Details Section -->
+    <section class="trip-details">
+        <h2>Peregrinación de Paz - Medjugorje 2025</h2>
+        <p>Un profundo viaje espiritual al lugar sagrado donde Nuestra Señora continúa apareciendo</p>
+        <div class="trip-dates">
+            <h3>Fechas de Viaje: 15-22 de Septiembre 2025 • 7 Días / 6 Noches</h3>
+        </div>
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>Desde Miami</h3>
+                <p>$1,999 por persona</p>
+                <ul class="highlight-list">
+                    <li>Vuelos de ida y vuelta incluidos</li>
+                    <li>6 noches de alojamiento</li>
+                    <li>Todas las comidas incluidas</li>
+                    <li>Transporte terrestre</li>
+                    <li>Entradas a todos los sitios</li>
+                    <li>Guía turístico bilingüe</li>
+                </ul>
+            </div>
+            <div class="highlight-card">
+                <h3>Desde Bogotá</h3>
+                <p>$2,400 por persona</p>
+                <ul class="highlight-list">
+                    <li>Vuelos de ida y vuelta incluidos</li>
+                    <li>6 noches de alojamiento</li>
+                    <li>Todas las comidas incluidas</li>
+                    <li>Transporte terrestre</li>
+                    <li>Entradas a todos los sitios</li>
+                    <li>Guía turístico bilingüe</li>
+                </ul>
+            </div>
+            <div class="highlight-card">
+                <h3>Guía Espiritual</h3>
+                <p>Acompañamiento completo con:</p>
+                <ul class="highlight-list">
+                    <li>Guía turístico bilingüe</li>
+                    <li>Orientación espiritual de un sacerdote</li>
+                    <li>Todas las visitas del programa incluidas</li>
+                    <li>Oportunidades de Misa diaria</li>
+                    <li>Tiempo de oración y reflexión</li>
+                    <li>Actividades espirituales grupales</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
     <!-- Detailed Information Section -->
     <section class="destination-info">
-      <h2>Información detallada sobre Medjugorje</h2>
-      <div class="info-container">
-        <div class="info-section">
-          <h3>Iglesia de Santiago Apóstol</h3>
-          <p>
-            Centro de culto en Medjugorje, la Iglesia de Santiago Apóstol ofrece misas diarias en varios idiomas y
-            programas vespertinos que atraen a miles de peregrinos. El altar al aire libre de la iglesia tiene capacidad
-            para más de 5000 personas.
-          </p>
-          <p>
-            Experimenta la poderosa oración comunitaria, los servicios de sanación y la profunda paz que impregnan este
-            espacio sagrado.
-          </p>
+        <h2>Detalles del Viaje</h2>
+        <div class="info-container">
+            <div class="info-section">
+                <h3>Iglesia de Santiago</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="stjames-experience">Experiencia</button>
+                        <button class="tab-button" data-tab="stjames-history">Historia</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="stjames-experience">
+                            <p>Experimenta la Misa diaria y los programas vespertinos en el corazón de la vida espiritual de Medjugorje, donde miles se reúnen para la oración y el culto. El área del altar exterior de la iglesia puede acomodar a más de 5,000 personas para los poderosos programas vespertinos.</p>
+                            <p>Participa en la profunda oración comunitaria, servicios de sanación y experimenta la paz profunda que impregna este espacio sagrado. Los programas vespertinos incluyen el Rosario, la Santa Misa y a menudo la Adoración Eucarística con traducción simultánea internacional disponible.</p>
+                        </div>
+                        <div class="tab-pane" id="stjames-history">
+                            <p>El centro de culto en Medjugorje, la Iglesia de Santiago alberga Misas diarias en múltiples idiomas y programas vespertinos que atraen a miles de peregrinos de todo el mundo. Construida en los años 1960, esta iglesia moderna se ha convertido en el corazón espiritual del sitio de peregrinación.</p>
+                            <p>La iglesia sirve como punto focal para las actividades espirituales de la parroquia y ha sido el lugar de reunión para peregrinos desde que comenzaron las apariciones en 1981, albergando innumerables servicios de oración, sanaciones y momentos de profunda transformación espiritual.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Colina de las Apariciones (Podbrdo)</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="apparition-experience">Experiencia</button>
+                        <button class="tab-button" data-tab="apparition-history">Historia</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="apparition-experience">
+                            <p>Sube la colina sagrada donde Nuestra Señora se apareció por primera vez a los videntes en 1981. Únete a peregrinos de todo el mundo mientras rezas el Rosario ascendiendo por el sendero rocoso, deteniéndote en los relieves de bronce que representan los misterios del Rosario.</p>
+                            <p>Experimenta momentos de profunda oración y reflexión en la Cruz Azul en la base de la colina, un lugar especial de paz donde muchos continúan recibiendo gracias espirituales. Muchos peregrinos reportan sentir una abrumadora sensación de paz y la presencia de Nuestra Señora en este lugar sagrado.</p>
+                        </div>
+                        <div class="tab-pane" id="apparition-history">
+                            <p>Este es el lugar exacto donde la Virgen María se apareció por primera vez a seis jóvenes videntes el 25 de junio de 1981. La colina, conocida localmente como Podbrdo, se ha convertido desde entonces en uno de los lugares más sagrados del mundo católico, atrayendo millones de peregrinos que buscan renovación espiritual.</p>
+                            <p>El sendero rocoso hacia el sitio de las apariciones simboliza el viaje espiritual de conversión al que Nuestra Señora llama a todos sus hijos a abrazar. Los relieves de bronce de los misterios del Rosario se añadieron para ayudar a los peregrinos a meditar sobre la vida de Cristo mientras suben.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Monte de la Cruz (Krizevac)</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="cross-experience">Experiencia</button>
+                        <button class="tab-button" data-tab="cross-history">Historia</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="cross-experience">
+                            <p>Únete a los peregrinos para rezar las Estaciones de la Cruz mientras asciendes el Monte Krizevac, coronado por la famosa cruz de concreto construida en 1933. La desafiante subida se convierte en un viaje espiritual de penitencia y meditación sobre la pasión de Cristo.</p>
+                            <p>Muchos peregrinos eligen subir descalzos como acto de penitencia, especialmente los viernes. Los relieves de bronce que marcan cada estación brindan oportunidades para una profunda reflexión sobre el sacrificio de Cristo y el papel de Nuestra Señora en nuestra salvación.</p>
+                        </div>
+                        <div class="tab-pane" id="cross-history">
+                            <p>La masiva cruz de concreto en la cima del Monte Krizevac fue construida en 1933 para conmemorar el 1900º aniversario de la pasión y muerte de Jesús. Con 8.5 metros de altura, se ha convertido en un faro de fe visible desde todo el valle.</p>
+                            <p>El empinado sendero de la montaña incluye relieves de bronce de las Estaciones de la Cruz, instalados para ayudar a los peregrinos a meditar sobre la pasión de Cristo. Desde que comenzaron las apariciones, se han reportado muchos fenómenos milagrosos en esta montaña, incluyendo el giro del sol y cambios en la apariencia de la cruz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Programa Vespertino</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="evening-experience">Experiencia</button>
+                        <button class="tab-button" data-tab="evening-history">Historia</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="evening-experience">
+                            <p>Participa en poderosos programas vespertinos que incluyen el Rosario, la Santa Misa y la Adoración Eucarística con miles de peregrinos de todo el mundo. Estas reuniones vespertinas son el latido del corazón de Medjugorje, creando una atmósfera de profunda oración y unidad.</p>
+                            <p>Experimenta la belleza de orar junto a peregrinos de todos los continentes, con traducción simultánea internacional disponible. La velada a menudo incluye devociones especiales como la Veneración de la Cruz o servicios de sanación que tocan corazones y transforman vidas.</p>
+                        </div>
+                        <div class="tab-pane" id="evening-history">
+                            <p>El programa de oración vespertino ha sido la pieza central espiritual de Medjugorje desde los primeros días de las apariciones. Comenzando con el Rosario a las 6 PM, seguido de la Santa Misa y a menudo incluyendo la Adoración Eucarística, estos programas se han mantenido consistentes durante más de 40 años.</p>
+                            <p>Estas reuniones vespertinas encarnan los mensajes de Nuestra Señora de oración, conversión y paz. Los peregrinos a menudo describen estos momentos como transformadores, experimentando profunda sanación espiritual y fe renovada en presencia de la comunidad internacional de creyentes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="info-section">
-          <h3>Colina de las Apariciones (Podbrdo)</h3>
-          <p>
-            Aquí es donde la Virgen María se apareció por primera vez a seis jóvenes videntes en 1981. Hoy en día, los
-            peregrinos suben por el sendero rocoso mientras rezan el Rosario, deteniéndose ante los relieves de bronce
-            que representan los misterios.
-          </p>
-          <p>
-            La Cruz Azul, al pie de la colina, es un lugar especial de oración y paz, donde muchos videntes aún reciben
-            apariciones.
-          </p>
-        </div>
-        <div class="info-section">
-          <h3>Monte de la Cruz (Križevac)</h3>
-          <p>
-            La enorme cruz de concreto en la cima del monte Križevac fue construida en 1933 para conmemorar el 1900º
-            aniversario de la pasión y muerte de Jesús. El empinado sendero de la montaña está marcado con relieves de
-            bronce que representan el Vía Crucis.
-          </p>
-          <p>
-            Muchos peregrinos suben la montaña descalzos como acto de penitencia, especialmente los viernes.
-          </p>
-        </div>
-        <div class="info-section">
-          <h3>Programa Vespertino</h3>
-          <p>
-            El programa vespertino de oración es el corazón de Medjugorje. Comienza con el Rosario, sigue con la Santa Misa y, a menudo, incluye la Adoración Eucarística o la Veneración de la Cruz. Estas veladas ofrecen profundas experiencias espirituales.
-          </p>
-          <p>
-            Disponemos de traducción simultánea internacional para peregrinos de todo el mundo.
-          </p>
-        </div>
-      </div>
     </section>
 
     <!-- Elegant Contact Section -->
     <section class="elegant-contact">
-      <div class="elegant-contact-container">
-        <div class="elegant-contact-header">
-          <h2>¿Estás listo para comenzar tu viaje espiritual?</h2>
-          <p>Comuníquese con nuestros expertos en peregrinaciones y comience a planificar su viaje</p>
-          <div class="elegant-separator"></div>
-        </div>
-
-        <div class="elegant-contact-grid">
-          <!-- Contact Method: Phone -->
-          <a href="tel:+17862909114" class="phone-contact-link">
-            <div class="elegant-contact-item">
-              <div class="elegant-contact-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                  </path>
-                </svg>
-              </div>
-              <div class="elegant-contact-info">
-                <h3>Llámanos</h3>
-                <p>+1 (786) 290-9114</p>
-              </div>
+        <div class="elegant-contact-container">
+            <div class="elegant-contact-header">
+                <h2>¿Listo para Comenzar tu Viaje Espiritual?</h2>
+                <p>Contacta a nuestros especialistas en peregrinaciones hoy mismo</p>
+                <div class="elegant-separator"></div>
             </div>
-          </a>
-
-          <!-- Contact Method: Email -->
-          <a href="mailto:contact@skytraveljm.com" class="email-contact-link">
-            <div class="elegant-contact-item">
-              <div class="elegant-contact-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-              </div>
-              <div class="elegant-contact-info">
-                <h3>Escríbenos</h3>
-                <p>contact@skytraveljm.com</p>
-              </div>
+            
+            <div class="elegant-contact-grid">
+                <!-- Contact Method: WhatsApp Colombia -->
+                <a href="https://wa.me/573136936319?text=¡Hola!%20Estoy%20interesado%20en%20la%20Peregrinación%20de%20Paz%20a%20Medjugorje%20(15-22%20de%20Septiembre,%202025).%20Por%20favor%20envíenme%20más%20información." target="_blank" rel="noopener noreferrer" class="whatsapp-contact-link">
+                    <div class="elegant-contact-item">
+                        <div class="elegant-contact-icon whatsapp-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        </div>
+                        <div class="elegant-contact-info">
+                            <h3>WhatsApp Colombia</h3>
+                            <p>+57 313 6936319</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Contact Method: Email -->
+                <a href="mailto:info@skytraveljm.com?subject=Consulta%20sobre%20Peregrinaci%C3%B3n%20de%20Paz%20-%20Medjugorje%202025%20(15-22%20de%20Septiembre)&body=%C2%A1Hola!%0A%0AEstoy%20interesado%20en%20la%20Peregrinaci%C3%B3n%20de%20Paz%20a%20Medjugorje%20(15-22%20de%20Septiembre,%202025).%20Por%20favor%20env%C3%ADenme%20m%C3%A1s%20informaci%C3%B3n%20sobre:%0A%0A-%20Detalles%20del%20viaje%20e%20itinerario%0A-%20Precios%20y%20opciones%20de%20pago%0A-%20Qu%C3%A9%20incluye%20el%20paquete%0A-%20Proceso%20de%20reserva%0A-%20Ciudades%20de%20salida%20(Miami%20o%20Bogot%C3%A1)%0A%0AGracias%20por%20su%20tiempo.%0A%0ASaludos%20cordiales" class="email-contact-link">
+                    <div class="elegant-contact-item">
+                        <div class="elegant-contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <div class="elegant-contact-info">
+                            <h3>Correo Electrónico</h3>
+                            <p>info@skytraveljm.com</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Contact Method: WhatsApp US -->
+                <a href="https://wa.me/17862909114?text=¡Hola!%20Estoy%20interesado%20en%20la%20Peregrinación%20de%20Paz%20a%20Medjugorje%20(15-22%20de%20Septiembre,%202025).%20Por%20favor%20envíenme%20más%20información." target="_blank" rel="noopener noreferrer" class="whatsapp-contact-link">
+                    <div class="elegant-contact-item">
+                        <div class="elegant-contact-icon whatsapp-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        </div>
+                        <div class="elegant-contact-info">
+                            <h3>WhatsApp EE.UU.</h3>
+                            <p>+1 (786) 290-9114</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </a>
-
-          <!-- Contact Method: WhatsApp -->
-          <a href="https://wa.me/17862909114" target="_blank" rel="noopener noreferrer" class="whatsapp-contact-link">
-            <div class="elegant-contact-item">
-              <div class="elegant-contact-icon whatsapp-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path
-                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                  </path>
-                </svg>
-              </div>
-              <div class="elegant-contact-info">
-                <h3>WhatsApp</h3>
-                <p>Envíanos un mensaje directamente</p>
-              </div>
+            
+            <div class="elegant-contact-action">
+                <a href="https://wa.me/17862909114?text=¡Hola!%20Estoy%20interesado%20en%20la%20Peregrinación%20de%20Paz%20a%20Medjugorje%20(15-22%20de%20Septiembre,%202025).%20Por%20favor%20envíenme%20más%20información." target="_blank" rel="noopener noreferrer" class="elegant-button">Contáctanos por WhatsApp</a>
             </div>
-          </a>
         </div>
-
-        <div class="elegant-contact-action">
-          <a href="contact.html" class="elegant-button">Contáctanos</a>
-        </div>
-      </div>
     </section>
-  </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Sky Travel J&M. Creando viajes espirituales significativos.</p>
-  </footer>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Sky Travel J&M. Creando viajes extraordinarios espirituales para viajeros exigentes.</p>
+    </footer>
 
-  <!-- JavaScript for Slideshow and Navigation -->
-  <script>
-    $(document).ready(function () {
-      // Mobile Language Switcher Functionality
-      $('.mobile-lang-toggle').click(function() {
-        const $options = $('.mobile-lang-options');
-        const $arrow = $('.toggle-arrow');
+    <!-- Load the unified navigation system first -->
+    <script src="js/navigation.js"></script>
+    
+    <!-- Load the language switcher -->
+    <script src="js/elegant-language-switcher.js"></script>
+
+    <!-- Slideshow JavaScript -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            slides[n].classList.add('active');
+            indicators[n % indicators.length].classList.add('active');
+            currentSlide = n;
+        }
+
+        document.querySelector('.next').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => showSlide(index));
+        });
+
+        // Auto advance slides every 5 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 5000);
+
+        // Mobile menu toggle
+        $('.menu-toggle').click(function() {
+            $('.nav-links').toggleClass('active');
+        });
         
-        if ($options.is(':visible')) {
-          $options.hide();
-          $arrow.removeClass('rotated');
-        } else {
-          $options.show();
-          $arrow.addClass('rotated');
+        // Close menu when a link is clicked
+        $('.nav-links a').click(function() {
+            $('.nav-links').removeClass('active');
+        });
+    </script>
+
+    <!-- Tab functionality JavaScript -->
+    <script>
+        $(document).ready(function() {
+            // Tab functionality
+            $('.tab-button').click(function() {
+                const container = $(this).closest('.tab-container');
+                const targetTab = $(this).data('tab');
+                
+                // Remove active class from all buttons and panes in this container
+                container.find('.tab-button').removeClass('active');
+                container.find('.tab-pane').removeClass('active');
+                
+                // Add active class to clicked button and corresponding pane
+                $(this).addClass('active');
+                container.find('#' + targetTab).addClass('active');
+            });
+        });
+    </script>
+    
+    <style>
+        /* Elegant Tab Styling */
+        .tab-container {
+            margin-top: 1rem;
         }
-      });
-
-      // Close language switcher when clicking outside
-      $(document).click(function(e) {
-        if (!$(e.target).closest('.mobile-language-switcher').length) {
-          $('.mobile-lang-options').hide();
-          $('.toggle-arrow').removeClass('rotated');
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 1.5rem;
         }
-      });
-
-      // Slideshow arrow functionality
-      $('.prev').click(function () {
-        const $active = $('.slide.active');
-        const $prev = $active.prev('.slide').length ? $active.prev('.slide') : $('.slide:last');
-        $active.removeClass('active');
-        $prev.addClass('active');
-        const index = $('.slide').index($prev);
-        $('.indicator.active').removeClass('active');
-        $('.indicator').eq(index).addClass('active');
-      });
-
-      $('.next').click(function () {
-        const $active = $('.slide.active');
-        const $next = $active.next('.slide').length ? $active.next('.slide') : $('.slide:first');
-        $active.removeClass('active');
-        $next.addClass('active');
-        const index = $('.slide').index($next);
-        $('.indicator.active').removeClass('active');
-        $('.indicator').eq(index).addClass('active');
-      });
-
-      // Indicator functionality
-      $('.indicator').click(function () {
-        const index = $('.indicator').index(this);
-        $('.slide.active').removeClass('active');
-        $('.slide').eq(index).addClass('active');
-        $('.indicator.active').removeClass('active');
-        $(this).addClass('active');
-      });
-
-      // Auto-advance slideshow every 5 seconds
-      let slideInterval = setInterval(function () {
-        $('.next').click();
-      }, 5000);
-
-      // Pause auto-advance on hover
-      $('.slideshow').hover(
-        function () { clearInterval(slideInterval); },
-        function () { slideInterval = setInterval(function () { $('.next').click(); }, 5000); }
-      );
-
-      // Mobile menu toggle
-      $('.menu-toggle').click(function () {
-        $('.nav-links').toggleClass('active');
-      });
-
-      // Close menu when a link is clicked
-      $('.nav-links a').click(function () {
-        $('.nav-links').removeClass('active');
-      });
-
-      // Navigation background on scroll
-      $(window).scroll(function () {
-        if ($(window).scrollTop() > 50) {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        } else {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+        
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
-      });
-    });
-  </script>
+        
+        .tab-button:hover {
+            color: #c8a97e;
+            background-color: #fafafa;
+        }
+        
+        .tab-button.active {
+            color: #c8a97e;
+            border-bottom-color: #c8a97e;
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            position: relative;
+        }
+        
+        .tab-pane {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .tab-pane.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .tab-pane p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            color: #555;
+        }
+        
+        /* Enhanced trip dates styling */
+        .trip-dates {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            border-left: 4px solid #c8a97e;
+        }
+        
+        .trip-dates h3 {
+            color: #333;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Mobile responsive tabs */
+        @media (max-width: 768px) {
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </body>
-
 </html>
