@@ -1,371 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pilgrimage of Hope - Italy 2025 - Sky Travel</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilgrimage of Hope - Italy 2025 - Sky Travel</title>
+    
+    <!-- FACEBOOK & INSTAGRAM PREVIEW -->
+    <meta property="og:title" content="Pilgrimage of Hope - Italy 2025: Experience the Jubilee of Consolation with the Pope">
+    <meta property="og:description" content="Join our 12-day spiritual journey through Italy. Visit Rome, Assisi, Loreto and participate in special Jubilee events. Departures from Bogotá, Miami, Madrid and Melbourne with spiritual accompaniment.">
+    <meta property="og:image" content="https://skytraveljm.com/images/Italy/Assis.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sky Travel Italy pilgrimage destination">
+    <meta property="og:url" content="https://skytraveljm.com/Italy.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sky Travel J&M">
+    <!-- INSTAGRAM SPECIFIC (Instagram uses Facebook's Open Graph) -->
+    <meta property="instagram:image" content="https://skytraveljm.com/images/Italy/Assis.jpg">
+    <meta property="instagram:title" content="Pilgrimage of Hope - Italy 2025: Experience the Jubilee of Consolation with the Pope">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-  <!-- Navigation -->
-  <div class="nav-container">
-    <nav>
-      <a href="index.html" class="logo">
-        <img src="images/Logo.jpg" alt="Sky Travel" class="logo-image">
-      </a>
-      <div class="nav-links">
-        <a href="index.html">Destinations</a>
-        <a href="experiences.html">Experiences</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <!-- Desktop Language Switcher -->
-        <div class="language-switcher">
-          <a href="/Italy.html" class="lang-option">EN</a>
-          <span class="lang-separator">|</span>
-          <a href="/Italy-es.html" class="lang-option active-lang">ES</a>
+    <!-- Navigation Bar -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-item">Destinations</a>
+                <a href="experiences.html" class="nav-item">Experiences</a>
+                <a href="about.html" class="nav-item">About</a>
+                <a href="contact.html" class="nav-item">Contact</a>
+                <div class="language-switcher">
+                    <a href="/Italy.html" class="lang-option active-lang">EN</a>
+                    <span class="lang-separator">|</span>
+                    <a href="/Italy-es.html" class="lang-option">ES</a>
+                </div>
+            </div>
+            <button type="button" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+                ☰
+            </button>
+        </nav>
+    </div>
+
+    <!-- Destination header with image carousel -->
+    <div class="destination-header">
+        <div class="slideshow">
+            <!-- Slides -->
+            <div class="slide active">
+                <img src="images/Italy/Assis.jpg" alt="Assisi">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/Colusium.jpg" alt="Colosseum">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/Loreto.gif" alt="Loreto">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/PeterBasilica.jpg" alt="St. Peter's Basilica">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/Rome.png" alt="Rome">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/Santuario1.jpg" alt="Sanctuary">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/Santuario2.webp" alt="Sanctuary">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/Santuario3.jpg" alt="Sanctuary">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/St Peter Square.jpg" alt="St. Peter's Square">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/TreveniFountain.jpg" alt="Trevi Fountain">
+            </div>
+            <div class="slide">
+                <img src="images/Italy/HolyDoor.webp" alt="Holy Door">
+            </div>
+
+            <!-- Navigation arrows -->
+            <button class="slide-arrow prev">&#10094;</button>
+            <button class="slide-arrow next">&#10095;</button>
+
+            <!-- Slide indicators (match number of slides) -->
+            <div class="slide-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
         </div>
-      </div>
-      
-      <!-- Mobile Language Switcher -->
-      <div class="mobile-language-switcher">
-        <button class="mobile-lang-toggle" type="button" aria-label="Change language">
-          <span class="current-lang">ES</span>
-          <span class="toggle-arrow">▼</span>
-        </button>
-        <div class="mobile-lang-options">
-          <a href="/Italy.html" class="lang-option">EN</a>
-          <a href="/Italy-es.html" class="lang-option active">ES</a>
+        
+        <div class="header-content">
+            <div class="header-text">
+                <h1>Pilgrimage of Hope</h1>
+                <p>Experience the Jubilee of Consolation with the Pope</p>
+            </div>
         </div>
-      </div>
-      
-      <div class="menu-toggle">☰</div>
-    </nav>
-  </div>
-
-  <!-- Destination Header with Slideshow -->
-  <section class="destination-header">
-    <div class="slideshow">
-      <!-- Slides -->
-      <div class="slide active">
-        <img src="images/Italy/Assis.jpg" alt="Assisi">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/Colusium.jpg" alt="Colosseum">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/Loreto.gif" alt="Loreto">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/PeterBasilica.jpg" alt="St. Peter's Basilica">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/Rome.png" alt="Rome">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/Santuario1.jpg" alt="Sanctuary">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/Santuario2.webp" alt="Sanctuary">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/Santuario3.jpg" alt="Sanctuary">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/St Peter Square.jpg" alt="St. Peter's Square">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/TreveniFountain.jpg" alt="Treveni Fountain">
-      </div>
-      <div class="slide">
-        <img src="images/Italy/HolyDoor.webp" alt="Holy Door">
-      </div>
-
-      <!-- Navigation Arrows -->
-      <button class="slide-arrow prev">❮</button>
-      <button class="slide-arrow next">❯</button>
-
-      <!-- Slide Indicators -->
-      <div class="slide-indicators">
-        <span class="indicator active"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-        <span class="indicator"></span>
-      </div>
     </div>
 
-    <div class="header-content">
-      <div class="header-text">
-        <h1>Pilgrimage of Hope</h1>
-        <p>Experience the Jubilee of Consolation with the Pope</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trip Details Section -->
-  <div class="trip-details">
-    <h2>Journey Details</h2>
-    <p>September 5 - September 16, 2025</p>
-    <p>12 Days / 11 Nights</p>
-    <p>Departures from Bogotá, Miami, Madrid, and Melbourne</p>
-    <p>Spiritual Accompaniment by Fr. Rodolfo Londoño</p>
-  </div>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <!-- Highlights Section -->
-    <div class="highlights">
-      <div class="highlight-card">
-        <h3>Rome</h3>
-        <p>
-          Visit St. Peter's Basilica and experience the spiritual heart of Catholicism.
-          Participate in special Jubilee events and potentially receive the Pope's blessing.
-        </p>
-      </div>
-      <div class="highlight-card">
-        <h3>Loreto</h3>
-        <p>
-          Visit the Holy House of Loreto, traditionally believed to be the house where the Virgin Mary lived,
-          miraculously transported from Nazareth.
-        </p>
-      </div>
-      <div class="highlight-card">
-        <h3>Assisi</h3>
-        <p>
-          Explore the birthplace of St. Francis, including the beautiful Basilica of St. Francis with its magnificent
-          frescoes and the spiritual atmosphere of this medieval town.
-        </p>
-      </div>
-      <div class="highlight-card">
-        <h3>San Giovanni Rotondo</h3>
-        <p>
-          Visit the sanctuary where St. Padre Pio lived and ministered, seeing his relics and learning about his miraculous life.
-        </p>
-      </div>
-      <div class="highlight-card">
-        <h3>Cave of San Miguel</h3>
-        <p>
-          Explore the sacred Grotto of St. Michael the Archangel, a UNESCO World Heritage site and one of the oldest places of Christian worship.
-        </p>
-      </div>
-    </div>
+    <!-- Trip Details Section -->
+    <section class="trip-details">
+        <h2>Pilgrimage of Hope - Italy 2025</h2>
+        <p>An extraordinary spiritual journey through the heart of Catholicism during the Jubilee Year</p>
+        <div class="trip-dates">
+            <h3>Travel Dates: September 5-16, 2025 • 12 Days / 11 Nights</h3>
+        </div>
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>Complete Package</h3>
+                <p>$4,000 per person</p>
+                <ul class="highlight-list">
+                    <li>Flights: $1,500</li>
+                    <li>Land package: $2,500</li>
+                    <li>11 nights accommodation</li>
+                    <li>All meals included</li>
+                    <li>Ground transportation</li>
+                    <li>Entrance fees to all sites</li>
+                </ul>
+            </div>
+            <div class="highlight-card">
+                <h3>Spiritual Guidance</h3>
+                <p>Complete accompaniment with:</p>
+                <ul class="highlight-list">
+                    <li>Bilingual tour guide</li>
+                    <li>Spiritual guidance from Fr. Rodolfo Londoño</li>
+                    <li>All program visits included</li>
+                    <li>Daily Mass opportunities</li>
+                    <li>Special papal audiences</li>
+                    <li>Group spiritual activities</li>
+                </ul>
+            </div>
+            <div class="highlight-card">
+                <h3>Departure Cities</h3>
+                <p>Available from:</p>
+                <ul class="highlight-list">
+                    <li>Bogotá, Colombia</li>
+                    <li>Miami, United States</li>
+                    <li>Madrid, Spain</li>
+                    <li>Melbourne, Australia</li>
+                    <li>Other destinations on request</li>
+                    <li>Flight coordination included</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
     <!-- Detailed Information Section -->
     <section class="destination-info">
-      <h2>Detailed Information About Each Pilgrimage Site</h2>
-      <div class="info-container">
-        <div class="info-section">
-          <h3>Rome</h3>
-          <p>
-            Known as the Eternal City, Rome is the seat of the Catholic Church and home to countless sacred treasures.
-            Pilgrims will have the opportunity to walk through the Holy Door (open during Jubilee years),
-            attend papal events, and immerse themselves in the rich spiritual heritage found in sites like St. Peter's Basilica,
-            the Sistine Chapel, and the Vatican Museums.
-          </p>
-          <p>
-            In addition to the major basilicas, explore ancient Christian catacombs and historical churches adorned with masterpieces by Michelangelo and Bernini.
-          </p>
+        <h2>Journey Details</h2>
+        <div class="info-container">
+            <div class="info-section">
+                <h3>Rome - The Eternal City</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="rome-experience">Experience</button>
+                        <button class="tab-button" data-tab="rome-history">History</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="rome-experience">
+                            <p>Visit St. Peter's Basilica and experience the spiritual heart of Catholicism. Participate in special Jubilee events and potentially receive the Pope's blessing. Walk through St. Peter's Square and feel the grandeur of universal Catholic faith.</p>
+                            <p>Experience the emotion of crossing the Holy Door during the Jubilee Year, an act of faith that represents the passage toward spiritual renewal. Visit the four Papal Basilicas and participate in special jubilee celebrations that only occur every 25 years.</p>
+                            <p>Explore the Vatican's artistic treasures, including the Sistine Chapel with Michelangelo's frescoes, and immerse yourself in the rich history of early Christianity by visiting the catacombs and Rome's oldest churches.</p>
+                        </div>
+                        <div class="tab-pane" id="rome-history">
+                            <p>Rome, the Eternal City, is the heart of the Catholic world and the Pope's seat for nearly two millennia. Here Saint Peter and Saint Paul gave witness to their faith through martyrdom, establishing the foundations of the universal Church.</p>
+                            <p>The Jubilee Year 2025, known as the "Jubilee of Hope," is an extraordinary occasion of grace and spiritual renewal that the Catholic Church traditionally celebrates every 25 years. This special period offers the faithful the opportunity to obtain plenary indulgences and experience divine mercy in a particular way.</p>
+                            <p>The Papal Basilicas - St. Peter's, St. John Lateran, St. Mary Major, and St. Paul Outside the Walls - are the main pilgrimage destinations during the Jubilee, each with its own Holy Door that is solemnly opened for this special year.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Assisi - Birthplace of St. Francis</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="assisi-experience">Experience</button>
+                        <button class="tab-button" data-tab="assisi-history">History</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="assisi-experience">
+                            <p>Explore the birthplace of St. Francis, including the beautiful Basilica of St. Francis with Giotto's magnificent frescoes and the spiritual atmosphere of this medieval town. Walk the same streets where the saint of poverty experienced his radical conversion.</p>
+                            <p>Visit the Portiúncula, the small chapel where St. Francis received his divine calling and where he founded the Franciscan Order. Experience the peace and simplicity that characterize the Franciscan spirit in this holy place where the saint spent his final days.</p>
+                            <p>Discover St. Clare and her basilica, where the body of the founder of the Poor Clares, St. Francis's spiritual companion, rests. The medieval city preserves intact the atmosphere of spirituality that inspired one of the most important renewal movements in Church history.</p>
+                        </div>
+                        <div class="tab-pane" id="assisi-history">
+                            <p>Assisi is the birthplace of St. Francis (1182-1226), one of Christianity's most venerated saints and founder of the Franciscan Order. His life of radical conversion, from wealthy young merchant to the "Poverello" who embraced absolute poverty, continues to inspire millions of people.</p>
+                            <p>The Basilica of St. Francis, built immediately after his canonization in 1228, houses the saint's remains and contains one of the world's most important fresco cycles by Giotto, narrating the life of the saint of Assisi.</p>
+                            <p>The city has maintained its medieval character and atmosphere of peace and spirituality. St. Clare, founder of the Poor Clares, also lived here, following St. Francis's example in a life of poverty and contemplation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Loreto - The Holy House</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="loreto-experience">Experience</button>
+                        <button class="tab-button" data-tab="loreto-history">History</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="loreto-experience">
+                            <p>Visit the Holy House of Loreto, traditionally believed to be the house where the Virgin Mary lived and received the Annunciation from the Angel Gabriel. This Marian sanctuary is one of the most important in the Catholic world.</p>
+                            <p>Experience special devotion to Our Lady of Loreto, patroness of aviators, in this place where tradition tells that angels miraculously transported the house from Nazareth in the 13th century to preserve it from Muslim occupation.</p>
+                            <p>Participate in Marian celebrations and feel the peace that emanates from this sacred place, where numerous popes have come to pray and where thousands of pilgrims find comfort and spiritual renewal each year.</p>
+                        </div>
+                        <div class="tab-pane" id="loreto-history">
+                            <p>According to tradition, the Holy House of Loreto is the same house where the Virgin Mary lived in Nazareth and where she received the Annunciation. Tradition tells that the house was miraculously moved by angels in 1291, first to Dalmatia and then to Italy, to preserve it from Muslim invasion.</p>
+                            <p>Archaeological investigations have confirmed that the stones of the Holy House actually come from Palestine and that the structure corresponds to a typical Jewish house from the 1st century. The sanctuary has been a pilgrimage destination for over 700 years.</p>
+                            <p>Our Lady of Loreto has been venerated as patroness of aviators since 1920, and the sanctuary has received visits from numerous popes, including John XXIII, Paul VI, John Paul II, Benedict XVI, and Pope Francis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Additional Sanctuaries</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="sanctuaries-experience">Experience</button>
+                        <button class="tab-button" data-tab="sanctuaries-history">History</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="sanctuaries-experience">
+                            <p>Visit the Sanctuary of St. Michael the Archangel at Monte Sant'Angelo, where according to tradition, the Archangel St. Michael appeared in a grotto. This place of profound spirituality has been a pilgrimage destination for over 1500 years.</p>
+                            <p>Explore San Giovanni Rotondo and the sanctuary of Padre Pio, where the stigmatized saint lived and performed his miracles. Experience special devotion to this modern saint who continues to intercede for the faithful from heaven.</p>
+                            <p>Each sanctuary offers a unique experience of faith, from contemplative prayer to participation in special celebrations, always accompanied by spiritual guidance that enriches understanding of these sacred places.</p>
+                        </div>
+                        <div class="tab-pane" id="sanctuaries-history">
+                            <p>The Sanctuary of St. Michael the Archangel at Monte Sant'Angelo is one of the oldest sanctuaries in Western Europe, established after the apparitions of the Archangel St. Michael in the 5th and 6th centuries. It has been visited by emperors, popes, and saints throughout the centuries.</p>
+                            <p>San Giovanni Rotondo houses the sanctuary of Padre Pio (1887-1968), canonized in 2002 by John Paul II. This Capuchin saint received the stigmata and was known for his mystical gifts, his dedication to confession, and his charitable work with the Casa Sollievo della Sofferenza Hospital.</p>
+                            <p>These sanctuaries complement the itinerary by offering a complete vision of Italy's spiritual richness, from the origins of Christianity to the most recent saints, showing the continuity of divine presence in history.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="info-section">
-          <h3>Loreto</h3>
-          <p>
-            Loreto's Holy House is traditionally revered as the very home where the Virgin Mary was born and received the Annunciation.
-            According to tradition, this house was miraculously transported from Nazareth to Italy by angelic intervention.
-          </p>
-          <p>
-            Today, it remains one of the most important Marian shrines, attracting pilgrims who seek Mary's intercession and wish to deepen their devotion.
-          </p>
-        </div>
-
-        <div class="info-section">
-          <h3>Assisi</h3>
-          <p>
-            Assisi, the birthplace of St. Francis, boasts a deeply spiritual atmosphere enhanced by its medieval charm.
-            Visit the Basilica of St. Francis to admire magnificent frescoes and the humble architecture that tells the story of the saint.
-          </p>
-          <p>
-            Pilgrims can also explore the Basilica of St. Clare and the hermitage of the Carceri, all set in a peaceful, contemplative environment.
-          </p>
-        </div>
-
-        <div class="info-section">
-          <h3>San Giovanni Rotondo</h3>
-          <p>
-            Renowned for its connection to St. Padre Pio, San Giovanni Rotondo is a center of spiritual healing and devotion.
-            The sanctuary houses his tomb and relics, providing visitors with a powerful sense of faith and comfort.
-          </p>
-          <p>
-            Learn about his life, participate in sacraments, and experience the legacy of one of modern Catholicism's most beloved figures.
-          </p>
-        </div>
-
-        <div class="info-section">
-          <h3>Cave of San Miguel (Monte Sant'Angelo)</h3>
-          <p>
-            The Cave of San Miguel, or the Sanctuary of Monte Sant'Angelo, is dedicated to St. Michael the Archangel.
-            One of the oldest shrines in Western Europe, legend holds that St. Michael himself appeared here, sanctifying the grotto.
-          </p>
-          <p>
-            Now a UNESCO World Heritage site, this sacred grotto offers pilgrims protection and spiritual strength amidst its dramatic setting.
-          </p>
-        </div>
-      </div>
     </section>
 
-<!-- Elegant Contact Section -->
-<section class="elegant-contact">
-  <div class="elegant-contact-container">
-    <div class="elegant-contact-header">
-      <h2>Ready to Begin Your Spiritual Journey?</h2>
-      <p>Reach out to our pilgrimage specialists today</p>
-      <div class="elegant-separator"></div>
-    </div>
-    
-    <div class="elegant-contact-grid">
-      <!-- Contact Method: Phone -->
-      <a href="tel:+17862909114" class="phone-contact-link">
-        <div class="elegant-contact-item">
-          <div class="elegant-contact-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </div>
-          <div class="elegant-contact-info">
-            <h3>Call Us</h3>
-            <p>+1 (786) 290-9114</p>
-          </div>
+    <!-- Elegant Contact Section -->
+    <section class="elegant-contact">
+        <div class="elegant-contact-container">
+            <div class="elegant-contact-header">
+                <h2>Ready to Begin Your Spiritual Journey?</h2>
+                <p>Contact our pilgrimage specialists today</p>
+                <div class="elegant-separator"></div>
+            </div>
+            
+            <div class="elegant-contact-grid">
+                <!-- Contact Method: WhatsApp Colombia -->
+                <a href="https://wa.me/573136936319?text=Hello!%20I'm%20interested%20in%20the%20Pilgrimage%20of%20Hope%20to%20Italy%20(September%205-16,%202025).%20Please%20send%20me%20more%20information." target="_blank" rel="noopener noreferrer" class="whatsapp-contact-link">
+                    <div class="elegant-contact-item">
+                        <div class="elegant-contact-icon whatsapp-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        </div>
+                        <div class="elegant-contact-info">
+                            <h3>WhatsApp Colombia</h3>
+                            <p>+57 313 6936319</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Contact Method: Email -->
+                <a href="mailto:info@skytraveljm.com?subject=Inquiry%20about%20Pilgrimage%20of%20Hope%20-%20Italy%202025%20(September%205-16)&body=Hello!%0A%0AI'm%20interested%20in%20the%20Pilgrimage%20of%20Hope%20to%20Italy%20(September%205-16,%202025).%20Please%20send%20me%20more%20information%20about:%0A%0A-%20Trip%20details%20and%20itinerary%0A-%20Pricing%20and%20payment%20options%0A-%20What's%20included%20in%20the%20package%0A-%20Booking%20process%0A-%20Available%20departure%20cities%0A-%20Special%20Jubilee%20events%0A%0AThank%20you%20for%20your%20time.%0A%0ABest%20regards" class="email-contact-link">
+                    <div class="elegant-contact-item">
+                        <div class="elegant-contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <div class="elegant-contact-info">
+                            <h3>Email Us</h3>
+                            <p>info@skytraveljm.com</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Contact Method: WhatsApp US -->
+                <a href="https://wa.me/17862909114?text=Hello!%20I'm%20interested%20in%20the%20Pilgrimage%20of%20Hope%20to%20Italy%20(September%205-16,%202025).%20Please%20send%20me%20more%20information." target="_blank" rel="noopener noreferrer" class="whatsapp-contact-link">
+                    <div class="elegant-contact-item">
+                        <div class="elegant-contact-icon whatsapp-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        </div>
+                        <div class="elegant-contact-info">
+                            <h3>WhatsApp USA</h3>
+                            <p>+1 (786) 290-9114</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="elegant-contact-action">
+                <a href="https://wa.me/17862909114?text=Hello!%20I'm%20interested%20in%20the%20Pilgrimage%20of%20Hope%20to%20Italy%20(September%205-16,%202025).%20Please%20send%20me%20more%20information." target="_blank" rel="noopener noreferrer" class="elegant-button">Contact Us via WhatsApp</a>
+            </div>
         </div>
-      </a>
-      
-      <!-- Contact Method: Email -->
-      <a href="mailto:contact@skytraveljm.com" class="email-contact-link">
-        <div class="elegant-contact-item">
-          <div class="elegant-contact-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          </div>
-          <div class="elegant-contact-info">
-            <h3>Email Us</h3>
-            <p>contact@skytraveljm.com</p>
-          </div>
-        </div>
-      </a>
-      
-      <!-- Contact Method: WhatsApp -->
-      <a href="https://wa.me/17862909114" target="_blank" rel="noopener noreferrer" class="whatsapp-contact-link">
-        <div class="elegant-contact-item">
-          <div class="elegant-contact-icon whatsapp-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-          </div>
-          <div class="elegant-contact-info">
-            <h3>WhatsApp</h3>
-            <p>Message us directly</p>
-          </div>
-        </div>
-      </a>
-    </div>
-    
-    <div class="elegant-contact-action">
-      <a href="contact.html" class="elegant-button">Contact Us</a>
-    </div>
-  </div>
-</section>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Sky Travel. Creating meaningful spiritual journeys.</p>
-  </footer>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Sky Travel J&M. Creating extraordinary spiritual journeys for discerning travelers.</p>
+    </footer>
 
-  <!-- JavaScript for Slideshow and Navigation -->
-  <script>
-    $(document).ready(function() {
-      // Mobile Language Switcher Functionality
-      $('.mobile-lang-toggle').click(function() {
-        const $options = $('.mobile-lang-options');
-        const $arrow = $('.toggle-arrow');
+    <!-- Load the unified navigation system first -->
+    <script src="js/navigation.js"></script>
+    
+    <!-- Load the language switcher -->
+    <script src="js/elegant-language-switcher.js"></script>
+
+    <!-- Slideshow JavaScript -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            slides[n].classList.add('active');
+            indicators[n % indicators.length].classList.add('active');
+            currentSlide = n;
+        }
+
+        document.querySelector('.next').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => showSlide(index));
+        });
+
+        // Auto advance slides every 5 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 5000);
+
+        // Mobile menu toggle
+        $('.menu-toggle').click(function() {
+            $('.nav-links').toggleClass('active');
+        });
         
-        if ($options.is(':visible')) {
-          $options.hide();
-          $arrow.removeClass('rotated');
-        } else {
-          $options.show();
-          $arrow.addClass('rotated');
+        // Close menu when a link is clicked
+        $('.nav-links a').click(function() {
+            $('.nav-links').removeClass('active');
+        });
+    </script>
+
+    <!-- Tab functionality JavaScript -->
+    <script>
+        $(document).ready(function() {
+            // Tab functionality
+            $('.tab-button').click(function() {
+                const container = $(this).closest('.tab-container');
+                const targetTab = $(this).data('tab');
+                
+                // Remove active class from all buttons and panes in this container
+                container.find('.tab-button').removeClass('active');
+                container.find('.tab-pane').removeClass('active');
+                
+                // Add active class to clicked button and corresponding pane
+                $(this).addClass('active');
+                container.find('#' + targetTab).addClass('active');
+            });
+        });
+    </script>
+    
+    <style>
+        /* Elegant Tab Styling */
+        .tab-container {
+            margin-top: 1rem;
         }
-      });
-
-      // Close language switcher when clicking outside
-      $(document).click(function(e) {
-        if (!$(e.target).closest('.mobile-language-switcher').length) {
-          $('.mobile-lang-options').hide();
-          $('.toggle-arrow').removeClass('rotated');
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 1.5rem;
         }
-      });
-
-      // Slideshow arrow functionality
-      $('.prev').click(function() {
-        const $active = $('.slide.active');
-        const $prev = $active.prev('.slide').length ? $active.prev('.slide') : $('.slide:last');
-        $active.removeClass('active');
-        $prev.addClass('active');
-        const index = $('.slide').index($prev);
-        $('.indicator.active').removeClass('active');
-        $('.indicator').eq(index).addClass('active');
-      });
-
-      $('.next').click(function() {
-        const $active = $('.slide.active');
-        const $next = $active.next('.slide').length ? $active.next('.slide') : $('.slide:first');
-        $active.removeClass('active');
-        $next.addClass('active');
-        const index = $('.slide').index($next);
-        $('.indicator.active').removeClass('active');
-        $('.indicator').eq(index).addClass('active');
-      });
-
-      // Indicator functionality
-      $('.indicator').click(function() {
-        const index = $('.indicator').index(this);
-        $('.slide.active').removeClass('active');
-        $('.slide').eq(index).addClass('active');
-        $('.indicator.active').removeClass('active');
-        $(this).addClass('active');
-      });
-
-      // Auto-advance slideshow every 5 seconds
-      let slideInterval = setInterval(function() {
-        $('.next').click();
-      }, 5000);
-
-      // Pause auto-advance on hover
-      $('.slideshow').hover(
-        function() { clearInterval(slideInterval); },
-        function() { slideInterval = setInterval(function() { $('.next').click(); }, 5000); }
-      );
-
-      // Mobile menu toggle
-      $('.menu-toggle').click(function() {
-        $('.nav-links').toggleClass('active');
-      });
-      
-      // Close menu when a link is clicked
-      $('.nav-links a').click(function() {
-        $('.nav-links').removeClass('active');
-      });
-      
-      // Navigation background on scroll
-      $(window).scroll(function() {
-        if ($(window).scrollTop() > 50) {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        } else {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
+        
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
-      });
-    });
-  </script>
+        
+        .tab-button:hover {
+            color: #c8a97e;
+            background-color: #fafafa;
+        }
+        
+        .tab-button.active {
+            color: #c8a97e;
+            border-bottom-color: #c8a97e;
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            position: relative;
+        }
+        
+        .tab-pane {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .tab-pane.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .tab-pane p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            color: #555;
+        }
+        
+        /* Enhanced trip dates styling */
+        .trip-dates {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            border-left: 4px solid #c8a97e;
+        }
+        
+        .trip-dates h3 {
+            color: #333;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Mobile responsive tabs */
+        @media (max-width: 768px) {
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </body>
 </html>
