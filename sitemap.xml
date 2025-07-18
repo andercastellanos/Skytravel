@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage - English -->
+  <url>
+    <loc>https://skytravel.com/</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/index-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/"/>
+  </url>
+
+  <!-- Homepage - Spanish -->
+  <url>
+    <loc>https://skytravel.com/index-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/index-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/"/>
+  </url>
+
+  <!-- Medjugorje - English -->
+  <url>
+    <loc>https://skytravel.com/Medjugorje.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/Medjugorje.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/Medjugorje-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/Medjugorje.html"/>
+  </url>
+
+  <!-- Medjugorje - Spanish -->
+  <url>
+    <loc>https://skytravel.com/Medjugorje-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/Medjugorje.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/Medjugorje-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/Medjugorje.html"/>
+  </url>
+
+  <!-- Italy Jubilee - English -->
+  <url>
+    <loc>https://skytravel.com/Italy.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/Italy.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/Italy-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/Italy.html"/>
+  </url>
+
+  <!-- Italy Jubilee - Spanish -->
+  <url>
+    <loc>https://skytravel.com/Italy-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/Italy.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/Italy-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/Italy.html"/>
+  </url>
+
+  <!-- Marian Sanctuaries - English -->
+  <url>
+    <loc>https://skytravel.com/SantuariosMarianos.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/SantuariosMarianos.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/SantuariosMarianos-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/SantuariosMarianos.html"/>
+  </url>
+
+  <!-- Marian Sanctuaries - Spanish -->
+  <url>
+    <loc>https://skytravel.com/SantuariosMarianos-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/SantuariosMarianos.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/SantuariosMarianos-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/SantuariosMarianos.html"/>
+  </url>
+
+  <!-- Experiences - English -->
+  <url>
+    <loc>https://skytravel.com/experiences.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/experiences-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences.html"/>
+  </url>
+
+  <!-- Experiences - Spanish -->
+  <url>
+    <loc>https://skytravel.com/experiences-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/experiences-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences.html"/>
+  </url>
+
+  <!-- About - English -->
+  <url>
+    <loc>https://skytravel.com/about.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/about-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/about.html"/>
+  </url>
+
+  <!-- About - Spanish -->
+  <url>
+    <loc>https://skytravel.com/about-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/about-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/about.html"/>
+  </url>
+
+  <!-- Contact - English -->
+  <url>
+    <loc>https://skytravel.com/contact.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/contact-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/contact.html"/>
+  </url>
+
+  <!-- Contact - Spanish -->
+  <url>
+    <loc>https://skytravel.com/contact-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/contact-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/contact.html"/>
+  </url>
+
+  <!-- INDIVIDUAL EXPERIENCE PAGES WITH CORRECT PATHS -->
+
+  <!-- Medjugorje 2017 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/medjugorje2017.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2017.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2017-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2017.html"/>
+  </url>
+
+  <!-- Medjugorje 2017 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/medjugorje-2017-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2017.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2017-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2017.html"/>
+  </url>
+
+  <!-- Medjugorje 2019 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/medjugorje2019.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2019.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2019-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2019.html"/>
+  </url>
+
+  <!-- Medjugorje 2019 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/medjugorje-2019-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2019.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2019-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2019.html"/>
+  </url>
+
+  <!-- Medjugorje 2022 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/medjugorje2022.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2022.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2022-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2022.html"/>
+  </url>
+
+  <!-- Medjugorje 2022 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/medjugorje-2022-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2022.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2022-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2022.html"/>
+  </url>
+
+  <!-- Medjugorje 2023 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/medjugorje2023.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2023.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2023-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2023.html"/>
+  </url>
+
+  <!-- Medjugorje 2023 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/medjugorje-2023-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2023.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2023-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2023.html"/>
+  </url>
+
+  <!-- Medjugorje 2024 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/medjugorje2024.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2024.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2024-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2024.html"/>
+  </url>
+
+  <!-- Medjugorje 2024 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/medjugorje-2024-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/medjugorje2024.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/medjugorje-2024-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/medjugorje2024.html"/>
+  </url>
+
+  <!-- Tierra Santa 2016 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/tierrasanta2016.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2016.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2016-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2016.html"/>
+  </url>
+
+  <!-- Tierra Santa 2016 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/tierra-santa-2016-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2016.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2016-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2016.html"/>
+  </url>
+
+  <!-- Tierra Santa 2017 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/tierrasanta2017.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2017.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2017-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2017.html"/>
+  </url>
+
+  <!-- Tierra Santa 2017 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/tierra-santa-2017-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2017.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2017-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2017.html"/>
+  </url>
+
+  <!-- Tierra Santa 2018 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/tierrasanta2018.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2018.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2018-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2018.html"/>
+  </url>
+
+  <!-- Tierra Santa 2018 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/tierra-santa-2018-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2018.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2018-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2018.html"/>
+  </url>
+
+  <!-- Tierra Santa 2019 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/tierrasanta2019.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2019.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2019-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2019.html"/>
+  </url>
+
+  <!-- Tierra Santa 2019 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/tierra-santa-2019-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2019.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2019-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2019.html"/>
+  </url>
+
+  <!-- Tierra Santa 2021 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/tierrasanta2021.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2021.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2021-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2021.html"/>
+  </url>
+
+  <!-- Tierra Santa 2021 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/tierra-santa-2021-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierrasanta2021.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2021-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierrasanta2021.html"/>
+  </url>
+
+  <!-- Tierra Santa 2022 - English -->
+  <url>
+    <loc>https://skytravel.com/experiences/tierra-santa-2022.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierra-santa-2022.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2022-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierra-santa-2022.html"/>
+  </url>
+
+  <!-- Tierra Santa 2022 - Spanish -->
+  <url>
+    <loc>https://skytravel.com/es/experiences/tierra-santa-2022-es.html</loc>
+    <lastmod>2025-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://skytravel.com/experiences/tierra-santa-2022.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://skytravel.com/es/experiences/tierra-santa-2022-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://skytravel.com/experiences/tierra-santa-2022.html"/>
+  </url>
+
+</urlset>

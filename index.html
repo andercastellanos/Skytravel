@@ -1,17 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky Travel - Luxury Travel Agency | Sacred Pilgrimage Tours</title>
-    <meta name="description" content="">
+    
+    <!-- SEO Meta Tags -->
+    <title>Sky Travel - Luxury Spiritual Pilgrimages</title>
+    <meta name="description" content="Transform your faith with Sky Travel's luxury spiritual pilgrimages to Medjugorje, Holy Land, Italy & sacred destinations. Expert guides included.">
+    <meta name="author" content="Sky Travel">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://skytravel.com/">
+    
+    <!-- Language Alternatives -->
+    <link rel="alternate" hreflang="en" href="https://skytravel.com/" />
+    <link rel="alternate" hreflang="es" href="https://skytravel.com/index-es.html" />
+    <link rel="alternate" hreflang="x-default" href="https://skytravel.com/" />
+    
+    <!-- Open Graph Tags (Facebook/Social Media) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sky Travel - Luxury Spiritual Pilgrimages to Sacred Destinations">
+    <meta property="og:description" content="Transform your faith with luxury spiritual pilgrimages to Medjugorje, Holy Land, Italy, and sacred destinations. Expert guides and premium service.">
+    <meta property="og:url" content="https://skytravel.com/">
+    <meta property="og:site_name" content="Sky Travel">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="es_ES">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sky Travel - Luxury Spiritual Pilgrimages">
+    <meta name="twitter:description" content="Transform your faith with luxury spiritual pilgrimages to Medjugorje, Holy Land, Italy, and sacred destinations.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="images/favicon/site.webmanifest">
     
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://www.youtube.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="images/Logo.jpg" as="image">
     
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+    
+    <!-- Structured Data for Travel Agency -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "Sky Travel",
+        "description": "Luxury spiritual pilgrimage travel agency specializing in Medjugorje, Holy Land, and sacred destination tours with expert guides and premium accommodations.",
+        "url": "https://skytravel.com",
+        "telephone": "+1-786-290-9114",
+        "email": "contact@skytraveljm.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Miami",
+            "addressRegion": "FL",
+            "addressCountry": "US"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "telephone": "+1-786-290-9114",
+            "email": "contact@skytraveljm.com",
+            "availableLanguage": ["English", "Spanish"],
+            "areaServed": ["US", "Latin America"]
+        },
+        "offers": [
+            {
+                "@type": "TouristTrip",
+                "@id": "https://skytravel.com/Medjugorje.html",
+                "name": "Medjugorje Pilgrimage",
+                "description": "Spiritual pilgrimage to Medjugorje with luxury accommodations and expert guidance",
+                "provider": {
+                    "@type": "TravelAgency",
+                    "name": "Sky Travel"
+                },
+                "url": "https://skytravel.com/Medjugorje.html",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "1999",
+                    "priceCurrency": "USD"
+                }
+            },
+            {
+                "@type": "TouristTrip",
+                "@id": "https://skytravel.com/Italy.html", 
+                "name": "Italy Jubilee Pilgrimage",
+                "description": "Vatican and Italy pilgrimage during Jubilee Year with papal audience opportunity",
+                "provider": {
+                    "@type": "TravelAgency",
+                    "name": "Sky Travel"
+                },
+                "url": "https://skytravel.com/Italy.html",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "2500",
+                    "priceCurrency": "USD"
+                }
+            },
+            {
+                "@type": "TouristTrip",
+                "@id": "https://skytravel.com/SantuariosMarianos.html",
+                "name": "Marian Sanctuaries & Greek Islands",
+                "description": "Transformative journey through Fatima, Lourdes, Medjugorje plus Greek Islands cruise",
+                "provider": {
+                    "@type": "TravelAgency",
+                    "name": "Sky Travel"
+                },
+                "url": "https://skytravel.com/SantuariosMarianos.html",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "2500",
+                    "priceCurrency": "USD"
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-34S22VCTW3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-34S22VCTW3');
+    </script>
+    
     <style>
         /* Hero Section */
         .hero {
@@ -93,6 +217,146 @@
           outline: 2px solid #c8a97e;
           outline-offset: 2px;
         }
+
+        /* Hero Text Section (Under Video) - Enhanced */
+        .hero-text-section {
+          padding: 5rem 2rem;
+          background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+          position: relative;
+          overflow: hidden;
+          text-align: center;
+        }
+
+        .hero-text-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100px;
+          height: 4px;
+          background: linear-gradient(90deg, transparent 0%, #c8a97e 50%, transparent 100%);
+          border-radius: 2px;
+        }
+
+        .hero-text-section::after {
+          content: '';
+          position: absolute;
+          bottom: -50px;
+          right: -50px;
+          width: 200px;
+          height: 200px;
+          background: radial-gradient(circle, rgba(200, 169, 126, 0.1) 0%, transparent 70%);
+          border-radius: 50%;
+        }
+
+        .hero-text-container {
+          max-width: 900px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 2;
+        }
+
+        .hero-text-section h1 {
+          font-size: 3rem;
+          font-weight: 300;
+          color: #2c2c2c;
+          margin-bottom: 2rem;
+          letter-spacing: 2px;
+          line-height: 1.2;
+          position: relative;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-text-section h1::after {
+          content: '';
+          position: absolute;
+          bottom: -15px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 60px;
+          height: 2px;
+          background: linear-gradient(90deg, #c8a97e 0%, #d4b896 100%);
+          border-radius: 1px;
+        }
+
+        .hero-text-section p {
+          font-size: 1.3rem;
+          color: #555;
+          line-height: 1.8;
+          margin-bottom: 2rem;
+          font-weight: 300;
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .hero-accent {
+          display: inline-block;
+          margin-top: 1rem;
+          padding: 12px 30px;
+          background: linear-gradient(135deg, #c8a97e 0%, #d4b896 100%);
+          color: white;
+          text-decoration: none;
+          border-radius: 25px;
+          font-size: 1rem;
+          font-weight: 500;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          box-shadow: 0 4px 15px rgba(200, 169, 126, 0.3);
+          transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+        }
+
+        .hero-accent:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(200, 169, 126, 0.4);
+          color: white;
+          text-decoration: none;
+        }
+
+        .elegant-divider {
+          margin: 3rem auto 0;
+          width: 120px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent 0%, #c8a97e 50%, transparent 100%);
+          position: relative;
+        }
+
+        .elegant-divider::before {
+          content: '✦';
+          position: absolute;
+          top: -8px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #f8f9fa;
+          color: #c8a97e;
+          font-size: 16px;
+          padding: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+          .hero-text-section {
+            padding: 4rem 1.5rem;
+          }
+          
+          .hero-text-section h1 {
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+          }
+          
+          .hero-text-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+          }
+
+          .hero-accent {
+            padding: 10px 25px;
+            font-size: 0.9rem;
+          }
+        }
       </style>
 </head>
 <body>
@@ -100,20 +364,20 @@
     <div class="nav-container">
         <nav role="navigation" aria-label="Main navigation">
             <a href="index.html" class="logo">
-                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+                <img src="images/Logo.jpg" alt="Sky Travel - Luxury Spiritual Pilgrimage Travel Agency Logo" class="logo-image" width="150" height="75">
             </a>
             <!-- UPDATED: Semantic navigation structure with proper ID -->
             <ul class="nav-links" id="nav-links">
-                <li><a href="#featured" class="nav-item">Destinations</a></li>
+                <li><a href="#featured" class="nav-item" aria-current="page">Destinations</a></li>
                 <li><a href="experiences.html" class="nav-item">Experiences</a></li>
                 <li><a href="about.html" class="nav-item">About</a></li>
                 <li><a href="contact.html" class="nav-item">Contact</a></li>
                 <li>
                     <!-- Desktop Language Switcher -->
                     <div class="language-switcher">
-                        <a href="index.html" class="lang-option active-lang">EN</a>
+                        <a href="index.html" class="lang-option active-lang" hreflang="en">EN</a>
                         <span class="lang-separator">|</span>
-                        <a href="index-es.html" class="lang-option">ES</a>
+                        <a href="index-es.html" class="lang-option" hreflang="es">ES</a>
                     </div>
                 </li>
             </ul>
@@ -129,13 +393,19 @@
             <div id="ytplayer"></div>
         </div>
         <div class="video-overlay"></div>
-        <div class="hero-content">
-            <h1>Discover Sacred Journeys</h1>
-            <p></p>
-        </div>
         <!-- Play Button to start the video -->
         <button id="playButton" class="play-button" aria-label="Play promotional video">▶ Play Video</button>
     </div>
+
+    <!-- Hero Content Section (Under Video) -->
+    <section class="hero-text-section">
+        <div class="hero-text-container">
+            <h1>Discover spiritual pilgrimages that transform your faith</h1>
+            <p>Luxury travel to Medjugorje, Holy Land, Italy and more, with expert guides and premium accommodations. Experience spiritual transformation in the world's most sacred destinations.</p>
+            <a href="#featured" class="hero-accent">Explore Destinations</a>
+            <div class="elegant-divider"></div>
+        </div>
+    </section>
 
     <!-- Featured Destinations Section -->
     <section class="featured-section" id="featured">
@@ -161,7 +431,7 @@
             <div class="destination-card marianos">
                 <div class="card-content">
                     <h3>Marian Sanctuaries & Greek Islands Cruise</h3>
-                    <p>Fátima, Lourdes and Greek Islands Cruise: Ancient Corinth, Acropolis & Aegean ports</p></p>
+                    <p>Fátima, Lourdes and Greek Islands Cruise: Ancient Corinth, Acropolis & Aegean ports</p>
                     <a href="SantuariosMarianos.html" class="cta-button" aria-label="Learn more about Marian Sanctuaries pilgrimage">Learn More</a>
                 </div>
             </div>

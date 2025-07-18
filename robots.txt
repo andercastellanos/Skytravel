@@ -1,0 +1,44 @@
+# Sky Travel – robots.txt
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /logs/
+Disallow: /backup/
+Disallow: /config/
+Disallow: /database/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /vendor/
+Disallow: /*.sql$
+Disallow: /*.log$
+Disallow: /*.conf$
+Disallow: /*.config$
+Disallow: /*.bak$
+Disallow: /*.old$
+
+# Social media crawlers (full access)
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Block bad bots
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+Sitemap: https://skytravel.com/sitemap.xml
