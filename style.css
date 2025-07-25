@@ -1416,3 +1416,17 @@ textarea:focus-visible {
         padding: 2rem 0;
     }
 }
+
+
+/* Sold-out badge */
+.sold-out {
+    margin-left: .5rem;
+    padding: .15rem .45rem;
+    background: #c0392b;     /* deep red */
+    color: #fff;
+    font-size: .75rem;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
