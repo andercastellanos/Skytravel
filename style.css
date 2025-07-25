@@ -1419,14 +1419,15 @@ textarea:focus-visible {
 
 
 /* Sold-out badge */
-.sold-out {
-    margin-left: .5rem;
-    padding: .15rem .45rem;
-    background: #c0392b;     /* deep red */
-    color: #fff;
-    font-size: .75rem;
-    font-weight: 700;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
+.sold-out{
+    display:inline-block;          /* makes the pill visible */
+    margin-left:.5rem;
+    padding:.15rem .45rem;
+    background:#c0392b !important; /* force red everywhere   */
+    color:#fff;
+    font-size:.75rem;
+    font-weight:700;
+    border-radius:4px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
 }
