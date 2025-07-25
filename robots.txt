@@ -41,4 +41,5 @@ Disallow: /
 User-agent: MJ12bot
 Disallow: /
 
-Sitemap: https://skytravel.com/sitemap.xml
+# CORRECTED SITEMAP URL - CRITICAL FIX
+Sitemap: https://www.skytraveljm.com/sitemap.xml
