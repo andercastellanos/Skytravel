@@ -502,6 +502,9 @@ nav {
 .destination-card.medjugorje {
     background-image: url('images/Medjugorje/MedjugorjeVirgin.jpg');
 }
+.destination-card.medjugorje26 {
+    background-image: url('images/Medjugorje/MedjugorjeVirgin26.jpg');
+}
 
 .destination-card.marianos {
     background-image: url('images/SantuariosMarianos/SantuarioFatima.jpg');
