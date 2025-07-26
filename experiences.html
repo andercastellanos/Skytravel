@@ -80,7 +80,6 @@
     </script>
     
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
     
     <!-- Structured Data for Experience Gallery (Spanish) -->
     <script type="application/ld+json">
@@ -235,17 +234,19 @@
     </style>
 </head>
 <body>
-<div class="nav-container">
+    <!-- ======== NAV BAR ======== -->
+    <div class="nav-container">
     <nav>
         <a href="index.html" class="logo">
             <img src="images/Logo.jpg" alt="Sky Travel" class="logo-image">
         </a>
-        <div class="nav-links">
+            <!-- Drawer -->
+            <div class="nav-links" id="nav-links">
             <a href="index.html">Destinations</a>
             <a href="experiences.html">Experiences</a>
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
-            <!-- ADD THE WRAPPER DIV HERE -->
+                  <!-- language switcher -->
             <div class="language-switcher">
                 <a href="experiences.html" class="lang-option active-lang">EN</a>
                 <span class="lang-separator">|</span>
@@ -254,7 +255,7 @@
         </div>
         <div class="menu-toggle">☰</div>
     </nav>
-</div>
+    </div>
 
     <section class="page-header">
         <div class="header-content">
@@ -438,20 +439,27 @@
     <footer>
         <p>© 2025 Sky Travel. Creating extraordinary journeys for discerning travelers.</p>
     </footer>
+    <!--  jQuery first -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            // Mobile menu toggle
-            $('.menu-toggle').click(function() {
-                $('.nav-links').toggleClass('active');
-            });
-            
-            // Close menu when a link is clicked
-            $('.nav-links a').click(function() {
-                $('.nav-links').removeClass('active');
-            });
-        });
-    </script>
-         <script src="js/elegant-language-switcher.js"></script>
+<!-- 2️inline menu code -->
+<script>
+  $(document).ready(function () {
+    // Mobile menu toggle
+    $('.menu-toggle').click(function () {
+      $('.nav-links').toggleClass('active');
+    });
+
+    // Close menu when a nav link is clicked
+    $('.nav-links a').click(function () {
+      $('.nav-links').removeClass('active');
+    });
+  });
+</script>
+
+<!-- 3 site-wide scripts can stay deferred -->
+<script src="js/navigation.js" defer></script>
+<script src="js/elegant-language-switcher.js" defer></script>
+
 </body>
 </html>
