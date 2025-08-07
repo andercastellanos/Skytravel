@@ -510,6 +510,10 @@ nav {
     background-image: url('images/SantuariosMarianos/SantuarioFatima.jpg');
 }
 
+.destination-card.tierra {
+    background-image: url('images/TierraSanta/TierraSanta.jpg');
+}
+
 .card-content {
     position: absolute;
     bottom: 0;
