@@ -514,6 +514,17 @@ nav {
     background-image: url('images/TierraSanta/TierraSanta.jpg');
 }
 
+/* Holy Land destination card styling */
+.destination-card.holyland {
+    background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                url('images/TierraSanta/TierraSanta1.jpg') center/cover;
+}
+
+.destination-card.holyland:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
 .card-content {
     position: absolute;
     bottom: 0;
