@@ -1,21 +1,13 @@
----
-name: Submit a Testimonial
-about: Collect a pilgrimage testimonial for the website ( reviewed before publishing)
-title: ''
-labels: ''
-assignees: ''
-
----
-
 name: Submit a Testimonial
 description: Share your pilgrimage experience for our website (reviewed before publishing)
 title: "[Testimonial] "
 labels: ["testimony"]
+assignees: ["andercastellanos"]
 body:
   - type: input
     id: name
     attributes:
-      label: Your Name (as displayed)
+      label: Your Name
       placeholder: e.g., Maria G.
     validations:
       required: true
@@ -23,7 +15,7 @@ body:
   - type: input
     id: trip
     attributes:
-      label: Trip / Destination (free text)
+      label: Trip / Destination
       placeholder: e.g., Medjugorje (May 2025)
     validations:
       required: true
@@ -31,7 +23,7 @@ body:
   - type: textarea
     id: testimonial
     attributes:
-      label: Your Testimonial (3–6 sentences)
+      label: Your Testimonial
       description: Share highlights, moments of grace, logistics (guide/hotel/transport), etc.
     validations:
       required: true
