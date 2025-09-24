@@ -1,16 +1,8 @@
----
 name: Enviar Testimonio
-about: 'Comparte tu experiencia de peregrinación '
-title: Testimonio
-labels: ''
-assignees: andercastellanos
-
----
-
-name: Enviar Testimonio
-description: Comparte tu experiencia de peregrinación 
+description: Comparte tu experiencia de peregrinación (revisado antes de publicar)
 title: "[Testimonio] "
 labels: ["testimony"]
+assignees: ["andercastellanos"]
 body:
   - type: input
     id: nombre
