@@ -7,7 +7,7 @@ body:
   - type: input
     id: nombre
     attributes:
-      label: Nombre 
+      label: Nombre
       placeholder: p.ej., María G.
     validations:
       required: true
@@ -15,7 +15,7 @@ body:
   - type: input
     id: viaje
     attributes:
-      label: Viaje / Destino 
+      label: Viaje / Destino
       placeholder: p.ej., Medjugorje (Mayo 2025)
     validations:
       required: true
@@ -23,7 +23,7 @@ body:
   - type: textarea
     id: testimonio
     attributes:
-      label: Tu Testimonio 
+      label: Tu Testimonio
       description: Comparte momentos destacados, experiencias de fe, organización (guía/hotel/transporte), etc.
     validations:
       required: true
@@ -36,11 +36,6 @@ body:
     validations:
       required: false
 
-  - type: input
-    id: consentimiento
+  - type: markdown
     attributes:
-      label: Consentimiento (obligatorio)
-      description: Escribe “Autorizo” para permitir que Sky Travel J & M publique este testimonio.
-      placeholder: Autorizo
-    validations:
-      required: true
+      value: "Al enviar, aceptas que Sky Travel J & M pueda publicar tu testimonio y foto en nuestro sitio web."
