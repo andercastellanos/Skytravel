@@ -36,11 +36,6 @@ body:
     validations:
       required: false
 
-  - type: input
-    id: consent
+  - type: markdown
     attributes:
-      label: Consent (required)
-      description: Type “I consent” to permit Sky Travel J & M to publish this testimonial.
-      placeholder: I consent
-    validations:
-      required: true
+      value: "By submitting, you agree that Sky Travel J & M may publish your testimonial and photo on our website."
