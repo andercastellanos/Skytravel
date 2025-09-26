@@ -446,7 +446,7 @@ function createIssueData(submissionData, mediaUrl) {
         title: issueTitle,
         body: yamlData.join('\n'),
         labels: ['testimony', 'needs-review'],
-        assignees: ['andercastellanos', 'aespinoza7']
+        assignees: ['andercastellanos', 'jandrearuiz']
     };
 }
 
