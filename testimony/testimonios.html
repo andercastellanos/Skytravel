@@ -1,0 +1,101 @@
+<!--
+    Simple Elegant Spanish Testimonials Page
+    File: testimony/testimonios.html  
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonios - Sky Travel</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <!-- NAVIGATION -->
+    <div class="nav-container">
+        <nav>
+            <a href="../index.html" class="logo">
+                <img src="../images/Logo.jpg" alt="Sky Travel Logo" class="logo-image" />
+            </a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index-es.html">Destinos</a></li>
+                <li><a href="../experiences-es.html">Experiencias</a></li>
+                <li><a href="../about-es.html">Nosotros</a></li>
+                <li><a href="testimonios.html" class="active">Testimonios</a></li>
+                <li><a href="../contact-es.html">Contacto</a></li>
+                <li>
+                    <div class="language-switcher">
+                        <a href="testimonials.html" class="lang-option">EN</a>
+                        <span class="lang-separator">|</span>
+                        <a href="testimonios.html" class="lang-option active-lang">ES</a>
+                    </div>
+                </li>
+            </ul>
+
+            <button class="menu-toggle" 
+                    aria-label="Toggle navigation" 
+                    aria-expanded="false"
+                    aria-controls="nav-links">
+                ☰
+            </button>
+        </nav>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="contact-hero">
+        <div class="hero-content">
+            <h1>Lo Que Dicen Nuestros Peregrinos</h1>
+            <p>Experiencias reales de viajeros que han vivido una transformación espiritual</p>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials-section">
+        <div class="container">
+            <!-- Loading state -->
+            <div id="testimonials-loading" class="testimonials-loading">
+                <div class="loading-spinner"></div>
+                <p>Cargando testimonios...</p>
+            </div>
+
+            <!-- Testimonials container -->
+            <div id="testimonials-container" class="simple-testimonials-grid">
+                <!-- Testimonials will be loaded here by JavaScript -->
+            </div>
+
+            <!-- Load more button -->
+            <div class="load-more-section">
+                <button id="load-more-btn" class="elegant-button hidden">
+                    Ver Más Testimonios
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="testimonials-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Quieres Compartir tu Experiencia?</h2>
+                <p>Tu testimonio puede inspirar a otros peregrinos en su jornada espiritual</p>
+                <a href="enviar-testimonio.html" class="elegant-button">
+                    Enviar mi Testimonio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 Sky Travel. Creando viajes extraordinarios para viajeros exigentes.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="../js/navigation.js" defer></script>
+    <script src="../js/elegant-language-switcher.js" defer></script>
+    <script src="js/github-api.js" defer></script>
+    <script src="js/simple-testimonials.js" defer></script>
+</body>
+</html>

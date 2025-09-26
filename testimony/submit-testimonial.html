@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Testimony - Sky Travel</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- ============ NAVIGATION ============ -->
+    <div class="nav-container">
+        <nav>
+            <!-- Logo -->
+            <a href="../index.html" class="logo">
+                <img src="../images/Logo.jpg" alt="Sky Travel Logo" class="logo-image" />
+            </a>
+
+            <!-- Semantic nav list -->
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html">Destinations</a></li>
+                <li><a href="../experiences.html">Experiences</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="testimonials.html">Testimonials</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li>
+                    <!-- Desktop language switcher -->
+                    <div class="language-switcher">
+                        <a href="submit-testimonial.html" class="lang-option active-lang">EN</a>
+                        <span class="lang-separator">|</span>
+                        <a href="enviar-testimonio.html" class="lang-option">ES</a>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- Hamburger button -->
+            <button class="menu-toggle" 
+                    aria-label="Toggle navigation" 
+                    aria-expanded="false"
+                    aria-controls="nav-links">
+                ☰
+            </button>
+        </nav>
+    </div>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="contact-hero">
+        <div class="hero-content">
+            <h1>Share Your Pilgrimage Story</h1>
+            <p>Your testimony can inspire and encourage future pilgrims on their spiritual journey</p>
+        </div>
+    </section>
+
+    <!-- ============ INTERNAL SUBMISSION FORM ============ -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="testimony-intro">
+                <h2 class="section-title">Tell Us About Your Experience</h2>
+                <p class="section-description">We value your feedback and would love to share your story with others considering a pilgrimage. All submissions are reviewed before publication.</p>
+            </div>
+
+            <form class="contact-form testimony-form" id="testimony-form">
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required 
+                           placeholder="e.g., Maria G.">
+                </div>
+
+                <!-- Trip Information -->
+                <div class="form-group">
+                    <label for="trip">Trip / Destination *</label>
+                    <input type="text" id="trip" name="trip" required 
+                           placeholder="e.g., Medjugorje (May 2025)">
+                </div>
+
+                <!-- Testimonial Text -->
+                <div class="form-group">
+                    <label for="testimonial">Your Testimonial *</label>
+                    <textarea id="testimonial" name="testimonial" required 
+                              rows="8"
+                              placeholder="Share highlights, moments of grace, logistics (guide/hotel/transport), etc."></textarea>
+                </div>
+
+                <!-- Photo Upload -->
+                <div class="form-group">
+                    <label for="photo">Photo (optional)</label>
+                    <input type="file" id="photo" name="photo" accept="image/*">
+                    <div class="photo-preview" id="photo-preview"></div>
+                </div>
+
+                <!-- Contact Info (optional) -->
+                <div class="form-group">
+                    <label for="email">Email (optional - for follow-up)</label>
+                    <input type="email" id="email" name="email" 
+                           placeholder="your.email@example.com">
+                </div>
+
+                <!-- Consent -->
+                <div class="form-group consent-group">
+                    <label class="consent-label">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <span class="consent-text">By submitting, I agree that Sky Travel J & M may publish my testimonial and photo on their website. *</span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-submit">
+                    <button type="submit" class="elegant-button submit-btn" id="submit-btn">
+                        <span class="btn-text">Submit Testimony</span>
+                        <span class="btn-loading">Submitting...</span>
+                    </button>
+                </div>
+
+                <!-- Status Messages -->
+                <div class="form-messages">
+                    <div class="success-message" id="success-message">
+                        <h3>Thank you for your testimony!</h3>
+                        <p>Your story has been submitted successfully. We'll review it and get back to you within 2-3 business days.</p>
+                    </div>
+                    
+                    <div class="error-message" id="error-message">
+                        <h3>Submission Error</h3>
+                        <p>There was a problem submitting your testimony. Please try again or email us directly at <a href="mailto:info@skytraveljm.com">info@skytraveljm.com</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ============ RECENT TESTIMONIALS ============ -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="testimonials-title">Recent Testimonials</h2>
+            <div class="testimonials-wrapper">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Sky Travel made our Medjugorje pilgrimage absolutely perfect. Every detail was thoughtfully planned."</p>
+                        <div class="testimonial-author">- Maria G.</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"An unforgettable spiritual journey. The organization was flawless and our guide was exceptional."</p>
+                        <div class="testimonial-author">- John M.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonials-view-all">
+                <a href="testimonials.html" class="elegant-button">View All Testimonials</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <p>© 2025 Sky Travel. Creating extraordinary journeys for discerning travelers.</p>
+    </footer>
+
+    <!-- ============ SCRIPTS ============ -->
+    <script src="../js/navigation.js" defer></script>
+    <script src="../js/elegant-language-switcher.js" defer></script>
+    <script src="js/testimony-form.js" defer></script>
+</body>
+</html>
