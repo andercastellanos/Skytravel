@@ -1,291 +1,521 @@
 /**
  * =============================================================================
- * 🧪 TESTIMONIAL SYSTEM TEST SCRIPT
- * 📝 Run this in your browser console to test the system
- * 🌐 Open any page on your site and paste this into DevTools console
+ * 📄 DEBUG VERSION - NETLIFY FUNCTION WITH ENHANCED LOGGING
+ * 🌐 File: testimony/netlify/functions/submit-testimony.js
+ * 📝 Purpose: Enhanced error logging to debug 502 issues
  * =============================================================================
  */
 
-class TestimonySystemTester {
-    constructor() {
-        this.baseUrl = window.location.origin;
-        this.functionUrl = `${this.baseUrl}/.netlify/functions/submit-testimony`;
-        
-        console.log('🧪 Testimony System Tester Initialized');
-        console.log('🌐 Base URL:', this.baseUrl);
-        console.log('⚡ Function URL:', this.functionUrl);
-        
-        this.runTests();
-    }
-    
-    async runTests() {
-        console.log('\n🚀 Starting Testimonial System Tests...\n');
-        
-        try {
-            await this.testCORS();
-            await this.testTextSubmission();
-            await this.testValidation();
-            await this.testGitHubAPI();
-            
-            console.log('\n✅ All tests completed! Check results above.');
-            
-        } catch (error) {
-            console.error('❌ Test suite failed:', error);
-        }
-    }
-    
-    // Test 1: CORS Headers
-    async testCORS() {
-        console.log('🔍 Test 1: Testing CORS headers...');
-        
-        try {
-            const response = await fetch(this.functionUrl, {
-                method: 'OPTIONS'
-            });
-            
-            if (response.ok) {
-                console.log('✅ CORS test passed - Function responds to OPTIONS');
-                console.log('📋 CORS Headers:', Object.fromEntries(response.headers));
-            } else {
-                console.warn('⚠️  CORS test warning - Function exists but returned:', response.status);
-            }
-        } catch (error) {
-            console.error('❌ CORS test failed:', error.message);
-        }
-        
-        console.log('');
-    }
-    
-    // Test 2: Text-only submission
-    async testTextSubmission() {
-        console.log('🔍 Test 2: Testing text-only submission...');
-        
-        const testData = {
-            name: "Test User " + Date.now(),
-            trip: "Test Pilgrimage (December 2025)",
-            testimony: "This is a comprehensive test testimony that exceeds the 50 character minimum requirement. It describes an amazing pilgrimage experience with excellent organization, spiritual growth, and wonderful memories that will last a lifetime. The guide was knowledgeable and the accommodations were comfortable.",
-            email: "test@example.com",
-            language: "en",
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent
-        };
-        
-        try {
-            console.log('📤 Sending test submission...');
-            console.log('📋 Test data:', testData);
-            
-            const response = await fetch(this.functionUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(testData)
-            });
-            
-            const result = await response.json();
-            
-            if (response.ok && result.success) {
-                console.log('✅ Text submission test PASSED');
-                console.log('🎉 GitHub Issue created:', result.issueUrl);
-                console.log('📋 Full response:', result);
-                
-                // Suggest checking GitHub
-                console.log('\n🔗 Next steps:');
-                console.log('1. Check GitHub Issues: https://github.com/andercastellanos/Skytravel/issues');
-                console.log('2. Look for issue #' + result.issueNumber);
-                console.log('3. Verify YAML front matter format');
-                console.log('4. Add "verified" label to approve testimonial');
-                
-            } else {
-                console.error('❌ Text submission test FAILED');
-                console.error('📋 Response:', result);
-                console.error('📋 Status:', response.status);
-            }
-            
-        } catch (error) {
-            console.error('❌ Text submission test FAILED with error:', error);
-        }
-        
-        console.log('');
-    }
-    
-    // Test 3: Validation
-    async testValidation() {
-        console.log('🔍 Test 3: Testing form validation...');
-        
-        const invalidTests = [
-            {
-                name: 'Empty name test',
-                data: { name: '', trip: 'Test', testimony: 'A'.repeat(60), language: 'en' }
-            },
-            {
-                name: 'Short testimony test',
-                data: { name: 'Test', trip: 'Test', testimony: 'Too short', language: 'en' }
-            },
-            {
-                name: 'Invalid email test',
-                data: { name: 'Test', trip: 'Test', testimony: 'A'.repeat(60), email: 'invalid-email', language: 'en' }
-            }
-        ];
-        
-        for (const test of invalidTests) {
-            try {
-                const response = await fetch(this.functionUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(test.data)
-                });
-                
-                const result = await response.json();
-                
-                if (!response.ok || !result.success) {
-                    console.log(`✅ ${test.name}: Correctly rejected`);
-                    console.log(`   📋 Error: ${result.error}`);
-                } else {
-                    console.warn(`⚠️  ${test.name}: Should have been rejected but wasn't`);
-                }
-                
-            } catch (error) {
-                console.log(`✅ ${test.name}: Correctly rejected (network error)`);
-            }
-        }
-        
-        console.log('');
-    }
-    
-    // Test 4: GitHub API connectivity
-    async testGitHubAPI() {
-        console.log('🔍 Test 4: Testing GitHub API connectivity...');
-        
-        try {
-            // Test public API access (no auth needed)
-            const response = await fetch('https://api.github.com/repos/andercastellanos/Skytravel/issues?labels=testimony&state=open&per_page=5');
-            
-            if (response.ok) {
-                const issues = await response.json();
-                console.log('✅ GitHub API test passed');
-                console.log(`📋 Found ${issues.length} testimonial issues in repository`);
-                
-                if (issues.length > 0) {
-                    console.log('📋 Latest testimonial issues:');
-                    issues.forEach((issue, index) => {
-                        console.log(`   ${index + 1}. #${issue.number}: ${issue.title}`);
-                        console.log(`      Labels: ${issue.labels.map(l => l.name).join(', ')}`);
-                    });
-                }
-                
-                // Check rate limit
-                const rateLimitResponse = await fetch('https://api.github.com/rate_limit');
-                const rateLimit = await rateLimitResponse.json();
-                console.log('📊 GitHub API Rate Limit:', rateLimit.rate);
-                
-            } else {
-                console.error('❌ GitHub API test failed:', response.status, response.statusText);
-            }
-            
-        } catch (error) {
-            console.error('❌ GitHub API test failed:', error.message);
-        }
-        
-        console.log('');
-    }
-    
-    // Helper: Test specific functionality
-    async testSpecific(testName) {
-        console.log(`🎯 Running specific test: ${testName}`);
-        
-        switch (testName.toLowerCase()) {
-            case 'cors':
-                await this.testCORS();
-                break;
-            case 'text':
-            case 'submission':
-                await this.testTextSubmission();
-                break;
-            case 'validation':
-                await this.testValidation();
-                break;
-            case 'github':
-                await this.testGitHubAPI();
-                break;
-            default:
-                console.log('Available tests: cors, text, validation, github');
-        }
-    }
-}
+const https = require('https');
+const crypto = require('crypto');
+const querystring = require('querystring');
 
-// Helper functions for manual testing
-window.TestimonyTester = {
-    // Quick test runner
-    runTests: () => new TestimonySystemTester(),
-    
-    // Test specific functionality
-    test: (testName) => new TestimonySystemTester().testSpecific(testName),
-    
-    // Manual submission test
-    submitTest: async (customData = {}) => {
-        const defaultData = {
-            name: "Manual Test User",
-            trip: "Manual Test Pilgrimage",
-            testimony: "This is a manual test submission created from the browser console. It includes enough text to pass the 50 character minimum requirement and tests the complete submission flow.",
-            email: "manual-test@example.com",
-            language: "en"
-        };
-        
-        const testData = { ...defaultData, ...customData };
-        
-        try {
-            const response = await fetch(`${window.location.origin}/.netlify/functions/submit-testimony`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(testData)
-            });
-            
-            const result = await response.json();
-            console.log('📤 Manual test result:', result);
-            return result;
-            
-        } catch (error) {
-            console.error('❌ Manual test failed:', error);
-            return { success: false, error: error.message };
-        }
+// Configuration - Set these as Netlify environment variables
+const CONFIG = {
+    github: {
+        owner: 'andercastellanos',
+        repo: 'Skytravel',
+        token: process.env.GITHUB_TOKEN,
+        apiBase: 'https://api.github.com'
     },
-    
-    // Check function status
-    checkStatus: async () => {
-        try {
-            const response = await fetch(`${window.location.origin}/.netlify/functions/submit-testimony`, {
-                method: 'OPTIONS'
-            });
-            
-            console.log('Function Status:', {
-                exists: response.status !== 404,
-                cors: response.ok,
-                status: response.status,
-                headers: Object.fromEntries(response.headers)
-            });
-            
-        } catch (error) {
-            console.error('Status check failed:', error);
-        }
+    cloudinary: {
+        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+        apiKey: process.env.CLOUDINARY_API_KEY,
+        apiSecret: process.env.CLOUDINARY_API_SECRET
     }
 };
 
-// Auto-run tests
-console.log(`
-🧪 TESTIMONIAL SYSTEM TESTER LOADED
-=======================================
+/**
+ * Main Netlify function handler
+ */
+exports.handler = async (event, context) => {
+    console.log('🚀 Function started');
+    console.log('📋 Request method:', event.httpMethod);
+    console.log('📋 Request headers:', JSON.stringify(event.headers, null, 2));
+    
+    // Environment variable check with detailed logging
+    console.log('🔍 Environment Variables Check:');
+    console.log('- GITHUB_TOKEN:', CONFIG.github.token ? 'SET' : 'MISSING');
+    console.log('- CLOUDINARY_CLOUD_NAME:', CONFIG.cloudinary.cloudName ? 'SET' : 'MISSING');
+    console.log('- CLOUDINARY_API_KEY:', CONFIG.cloudinary.apiKey ? 'SET' : 'MISSING');
+    console.log('- CLOUDINARY_API_SECRET:', CONFIG.cloudinary.apiSecret ? 'SET' : 'MISSING');
 
-Usage:
-• TestimonyTester.runTests()           - Run all tests
-• TestimonyTester.test('cors')         - Test specific functionality  
-• TestimonyTester.submitTest()         - Manual submission test
-• TestimonyTester.checkStatus()        - Check function status
+    // Set CORS headers
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    };
 
-Tests will run automatically in 3 seconds...
-`);
+    // Handle preflight requests
+    if (event.httpMethod === 'OPTIONS') {
+        console.log('✅ Handling OPTIONS request');
+        return {
+            statusCode: 200,
+            headers,
+            body: ''
+        };
+    }
 
-// Auto-run after 3 seconds
-setTimeout(() => {
-    new TestimonySystemTester();
-}, 3000);
+    // Only allow POST requests
+    if (event.httpMethod !== 'POST') {
+        console.log('❌ Invalid method:', event.httpMethod);
+        return {
+            statusCode: 405,
+            headers,
+            body: JSON.stringify({ 
+                error: 'Method not allowed. Only POST requests accepted.'
+            })
+        };
+    }
+
+    try {
+        console.log('📝 Processing POST request');
+        console.log('📋 Body length:', event.body ? event.body.length : 0);
+
+        // Parse request body
+        let requestData;
+        try {
+            requestData = JSON.parse(event.body);
+            console.log('✅ JSON parsed successfully');
+            console.log('📋 Request data keys:', Object.keys(requestData));
+            console.log('📋 Has photo:', !!requestData.photo);
+            if (requestData.photo) {
+                console.log('📋 Photo size (base64):', requestData.photo.data ? requestData.photo.data.length : 0);
+                console.log('📋 Photo type:', requestData.photo.type);
+            }
+        } catch (error) {
+            console.error('❌ JSON parse error:', error.message);
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ 
+                    success: false, 
+                    error: 'Invalid JSON in request body' 
+                })
+            };
+        }
+
+        // Validate submission
+        console.log('🔍 Validating submission...');
+        const validation = validateSubmission(requestData);
+        if (!validation.valid) {
+            console.log('❌ Validation failed:', validation.error);
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ 
+                    success: false, 
+                    error: validation.error 
+                })
+            };
+        }
+        console.log('✅ Validation passed');
+
+        console.log(`📝 Processing testimony from: ${requestData.name}`);
+
+        // Upload media to Cloudinary if provided
+        let mediaUrl = null;
+        if (requestData.photo && requestData.photo.data) {
+            try {
+                console.log('📸 Starting Cloudinary upload...');
+                console.log('📋 Photo details:', {
+                    type: requestData.photo.type,
+                    name: requestData.photo.name,
+                    size: requestData.photo.size,
+                    dataLength: requestData.photo.data.length
+                });
+                
+                mediaUrl = await uploadToCloudinary(requestData.photo);
+                console.log('✅ Media uploaded successfully:', mediaUrl);
+            } catch (error) {
+                console.error('❌ Media upload failed:', error.message);
+                console.error('❌ Media upload stack:', error.stack);
+                // Continue without media - don't fail entire submission
+                console.log('⚠️ Continuing without media upload...');
+            }
+        } else {
+            console.log('ℹ️ No photo to upload');
+        }
+
+        // Create GitHub Issue
+        console.log('📝 Creating GitHub issue data...');
+        const issueData = createIssueData(requestData, mediaUrl);
+        console.log('📋 Issue data created, title:', issueData.title);
+        
+        console.log('📤 Creating GitHub issue...');
+        const githubResponse = await postIssueToGitHub(issueData);
+        
+        console.log('✅ GitHub issue created successfully:', githubResponse.html_url);
+
+        // Return success response
+        const successResponse = {
+            success: true,
+            message: 'Testimony submitted successfully',
+            issueUrl: githubResponse.html_url,
+            issueNumber: githubResponse.number,
+            mediaUrl: mediaUrl
+        };
+        
+        console.log('🎉 Function completed successfully');
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify(successResponse)
+        };
+
+    } catch (error) {
+        console.error('❌ CRITICAL ERROR in function:', error.message);
+        console.error('❌ Error stack:', error.stack);
+        console.error('❌ Error details:', JSON.stringify(error, null, 2));
+        
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({
+                success: false,
+                error: 'Internal server error. Please try again later.',
+                details: error.message
+            })
+        };
+    }
+};
+
+/**
+ * Validate form submission data
+ */
+function validateSubmission(data) {
+    console.log('🔍 Starting validation...');
+    const required = ['name', 'trip', 'testimony', 'language'];
+    
+    for (const field of required) {
+        if (!data[field] || typeof data[field] !== 'string' || data[field].trim().length === 0) {
+            return {
+                valid: false,
+                error: `Missing or empty required field: ${field}`
+            };
+        }
+    }
+
+    // Validate field lengths
+    if (data.name.length > 100) {
+        return { valid: false, error: 'Name too long (max 100 characters)' };
+    }
+
+    if (data.trip.length > 200) {
+        return { valid: false, error: 'Trip information too long (max 200 characters)' };
+    }
+
+    if (data.testimony.length < 50) {
+        return { valid: false, error: 'Testimony too short (minimum 50 characters)' };
+    }
+
+    if (data.testimony.length > 2000) {
+        return { valid: false, error: 'Testimony too long (max 2000 characters)' };
+    }
+
+    // Validate email if provided
+    if (data.email && data.email.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            return { valid: false, error: 'Invalid email format' };
+        }
+    }
+
+    // Validate media file if provided
+    if (data.photo) {
+        console.log('🔍 Validating photo data...');
+        if (!data.photo.data || !data.photo.type) {
+            return { valid: false, error: 'Invalid file data' };
+        }
+
+        // Allow both images and videos (optimized for web)
+        const allowedTypes = [
+            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
+            'video/mp4', 'video/webm'
+        ];
+        if (!allowedTypes.includes(data.photo.type)) {
+            return { 
+                valid: false, 
+                error: 'Invalid file format. Only JPG, PNG, GIF, WebP, MP4, WebM allowed' 
+            };
+        }
+
+        // Check base64 data size (approximate file size) - increased to 25MB for videos
+        const sizeBytes = (data.photo.data.length * 3/4) - 2;
+        const maxSize = 25 * 1024 * 1024; // 25MB
+        console.log('📋 Photo size check:', {
+            sizeBytes: sizeBytes,
+            sizeMB: (sizeBytes / 1024 / 1024).toFixed(2),
+            maxSizeMB: 25
+        });
+        
+        if (sizeBytes > maxSize) {
+            return { valid: false, error: 'File too large. Maximum size: 25MB' };
+        }
+    }
+
+    console.log('✅ Validation completed successfully');
+    return { valid: true };
+}
+
+/**
+ * Upload file to Cloudinary with enhanced error handling
+ */
+function uploadToCloudinary(fileData) {
+    return new Promise((resolve, reject) => {
+        console.log('📸 Starting Cloudinary upload process...');
+        
+        try {
+            // Generate timestamp for signature
+            const timestamp = Math.round((new Date()).getTime() / 1000);
+            console.log('📋 Generated timestamp:', timestamp);
+            
+            // Determine resource type based on file type
+            const resourceType = fileData.type.startsWith('video/') ? 'video' : 'image';
+            console.log('📋 Resource type:', resourceType);
+            
+            // Create parameters for signature
+            const params = {
+                timestamp: timestamp,
+                resource_type: resourceType,
+                folder: 'sky-travel-testimonies'
+            };
+            
+            // Generate signature
+            console.log('🔐 Generating Cloudinary signature...');
+            const signature = generateCloudinarySignature(params, CONFIG.cloudinary.apiSecret);
+            console.log('✅ Signature generated');
+            
+            // Prepare upload data
+            const uploadData = querystring.stringify({
+                file: `data:${fileData.type};base64,${fileData.data}`,
+                api_key: CONFIG.cloudinary.apiKey,
+                timestamp: timestamp,
+                signature: signature,
+                resource_type: resourceType,
+                folder: 'sky-travel-testimonies'
+            });
+
+            console.log('📋 Upload data prepared, size:', uploadData.length);
+
+            const options = {
+                hostname: 'api.cloudinary.com',
+                port: 443,
+                path: `/v1_1/${CONFIG.cloudinary.cloudName}/${resourceType}/upload`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Length': Buffer.byteLength(uploadData)
+                },
+                timeout: 30000 // 30 second timeout
+            };
+
+            console.log('🌐 Making request to Cloudinary...');
+            const req = https.request(options, (res) => {
+                console.log('📋 Cloudinary response status:', res.statusCode);
+                let data = '';
+                
+                res.on('data', (chunk) => {
+                    data += chunk;
+                });
+
+                res.on('end', () => {
+                    console.log('📋 Cloudinary response received');
+                    try {
+                        const response = JSON.parse(data);
+                        console.log('📋 Cloudinary response parsed');
+                        
+                        if (response.secure_url) {
+                            console.log('✅ Cloudinary upload successful:', response.secure_url);
+                            resolve(response.secure_url);
+                        } else {
+                            console.error('❌ Cloudinary upload failed:', response);
+                            reject(new Error(response.error?.message || 'Cloudinary upload failed'));
+                        }
+                    } catch (error) {
+                        console.error('❌ Failed to parse Cloudinary response:', error.message);
+                        console.error('❌ Raw response:', data);
+                        reject(new Error('Invalid Cloudinary response'));
+                    }
+                });
+            });
+
+            req.on('error', (error) => {
+                console.error('❌ Cloudinary request error:', error.message);
+                reject(error);
+            });
+
+            req.on('timeout', () => {
+                console.error('❌ Cloudinary request timeout');
+                req.destroy();
+                reject(new Error('Cloudinary upload timeout'));
+            });
+
+            console.log('📤 Sending data to Cloudinary...');
+            req.write(uploadData);
+            req.end();
+            
+        } catch (error) {
+            console.error('❌ Cloudinary upload setup error:', error.message);
+            reject(error);
+        }
+    });
+}
+
+/**
+ * Generate Cloudinary signature
+ */
+function generateCloudinarySignature(params, apiSecret) {
+    console.log('🔐 Generating signature with params:', params);
+    
+    // Sort parameters alphabetically
+    const sortedParams = Object.keys(params)
+        .sort()
+        .map(key => `${key}=${params[key]}`)
+        .join('&');
+    
+    console.log('📋 Sorted params string:', sortedParams);
+    
+    // Create signature
+    const signature = crypto
+        .createHash('sha1')
+        .update(sortedParams + apiSecret)
+        .digest('hex');
+        
+    console.log('✅ Signature created');
+    return signature;
+}
+
+/**
+ * Create GitHub issue data
+ */
+function createIssueData(submissionData, mediaUrl) {
+    console.log('📝 Creating GitHub issue data...');
+    
+    const currentDate = new Date().toLocaleDateString(
+        submissionData.language === 'es' ? 'es-ES' : 'en-US'
+    );
+
+    // Build YAML front matter
+    const yamlData = [
+        '---',
+        `name: "${submissionData.name.replace(/"/g, '\\"')}"`,
+        `trip: "${submissionData.trip.replace(/"/g, '\\"')}"`,
+        `language: "${submissionData.language}"`,
+        'featured: false',
+        'verified: false',
+        'rating: "5"',
+        'tags: "pilgrimage, faith, testimony"',
+        '---',
+        '',
+        submissionData.testimony,
+        ''
+    ];
+
+    // Add media section if media was uploaded
+    if (mediaUrl) {
+        const mediaLabel = submissionData.language === 'es' 
+            ? 'Media del Testimonio' 
+            : 'Testimony Media';
+        
+        const mediaType = submissionData.photo?.type?.startsWith('video/') ? 'Video' : 'Foto';
+        
+        yamlData.push(`## ${mediaLabel}`);
+        yamlData.push(`![${mediaType} del Testimonio](${mediaUrl})`);
+        yamlData.push('');
+    }
+
+    // Add metadata
+    const sentLabel = submissionData.language === 'es' ? 'Enviado' : 'Submitted';
+    const contactLabel = submissionData.language === 'es' ? 'Email de contacto' : 'Contact email';
+    
+    yamlData.push('---');
+    yamlData.push(`**${sentLabel}:** ${currentDate}`);
+    
+    if (submissionData.email && submissionData.email.trim()) {
+        yamlData.push(`**${contactLabel}:** ${submissionData.email}`);
+    }
+
+    const issueTitle = submissionData.language === 'es'
+        ? `Testimonio de ${submissionData.name} - ${submissionData.trip}`
+        : `Testimony from ${submissionData.name} - ${submissionData.trip}`;
+
+    console.log('✅ GitHub issue data created');
+    return {
+        title: issueTitle,
+        body: yamlData.join('\n'),
+        labels: ['testimony', 'needs-review'],
+        assignees: ['andercastellanos', 'aespinoza7']
+    };
+}
+
+/**
+ * Post issue to GitHub
+ */
+function postIssueToGitHub(issueData) {
+    return new Promise((resolve, reject) => {
+        console.log('📤 Starting GitHub API request...');
+        
+        const postData = JSON.stringify(issueData);
+        console.log('📋 GitHub payload size:', postData.length);
+        
+        const options = {
+            hostname: 'api.github.com',
+            port: 443,
+            path: `/repos/${CONFIG.github.owner}/${CONFIG.github.repo}/issues`,
+            method: 'POST',
+            headers: {
+                'Authorization': `token ${CONFIG.github.token}`,
+                'User-Agent': 'Sky-Travel-Netlify-Function/1.0',
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(postData)
+            },
+            timeout: 15000 // 15 second timeout
+        };
+
+        const req = https.request(options, (res) => {
+            console.log('📋 GitHub API response status:', res.statusCode);
+            let data = '';
+            
+            res.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            res.on('end', () => {
+                console.log('📋 GitHub API response received');
+                try {
+                    const response = JSON.parse(data);
+                    
+                    if (res.statusCode === 201 && response.html_url) {
+                        console.log('✅ GitHub issue created successfully');
+                        resolve(response);
+                    } else {
+                        console.error('❌ GitHub API error:', response);
+                        reject(new Error(response.message || `GitHub API error: ${res.statusCode}`));
+                    }
+                } catch (error) {
+                    console.error('❌ Failed to parse GitHub response:', error.message);
+                    console.error('❌ Raw response:', data);
+                    reject(new Error('Invalid GitHub API response'));
+                }
+            });
+        });
+
+        req.on('error', (error) => {
+            console.error('❌ GitHub request error:', error.message);
+            reject(error);
+        });
+
+        req.on('timeout', () => {
+            console.error('❌ GitHub request timeout');
+            req.destroy();
+            reject(new Error('GitHub API timeout'));
+        });
+
+        console.log('📤 Sending request to GitHub...');
+        req.write(postData);
+        req.end();
+    });
+}
