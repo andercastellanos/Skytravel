@@ -345,18 +345,29 @@ class TestimonialsDisplay {
         const truncatedContent = testimonial.content.length > maxLength 
             ? testimonial.content.substring(0, maxLength) + '...'
             : testimonial.content;
+        // 🔧 FIXED: Robust photo handling for both string and object formats
+        let imageUrl = null;
+        let imageAlt = 'Foto del testimonio';
 
-        // Create photo HTML if available
-        const firstPhoto = Array.isArray(testimonial.photos) ? testimonial.photos[0] : null;
-        const photoHtml = firstPhoto
-             ? `<div class="testimonial-photo">
-            <img src="${firstPhoto}" 
-            alt="Foto del testimonio" 
-            loading="lazy"
-            onerror="this.style.display='none'">
-             </div>`
-             : '';
+        if (Array.isArray(testimonial.photos) && testimonial.photos.length > 0) {
+        const p = testimonial.photos[0];
+        if (typeof p === 'string') {
+        // Handle string format: photos = ["https://..."]
+        imageUrl = p;
+        } else if (p && typeof p === 'object') {
+        // Handle object format: photos = [{ url: "https://...", alt: "..." }]
+        imageUrl = p.url || p.src || null;
+        imageAlt = p.alt || imageAlt;
+        }
+        }
 
+        const photoHtml = imageUrl
+        ? `<div class="testimonial-photo">
+         <img src="${imageUrl}" alt="${this.escapeHtml(imageAlt)}"
+              loading="lazy" referrerpolicy="no-referrer"
+              onerror="this.style.display='none'">
+       </div>`
+         : '';
 
         card.innerHTML = `
             ${photoHtml}

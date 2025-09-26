@@ -153,7 +153,7 @@ class GitHubAPI {
         const contentSection = (yamlMatch[2] || '').trim();
 
         const metadata = this.parseSimpleYAML(yamlSection);
-        const photos = this.extractPhotos(contentSection); // ⬅️ array of URL strings
+        const photos = this.extractPhotos(contentSection); // ⬅️ array of photo objects
 
         const cleanContent = contentSection
             .replace(/!\[.*?\]\(.*?\)/g, '')   // strip images
@@ -238,23 +238,92 @@ class GitHubAPI {
     }
 
     // Extract image URLs from markdown (returns array<string>)
-    extractPhotos(markdown) {
-        const urls = [];
-        const rx = /!\[[^\]]*]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
-        let m;
-        while ((m = rx.exec(markdown)) !== null) {
-            const url = m[1];
-            try {
-                const host = new URL(url).hostname.replace(/^www\./, '');
-                if (this.config.allowedImageHosts.some(allowed => host.endsWith(allowed))) {
-                    urls.push(url);
-                }
-            } catch {
-                // ignore invalid URLs
-            }
+    /**
+ * Extract photo URLs from markdown content
+ * FIXED: Ensures consistent object format with url and alt properties
+ * @param {string} content - Markdown content to parse
+ * @returns {Array} Array of photo objects with url and alt properties
+ */
+extractPhotos(content) {
+    const photos = [];
+    
+    // Regex to match markdown images: ![alt](url)
+    const imgRegex = /!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g;
+    let match;
+    
+    while ((match = imgRegex.exec(content)) !== null) {
+        const altText = match[1] || 'Testimony photo';
+        const imageUrl = match[2];
+        
+        // Only include images from allowed hosts for security
+        const isAllowedHost = this.config.allowedImageHosts.some(host => 
+            imageUrl.toLowerCase().includes(host.toLowerCase())
+        );
+        
+        if (isAllowedHost) {
+            photos.push({ 
+                url: imageUrl, 
+                alt: altText || 'Testimony photo' 
+            });
+        } else {
+            console.warn(`⚠️ Skipping image from non-allowed host: ${imageUrl}`);
         }
-        return urls;
     }
+    
+    // Additional fallback: look for HTML img tags
+    const htmlImgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*(?:alt=["']([^"']*)["'][^>]*)?>/gi;
+    
+    while ((match = htmlImgRegex.exec(content)) !== null) {
+        const imageUrl = match[1];
+        const altText = match[2] || 'Testimony photo';
+        
+        // Check if it's from allowed hosts and not already added
+        const isAllowedHost = this.config.allowedImageHosts.some(host => 
+            imageUrl.toLowerCase().includes(host.toLowerCase())
+        );
+        
+        const alreadyExists = photos.some(photo => photo.url === imageUrl);
+        
+        if (isAllowedHost && !alreadyExists) {
+            photos.push({ 
+                url: imageUrl, 
+                alt: altText 
+            });
+        }
+    }
+    
+    // Cloudinary-specific extraction (if you're using Cloudinary)
+    const cloudinaryRegex = /(https?:\/\/res\.cloudinary\.com\/[^\s)]+)/g;
+    
+    while ((match = cloudinaryRegex.exec(content)) !== null) {
+        const imageUrl = match[1];
+        const alreadyExists = photos.some(photo => photo.url === imageUrl);
+        
+        if (!alreadyExists) {
+            photos.push({ 
+                url: imageUrl, 
+                alt: 'Testimony photo' 
+            });
+        }
+    }
+    
+    console.log(`📸 Extracted ${photos.length} photos from content`);
+    return photos;
+}
+
+/**
+ * Additional helper: Validate image URL
+ * @param {string} url - Image URL to validate
+ * @returns {boolean} Whether URL is from allowed host
+ */
+isValidImageUrl(url) {
+    if (!url || typeof url !== 'string') return false;
+    
+    // Check if URL is from allowed hosts
+    return this.config.allowedImageHosts.some(host => 
+        url.toLowerCase().includes(host.toLowerCase())
+    );
+}
 
     // Language guesser (very light heuristic)
     detectLanguage(text) {
