@@ -1,0 +1,18 @@
+[build]
+  command = ""
+  publish = "."
+
+[functions]
+  directory = "testimony/netlify/functions"
+  node_bundler = "esbuild"
+
+# Optional: per-function overrides
+[[functions]]
+  name = "submit-testimony"   # function filename without extension
+  timeout = 26
+
+# Optional: Redirect for a nicer URL
+[[redirects]]
+  from = "/api/submit-testimony"
+  to = "/.netlify/functions/submit-testimony"
+  status = 200
