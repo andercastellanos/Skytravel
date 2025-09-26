@@ -347,14 +347,16 @@ class TestimonialsDisplay {
             : testimonial.content;
 
         // Create photo HTML if available
-        const photoHtml = testimonial.photos && testimonial.photos.length > 0 
-            ? `<div class="testimonial-photo">
-                 <img src="${testimonial.photos[0].url}" 
-                      alt="${testimonial.photos[0].alt}" 
-                      loading="lazy"
-                      onerror="this.style.display='none'">
-               </div>`
-            : '';
+        const firstPhoto = Array.isArray(testimonial.photos) ? testimonial.photos[0] : null;
+        const photoHtml = firstPhoto
+             ? `<div class="testimonial-photo">
+            <img src="${firstPhoto}" 
+            alt="Foto del testimonio" 
+            loading="lazy"
+            onerror="this.style.display='none'">
+             </div>`
+             : '';
+
 
         card.innerHTML = `
             ${photoHtml}
