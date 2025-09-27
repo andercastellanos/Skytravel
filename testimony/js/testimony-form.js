@@ -198,13 +198,21 @@ class TestimonyFormHandler {
             const response = await this.submitToNetlify(formData);
 
             if (response.success) {
+                // Elegant toast
                 if (response.imageWarning) {
-                    this.showMessage(
-                        'Testimony submitted successfully! Image upload failed but will be processed later.',
+                    this.showToast(
+                        this.state.language === 'es'
+                          ? '¡Testimonio enviado! La imagen no se subió; se procesará más tarde.'
+                          : 'Testimony submitted! Image upload failed; it will be processed later.',
                         'warning'
                     );
                 } else {
-                    this.showMessage('Testimony submitted successfully!', 'success');
+                    this.showToast(
+                        this.state.language === 'es'
+                          ? '¡Testimonio enviado con éxito! Gracias por compartir 💛'
+                          : 'Testimony submitted successfully! Thank you for sharing 💛',
+                        'success'
+                    );
                 }
                 this.resetForm();
                 console.log('✅ Testimony submitted successfully');
@@ -214,7 +222,14 @@ class TestimonyFormHandler {
 
         } catch (error) {
             console.error('❌ Submission error:', error);
-            this.showError(error.message);
+            // Toast for errors
+            this.showToast(
+              (this.state.language === 'es'
+                ? 'No se pudo enviar el testimonio. '
+                : 'Could not submit testimony. ')
+              + (error?.message || ''),
+              'error'
+            );
         } finally {
             this.setSubmittingState(false);
         }
@@ -594,6 +609,54 @@ class TestimonyFormHandler {
         const hasConsent = this.elements.consentCheckbox?.checked;
 
         this.elements.submitBtn.disabled = !(hasRequiredFields && hasConsent) || this.state.submitting;
+    }
+
+    /**
+     * Elegant toast (success / warning / error)
+     * Creates a live-region, auto-dismisses, and allows manual close
+     */
+    showToast(message, type = 'success', opts = {}) {
+        const { timeout = 4200 } = opts;
+
+        // Ensure container
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container';
+            container.setAttribute('aria-live', 'polite');
+            container.setAttribute('aria-atomic', 'true');
+            document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `
+            <span class="toast-icon" aria-hidden="true">
+                ${type === 'success' ? '✅' : type === 'warning' ? '⚠️' : '❌'}
+            </span>
+            <div class="toast-content">${this.escapeHtml(message)}</div>
+            <button class="toast-close" aria-label="${this.state.language === 'es' ? 'Cerrar notificación' : 'Close notification'}">×</button>
+        `;
+
+        // Close events
+        toast.querySelector('.toast-close')?.addEventListener('click', () => {
+            toast.classList.add('hide');
+            setTimeout(() => toast.remove(), 200);
+        });
+
+        container.appendChild(toast);
+        // enter animation
+        requestAnimationFrame(() => toast.classList.add('show'));
+
+        // auto-dismiss
+        const id = setTimeout(() => {
+            toast.classList.remove('show');
+            toast.classList.add('hide');
+            setTimeout(() => toast.remove(), 200);
+        }, timeout);
+
+        // Pause on hover
+        toast.addEventListener('mouseenter', () => clearTimeout(id));
     }
 
     /**

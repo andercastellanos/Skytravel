@@ -1577,6 +1577,58 @@ textarea:focus-visible {
     max-height: 150px;
 }
 
+/* --- Toasts --- */
+.toast-container{
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none; /* clicks only on the toast itself */
+}
+.toast{
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 520px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid rgba(0,0,0,.06);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.toast.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+.toast.hide{
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.toast-success{ border-color: rgba(16,185,129,.25); background: #ecfdf5; }
+.toast-warning{ border-color: rgba(245,158,11,.25); background: #fffbeb; }
+.toast-error{   border-color: rgba(239,68,68,.25);  background: #fef2f2; }
+.toast-icon{ font-size: 18px; line-height: 1; }
+.toast-content{ font-size: 14px; }
+.toast-close{
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: inherit;
+  opacity: .7;
+}
+.toast-close:hover{ opacity: 1; }
+
 /* Author Information */
 .testimonial-author {
     display: flex;
@@ -2165,6 +2217,15 @@ textarea:focus-visible {
 }
 
 @media (max-width: 480px) {
+    .toast-container{
+        left: 12px;
+        right: 12px;
+        top: 12px;
+    }
+    .toast{ 
+        width: 100%; 
+    }
+    
     .testimonial-card {
         padding: 1.5rem 1rem;
         margin: 0;
