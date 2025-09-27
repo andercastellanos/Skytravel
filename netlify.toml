@@ -1,14 +1,2 @@
-[build]
-  command = ""
-  publish = "."
 
-[functions]
-  directory = "testimony/netlify/functions"
-  node_bundler = "esbuild"
-  external_node_modules = []
 
-# Optional: Redirect rules for cleaner URLs
-[[redirects]]
-  from = "/api/submit-testimony"
-  to = "/.netlify/functions/submit-testimony"
-  status = 200

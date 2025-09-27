@@ -167,7 +167,7 @@ class GitHubAPI {
 
         return {
             id: issue.number,
-            name: metadata.name || 'Anonymous',
+            name: this.getDisplayName(issue, metadata),
             trip: metadata.trip || 'Pilgrimage Experience',
             content: cleanContent,
             photos, // array<string>
@@ -196,9 +196,19 @@ class GitHubAPI {
             .replace(/<!--[\s\S]*?-->/g, '')
             .trim();
 
+        // Parse any YAML front-matter that might exist even in fallback cases
+        const fmMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+        let meta = {};
+        if (fmMatch) {
+            fmMatch[1].split('\n').forEach(line => {
+                const m = line.match(/^\s*([a-zA-Z0-9_]+)\s*:\s*"(.*)"\s*$/);
+                if (m) meta[m[1]] = m[2];
+            });
+        }
+
         return {
             id: issue.number,
-            name: issue.user?.login || 'Anonymous',
+            name: this.getDisplayName(issue, meta),
             trip: 'Pilgrimage Experience',
             content: cleanContent,
             photos,
@@ -213,6 +223,17 @@ class GitHubAPI {
     }
 
     // ---------- Helpers ----------
+
+    // Choose best display name for a testimony
+    getDisplayName(issue, meta) {
+        if (meta?.name && String(meta.name).trim()) return String(meta.name).trim();
+        // Fallback: try to parse from title like "Testimonio de NAME - ..." or "Testimony from NAME - ..."
+        const m =
+            /^Testimonio de\s+(.+?)\s*[-–]/i.exec(issue.title) ||
+            /^Testimony (of|from)\s+(.+?)\s*[-–]/i.exec(issue.title);
+        if (m) return (m[2] || m[1]).replace(/^of\s+/i,'').trim();
+        return (issue.user?.name || issue.user?.login || 'Anonymous').trim();
+    }
 
     // Cache validity
     isCacheValid() {
@@ -375,7 +396,10 @@ isValidImageUrl(url) {
         const testimonials = await this.fetchTestimonials(false, includeUnverified);
 
         return testimonials.filter(t => {
-            if (filters.language && t.language !== filters.language) return false;
+            // NEW: Do NOT filter by language – show all. Language is used only for UI strings.
+            // This ensures both English and Spanish pages display the same testimonials.
+            // If needed in future, gate by a flag: if (!window.GitHubTestimonials?.config?.showAllLanguages) { ... }
+            // if (filters.language && t.language !== filters.language) return false;
             if (filters.destination && t.destination !== filters.destination) return false;
             if (filters.verified !== undefined && t.verified !== filters.verified) return false;
             if (filters.needsReview !== undefined && t.needsReview !== filters.needsReview) return false;

@@ -70,7 +70,8 @@ class TestimonialsDisplay {
      */
     findElements() {
         // Main container for testimonials
-        this.elements.container = document.querySelector('.testimonials-grid') || 
+        this.elements.container = document.querySelector('.simple-testimonials-grid') ||
+                                  document.querySelector('.testimonials-grid') ||
                                   document.querySelector('.testimonials-wrapper') ||
                                   document.querySelector('#testimonials-container');
         
@@ -112,7 +113,7 @@ class TestimonialsDisplay {
                        document.body;
         
         const container = document.createElement('div');
-        container.className = 'testimonials-grid';
+        container.className = 'simple-testimonials-grid';
         container.id = 'testimonials-container';
         
         section.appendChild(container);
@@ -207,10 +208,10 @@ class TestimonialsDisplay {
             // Fetch testimonials from GitHub API
             this.state.allTestimonials = await window.GitHubTestimonials.fetchTestimonials();
             
-            // Filter by page language
-            this.state.allTestimonials = this.state.allTestimonials.filter(
-                t => t.language === this.state.language
-            );
+            // Show all testimonials regardless of language; keep 'language' only for UI strings
+            // this.state.allTestimonials = this.state.allTestimonials.filter(
+            //     t => t.language === this.state.language
+            // );
 
             console.log(`📋 Loaded ${this.state.allTestimonials.length} testimonials for language: ${this.state.language}`);
             
@@ -324,6 +325,11 @@ class TestimonialsDisplay {
         // Update load more button
         this.updateLoadMoreButton();
 
+        // Attach read more/less toggles after DOM is ready
+        setTimeout(() => {
+            this.attachReadMoreToggles(this.elements.container);
+        }, 100);
+
         console.log(`📺 Displayed ${testimonialsToShow.length} testimonials (page ${this.state.currentPage})`);
     }
 
@@ -340,11 +346,8 @@ class TestimonialsDisplay {
             { year: 'numeric', month: 'long', day: 'numeric' }
         );
 
-        // Truncate content for preview
-        const maxLength = 200;
-        const truncatedContent = testimonial.content.length > maxLength 
-            ? testimonial.content.substring(0, maxLength) + '...'
-            : testimonial.content;
+        // Use full content (no truncation)
+        const fullContent = testimonial.content;
         // Generate photos HTML for all photos in the array
         let photosHtml = '';
         if (Array.isArray(testimonial.photos) && testimonial.photos.length > 0) {
@@ -375,8 +378,8 @@ class TestimonialsDisplay {
                     <div class="testimonial-author">${this.escapeHtml(testimonial.name)}</div>
                     <div class="testimonial-trip">${this.escapeHtml(testimonial.trip)}</div>
                 </div>
-                <div class="testimonial-text">
-                    <p>${this.escapeHtml(truncatedContent)}</p>
+                <div class="testimonial-body">
+                    ${this.formatTestimonialContent(fullContent)}
                 </div>
                 ${photosHtml}
                 <div class="testimonial-footer">
@@ -386,12 +389,43 @@ class TestimonialsDisplay {
             </div>
         `;
 
-        // Add click handler to expand/modal (optional)
-        card.addEventListener('click', () => {
-            this.openTestimonialModal(testimonial);
-        });
-
         return card;
+    }
+
+    /**
+     * Format testimonial content for display
+     * Ensures clean text without YAML metadata and proper paragraph formatting
+     */
+    formatTestimonialContent(content) {
+        if (!content) return '';
+
+        // Clean the content - remove any remaining YAML frontmatter or metadata
+        let cleanContent = content
+            .replace(/^---[\s\S]*?---/m, '') // Remove YAML frontmatter if any
+            .replace(/<!--[\s\S]*?-->/g, '') // Remove HTML comments
+            .replace(/!\[.*?\]\(.*?\)/g, '') // Remove markdown images (already handled separately)
+            .trim();
+
+        // Split into paragraphs and wrap each in <p> tags
+        const paragraphs = cleanContent
+            .split(/\n\s*\n/) // Split on double newlines (paragraph breaks)
+            .map(paragraph => paragraph.trim())
+            .filter(paragraph => paragraph.length > 0);
+
+        // If no paragraphs found, treat the whole content as one paragraph
+        if (paragraphs.length === 0) {
+            return `<p>${this.escapeHtml(cleanContent)}</p>`;
+        }
+
+        // Convert each paragraph to HTML
+        return paragraphs
+            .map(paragraph => {
+                // Escape HTML first, then handle line breaks
+                const escapedParagraph = this.escapeHtml(paragraph);
+                const formattedParagraph = escapedParagraph.replace(/\n/g, '<br>');
+                return `<p>${formattedParagraph}</p>`;
+            })
+            .join('');
     }
 
     /**
@@ -477,10 +511,10 @@ class TestimonialsDisplay {
             // Force refresh from GitHub
             this.state.allTestimonials = await window.GitHubTestimonials.fetchTestimonials(true);
             
-            // Filter by language
-            this.state.allTestimonials = this.state.allTestimonials.filter(
-                t => t.language === this.state.language
-            );
+            // Show all testimonials regardless of language; keep 'language' only for UI strings
+            // this.state.allTestimonials = this.state.allTestimonials.filter(
+            //     t => t.language === this.state.language
+            // );
             
             // Reapply filters
             this.applyFilters();
@@ -585,6 +619,39 @@ class TestimonialsDisplay {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    /**
+     * Attach read more/less toggles to testimonial bodies that overflow
+     */
+    attachReadMoreToggles(root = document) {
+        const bodies = root.querySelectorAll('.testimonial-body');
+        bodies.forEach(body => {
+            // Temporarily remove clamp to measure full height
+            const wasExpanded = body.classList.contains('is-expanded');
+            body.classList.add('is-expanded');
+            const full = body.scrollHeight;
+            body.classList.remove('is-expanded');
+
+            const clamped = body.clientHeight; // height with clamp
+            const needsToggle = full > clamped + 8; // a bit of tolerance
+
+            if (needsToggle && !body.nextElementSibling?.classList?.contains('read-more-btn')) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'read-more-btn';
+                btn.textContent = this.state.language === 'es'
+                    ? 'Leer más'
+                    : 'Read more';
+                btn.addEventListener('click', () => {
+                    const expanded = body.classList.toggle('is-expanded');
+                    btn.textContent = expanded
+                        ? (this.state.language === 'es' ? 'Leer menos' : 'Read less')
+                        : (this.state.language === 'es' ? 'Leer más' : 'Read more');
+                });
+                body.insertAdjacentElement('afterend', btn);
+            }
+        });
     }
 }
 

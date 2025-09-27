@@ -5,6 +5,7 @@
  */
 
 $(document).ready(function() {
+    console.log('[SkyTravel Nav] jQuery loaded, initializing navigation...');
     // Initialize navigation when DOM is ready
     initializeNavigation();
 });
@@ -64,10 +65,13 @@ function setupMobileMenu() {
         
         // Toggle the active class
         $navLinks.toggleClass('active');
-        
+
         // Update aria-expanded for accessibility
         const isExpanded = $navLinks.hasClass('active');
         $menuToggle.attr('aria-expanded', isExpanded.toString());
+
+        // Debug logging for development only
+        debugLog(`Navigation menu ${isExpanded ? 'opened' : 'closed'}`);
         
         // Add visual state class to button
         $menuToggle.toggleClass('menu-open', isExpanded);
