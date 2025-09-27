@@ -88,7 +88,7 @@ export const handler = async (event) => {
       };
     }
 
-    const { name, trip, testimony, language, email, photo } = data;
+    let { name, trip, testimony, language, email, photos, photo } = data;
 
     // Basic validation
     console.log('🔍 Validating submission...');
@@ -132,29 +132,32 @@ export const handler = async (event) => {
     console.log('✅ Data validation passed');
     console.log(`📝 Processing testimony from: ${name}`);
 
-    // 5) Upload photo to Cloudinary if provided
-    let mediaUrl = null;
+    // 5) Upload photos to Cloudinary if provided
+    // Back-compat: if a single "photo" came in, convert to array
+    if (!Array.isArray(photos) && photo?.data) photos = [photo];
+
+    let mediaUrls = [];
     let imageWarning = false;
-    
-    if (photo?.data && photo?.type) {
-      console.log('📸 Starting Cloudinary upload...');
-      
-      try {
-        mediaUrl = await uploadToCloudinary({
-          base64: photo.data,
-          mime: photo.type,
-          fileName: photo.name || "testimony.jpg",
-        });
-        console.log('✅ Media uploaded successfully:', mediaUrl);
-      } catch (error) {
-        console.error('❌ Cloudinary upload failed:', error.message);
-        console.error('❌ Cloudinary upload stack:', error.stack);
-        console.log('⚠️ Continuing without media upload...');
-        imageWarning = true;
-        // Continue without image rather than failing completely
+
+    if (Array.isArray(photos) && photos.length) {
+      console.log(`📸 Starting Cloudinary upload for ${photos.length} photo(s)...`);
+      for (const p of photos) {
+        if (!(p?.data && p?.type)) continue;
+        try {
+          const url = await uploadToCloudinary({
+            base64: p.data,
+            mime: p.type,
+            fileName: p.name || "testimony.jpg",
+          });
+          mediaUrls.push(url);
+        } catch (error) {
+          console.error('❌ Cloudinary upload failed for one photo:', error.message);
+          imageWarning = true; // continue processing others
+        }
       }
+      console.log('✅ Uploaded photos:', mediaUrls.length);
     } else {
-      console.log('ℹ️ No photo to upload');
+      console.log('ℹ️ No photos to upload');
     }
 
     // 6) Create GitHub issue
@@ -165,7 +168,7 @@ export const handler = async (event) => {
       testimony,
       language,
       email,
-      mediaUrl,
+      mediaUrls,
     });
     console.log('✅ GitHub issue created successfully:', issueUrl);
 
@@ -174,7 +177,7 @@ export const handler = async (event) => {
       success: true,
       issueUrl,
       issueNumber,
-      mediaUrl,
+      mediaUrls,
       imageWarning,
       message: "Testimony submitted successfully"
     };
@@ -268,7 +271,7 @@ async function uploadToCloudinary({ base64, mime, fileName }) {
 /**
  * Create GitHub issue with YAML frontmatter
  */
-async function createGithubIssue({ name, trip, testimony, language, email, mediaUrl }) {
+async function createGithubIssue({ name, trip, testimony, language, email, mediaUrls }) {
   console.log('📝 Creating GitHub issue data...');
   
   const token = process.env.GITHUB_TOKEN;
@@ -283,8 +286,8 @@ async function createGithubIssue({ name, trip, testimony, language, email, media
   const yamlString = (str = "") => escapeYaml(str.trim());
 
   // Build YAML frontmatter with photos array if image exists
-  const photosBlock = mediaUrl
-    ? `photos:\n  - url: "${mediaUrl}"\n    alt: "Testimony Photo"\n`
+  const photosBlock = (Array.isArray(mediaUrls) && mediaUrls.length)
+    ? `photos:\n${mediaUrls.map(url => `  - url: "${url}"\n    alt: "Testimony Photo"`).join('\n')}\n`
     : "";
 
   const issueBody = 
@@ -299,7 +302,7 @@ async function createGithubIssue({ name, trip, testimony, language, email, media
     photosBlock +
     `---\n\n` +
     `${testimony.trim()}\n\n` +
-    (mediaUrl ? `![Testimony Photo](${mediaUrl})\n\n` : '') +
+    ((Array.isArray(mediaUrls) ? mediaUrls : []).map(u => `![Testimony Photo](${u})`).join('\n') + (mediaUrls?.length ? '\n\n' : '')) +
     (email ? `---\n**Email:** ${email.trim()}\n` : "");
 
   const issueData = {

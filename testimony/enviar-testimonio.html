@@ -85,9 +85,10 @@
 
                 <!-- Photo Upload -->
                 <div class="form-group">
-                    <label for="foto">Foto (opcional)</label>
-                    <input type="file" id="foto" name="foto" accept="image/*">
-                    <div class="photo-preview" id="photo-preview"></div>
+                    <label for="foto">Fotos (opcional, puedes subir varias)</label>
+                    <input type="file" id="foto" name="photos" accept="image/*" multiple>
+                    <!-- Preview container (if not already present) -->
+                    <div id="photo-preview" class="photo-preview"></div>
                 </div>
 
                 <!-- Contact Info (optional) -->

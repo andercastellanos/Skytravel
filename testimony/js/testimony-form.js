@@ -21,7 +21,7 @@ class TestimonyFormHandler {
         // State management
         this.state = {
             submitting: false,
-            photoFile: null,
+            photoFiles: [],
             photoPreview: null,
             language: this.detectPageLanguage()
         };
@@ -271,9 +271,13 @@ class TestimonyFormHandler {
             isValid = false;
         }
 
-        // Validate photo if provided
-        if (this.state.photoFile && !this.validatePhoto(this.state.photoFile)) {
-            isValid = false;
+        // Validate photos if provided
+        if (this.state.photoFiles && this.state.photoFiles.length) {
+            this.state.photoFiles.forEach(file => {
+                if (!this.validatePhoto(file)) {
+                    isValid = false;
+                }
+            });
         }
 
         return isValid;
@@ -418,22 +422,21 @@ class TestimonyFormHandler {
      * Handle photo selection
      */
     handlePhotoSelect(event) {
-        const file = event.target.files[0];
-        
-        if (!file) {
+        const files = Array.from(event.target.files || []);
+        if (!files.length) {
             this.clearPhoto();
             return;
         }
-
-        if (!this.validatePhoto(file)) {
-            event.target.value = ''; // Clear invalid selection
+        // validate each, keep only valid
+        const valid = files.filter(f => this.validatePhoto(f));
+        if (!valid.length) {
+            event.target.value = '';
+            this.clearPhoto();
             return;
         }
-
-        this.state.photoFile = file;
-        this.showPhotoPreview(file);
-        
-        console.log('📸 Photo selected:', file.name, `(${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+        this.state.photoFiles = valid;
+        this.showPhotoPreview(valid);
+        console.log('📸 Photos selected:', valid.map(f => `${f.name} (${(f.size/1024/1024).toFixed(2)}MB)`));
     }
 
     /**
@@ -467,31 +470,29 @@ class TestimonyFormHandler {
     /**
      * Show photo preview
      */
-    showPhotoPreview(file) {
+    showPhotoPreview(files) {
         if (!this.elements.photoPreview) return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            this.elements.photoPreview.innerHTML = `
-                <div class="photo-preview-container">
+        this.elements.photoPreview.innerHTML = '';
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const container = document.createElement('div');
+                container.className = 'photo-preview-container';
+                container.innerHTML = `
                     <img src="${e.target.result}" alt="Preview" class="photo-preview-image">
-                    <button type="button" class="photo-remove-btn" onclick="testimonyForm.clearPhoto()">
-                        ❌
-                    </button>
-                    <div class="photo-info">
-                        ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)
-                    </div>
-                </div>
-            `;
-        };
-        reader.readAsDataURL(file);
+                    <div class="photo-info">${file.name} (${(file.size/1024/1024).toFixed(2)}MB)</div>
+                `;
+                this.elements.photoPreview.appendChild(container);
+            };
+            reader.readAsDataURL(file);
+        });
     }
 
     /**
      * Clear photo selection
      */
     clearPhoto() {
-        this.state.photoFile = null;
+        this.state.photoFiles = [];
         if (this.elements.photoInput) this.elements.photoInput.value = '';
         if (this.elements.photoPreview) this.elements.photoPreview.innerHTML = '';
     }
@@ -514,14 +515,16 @@ class TestimonyFormHandler {
             referrer: document.referrer || 'direct'
         };
 
-        // Add photo data if present
-        if (this.state.photoFile) {
-            formData.photo = {
-                name: this.state.photoFile.name,
-                size: this.state.photoFile.size,
-                type: this.state.photoFile.type,
-                data: await this.fileToBase64(this.state.photoFile)
-            };
+        // Add photos data if present
+        if (this.state.photoFiles && this.state.photoFiles.length) {
+            formData.photos = await Promise.all(
+                this.state.photoFiles.map(async f => ({
+                    name: f.name,
+                    size: f.size,
+                    type: f.type,
+                    data: await this.fileToBase64(f)
+                }))
+            );
         }
 
         return formData;
@@ -774,7 +777,7 @@ class TestimonyFormHandler {
         }
         
         this.clearPhoto();
-        this.state.photoFile = null;
+        this.state.photoFiles = [];
         
         // Clear any remaining error states
         const errorInputs = this.elements.form.querySelectorAll('.error');

@@ -1629,6 +1629,35 @@ textarea:focus-visible {
 }
 .toast-close:hover{ opacity: 1; }
 
+/* Preview grid on the form */
+.photo-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 1rem 0;
+}
+@media (max-width: 480px) {
+  .photo-preview { grid-template-columns: 1fr; }
+}
+.photo-preview-container {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,.06);
+  background: #fff;
+}
+.photo-preview-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.photo-info {
+  font-size: .75rem;
+  padding: .5rem .6rem;
+  color: #555;
+}
+
 /* Author Information */
 .testimonial-author {
     display: flex;
