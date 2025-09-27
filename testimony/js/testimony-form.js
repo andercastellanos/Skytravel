@@ -48,7 +48,7 @@ class TestimonyFormHandler {
             
             // Setup form validation
             this.setupValidation();
-            
+            this.updatePhotoStatus();
             console.log('✅ Testimony form handler initialized');
             
         } catch (error) {
@@ -76,6 +76,7 @@ class TestimonyFormHandler {
         this.elements.testimonyInput = this.elements.form.querySelector('#testimonio, #testimony');
         this.elements.emailInput = this.elements.form.querySelector('#email');
         this.elements.photoInput = this.elements.form.querySelector('#foto, #photo, #photos');
+        this.elements.photoStatus = this.elements.form.querySelector('#photo-status, .photo-input-status');
         this.elements.consentCheckbox = this.elements.form.querySelector('#consent');
 
         // Buttons and status
@@ -433,6 +434,7 @@ class TestimonyFormHandler {
         this.renderPhotoPreview();
         // allow re-picking the same file(s)
         event.target.value = '';
+        this.updatePhotoStatus();        // ← add this
         accepted.forEach(f => {
             console.log('📸 Photo selected:', f.name, `(${(f.size / 1024 / 1024).toFixed(2)}MB)`);
         });
@@ -502,6 +504,7 @@ class TestimonyFormHandler {
                 const idx = Number(e.currentTarget.getAttribute('data-remove'));
                 this.state.photoFiles.splice(idx, 1);
                 this.renderPhotoPreview();
+                this.updatePhotoStatus();        // ← add this
             });
         });
     }
@@ -513,7 +516,25 @@ class TestimonyFormHandler {
         this.state.photoFiles = [];
         if (this.elements.photoInput) this.elements.photoInput.value = '';
         if (this.elements.photoPreview) this.elements.photoPreview.innerHTML = '';
+          this.updatePhotoStatus(); // ← add this
     }
+    updatePhotoStatus() {
+  if (!this.elements || !this.elements.photoStatus) return;
+  const files = Array.isArray(this.state.photoFiles) ? this.state.photoFiles : [];
+  if (!files.length) {
+    this.elements.photoStatus.textContent = this.state.language === 'es'
+      ? 'No hay fotos seleccionadas'
+      : 'No photos selected';
+    return;
+  }
+
+  const totalBytes = files.reduce((sum, f) => sum + (f.size || 0), 0);
+  const totalMB = (totalBytes / (1024 * 1024)).toFixed(2);
+  const line = this.state.language === 'es'
+    ? `${files.length} ${files.length === 1 ? 'foto' : 'fotos'} seleccionadas (${totalMB} MB)`
+    : `${files.length} ${files.length === 1 ? 'photo' : 'photos'} selected (${totalMB} MB)`;
+  this.elements.photoStatus.textContent = line;
+}
 
     /**
      * Prepare form data for submission
