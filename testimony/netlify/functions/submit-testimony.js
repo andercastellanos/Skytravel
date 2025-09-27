@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * 📄 NETLIFY SERVERLESS FUNCTION - TESTIMONY SUBMISSION (PRODUCTION VERSION)
+ * 📄 NETLIFY SERVERLESS FUNCTION - TESTIMONY SUBMISSION (SIGNATURE FIXED)
  * 🌐 File: netlify/functions/submit-testimony.js
  * 📝 Purpose: Receive form submissions → Upload to Cloudinary → Create GitHub Issues
  * 🔗 Called by: testimony-form.js from enviar-testimonio.html & submit-testimonial.html
@@ -75,6 +75,10 @@ export const handler = async (event) => {
       console.log('✅ JSON parsed successfully');
       console.log('📋 Request data keys:', Object.keys(data));
       console.log('📋 Has photo:', !!data.photo);
+      if (data.photo) {
+        console.log('📋 Photo size (base64):', data.photo.data ? data.photo.data.length : 0);
+        console.log('📋 Photo type:', data.photo.type);
+      }
     } catch (error) {
       console.error('❌ JSON parse error:', error.message);
       return {
@@ -198,7 +202,7 @@ export const handler = async (event) => {
 };
 
 /**
- * Upload photo to Cloudinary with proper signature
+ * Upload photo to Cloudinary with correct signature - FIXED VERSION
  */
 async function uploadToCloudinary({ base64, mime, fileName }) {
   console.log('📸 Starting Cloudinary upload process...');
@@ -212,16 +216,17 @@ async function uploadToCloudinary({ base64, mime, fileName }) {
     throw new Error('Missing Cloudinary environment variables');
   }
 
-  const folder = "skytravel-testimonies";
+  const folder = "sky-travel-testimonies"; // Match your existing folder
   const timestamp = Math.floor(Date.now() / 1000);
   
   console.log('📋 Generated timestamp:', timestamp);
   console.log('📋 Using folder:', folder);
 
-  // Create signature - ONLY sign required parameters
+  // Create signature - ONLY sign folder and timestamp (this is the fix!)
   const toSign = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
   const signature = crypto.createHash("sha1").update(toSign).digest("hex");
   
+  console.log('🔐 Signature string to sign:', `folder=${folder}&timestamp=${timestamp}`);
   console.log('🔐 Signature generated successfully');
 
   // Build form data
