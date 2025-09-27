@@ -219,14 +219,18 @@ async function uploadToCloudinary({ base64, mime, fileName }) {
   const folder = "sky-travel-testimonies"; // Match your existing folder
   const timestamp = Math.floor(Date.now() / 1000);
   
+  // Remove file extension for public_id
+  const publicId = fileName.replace(/\.[^.]+$/, "");
+  
   console.log('📋 Generated timestamp:', timestamp);
   console.log('📋 Using folder:', folder);
+  console.log('📋 Using public_id:', publicId);
 
-  // Create signature - ONLY sign folder and timestamp (this is the fix!)
-  const toSign = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
+  // Create signature - include folder, public_id, and timestamp (alphabetical order!)
+  const toSign = `folder=${folder}&public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
   const signature = crypto.createHash("sha1").update(toSign).digest("hex");
   
-  console.log('🔐 Signature string to sign:', `folder=${folder}&timestamp=${timestamp}`);
+  console.log('🔐 Signature string to sign:', `folder=${folder}&public_id=${publicId}&timestamp=${timestamp}`);
   console.log('🔐 Signature generated successfully');
 
   // Build form data
@@ -236,9 +240,6 @@ async function uploadToCloudinary({ base64, mime, fileName }) {
   form.append("timestamp", String(timestamp));
   form.append("signature", signature);
   form.append("folder", folder);
-  
-  // Remove file extension for public_id
-  const publicId = fileName.replace(/\.[^.]+$/, "");
   form.append("public_id", publicId);
 
   console.log('📋 Upload data prepared, making request to Cloudinary...');
