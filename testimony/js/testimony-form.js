@@ -75,7 +75,7 @@ class TestimonyFormHandler {
         this.elements.tripInput = this.elements.form.querySelector('#viaje, #trip');
         this.elements.testimonyInput = this.elements.form.querySelector('#testimonio, #testimony');
         this.elements.emailInput = this.elements.form.querySelector('#email');
-        this.elements.photoInput = this.elements.form.querySelector('#foto, #photo');
+        this.elements.photoInput = this.elements.form.querySelector('#foto, #photo, #photos');
         this.elements.consentCheckbox = this.elements.form.querySelector('#consent');
 
         // Buttons and status
@@ -423,20 +423,19 @@ class TestimonyFormHandler {
      */
     handlePhotoSelect(event) {
         const files = Array.from(event.target.files || []);
-        if (!files.length) {
-            this.clearPhoto();
-            return;
+        if (!files.length) return;
+        const accepted = [];
+        for (const f of files) {
+            if (this.validatePhoto(f)) accepted.push(f);
         }
-        // validate each, keep only valid
-        const valid = files.filter(f => this.validatePhoto(f));
-        if (!valid.length) {
-            event.target.value = '';
-            this.clearPhoto();
-            return;
-        }
-        this.state.photoFiles = valid;
-        this.showPhotoPreview(valid);
-        console.log('📸 Photos selected:', valid.map(f => `${f.name} (${(f.size/1024/1024).toFixed(2)}MB)`));
+        // Append so mobile users can add one-by-one
+        this.state.photoFiles.push(...accepted);
+        this.renderPhotoPreview();
+        // allow re-picking the same file(s)
+        event.target.value = '';
+        accepted.forEach(f => {
+            console.log('📸 Photo selected:', f.name, `(${(f.size / 1024 / 1024).toFixed(2)}MB)`);
+        });
     }
 
     /**
@@ -468,23 +467,42 @@ class TestimonyFormHandler {
     }
 
     /**
-     * Show photo preview
+     * Render photo preview
      */
-    showPhotoPreview(files) {
+    renderPhotoPreview() {
         if (!this.elements.photoPreview) return;
-        this.elements.photoPreview.innerHTML = '';
-        files.forEach(file => {
+        if (!this.state.photoFiles.length) {
+            this.elements.photoPreview.innerHTML = '';
+            return;
+        }
+        const items = this.state.photoFiles.map((f, idx) => {
+            const sizeMB = (f.size / 1024 / 1024).toFixed(2);
+            return `
+              <div class="photo-chip" data-idx="${idx}">
+                <img class="photo-chip-img" alt="Preview ${this.escapeHtml(f.name)}">
+                <div class="photo-chip-meta">
+                  <span class="photo-chip-name">${this.escapeHtml(f.name)}</span>
+                  <span class="photo-chip-size">${sizeMB}MB</span>
+                </div>
+                <button type="button" class="photo-chip-remove" aria-label="Remove photo" data-remove="${idx}">×</button>
+              </div>
+            `;
+        }).join('');
+        this.elements.photoPreview.innerHTML = `<div class="photo-grid">${items}</div>`;
+        // load images
+        const imgs = this.elements.photoPreview.querySelectorAll('.photo-chip-img');
+        imgs.forEach((imgEl, i) => {
             const reader = new FileReader();
-            reader.onload = (e) => {
-                const container = document.createElement('div');
-                container.className = 'photo-preview-container';
-                container.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview" class="photo-preview-image">
-                    <div class="photo-info">${file.name} (${(file.size/1024/1024).toFixed(2)}MB)</div>
-                `;
-                this.elements.photoPreview.appendChild(container);
-            };
-            reader.readAsDataURL(file);
+            reader.onload = e => { imgEl.src = e.target.result; };
+            reader.readAsDataURL(this.state.photoFiles[i]);
+        });
+        // remove buttons
+        this.elements.photoPreview.querySelectorAll('[data-remove]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = Number(e.currentTarget.getAttribute('data-remove'));
+                this.state.photoFiles.splice(idx, 1);
+                this.renderPhotoPreview();
+            });
         });
     }
 
@@ -785,6 +803,15 @@ class TestimonyFormHandler {
         
         const errorMessages = this.elements.form.querySelectorAll('.field-error');
         errorMessages.forEach(msg => msg.remove());
+    }
+
+    /**
+     * Escape HTML to prevent XSS
+     */
+    escapeHtml(str = '') {
+        const div = document.createElement('div');
+        div.textContent = String(str);
+        return div.innerHTML;
     }
 }
 

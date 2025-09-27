@@ -88,7 +88,7 @@ export const handler = async (event) => {
       };
     }
 
-    let { name, trip, testimony, language, email, photos, photo } = data;
+    const { name, trip, testimony, language, email } = data;
 
     // Basic validation
     console.log('🔍 Validating submission...');
@@ -101,48 +101,35 @@ export const handler = async (event) => {
       };
     }
 
-    // File validation
-    if (photo) {
+    // Normalize photos: accept photos[] or single photo
+    let photos = [];
+    if (Array.isArray(data.photos)) photos = data.photos;
+    else if (data.photo) photos = [data.photo];
+
+    // File validation (each, if any)
+    for (const p of photos) {
       console.log('📋 Photo details:', {
-        type: photo.type,
-        name: photo.name,
-        size: photo.size,
-        dataLength: photo.data ? photo.data.length : 0
+        type: p.type, name: p.name, size: p.size, dataLength: p.data ? p.data.length : 0
       });
-
-      if (photo.size > MAX_FILE_SIZE) {
-        console.log('❌ File too large:', photo.size);
-        return {
-          statusCode: 400,
-          headers: corsHeaders,
-          body: JSON.stringify({ error: "Image too large. Maximum size: 5MB" }),
-        };
+      if (p.size > MAX_FILE_SIZE) {
+        return { statusCode: 400, headers: corsHeaders,
+          body: JSON.stringify({ error: `Image '${p.name}' too large. Max 5MB` }) };
       }
-
-      if (!ALLOWED_IMAGE_TYPES.test(photo.type)) {
-        console.log('❌ Unsupported image type:', photo.type);
-        return {
-          statusCode: 400,
-          headers: corsHeaders,
-          body: JSON.stringify({ error: "Unsupported image type. Use JPG, PNG, GIF, or WebP" }),
-        };
+      if (!ALLOWED_IMAGE_TYPES.test(p.type)) {
+        return { statusCode: 400, headers: corsHeaders,
+          body: JSON.stringify({ error: `Unsupported image type for '${p.name}'. Use JPG, PNG, GIF, or WebP` }) };
       }
     }
 
     console.log('✅ Data validation passed');
     console.log(`📝 Processing testimony from: ${name}`);
 
-    // 5) Upload photos to Cloudinary if provided
-    // Back-compat: if a single "photo" came in, convert to array
-    if (!Array.isArray(photos) && photo?.data) photos = [photo];
-
+    // 5) Upload photos to Cloudinary (zero, one, or many)
     let mediaUrls = [];
     let imageWarning = false;
-
-    if (Array.isArray(photos) && photos.length) {
-      console.log(`📸 Starting Cloudinary upload for ${photos.length} photo(s)...`);
+    if (photos.length > 0) {
+      console.log('📸 Starting Cloudinary uploads...');
       for (const p of photos) {
-        if (!(p?.data && p?.type)) continue;
         try {
           const url = await uploadToCloudinary({
             base64: p.data,
@@ -150,12 +137,12 @@ export const handler = async (event) => {
             fileName: p.name || "testimony.jpg",
           });
           mediaUrls.push(url);
+          console.log('✅ Media uploaded:', url);
         } catch (error) {
-          console.error('❌ Cloudinary upload failed for one photo:', error.message);
-          imageWarning = true; // continue processing others
+          console.error('❌ Cloudinary upload failed for one image:', error.message);
+          imageWarning = true;
         }
       }
-      console.log('✅ Uploaded photos:', mediaUrls.length);
     } else {
       console.log('ℹ️ No photos to upload');
     }
@@ -285,10 +272,11 @@ async function createGithubIssue({ name, trip, testimony, language, email, media
   // Helper to trim and escape YAML strings
   const yamlString = (str = "") => escapeYaml(str.trim());
 
-  // Build YAML frontmatter with photos array if image exists
-  const photosBlock = (Array.isArray(mediaUrls) && mediaUrls.length)
-    ? `photos:\n${mediaUrls.map(url => `  - url: "${url}"\n    alt: "Testimony Photo"`).join('\n')}\n`
-    : "";
+  // Build YAML frontmatter with photos array (if any)
+  let photosBlock = "";
+  if (Array.isArray(mediaUrls) && mediaUrls.length > 0) {
+    photosBlock = "photos:\n" + mediaUrls.map(u => `  - url: "${u}"\n    alt: "Testimony Photo"`).join("\n") + "\n";
+  }
 
   const issueBody = 
     `---\n` +
@@ -302,7 +290,7 @@ async function createGithubIssue({ name, trip, testimony, language, email, media
     photosBlock +
     `---\n\n` +
     `${testimony.trim()}\n\n` +
-    ((Array.isArray(mediaUrls) ? mediaUrls : []).map(u => `![Testimony Photo](${u})`).join('\n') + (mediaUrls?.length ? '\n\n' : '')) +
+    (Array.isArray(mediaUrls) && mediaUrls.length > 0 ? mediaUrls.map(u => `![Testimony Photo](${u})`).join("\n") + "\n\n" : '') +
     (email ? `---\n**Email:** ${email.trim()}\n` : "");
 
   const issueData = {
