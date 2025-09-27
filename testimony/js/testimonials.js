@@ -345,32 +345,31 @@ class TestimonialsDisplay {
         const truncatedContent = testimonial.content.length > maxLength 
             ? testimonial.content.substring(0, maxLength) + '...'
             : testimonial.content;
-        // 🔧 FIXED: Robust photo handling for both string and object formats
-        let imageUrl = null;
-        let imageAlt = 'Foto del testimonio';
-
+        // Generate photos HTML for all photos in the array
+        let photosHtml = '';
         if (Array.isArray(testimonial.photos) && testimonial.photos.length > 0) {
-        const p = testimonial.photos[0];
-        if (typeof p === 'string') {
-        // Handle string format: photos = ["https://..."]
-        imageUrl = p;
-        } else if (p && typeof p === 'object') {
-        // Handle object format: photos = [{ url: "https://...", alt: "..." }]
-        imageUrl = p.url || p.src || null;
-        imageAlt = p.alt || imageAlt;
-        }
-        }
+            const photoTags = testimonial.photos.map(photo => {
+                let imageUrl = null;
+                let imageAlt = 'Foto del testimonio';
 
-        const photoHtml = imageUrl
-        ? `<div class="testimonial-photo">
-         <img src="${imageUrl}" alt="${this.escapeHtml(imageAlt)}"
-              loading="lazy" referrerpolicy="no-referrer"
-              onerror="this.style.display='none'">
-       </div>`
-         : '';
+                if (typeof photo === 'string') {
+                    // Handle string format: photos = ["https://..."]
+                    imageUrl = photo;
+                } else if (photo && typeof photo === 'object') {
+                    // Handle object format: photos = [{ url: "https://...", alt: "..." }]
+                    imageUrl = photo.url || photo.src || null;
+                    imageAlt = photo.alt || imageAlt;
+                }
+
+                return imageUrl ? `<img src="${imageUrl}" alt="${this.escapeHtml(imageAlt)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : '';
+            }).filter(img => img !== ''); // Remove empty strings
+
+            if (photoTags.length > 0) {
+                photosHtml = `<div class="testimonial-photos">${photoTags.join('')}</div>`;
+            }
+        }
 
         card.innerHTML = `
-            ${photoHtml}
             <div class="testimonial-content">
                 <div class="testimonial-header">
                     <div class="testimonial-author">${this.escapeHtml(testimonial.name)}</div>
@@ -379,6 +378,7 @@ class TestimonialsDisplay {
                 <div class="testimonial-text">
                     <p>${this.escapeHtml(truncatedContent)}</p>
                 </div>
+                ${photosHtml}
                 <div class="testimonial-footer">
                     <span class="testimonial-date">${dateStr}</span>
                     ${testimonial.featured ? '<span class="testimonial-featured">⭐</span>' : ''}
