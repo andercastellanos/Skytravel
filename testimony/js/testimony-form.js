@@ -198,7 +198,14 @@ class TestimonyFormHandler {
             const response = await this.submitToNetlify(formData);
 
             if (response.success) {
-                this.showSuccess();
+                if (response.imageWarning) {
+                    this.showMessage(
+                        'Testimony submitted successfully! Image upload failed but will be processed later.',
+                        'warning'
+                    );
+                } else {
+                    this.showMessage('Testimony submitted successfully!', 'success');
+                }
                 this.resetForm();
                 console.log('✅ Testimony submitted successfully');
             } else {
@@ -587,6 +594,37 @@ class TestimonyFormHandler {
         const hasConsent = this.elements.consentCheckbox?.checked;
 
         this.elements.submitBtn.disabled = !(hasRequiredFields && hasConsent) || this.state.submitting;
+    }
+
+    /**
+     * Show message with type
+     */
+    showMessage(messageText, type = 'success') {
+        this.hideMessages();
+        
+        const messageElement = document.createElement('div');
+        messageElement.className = `form-message ${type}`;
+        
+        let iconAndTitle;
+        if (type === 'warning') {
+            iconAndTitle = this.state.language === 'es' 
+                ? '<h3>⚠️ Advertencia</h3>' 
+                : '<h3>⚠️ Warning</h3>';
+        } else if (type === 'success') {
+            iconAndTitle = this.state.language === 'es' 
+                ? '<h3>✅ ¡Éxito!</h3>' 
+                : '<h3>✅ Success!</h3>';
+        } else {
+            iconAndTitle = '<h3>ℹ️ Info</h3>';
+        }
+        
+        messageElement.innerHTML = `${iconAndTitle}<p>${messageText}</p>`;
+        this.elements.form.parentElement.insertBefore(messageElement, this.elements.form);
+        
+        // Scroll to message
+        setTimeout(() => {
+            messageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
     }
 
     /**

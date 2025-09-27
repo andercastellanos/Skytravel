@@ -1,521 +1,343 @@
 /**
  * =============================================================================
- * 📄 DEBUG VERSION - NETLIFY FUNCTION WITH ENHANCED LOGGING
- * 🌐 File: testimony/netlify/functions/submit-testimony.js
- * 📝 Purpose: Enhanced error logging to debug 502 issues
+ * 📄 NETLIFY SERVERLESS FUNCTION - TESTIMONY SUBMISSION (PRODUCTION VERSION)
+ * 🌐 File: netlify/functions/submit-testimony.js
+ * 📝 Purpose: Receive form submissions → Upload to Cloudinary → Create GitHub Issues
+ * 🔗 Called by: testimony-form.js from enviar-testimonio.html & submit-testimonial.html
  * =============================================================================
  */
 
-const https = require('https');
-const crypto = require('crypto');
-const querystring = require('querystring');
+import crypto from "crypto";
 
-// Configuration - Set these as Netlify environment variables
-const CONFIG = {
-    github: {
-        owner: 'andercastellanos',
-        repo: 'Skytravel',
-        token: process.env.GITHUB_TOKEN,
-        apiBase: 'https://api.github.com'
-    },
-    cloudinary: {
-        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-        apiKey: process.env.CLOUDINARY_API_KEY,
-        apiSecret: process.env.CLOUDINARY_API_SECRET
-    }
+// ---------- CORS Headers ----------
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
 };
 
+// ---------- Constants ----------
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_IMAGE_TYPES = /^image\/(jpe?g|png|gif|webp)$/i;
+
 /**
- * Main Netlify function handler
+ * Main Netlify function handler (ES Module export)
  */
-exports.handler = async (event, context) => {
-    console.log('🚀 Function started');
-    console.log('📋 Request method:', event.httpMethod);
-    console.log('📋 Request headers:', JSON.stringify(event.headers, null, 2));
-    
+export const handler = async (event) => {
+  console.log('🚀 Function started');
+  console.log('📋 Request method:', event.httpMethod);
+  
+  try {
     // Environment variable check with detailed logging
     console.log('🔍 Environment Variables Check:');
-    console.log('- GITHUB_TOKEN:', CONFIG.github.token ? 'SET' : 'MISSING');
-    console.log('- CLOUDINARY_CLOUD_NAME:', CONFIG.cloudinary.cloudName ? 'SET' : 'MISSING');
-    console.log('- CLOUDINARY_API_KEY:', CONFIG.cloudinary.apiKey ? 'SET' : 'MISSING');
-    console.log('- CLOUDINARY_API_SECRET:', CONFIG.cloudinary.apiSecret ? 'SET' : 'MISSING');
+    console.log('- GITHUB_TOKEN:', process.env.GITHUB_TOKEN ? 'SET' : 'MISSING');
+    console.log('- CLOUDINARY_CLOUD_NAME:', process.env.CLOUDINARY_CLOUD_NAME ? 'SET' : 'MISSING');
+    console.log('- CLOUDINARY_API_KEY:', process.env.CLOUDINARY_API_KEY ? 'SET' : 'MISSING');
+    console.log('- CLOUDINARY_API_SECRET:', process.env.CLOUDINARY_API_SECRET ? 'SET' : 'MISSING');
 
-    // Set CORS headers
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    // 1) Handle CORS preflight
+    if (event.httpMethod === "OPTIONS") {
+      console.log('✅ Handling OPTIONS request');
+      return { 
+        statusCode: 204, 
+        headers: corsHeaders, 
+        body: "" 
+      };
+    }
+
+    // 2) Only allow POST requests
+    if (event.httpMethod !== "POST") {
+      console.log('❌ Invalid method:', event.httpMethod);
+      return {
+        statusCode: 405,
+        headers: { ...corsHeaders, "Allow": "POST, OPTIONS" },
+        body: JSON.stringify({ error: "Method Not Allowed. Use POST." }),
+      };
+    }
+
+    // 3) Validate request body
+    if (!event.body) {
+      console.log('❌ Missing request body');
+      return {
+        statusCode: 400,
+        headers: corsHeaders,
+        body: JSON.stringify({ error: "Missing request body" }),
+      };
+    }
+
+    // 4) Parse and validate data
+    console.log('📝 Processing POST request');
+    console.log('📋 Body length:', event.body ? event.body.length : 0);
+    
+    let data;
+    try {
+      data = JSON.parse(event.body);
+      console.log('✅ JSON parsed successfully');
+      console.log('📋 Request data keys:', Object.keys(data));
+      console.log('📋 Has photo:', !!data.photo);
+    } catch (error) {
+      console.error('❌ JSON parse error:', error.message);
+      return {
+        statusCode: 400,
+        headers: corsHeaders,
+        body: JSON.stringify({ error: "Invalid JSON in request body" }),
+      };
+    }
+
+    const { name, trip, testimony, language, email, photo } = data;
+
+    // Basic validation
+    console.log('🔍 Validating submission...');
+    if (!name || !trip || !testimony) {
+      console.log('❌ Missing required fields');
+      return {
+        statusCode: 400,
+        headers: corsHeaders,
+        body: JSON.stringify({ error: "Missing required fields: name, trip, testimony" }),
+      };
+    }
+
+    // File validation
+    if (photo) {
+      console.log('📋 Photo details:', {
+        type: photo.type,
+        name: photo.name,
+        size: photo.size,
+        dataLength: photo.data ? photo.data.length : 0
+      });
+
+      if (photo.size > MAX_FILE_SIZE) {
+        console.log('❌ File too large:', photo.size);
+        return {
+          statusCode: 400,
+          headers: corsHeaders,
+          body: JSON.stringify({ error: "Image too large. Maximum size: 5MB" }),
+        };
+      }
+
+      if (!ALLOWED_IMAGE_TYPES.test(photo.type)) {
+        console.log('❌ Unsupported image type:', photo.type);
+        return {
+          statusCode: 400,
+          headers: corsHeaders,
+          body: JSON.stringify({ error: "Unsupported image type. Use JPG, PNG, GIF, or WebP" }),
+        };
+      }
+    }
+
+    console.log('✅ Data validation passed');
+    console.log(`📝 Processing testimony from: ${name}`);
+
+    // 5) Upload photo to Cloudinary if provided
+    let mediaUrl = null;
+    let imageWarning = false;
+    
+    if (photo?.data && photo?.type) {
+      console.log('📸 Starting Cloudinary upload...');
+      
+      try {
+        mediaUrl = await uploadToCloudinary({
+          base64: photo.data,
+          mime: photo.type,
+          fileName: photo.name || "testimony.jpg",
+        });
+        console.log('✅ Media uploaded successfully:', mediaUrl);
+      } catch (error) {
+        console.error('❌ Cloudinary upload failed:', error.message);
+        console.error('❌ Cloudinary upload stack:', error.stack);
+        console.log('⚠️ Continuing without media upload...');
+        imageWarning = true;
+        // Continue without image rather than failing completely
+      }
+    } else {
+      console.log('ℹ️ No photo to upload');
+    }
+
+    // 6) Create GitHub issue
+    console.log('🐙 Creating GitHub issue...');
+    const { issueUrl, issueNumber } = await createGithubIssue({
+      name,
+      trip,
+      testimony,
+      language,
+      email,
+      mediaUrl,
+    });
+    console.log('✅ GitHub issue created successfully:', issueUrl);
+
+    // 7) Return success response (201 for resource created)
+    const successResponse = {
+      success: true,
+      issueUrl,
+      issueNumber,
+      mediaUrl,
+      imageWarning,
+      message: "Testimony submitted successfully"
+    };
+    
+    console.log('🎉 Function completed successfully');
+    return {
+      statusCode: 201, // Resource created
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      body: JSON.stringify(successResponse),
     };
 
-    // Handle preflight requests
-    if (event.httpMethod === 'OPTIONS') {
-        console.log('✅ Handling OPTIONS request');
-        return {
-            statusCode: 200,
-            headers,
-            body: ''
-        };
-    }
-
-    // Only allow POST requests
-    if (event.httpMethod !== 'POST') {
-        console.log('❌ Invalid method:', event.httpMethod);
-        return {
-            statusCode: 405,
-            headers,
-            body: JSON.stringify({ 
-                error: 'Method not allowed. Only POST requests accepted.'
-            })
-        };
-    }
-
-    try {
-        console.log('📝 Processing POST request');
-        console.log('📋 Body length:', event.body ? event.body.length : 0);
-
-        // Parse request body
-        let requestData;
-        try {
-            requestData = JSON.parse(event.body);
-            console.log('✅ JSON parsed successfully');
-            console.log('📋 Request data keys:', Object.keys(requestData));
-            console.log('📋 Has photo:', !!requestData.photo);
-            if (requestData.photo) {
-                console.log('📋 Photo size (base64):', requestData.photo.data ? requestData.photo.data.length : 0);
-                console.log('📋 Photo type:', requestData.photo.type);
-            }
-        } catch (error) {
-            console.error('❌ JSON parse error:', error.message);
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({ 
-                    success: false, 
-                    error: 'Invalid JSON in request body' 
-                })
-            };
-        }
-
-        // Validate submission
-        console.log('🔍 Validating submission...');
-        const validation = validateSubmission(requestData);
-        if (!validation.valid) {
-            console.log('❌ Validation failed:', validation.error);
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({ 
-                    success: false, 
-                    error: validation.error 
-                })
-            };
-        }
-        console.log('✅ Validation passed');
-
-        console.log(`📝 Processing testimony from: ${requestData.name}`);
-
-        // Upload media to Cloudinary if provided
-        let mediaUrl = null;
-        if (requestData.photo && requestData.photo.data) {
-            try {
-                console.log('📸 Starting Cloudinary upload...');
-                console.log('📋 Photo details:', {
-                    type: requestData.photo.type,
-                    name: requestData.photo.name,
-                    size: requestData.photo.size,
-                    dataLength: requestData.photo.data.length
-                });
-                
-                mediaUrl = await uploadToCloudinary(requestData.photo);
-                console.log('✅ Media uploaded successfully:', mediaUrl);
-            } catch (error) {
-                console.error('❌ Media upload failed:', error.message);
-                console.error('❌ Media upload stack:', error.stack);
-                // Continue without media - don't fail entire submission
-                console.log('⚠️ Continuing without media upload...');
-            }
-        } else {
-            console.log('ℹ️ No photo to upload');
-        }
-
-        // Create GitHub Issue
-        console.log('📝 Creating GitHub issue data...');
-        const issueData = createIssueData(requestData, mediaUrl);
-        console.log('📋 Issue data created, title:', issueData.title);
-        
-        console.log('📤 Creating GitHub issue...');
-        const githubResponse = await postIssueToGitHub(issueData);
-        
-        console.log('✅ GitHub issue created successfully:', githubResponse.html_url);
-
-        // Return success response
-        const successResponse = {
-            success: true,
-            message: 'Testimony submitted successfully',
-            issueUrl: githubResponse.html_url,
-            issueNumber: githubResponse.number,
-            mediaUrl: mediaUrl
-        };
-        
-        console.log('🎉 Function completed successfully');
-        return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify(successResponse)
-        };
-
-    } catch (error) {
-        console.error('❌ CRITICAL ERROR in function:', error.message);
-        console.error('❌ Error stack:', error.stack);
-        console.error('❌ Error details:', JSON.stringify(error, null, 2));
-        
-        return {
-            statusCode: 500,
-            headers,
-            body: JSON.stringify({
-                success: false,
-                error: 'Internal server error. Please try again later.',
-                details: error.message
-            })
-        };
-    }
+  } catch (error) {
+    console.error("❌ CRITICAL ERROR in function:", error.message);
+    console.error("❌ Error stack:", error.stack);
+    
+    return {
+      statusCode: 500,
+      headers: corsHeaders,
+      body: JSON.stringify({ 
+        error: "Server error occurred",
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      }),
+    };
+  }
 };
 
 /**
- * Validate form submission data
+ * Upload photo to Cloudinary with proper signature
  */
-function validateSubmission(data) {
-    console.log('🔍 Starting validation...');
-    const required = ['name', 'trip', 'testimony', 'language'];
-    
-    for (const field of required) {
-        if (!data[field] || typeof data[field] !== 'string' || data[field].trim().length === 0) {
-            return {
-                valid: false,
-                error: `Missing or empty required field: ${field}`
-            };
-        }
-    }
+async function uploadToCloudinary({ base64, mime, fileName }) {
+  console.log('📸 Starting Cloudinary upload process...');
+  
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+  const apiKey = process.env.CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
-    // Validate field lengths
-    if (data.name.length > 100) {
-        return { valid: false, error: 'Name too long (max 100 characters)' };
-    }
+  // Validate environment variables
+  if (!cloudName || !apiKey || !apiSecret) {
+    throw new Error('Missing Cloudinary environment variables');
+  }
 
-    if (data.trip.length > 200) {
-        return { valid: false, error: 'Trip information too long (max 200 characters)' };
-    }
+  const folder = "skytravel-testimonies";
+  const timestamp = Math.floor(Date.now() / 1000);
+  
+  console.log('📋 Generated timestamp:', timestamp);
+  console.log('📋 Using folder:', folder);
 
-    if (data.testimony.length < 50) {
-        return { valid: false, error: 'Testimony too short (minimum 50 characters)' };
-    }
+  // Create signature - ONLY sign required parameters
+  const toSign = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
+  const signature = crypto.createHash("sha1").update(toSign).digest("hex");
+  
+  console.log('🔐 Signature generated successfully');
 
-    if (data.testimony.length > 2000) {
-        return { valid: false, error: 'Testimony too long (max 2000 characters)' };
-    }
+  // Build form data
+  const form = new URLSearchParams();
+  form.append("file", `data:${mime};base64,${base64}`);
+  form.append("api_key", apiKey);
+  form.append("timestamp", String(timestamp));
+  form.append("signature", signature);
+  form.append("folder", folder);
+  
+  // Remove file extension for public_id
+  const publicId = fileName.replace(/\.[^.]+$/, "");
+  form.append("public_id", publicId);
 
-    // Validate email if provided
-    if (data.email && data.email.trim()) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(data.email)) {
-            return { valid: false, error: 'Invalid email format' };
-        }
-    }
+  console.log('📋 Upload data prepared, making request to Cloudinary...');
 
-    // Validate media file if provided
-    if (data.photo) {
-        console.log('🔍 Validating photo data...');
-        if (!data.photo.data || !data.photo.type) {
-            return { valid: false, error: 'Invalid file data' };
-        }
+  // Upload to Cloudinary
+  const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+  
+  const response = await fetch(uploadUrl, {
+    method: "POST",
+    body: form,
+  });
 
-        // Allow both images and videos (optimized for web)
-        const allowedTypes = [
-            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
-            'video/mp4', 'video/webm'
-        ];
-        if (!allowedTypes.includes(data.photo.type)) {
-            return { 
-                valid: false, 
-                error: 'Invalid file format. Only JPG, PNG, GIF, WebP, MP4, WebM allowed' 
-            };
-        }
+  console.log('📋 Cloudinary response status:', response.status);
 
-        // Check base64 data size (approximate file size) - increased to 25MB for videos
-        const sizeBytes = (data.photo.data.length * 3/4) - 2;
-        const maxSize = 25 * 1024 * 1024; // 25MB
-        console.log('📋 Photo size check:', {
-            sizeBytes: sizeBytes,
-            sizeMB: (sizeBytes / 1024 / 1024).toFixed(2),
-            maxSizeMB: 25
-        });
-        
-        if (sizeBytes > maxSize) {
-            return { valid: false, error: 'File too large. Maximum size: 25MB' };
-        }
-    }
+  const result = await response.json();
+  
+  if (!response.ok) {
+    console.error('❌ Cloudinary error response:', result);
+    throw new Error(result.error?.message || `Cloudinary upload failed: ${response.statusText}`);
+  }
 
-    console.log('✅ Validation completed successfully');
-    return { valid: true };
+  console.log('✅ Cloudinary upload successful');
+  return result.secure_url;
 }
 
 /**
- * Upload file to Cloudinary with enhanced error handling
+ * Create GitHub issue with YAML frontmatter
  */
-function uploadToCloudinary(fileData) {
-    return new Promise((resolve, reject) => {
-        console.log('📸 Starting Cloudinary upload process...');
-        
-        try {
-            // Generate timestamp for signature
-            const timestamp = Math.round((new Date()).getTime() / 1000);
-            console.log('📋 Generated timestamp:', timestamp);
-            
-            // Determine resource type based on file type
-            const resourceType = fileData.type.startsWith('video/') ? 'video' : 'image';
-            console.log('📋 Resource type:', resourceType);
-            
-            // Create parameters for signature
-            const params = {
-                timestamp: timestamp,
-                resource_type: resourceType,
-                folder: 'sky-travel-testimonies'
-            };
-            
-            // Generate signature
-            console.log('🔐 Generating Cloudinary signature...');
-            const signature = generateCloudinarySignature(params, CONFIG.cloudinary.apiSecret);
-            console.log('✅ Signature generated');
-            
-            // Prepare upload data
-            const uploadData = querystring.stringify({
-                file: `data:${fileData.type};base64,${fileData.data}`,
-                api_key: CONFIG.cloudinary.apiKey,
-                timestamp: timestamp,
-                signature: signature,
-                resource_type: resourceType,
-                folder: 'sky-travel-testimonies'
-            });
+async function createGithubIssue({ name, trip, testimony, language, email, mediaUrl }) {
+  console.log('📝 Creating GitHub issue data...');
+  
+  const token = process.env.GITHUB_TOKEN;
+  const owner = "andercastellanos";
+  const repo = "Skytravel";
 
-            console.log('📋 Upload data prepared, size:', uploadData.length);
+  if (!token) {
+    throw new Error('Missing GitHub token');
+  }
 
-            const options = {
-                hostname: 'api.cloudinary.com',
-                port: 443,
-                path: `/v1_1/${CONFIG.cloudinary.cloudName}/${resourceType}/upload`,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Length': Buffer.byteLength(uploadData)
-                },
-                timeout: 30000 // 30 second timeout
-            };
+  // Helper to trim and escape YAML strings
+  const yamlString = (str = "") => escapeYaml(str.trim());
 
-            console.log('🌐 Making request to Cloudinary...');
-            const req = https.request(options, (res) => {
-                console.log('📋 Cloudinary response status:', res.statusCode);
-                let data = '';
-                
-                res.on('data', (chunk) => {
-                    data += chunk;
-                });
+  // Build YAML frontmatter with photos array if image exists
+  const photosBlock = mediaUrl
+    ? `photos:\n  - url: "${mediaUrl}"\n    alt: "Testimony Photo"\n`
+    : "";
 
-                res.on('end', () => {
-                    console.log('📋 Cloudinary response received');
-                    try {
-                        const response = JSON.parse(data);
-                        console.log('📋 Cloudinary response parsed');
-                        
-                        if (response.secure_url) {
-                            console.log('✅ Cloudinary upload successful:', response.secure_url);
-                            resolve(response.secure_url);
-                        } else {
-                            console.error('❌ Cloudinary upload failed:', response);
-                            reject(new Error(response.error?.message || 'Cloudinary upload failed'));
-                        }
-                    } catch (error) {
-                        console.error('❌ Failed to parse Cloudinary response:', error.message);
-                        console.error('❌ Raw response:', data);
-                        reject(new Error('Invalid Cloudinary response'));
-                    }
-                });
-            });
+  const issueBody = 
+    `---\n` +
+    `name: "${yamlString(name)}"\n` +
+    `trip: "${yamlString(trip)}"\n` +
+    `language: "${language || "es"}"\n` +
+    `featured: false\n` +
+    `verified: false\n` +
+    `rating: "5"\n` +
+    `tags: "pilgrimage, faith, testimony"\n` +
+    photosBlock +
+    `---\n\n` +
+    `${testimony.trim()}\n\n` +
+    (mediaUrl ? `![Testimony Photo](${mediaUrl})\n\n` : '') +
+    (email ? `---\n**Email:** ${email.trim()}\n` : "");
 
-            req.on('error', (error) => {
-                console.error('❌ Cloudinary request error:', error.message);
-                reject(error);
-            });
+  const issueData = {
+    title: `Testimonio de ${name.trim()} - ${trip.trim()}`,
+    body: issueBody,
+    labels: ["testimony", "needs-review"],
+  };
 
-            req.on('timeout', () => {
-                console.error('❌ Cloudinary request timeout');
-                req.destroy();
-                reject(new Error('Cloudinary upload timeout'));
-            });
+  console.log('📋 Issue data created, title:', issueData.title);
+  console.log('📤 Creating GitHub issue...');
 
-            console.log('📤 Sending data to Cloudinary...');
-            req.write(uploadData);
-            req.end();
-            
-        } catch (error) {
-            console.error('❌ Cloudinary upload setup error:', error.message);
-            reject(error);
-        }
-    });
-}
-
-/**
- * Generate Cloudinary signature
- */
-function generateCloudinarySignature(params, apiSecret) {
-    console.log('🔐 Generating signature with params:', params);
-    
-    // Sort parameters alphabetically
-    const sortedParams = Object.keys(params)
-        .sort()
-        .map(key => `${key}=${params[key]}`)
-        .join('&');
-    
-    console.log('📋 Sorted params string:', sortedParams);
-    
-    // Create signature
-    const signature = crypto
-        .createHash('sha1')
-        .update(sortedParams + apiSecret)
-        .digest('hex');
-        
-    console.log('✅ Signature created');
-    return signature;
-}
-
-/**
- * Create GitHub issue data
- */
-function createIssueData(submissionData, mediaUrl) {
-    console.log('📝 Creating GitHub issue data...');
-    
-    const currentDate = new Date().toLocaleDateString(
-        submissionData.language === 'es' ? 'es-ES' : 'en-US'
-    );
-
-    // Build YAML front matter
-    const yamlData = [
-        '---',
-        `name: "${submissionData.name.replace(/"/g, '\\"')}"`,
-        `trip: "${submissionData.trip.replace(/"/g, '\\"')}"`,
-        `language: "${submissionData.language}"`,
-        'featured: false',
-        'verified: false',
-        'rating: "5"',
-        'tags: "pilgrimage, faith, testimony"',
-        '---',
-        '',
-        submissionData.testimony,
-        ''
-    ];
-
-    // Add media section if media was uploaded
-    if (mediaUrl) {
-        const mediaLabel = submissionData.language === 'es' 
-            ? 'Media del Testimonio' 
-            : 'Testimony Media';
-        
-        const mediaType = submissionData.photo?.type?.startsWith('video/') ? 'Video' : 'Foto';
-        
-        yamlData.push(`## ${mediaLabel}`);
-        yamlData.push(`![${mediaType} del Testimonio](${mediaUrl})`);
-        yamlData.push('');
+  const response = await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/issues`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `token ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/vnd.github+json",
+        "User-Agent": "Sky-Travel-Netlify-Function/1.0"
+      },
+      body: JSON.stringify(issueData),
     }
+  );
 
-    // Add metadata
-    const sentLabel = submissionData.language === 'es' ? 'Enviado' : 'Submitted';
-    const contactLabel = submissionData.language === 'es' ? 'Email de contacto' : 'Contact email';
-    
-    yamlData.push('---');
-    yamlData.push(`**${sentLabel}:** ${currentDate}`);
-    
-    if (submissionData.email && submissionData.email.trim()) {
-        yamlData.push(`**${contactLabel}:** ${submissionData.email}`);
-    }
+  console.log('📋 GitHub API response status:', response.status);
 
-    const issueTitle = submissionData.language === 'es'
-        ? `Testimonio de ${submissionData.name} - ${submissionData.trip}`
-        : `Testimony from ${submissionData.name} - ${submissionData.trip}`;
+  const result = await response.json();
+  
+  if (!response.ok) {
+    console.error('❌ GitHub API error:', result);
+    throw new Error(result.message || `GitHub API failed: ${response.statusText}`);
+  }
 
-    console.log('✅ GitHub issue data created');
-    return {
-        title: issueTitle,
-        body: yamlData.join('\n'),
-        labels: ['testimony', 'needs-review'],
-        assignees: ['andercastellanos', 'jandrearuiz']
-    };
+  console.log('✅ GitHub issue created successfully');
+  return {
+    issueUrl: result.html_url,
+    issueNumber: result.number
+  };
 }
 
 /**
- * Post issue to GitHub
+ * Helper function to escape YAML special characters
  */
-function postIssueToGitHub(issueData) {
-    return new Promise((resolve, reject) => {
-        console.log('📤 Starting GitHub API request...');
-        
-        const postData = JSON.stringify(issueData);
-        console.log('📋 GitHub payload size:', postData.length);
-        
-        const options = {
-            hostname: 'api.github.com',
-            port: 443,
-            path: `/repos/${CONFIG.github.owner}/${CONFIG.github.repo}/issues`,
-            method: 'POST',
-            headers: {
-                'Authorization': `token ${CONFIG.github.token}`,
-                'User-Agent': 'Sky-Travel-Netlify-Function/1.0',
-                'Accept': 'application/vnd.github.v3+json',
-                'Content-Type': 'application/json',
-                'Content-Length': Buffer.byteLength(postData)
-            },
-            timeout: 15000 // 15 second timeout
-        };
-
-        const req = https.request(options, (res) => {
-            console.log('📋 GitHub API response status:', res.statusCode);
-            let data = '';
-            
-            res.on('data', (chunk) => {
-                data += chunk;
-            });
-
-            res.on('end', () => {
-                console.log('📋 GitHub API response received');
-                try {
-                    const response = JSON.parse(data);
-                    
-                    if (res.statusCode === 201 && response.html_url) {
-                        console.log('✅ GitHub issue created successfully');
-                        resolve(response);
-                    } else {
-                        console.error('❌ GitHub API error:', response);
-                        reject(new Error(response.message || `GitHub API error: ${res.statusCode}`));
-                    }
-                } catch (error) {
-                    console.error('❌ Failed to parse GitHub response:', error.message);
-                    console.error('❌ Raw response:', data);
-                    reject(new Error('Invalid GitHub API response'));
-                }
-            });
-        });
-
-        req.on('error', (error) => {
-            console.error('❌ GitHub request error:', error.message);
-            reject(error);
-        });
-
-        req.on('timeout', () => {
-            console.error('❌ GitHub request timeout');
-            req.destroy();
-            reject(new Error('GitHub API timeout'));
-        });
-
-        console.log('📤 Sending request to GitHub...');
-        req.write(postData);
-        req.end();
-    });
+function escapeYaml(str = "") {
+  return String(str).replace(/"/g, '\\"');
 }

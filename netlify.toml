@@ -5,6 +5,8 @@
 [functions]
   directory = "testimony/netlify/functions"
   node_bundler = "esbuild"
+  external_node_modules = []
+  node_version = "18"
 
 # Optional: Redirect rules for cleaner URLs
 [[redirects]]
