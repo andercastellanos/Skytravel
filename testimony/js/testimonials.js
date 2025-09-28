@@ -348,27 +348,48 @@ class TestimonialsDisplay {
 
         // Use full content (no truncation)
         const fullContent = testimonial.content;
-        // Generate photos HTML for all photos in the array
-        let photosHtml = '';
-        if (Array.isArray(testimonial.photos) && testimonial.photos.length > 0) {
-            const photoTags = testimonial.photos.map(photo => {
-                let imageUrl = null;
-                let imageAlt = 'Foto del testimonio';
+        // Generate media HTML for photos, videos, and audio
+        let mediaHtml = '';
+        const media = testimonial.media || testimonial.photos || [];
 
-                if (typeof photo === 'string') {
-                    // Handle string format: photos = ["https://..."]
-                    imageUrl = photo;
-                } else if (photo && typeof photo === 'object') {
-                    // Handle object format: photos = [{ url: "https://...", alt: "..." }]
-                    imageUrl = photo.url || photo.src || null;
-                    imageAlt = photo.alt || imageAlt;
+        if (Array.isArray(media) && media.length > 0) {
+            const mediaTags = media.map(item => {
+                let mediaUrl = null;
+                let mediaAlt = 'Testimonio multimedia';
+
+                if (typeof item === 'string') {
+                    // Handle string format: media = ["https://..."]
+                    mediaUrl = item;
+                } else if (item && typeof item === 'object') {
+                    // Handle object format: media = [{ url: "https://...", alt: "..." }]
+                    mediaUrl = item.secure_url || item.url || item.src || null;
+                    mediaAlt = item.alt || mediaAlt;
                 }
 
-                return imageUrl ? `<img src="${imageUrl}" alt="${this.escapeHtml(imageAlt)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : '';
-            }).filter(img => img !== ''); // Remove empty strings
+                if (!mediaUrl) return '';
 
-            if (photoTags.length > 0) {
-                photosHtml = `<div class="testimonial-photos">${photoTags.join('')}</div>`;
+                // Detect media type by file extension or resource_type
+                const mediaType = this.detectMediaType(mediaUrl, item);
+
+                switch (mediaType) {
+                    case 'video':
+                        return `<video class="testimonial-media-video" controls preload="metadata" referrerpolicy="no-referrer">
+                                    <source src="${mediaUrl}" type="video/mp4">
+                                    Tu navegador no soporta el elemento video.
+                                </video>`;
+                    case 'audio':
+                        return `<audio class="testimonial-media-audio" controls preload="metadata" referrerpolicy="no-referrer">
+                                    <source src="${mediaUrl}" type="audio/mpeg">
+                                    Tu navegador no soporta el elemento audio.
+                                </audio>`;
+                    case 'image':
+                    default:
+                        return `<img class="testimonial-media-img" src="${mediaUrl}" alt="${this.escapeHtml(mediaAlt)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
+                }
+            }).filter(tag => tag !== ''); // Remove empty strings
+
+            if (mediaTags.length > 0) {
+                mediaHtml = `<div class="testimonial-media-grid">${mediaTags.join('')}</div>`;
             }
         }
 
@@ -381,7 +402,7 @@ class TestimonialsDisplay {
                 <div class="testimonial-body">
                     ${this.formatTestimonialContent(fullContent)}
                 </div>
-                ${photosHtml}
+                ${mediaHtml}
                 <div class="testimonial-footer">
                     <span class="testimonial-date">${dateStr}</span>
                     ${testimonial.featured ? '<span class="testimonial-featured">⭐</span>' : ''}
@@ -610,6 +631,34 @@ class TestimonialsDisplay {
         if (this.elements.emptyMessage) {
             this.elements.emptyMessage.classList.add('hidden');
         }
+    }
+
+    /**
+     * Detect media type from URL or item properties
+     */
+    detectMediaType(url, item) {
+        // If item has resource_type from Cloudinary, use it
+        if (item && item.resource_type) {
+            return item.resource_type === 'video' ?
+                   (item.format && ['mp3', 'wav', 'ogg'].includes(item.format.toLowerCase()) ? 'audio' : 'video') :
+                   item.resource_type;
+        }
+
+        // Fallback to URL extension detection
+        const extension = url.split('.').pop().toLowerCase().split('?')[0]; // Remove query params
+
+        if (['mp4', 'webm', 'ogg', 'avi', 'mov'].includes(extension)) {
+            return 'video';
+        }
+        if (['mp3', 'wav', 'ogg', 'm4a', 'aac'].includes(extension)) {
+            return 'audio';
+        }
+        if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) {
+            return 'image';
+        }
+
+        // Default to image for unknown types
+        return 'image';
     }
 
     /**

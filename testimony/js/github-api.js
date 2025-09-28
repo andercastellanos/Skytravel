@@ -153,7 +153,8 @@ class GitHubAPI {
         const contentSection = (yamlMatch[2] || '').trim();
 
         const metadata = this.parseSimpleYAML(yamlSection);
-        const photos = this.extractPhotos(contentSection); // ⬅️ array of photo objects
+        const media = this.extractMediaFromYAML(yamlSection); // Parse media from YAML
+        const photos = media.length > 0 ? media : this.extractPhotos(contentSection); // Fallback to markdown photos
 
         const cleanContent = contentSection
             .replace(/!\[.*?\]\(.*?\)/g, '')   // strip images
@@ -170,7 +171,8 @@ class GitHubAPI {
             name: this.getDisplayName(issue, metadata),
             trip: metadata.trip || 'Pilgrimage Experience',
             content: cleanContent,
-            photos, // array<string>
+            media: photos, // array of media objects with url/alt
+            photos: photos, // keep for backward compatibility
             date: new Date(issue.created_at),
             url: issue.html_url,
 
@@ -211,7 +213,8 @@ class GitHubAPI {
             name: this.getDisplayName(issue, meta),
             trip: 'Pilgrimage Experience',
             content: cleanContent,
-            photos,
+            media: photos, // array of media objects with url/alt
+            photos: photos, // keep for backward compatibility
             date: new Date(issue.created_at),
             url: issue.html_url,
             destination: 'Unknown',
@@ -330,6 +333,47 @@ extractPhotos(content) {
     
     console.log(`📸 Extracted ${photos.length} photos from content`);
     return photos;
+}
+
+/**
+ * Extract media URLs from YAML front matter
+ * @param {string} yamlContent - YAML front matter content
+ * @returns {Array} Array of media objects with url and alt properties
+ */
+extractMediaFromYAML(yamlContent) {
+    const media = [];
+
+    // Simple regex to extract media block from YAML
+    const mediaMatch = yamlContent.match(/media:\s*([\s\S]*?)(?=\n[a-zA-Z]|\n---|\n$|$)/);
+    if (!mediaMatch) return media;
+
+    const mediaSection = mediaMatch[1];
+
+    // Parse lines starting with "- url:"
+    const lines = mediaSection.split('\n');
+    for (const line of lines) {
+        const urlMatch = line.match(/^\s*-\s*url:\s*"([^"]+)"/);
+        if (urlMatch) {
+            const url = urlMatch[1];
+
+            // Check if URL is from allowed hosts
+            const isAllowedHost = this.config.allowedImageHosts.some(host =>
+                url.toLowerCase().includes(host.toLowerCase())
+            );
+
+            if (isAllowedHost) {
+                media.push({
+                    url: url,
+                    alt: 'Testimony media'
+                });
+            } else {
+                console.warn(`⚠️ Skipping media from non-allowed host: ${url}`);
+            }
+        }
+    }
+
+    console.log(`📺 Extracted ${media.length} media items from YAML`);
+    return media;
 }
 
 /**

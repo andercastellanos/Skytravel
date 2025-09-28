@@ -8,14 +8,33 @@
  * =============================================================================
  */
 
+const SUBMIT_URL = '/.netlify/functions/submit-testimony';
+
+// Dev healthcheck
+fetch('/.netlify/functions/submit-testimony', { method: 'OPTIONS' })
+  .then(r => console.log('[healthcheck] function status', r.status))
+  .catch(e => console.warn('[healthcheck] function unreachable', e));
+
 class TestimonyFormHandler {
     constructor() {
         // Configuration
         this.config = {
-            netlifyFunction: '/.netlify/functions/submit-testimony', // Netlify serverless function
-            maxFileSize: 5 * 1024 * 1024, // 5MB max file size
+            netlifyFunction: SUBMIT_URL, // Netlify serverless function
+            maxFileSize: 100 * 1024 * 1024, // 100MB max file size
             allowedImageTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'],
             imgurClientId: null // Will be set by serverless function
+        };
+
+        // Per-type file size limits
+        this.config.maxImageSize = 10 * 1024 * 1024;   // 10MB for images
+        this.config.maxVideoSize = 150 * 1024 * 1024;  // 150MB for videos
+        this.config.maxAudioSize = 50 * 1024 * 1024;   // 50MB for audio
+
+        // Cloudinary configuration
+        this.config.cloudinary = {
+            cloudName: 'dfdzphrfe',
+            uploadPreset: 'skytravel_unsigned',
+            folder: 'sky-travel-testimonies'
         };
 
         // State management
@@ -70,12 +89,20 @@ class TestimonyFormHandler {
             return;
         }
 
-        // Form fields
-        this.elements.nameInput = this.elements.form.querySelector('#nombre, #name');
-        this.elements.tripInput = this.elements.form.querySelector('#viaje, #trip');
-        this.elements.testimonyInput = this.elements.form.querySelector('#testimonio, #testimony');
+        // Form fields - hardened selectors for both ES and EN
+        this.elements.nameInput = this.elements.form.querySelector(
+            '#nombre, #name, #full-name, [name="name"]'
+        );
+        this.elements.tripInput = this.elements.form.querySelector(
+            '#viaje, #trip, #destination, [name="trip"]'
+        );
+        this.elements.testimonyInput = this.elements.form.querySelector(
+            '#testimonio, #testimony, #testimonial, #story, [name="testimony"]'
+        );
         this.elements.emailInput = this.elements.form.querySelector('#email');
-        this.elements.photoInput = this.elements.form.querySelector('#foto, #photo, #photos');
+        this.elements.photoInput = this.elements.form.querySelector(
+            '#foto, #photo, #photos, [name="photos"]'
+        );
         this.elements.photoStatus = this.elements.form.querySelector('#photo-status, .photo-input-status');
         this.elements.consentCheckbox = this.elements.form.querySelector('#consent');
 
@@ -83,6 +110,9 @@ class TestimonyFormHandler {
         this.elements.submitBtn = this.elements.form.querySelector('.submit-btn, [type="submit"]');
         this.elements.btnText = this.elements.submitBtn?.querySelector('.btn-text');
         this.elements.btnLoading = this.elements.submitBtn?.querySelector('.btn-loading');
+
+        // Safety: never start disabled in case of a previous crash/refresh
+        if (this.elements.submitBtn) this.elements.submitBtn.disabled = false;
 
         // Messages
         this.elements.successMessage = document.querySelector('#success-message, .success-message');
@@ -92,6 +122,15 @@ class TestimonyFormHandler {
         this.elements.photoPreview = document.querySelector('#photo-preview, .photo-preview');
 
         console.log('📍 Found form elements:', Object.keys(this.elements).length);
+
+        // Debug: Verify we found the critical inputs
+        console.log('[form inputs found]', {
+            name: !!this.elements.nameInput,
+            trip: !!this.elements.tripInput,
+            testimony: !!this.elements.testimonyInput,
+            email: !!this.elements.emailInput,
+            photo: !!this.elements.photoInput
+        });
     }
 
     /**
@@ -116,10 +155,7 @@ class TestimonyFormHandler {
             }
         });
 
-        // Consent checkbox
-        if (this.elements.consentCheckbox) {
-            this.elements.consentCheckbox.addEventListener('change', this.updateSubmitButton.bind(this));
-        }
+        // Consent checkbox - no longer disables submit button
 
         console.log('🔗 Event listeners set up');
     }
@@ -174,7 +210,7 @@ class TestimonyFormHandler {
      */
     async handleFormSubmit(event) {
         event.preventDefault();
-        
+
         if (this.state.submitting) return;
 
         console.log('📤 Starting form submission...');
@@ -183,24 +219,24 @@ class TestimonyFormHandler {
             // Clear previous messages
             this.hideMessages();
 
-            // Validate form
+            // Validate form BEFORE disabling button
             if (!this.validateForm()) {
                 console.log('❌ Form validation failed');
-                return;
+                return; // submit button stays enabled
             }
 
-            // Start submission process
+            // Now we're submitting - disable button
             this.setSubmittingState(true);
 
             // Prepare form data
             const formData = await this.prepareFormData();
 
             // Submit to Netlify function
-            const response = await this.submitToNetlify(formData);
+            const resp = await this.submitToNetlify(formData);
 
-            if (response.success) {
+            if (resp.success || resp.ok === true) {
                 // Elegant toast
-                if (response.imageWarning) {
+                if (resp.imageWarning) {
                     this.showToast(
                         this.state.language === 'es'
                           ? '¡Testimonio enviado! La imagen no se subió; se procesará más tarde.'
@@ -218,17 +254,15 @@ class TestimonyFormHandler {
                 this.resetForm();
                 console.log('✅ Testimony submitted successfully');
             } else {
-                throw new Error(response.error || 'Submission failed');
+                throw new Error(resp.error || 'Submission failed');
             }
 
         } catch (error) {
             console.error('❌ Submission error:', error);
             // Toast for errors
             this.showToast(
-              (this.state.language === 'es'
-                ? 'No se pudo enviar el testimonio. '
-                : 'Could not submit testimony. ')
-              + (error?.message || ''),
+              (this.state.language === 'es' ? 'Error al subir: ' : 'Upload error: ')
+              + (error?.message || 'Unknown'),
               'error'
             );
         } finally {
@@ -262,12 +296,13 @@ class TestimonyFormHandler {
             }
         }
 
-        // Validate consent checkbox
-        if (this.elements.consentCheckbox && !this.elements.consentCheckbox.checked) {
-            this.showFieldError(this.elements.consentCheckbox, 
-                this.state.language === 'es' 
+        // Validate consent checkbox with robust selector
+        const consentEl = document.querySelector('[name="consent"]') || document.querySelector('#consent');
+        if (!consentEl?.checked) {
+            this.showFieldError(consentEl,
+                this.state.language === 'es'
                     ? 'Debes aceptar los términos para continuar'
-                    : 'You must accept the terms to continue'
+                    : 'Please agree to publish your testimony.'
             );
             isValid = false;
         }
@@ -425,6 +460,11 @@ class TestimonyFormHandler {
     handlePhotoSelect(event) {
         const files = Array.from(event.target.files || []);
         if (!files.length) return;
+        files.forEach(f => {
+            console.log('[media] selected:', {
+                name: f.name, type: f.type, sizeMB: (f.size/1024/1024).toFixed(2)
+            });
+        });
         const accepted = [];
         for (const f of files) {
             if (this.validatePhoto(f)) accepted.push(f);
@@ -432,11 +472,18 @@ class TestimonyFormHandler {
         // Append so mobile users can add one-by-one
         this.state.photoFiles.push(...accepted);
         this.renderPhotoPreview();
+        this.renderSelectedFileNames();
         // allow re-picking the same file(s)
         event.target.value = '';
         this.updatePhotoStatus();        // ← add this
         accepted.forEach(f => {
-            console.log('📸 Photo selected:', f.name, `(${(f.size / 1024 / 1024).toFixed(2)}MB)`);
+            const t = this.getUiMediaType(f);
+            const size = (f.size / 1024 / 1024).toFixed(2);
+            const icon = t === 'video' ? '🎥' : t === 'audio' ? '🎵' : '📷';
+            const label = this.state.language === 'es'
+                ? (t === 'video' ? 'Video seleccionado' : t === 'audio' ? 'Audio seleccionado' : 'Imagen seleccionada')
+                : (t === 'video' ? 'Video selected' : t === 'audio' ? 'Audio selected' : 'Image selected');
+            console.log(`${icon} ${label}: ${f.name} (${size}MB)`);
         });
     }
 
@@ -444,28 +491,124 @@ class TestimonyFormHandler {
      * Validate photo file
      */
     validatePhoto(file) {
-        // Check file size
+        // Check file type first to determine resource type
+        const rt = this.getCloudinaryResourceType(file);
+        const cap = rt === 'image' ? this.config.maxImageSize
+                 : rt === 'video' ? this.config.maxVideoSize
+                 : this.config.maxAudioSize;
+
+        // Check per-type file size
+        if (file.size > cap) {
+            const maxMB = (cap / 1024 / 1024).toFixed(0);
+            const msg = this.state.language === 'es'
+                ? `Archivo muy grande para ${rt}. Máximo ${maxMB}MB.`
+                : `File too large for ${rt}. Maximum ${maxMB}MB.`;
+            this.showError(msg);
+            return false;
+        }
+
+        // Check file size against general limit
         if (file.size > this.config.maxFileSize) {
             const maxMB = this.config.maxFileSize / 1024 / 1024;
             const message = this.state.language === 'es'
-                ? `La imagen es muy grande. Máximo ${maxMB}MB`
-                : `Image too large. Maximum ${maxMB}MB`;
-            
+                ? `El archivo es muy grande. Máximo ${maxMB}MB`
+                : `File too large. Maximum ${maxMB}MB`;
+
             this.showError(message);
             return false;
         }
 
-        // Check file type
-        if (!this.config.allowedImageTypes.includes(file.type)) {
+        // For images, check file type
+        if (rt === 'image' && !this.config.allowedImageTypes.includes(file.type)) {
             const message = this.state.language === 'es'
                 ? 'Formato de imagen no válido. Solo JPG, PNG, GIF, WebP'
                 : 'Invalid image format. Only JPG, PNG, GIF, WebP allowed';
-            
+
             this.showError(message);
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Get Cloudinary resource type for file
+     */
+    getCloudinaryResourceType(file) {
+        const t = (file.type || '').toLowerCase();
+        if (t.startsWith('image/')) return 'image';
+        if (t.startsWith('video/')) return 'video';
+        if (t.startsWith('audio/')) return 'video'; // audio goes through /video pipeline for playback/transforms
+        // Extension fallback (when type is empty)
+        const name = (file.name || '').toLowerCase();
+        if (/\.(mp4|mov|webm|avi|mkv)$/.test(name)) return 'video';
+        if (/\.(mp3|wav|m4a|aac|ogg)$/.test(name)) return 'video';
+        return 'raw';
+    }
+
+    /**
+     * Get UI media type for display purposes (different from Cloudinary resource type)
+     */
+    getUiMediaType(file) {
+        const type = (file.type || '').toLowerCase();
+        const name = (file.name || '').toLowerCase();
+
+        const ext = (name.split('.').pop() || '').split('?')[0];
+
+        const isImage = type.startsWith('image/') || ['jpg','jpeg','png','gif','webp','svg','avif'].includes(ext);
+        if (isImage) return 'image';
+
+        const isAudio = type.startsWith('audio/') || ['mp3','wav','ogg','m4a','aac','flac'].includes(ext);
+        if (isAudio) return 'audio';
+
+        const isVideo = type.startsWith('video/') || ['mp4','webm','mov','avi','mkv','m4v'].includes(ext);
+        if (isVideo) return 'video';
+
+        return 'file';
+    }
+
+    /**
+     * Upload file to Cloudinary using unsigned preset
+     */
+    async uploadToCloudinaryUnsigned(file) {
+        const resourceType = this.getCloudinaryResourceType(file); // 'image' | 'video' | 'raw'
+        // SAFEST: auto endpoint accepts images, videos, audio
+        const autoUrl = `https://api.cloudinary.com/v1_1/${this.config.cloudinary.cloudName}/auto/upload`;
+        const typedUrl = `https://api.cloudinary.com/v1_1/${this.config.cloudinary.cloudName}/${resourceType}/upload`;
+        const url = autoUrl; // default to auto
+
+        console.log('[upload] start', { url, typedUrl, resourceType, preset: this.config.cloudinary.uploadPreset, folder: this.config.cloudinary.folder });
+
+        const form = new FormData();
+        form.append('upload_preset', this.config.cloudinary.uploadPreset);
+        form.append('folder', this.config.cloudinary.folder);
+        form.append('file', file);
+
+        const res = await fetch(url, { method: 'POST', body: form });
+        let json;
+        try {
+            json = await res.json();
+        } catch (e) {
+            json = { parseError: String(e) };
+        }
+        if (!res.ok) {
+            console.error('[upload] cloudinary error', { status: res.status, json });
+            // fallback: if auto failed AND resourceType was not 'image', try the typed endpoint once
+            if (url === autoUrl && resourceType !== 'image') {
+                console.warn('[upload] retrying with typed endpoint', { typedUrl, resourceType });
+                const res2 = await fetch(typedUrl, { method: 'POST', body: form });
+                const j2 = await res2.json().catch(() => ({}));
+                if (!res2.ok) {
+                    console.error('[upload] typed endpoint also failed', { status: res2.status, j2 });
+                    throw new Error(j2?.error?.message || `Cloudinary upload failed (${res2.status})`);
+                }
+                console.log('[upload] success via typed endpoint', j2);
+                return j2;
+            }
+            throw new Error(json?.error?.message || `Cloudinary upload failed (${res.status})`);
+        }
+        console.log('[upload] success', { public_id: json.public_id, resource_type: json.resource_type, format: json.format, bytes: json.bytes });
+        return json;
     }
 
     /**
@@ -516,55 +659,112 @@ class TestimonyFormHandler {
         this.state.photoFiles = [];
         if (this.elements.photoInput) this.elements.photoInput.value = '';
         if (this.elements.photoPreview) this.elements.photoPreview.innerHTML = '';
-          this.updatePhotoStatus(); // ← add this
+        this.renderSelectedFileNames();
+        this.updatePhotoStatus(); // ← add this
     }
     updatePhotoStatus() {
-  if (!this.elements || !this.elements.photoStatus) return;
-  const files = Array.isArray(this.state.photoFiles) ? this.state.photoFiles : [];
-  if (!files.length) {
-    this.elements.photoStatus.textContent = this.state.language === 'es'
-      ? 'No hay fotos seleccionadas'
-      : 'No photos selected';
-    return;
-  }
+        if (!this.elements || !this.elements.photoStatus) return;
+        const files = Array.isArray(this.state.photoFiles) ? this.state.photoFiles : [];
+        if (!files.length) {
+            this.elements.photoStatus.textContent = this.state.language === 'es'
+                ? 'No hay archivos seleccionados'
+                : 'No files selected';
+            return;
+        }
 
-  const totalBytes = files.reduce((sum, f) => sum + (f.size || 0), 0);
-  const totalMB = (totalBytes / (1024 * 1024)).toFixed(2);
-  const line = this.state.language === 'es'
-    ? `${files.length} ${files.length === 1 ? 'foto' : 'fotos'} seleccionadas (${totalMB} MB)`
-    : `${files.length} ${files.length === 1 ? 'photo' : 'photos'} selected (${totalMB} MB)`;
-  this.elements.photoStatus.textContent = line;
-}
+        let imgs = 0, vids = 0, auds = 0, bytes = 0;
+        for (const f of files) {
+            const t = this.getUiMediaType(f);
+            if (t === 'image') imgs++;
+            else if (t === 'video') vids++;
+            else if (t === 'audio') auds++;
+            bytes += f.size || 0;
+        }
+        const totalMB = (bytes / (1024 * 1024)).toFixed(2);
+
+        const partsEn = [];
+        if (imgs) partsEn.push(`${imgs} ${imgs === 1 ? 'image' : 'images'}`);
+        if (vids) partsEn.push(`${vids} ${vids === 1 ? 'video' : 'videos'}`);
+        if (auds) partsEn.push(`${auds} ${auds === 1 ? 'audio' : 'audios'}`);
+
+        const partsEs = [];
+        if (imgs) partsEs.push(`${imgs} ${imgs === 1 ? 'imagen' : 'imágenes'}`);
+        if (vids) partsEs.push(`${vids} ${vids === 1 ? 'video' : 'videos'}`);
+        if (auds) partsEs.push(`${auds} ${auds === 1 ? 'audio' : 'audios'}`);
+
+        const summary = this.state.language === 'es'
+            ? `${partsEs.join(', ')} seleccionados (${totalMB} MB)`
+            : `${partsEn.join(', ')} selected (${totalMB} MB)`;
+
+        this.elements.photoStatus.textContent = summary;
+    }
+
+    /**
+     * Render selected file names and sizes
+     */
+    renderSelectedFileNames() {
+        const fileListEl = this.elements.form?.querySelector('#photo-file-list');
+        if (!fileListEl) return;
+
+        const files = Array.isArray(this.state.photoFiles) ? this.state.photoFiles : [];
+
+        if (!files.length) {
+            fileListEl.innerHTML = '';
+            return;
+        }
+
+        const items = files.map(file => {
+            const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            const t = this.getUiMediaType(file);
+            const icon = t === 'video' ? '🎥' : t === 'audio' ? '🎵' : '📷';
+            const label = this.state.language === 'es'
+                ? (t === 'video' ? 'Video' : t === 'audio' ? 'Audio' : 'Imagen')
+                : (t === 'video' ? 'Video' : t === 'audio' ? 'Audio' : 'Image');
+            return `<li>${icon} ${label}: ${this.escapeHtml(file.name)} (${sizeMB} MB)</li>`;
+        }).join('');
+
+        fileListEl.innerHTML = items;
+    }
 
     /**
      * Prepare form data for submission
      */
     async prepareFormData() {
+        // If there are files, upload them first
+        let uploadedAssets = [];
+        if (this.state.photoFiles && this.state.photoFiles.length) {
+            for (const f of this.state.photoFiles) {
+                const uploaded = await this.uploadToCloudinaryUnsigned(f);
+                uploadedAssets.push({
+                    secure_url: uploaded.secure_url,
+                    url: uploaded.secure_url,
+                    public_id: uploaded.public_id,
+                    resource_type: uploaded.resource_type,
+                    format: uploaded.format,
+                    bytes: uploaded.bytes,
+                    duration: uploaded.duration || null
+                });
+            }
+        }
+
         const formData = {
-            // Basic testimony data
             name: this.elements.nameInput?.value.trim() || '',
             trip: this.elements.tripInput?.value.trim() || '',
             testimony: this.elements.testimonyInput?.value.trim() || '',
             email: this.elements.emailInput?.value.trim() || '',
             language: this.state.language,
-            
-            // Metadata
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
-            referrer: document.referrer || 'direct'
+            referrer: document.referrer || 'direct',
+            media: uploadedAssets
         };
 
-        // Add photos data if present
-        if (this.state.photoFiles && this.state.photoFiles.length) {
-            formData.photos = await Promise.all(
-                this.state.photoFiles.map(async f => ({
-                    name: f.name,
-                    size: f.size,
-                    type: f.type,
-                    data: await this.fileToBase64(f)
-                }))
-            );
-        }
+        // Mirror ES keys to be future-proof
+        formData.nombre = formData.name;
+        formData.viaje = formData.trip;
+        formData.testimonio = formData.testimony;
+        formData.correo = formData.email;
+        formData.idioma = formData.language;
 
         return formData;
     }
@@ -585,6 +785,8 @@ class TestimonyFormHandler {
      * Submit to Netlify function
      */
     async submitToNetlify(formData) {
+        console.log('[submit] payload →', formData);
+
         const response = await fetch(this.config.netlifyFunction, {
             method: 'POST',
             headers: {
@@ -638,20 +840,6 @@ class TestimonyFormHandler {
         });
     }
 
-    /**
-     * Update submit button state based on form validity
-     */
-    updateSubmitButton() {
-        if (!this.elements.submitBtn) return;
-
-        const hasRequiredFields = this.elements.nameInput?.value.trim() &&
-                                 this.elements.tripInput?.value.trim() &&
-                                 this.elements.testimonyInput?.value.trim();
-        
-        const hasConsent = this.elements.consentCheckbox?.checked;
-
-        this.elements.submitBtn.disabled = !(hasRequiredFields && hasConsent) || this.state.submitting;
-    }
 
     /**
      * Elegant toast (success / warning / error)

@@ -1,2 +1,9 @@
-
-
+[build]
+  publish = "."
+[functions]
+  directory = "testimony/netlify/functions"
+  node_bundler = "esbuild"
+[dev]
+  publish = "."
+  functions = "testimony/netlify/functions"
+  port = 8888
