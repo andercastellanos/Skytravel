@@ -159,6 +159,19 @@ class GitHubAPI {
         const cleanContent = contentSection
             .replace(/!\[.*?\]\(.*?\)/g, '')   // strip images
             .replace(/<!--[\s\S]*?-->/g, '')   // strip comments
+            .replace(/^name:\s*".*?"$/gim, '') // Remove individual YAML fields that might leak
+            .replace(/^trip:\s*".*?"$/gim, '')
+            .replace(/^language:\s*".*?"$/gim, '')
+            .replace(/^featured:\s*(true|false)$/gim, '')
+            .replace(/^verified:\s*(true|false)$/gim, '')
+            .replace(/^rating:\s*".*?"$/gim, '')
+            .replace(/^tags:\s*".*?"$/gim, '')
+            .replace(/---\s*\*\*Email:\*\*.*$/gim, '') // Remove email lines like "---**Email:** email@example.com"
+            .replace(/\*\*Email:\*\*.*$/gim, '') // Remove email lines like "**Email:** email@example.com"
+            .replace(/^\s*Email:\s*\S+@\S+\.\S+\s*$/gim, '') // Remove standalone email lines
+            .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '') // Remove any remaining email addresses
+            .replace(/^\s*---\s*$/gm, '') // Remove standalone separator lines
+            .replace(/\n{3,}/g, '\n\n') // Replace multiple consecutive newlines with just two
             .trim();
 
         if (!metadata.name || !cleanContent) {
@@ -196,6 +209,19 @@ class GitHubAPI {
         const cleanContent = content
             .replace(/!\[.*?\]\(.*?\)/g, '')
             .replace(/<!--[\s\S]*?-->/g, '')
+            .replace(/^name:\s*".*?"$/gim, '') // Remove individual YAML fields that might leak
+            .replace(/^trip:\s*".*?"$/gim, '')
+            .replace(/^language:\s*".*?"$/gim, '')
+            .replace(/^featured:\s*(true|false)$/gim, '')
+            .replace(/^verified:\s*(true|false)$/gim, '')
+            .replace(/^rating:\s*".*?"$/gim, '')
+            .replace(/^tags:\s*".*?"$/gim, '')
+            .replace(/---\s*\*\*Email:\*\*.*$/gim, '') // Remove email lines like "---**Email:** email@example.com"
+            .replace(/\*\*Email:\*\*.*$/gim, '') // Remove email lines like "**Email:** email@example.com"
+            .replace(/^\s*Email:\s*\S+@\S+\.\S+\s*$/gim, '') // Remove standalone email lines
+            .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '') // Remove any remaining email addresses
+            .replace(/^\s*---\s*$/gm, '') // Remove standalone separator lines
+            .replace(/\n{3,}/g, '\n\n') // Replace multiple consecutive newlines with just two
             .trim();
 
         // Parse any YAML front-matter that might exist even in fallback cases

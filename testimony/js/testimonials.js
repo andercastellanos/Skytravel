@@ -415,16 +415,29 @@ class TestimonialsDisplay {
 
     /**
      * Format testimonial content for display
-     * Ensures clean text without YAML metadata and proper paragraph formatting
+     * Ensures clean text without YAML metadata, email addresses, and proper paragraph formatting
      */
     formatTestimonialContent(content) {
         if (!content) return '';
 
-        // Clean the content - remove any remaining YAML frontmatter or metadata
+        // Clean the content - remove any remaining YAML frontmatter, metadata, and email addresses
         let cleanContent = content
-            .replace(/^---[\s\S]*?---/m, '') // Remove YAML frontmatter if any
+            .replace(/^---[\s\S]*?---\s*/m, '') // Remove YAML frontmatter if any
+            .replace(/^name:\s*".*?"$/gim, '') // Remove individual YAML fields
+            .replace(/^trip:\s*".*?"$/gim, '')
+            .replace(/^language:\s*".*?"$/gim, '')
+            .replace(/^featured:\s*(true|false)$/gim, '')
+            .replace(/^verified:\s*(true|false)$/gim, '')
+            .replace(/^rating:\s*".*?"$/gim, '')
+            .replace(/^tags:\s*".*?"$/gim, '')
             .replace(/<!--[\s\S]*?-->/g, '') // Remove HTML comments
             .replace(/!\[.*?\]\(.*?\)/g, '') // Remove markdown images (already handled separately)
+            .replace(/---\s*\*\*Email:\*\*.*$/gim, '') // Remove email lines like "---**Email:** email@example.com"
+            .replace(/\*\*Email:\*\*.*$/gim, '') // Remove email lines like "**Email:** email@example.com"
+            .replace(/^\s*Email:\s*\S+@\S+\.\S+\s*$/gim, '') // Remove standalone email lines
+            .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '') // Remove any remaining email addresses
+            .replace(/^\s*---\s*$/gm, '') // Remove standalone separator lines
+            .replace(/\n{3,}/g, '\n\n') // Replace multiple consecutive newlines with just two
             .trim();
 
         // Split into paragraphs and wrap each in <p> tags

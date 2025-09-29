@@ -45,6 +45,7 @@ exports.handler = async (event) => {
 
     // Dry-run mode when ENABLE_GH_CREATE is not true
     if (!enableCreate) {
+      // NOTE: Email is collected but NOT included in public issue for privacy
       const esc = (s='') => String(s).replace(/"/g,'\\"');
       const mediaBlock = mediaUrls.length ? `media:\n${mediaUrls.map(u => `  - url: "${u}"`).join('\n')}\n` : '';
       const fingerprint = crypto.createHash('sha1').update(`${name}${trip}${testimony}${mediaUrls.join(',')}`).digest('hex');
@@ -63,7 +64,7 @@ ${mediaBlock}---
 ${(testimony || '').trim()}
 
 ${mediaUrls.join('\n')}
-${email ? `\n---\n**Email:** ${esc(email)}\n` : ''}`;
+`;
 
       const payload = { title: `Testimonio de ${esc(name)} - ${esc(trip)}`, body: issueBody, labels: ['testimony','needs-review'] };
       return { statusCode: 200, headers: CORS, body: JSON.stringify({ success:true, dryRun:true, issuePayload: payload }) };
@@ -89,6 +90,7 @@ ${email ? `\n---\n**Email:** ${esc(email)}\n` : ''}`;
     }
 
     // Prepare issue content
+    // NOTE: Email is collected but NOT included in public issue for privacy
     const esc = (s='') => String(s).replace(/"/g,'\\"');
     const mediaBlock = mediaUrls.length ? `media:\n${mediaUrls.map(u => `  - url: "${u}"`).join('\n')}\n` : '';
 
@@ -106,7 +108,7 @@ ${mediaBlock}---
 ${(testimony || '').trim()}
 
 ${mediaUrls.join('\n')}
-${email ? `\n---\n**Email:** ${esc(email)}\n` : ''}`;
+`;
 
     const payload = { title: `Testimonio de ${esc(name)} - ${esc(trip)}`, body: issueBody, labels: ['testimony','needs-review'] };
 

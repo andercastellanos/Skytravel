@@ -259,6 +259,14 @@ class TestimonyFormHandler {
 
         } catch (error) {
             console.error('❌ Submission error:', error);
+
+            // If Netlify function failed with 405, try GitHub fallback
+            if (error.message && error.message.includes('405')) {
+                console.log('🔄 Netlify function not available, redirecting to GitHub Issues...');
+                this.redirectToGitHubIssues();
+                return;
+            }
+
             // Toast for errors
             this.showToast(
               (this.state.language === 'es' ? 'Error al subir: ' : 'Upload error: ')
@@ -801,6 +809,51 @@ class TestimonyFormHandler {
         }
 
         return await response.json();
+    }
+
+    /**
+     * Fallback: Redirect to GitHub Issues when Netlify function is not available
+     */
+    async redirectToGitHubIssues() {
+        try {
+            const formData = await this.prepareFormData();
+            const isSpanish = this.state.language === 'es';
+
+            // GitHub repository URLs
+            const githubUrl = isSpanish
+                ? 'https://github.com/andercastellanos/Skytravel/issues/new?assignees=andercastellanos&labels=testimony&template=enviar-testimonio.yml'
+                : 'https://github.com/andercastellanos/Skytravel/issues/new?assignees=andercastellanos&labels=testimony&template=submit-a-testimonial.yml';
+
+            // Show user a message before redirecting
+            this.showToast(
+                isSpanish
+                    ? 'Redirigiendo a GitHub para enviar tu testimonio...'
+                    : 'Redirecting to GitHub to submit your testimony...',
+                'info'
+            );
+
+            // Small delay then redirect
+            setTimeout(() => {
+                window.open(githubUrl, '_blank');
+
+                // Show instructions
+                this.showToast(
+                    isSpanish
+                        ? 'Por favor completa el formulario en la nueva pestaña de GitHub'
+                        : 'Please complete the form in the new GitHub tab',
+                    'info'
+                );
+            }, 1000);
+
+        } catch (error) {
+            console.error('❌ GitHub fallback error:', error);
+            this.showToast(
+                this.state.language === 'es'
+                    ? 'Error al redirigir. Por favor contacta directamente.'
+                    : 'Redirect error. Please contact directly.',
+                'error'
+            );
+        }
     }
 
     /**
