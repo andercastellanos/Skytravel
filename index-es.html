@@ -444,6 +444,16 @@
     </footer>
 
     <!-- CRITICAL: Correct script loading order -->
+    <!-- Load jQuery first synchronously (required by navigation.js and elegant-language-switcher.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Load navigation scripts after DOM is ready -->
+    <script>
+        // Wait for jQuery and DOM to be ready
+        $(document).ready(function() {
+            console.log('[Index-ES] DOM ready, jQuery loaded');
+        });
+    </script>
     <script src="js/navigation.js" defer></script>
     <script src="js/elegant-language-switcher.js" defer></script>
     
