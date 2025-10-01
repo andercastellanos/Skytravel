@@ -669,16 +669,17 @@ nav {
 .highlight-card {
     width: 300px;
     background: white;
-    border-radius: 5px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border-top: 3px solid #c8a97e;
 }
 
 .highlight-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .highlight-card h3 {
@@ -1106,6 +1107,24 @@ nav {
 .elegant-contact-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Make entire contact cards clickable */
+.link-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.link-card:focus-visible {
+    outline: 3px solid #c8a97e;
+    outline-offset: 4px;
+    border-radius: 12px;
+}
+
+.link-card:hover {
+    transform: translateY(-2px);
 }
 
 .elegant-contact-icon {
@@ -2739,6 +2758,7 @@ textarea:focus-visible {
 
 .contact-card {
     background: rgba(255, 255, 255, 0.18);
+    -webkit-backdrop-filter: blur(15px) saturate(1.2);
     backdrop-filter: blur(15px) saturate(1.2);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 20px;
@@ -2795,7 +2815,8 @@ textarea:focus-visible {
     opacity: 1;
 }
 
-.contact-card:hover {
+.contact-card:hover,
+.link-card.contact-card:hover {
     transform: translateY(-8px) scale(1.02);
     background: rgba(255, 255, 255, 0.28);
     box-shadow:
@@ -2803,6 +2824,11 @@ textarea:focus-visible {
         0 8px 20px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     border-color: rgba(255, 255, 255, 0.6);
+}
+
+.link-card.contact-card:focus-visible {
+    outline: 3px solid #c8a97e;
+    outline-offset: 4px;
 }
 
 .contact-card h3 {
@@ -2824,22 +2850,11 @@ textarea:focus-visible {
     opacity: 0.92;
     font-size: 1.05rem;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.contact-card a {
     color: #fff;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
-    font-weight: 500;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.contact-card a:hover {
-    color: #f8f8f8;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    transform: translateY(-1px);
+.contact-card .phone {
+    font-weight: 500;
 }
 
 /* Responsive Design */
@@ -2888,4 +2903,958 @@ textarea:focus-visible {
     .faq-content {
         animation: none;
     }
+}
+/* ==================================
+   Medjugorje-es Page Specific Styles
+   Scoped to prevent conflicts with Medjugorje2026-es.html
+   ================================== */
+
+/* Quick Answer Section */
+.page-medjugorje-es .quick-answer {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 2.5rem 2rem;
+    margin: 2rem auto;
+    max-width: 900px;
+    border-left: 4px solid #c8a97e;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.page-medjugorje-es .answer-container h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .answer-container h3 {
+    color: #555;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .answer-container p {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+.page-medjugorje-es .reasons-list {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.page-medjugorje-es .reasons-list li {
+    padding: 0.8rem 0;
+    color: #555;
+    line-height: 1.7;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.page-medjugorje-es .reasons-list li:last-child {
+    border-bottom: none;
+}
+
+/* Why Medjugorje Section */
+.page-medjugorje-es .why-medjugorje {
+    padding: 3rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-medjugorje-es .why-medjugorje h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .why-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-medjugorje-es .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-medjugorje-es .benefit-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-top: 3px solid #c8a97e;
+    transition: all 0.3s ease;
+}
+
+.page-medjugorje-es .benefit-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+.page-medjugorje-es .benefit-card h3 {
+    color: #c8a97e;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .benefit-card p {
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+    text-align: left;
+}
+
+/* Medjugorje Messages Section */
+.page-medjugorje-es .medjugorje-messages {
+    padding: 3rem 1.5rem;
+    background: #fafbfc;
+}
+
+.page-medjugorje-es .medjugorje-messages h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .messages-intro {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.page-medjugorje-es .messages-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+.page-medjugorje-es .messages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+}
+
+/* Center the last row (cards 4 and 5) */
+.page-medjugorje-es .messages-grid .message-card:nth-child(4) {
+    grid-column: 1 / 2;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.page-medjugorje-es .messages-grid .message-card:nth-child(5) {
+    grid-column: 2 / 3;
+    margin-left: 1rem;
+    margin-right: auto;
+}
+
+.page-medjugorje-es .message-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: relative;
+    padding-top: 3.5rem;
+    transition: all 0.3s ease;
+}
+
+.page-medjugorje-es .message-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+.page-medjugorje-es .message-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: #c8a97e;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(200,169,126,0.3);
+}
+
+.page-medjugorje-es .message-card h3 {
+    color: #c8a97e;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .message-card p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.page-medjugorje-es .message-card em {
+    color: #c8a97e;
+    font-style: italic;
+}
+
+.page-medjugorje-es .message-card ul {
+    color: #555;
+    line-height: 1.8;
+    padding-left: 1.5rem;
+}
+
+.page-medjugorje-es .message-card li {
+    margin-bottom: 0.5rem;
+}
+
+.page-medjugorje-es .messages-conclusion {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    border-left: 4px solid #c8a97e;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.page-medjugorje-es .messages-conclusion p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555;
+    margin: 0;
+}
+
+/* Preparation Guide Section */
+.page-medjugorje-es .preparation-guide {
+    padding: 3rem 1.5rem;
+    background: white;
+}
+
+.page-medjugorje-es .preparation-guide h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-medjugorje-es .guide-card {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-top: 3px solid #c8a97e;
+    transition: all 0.3s ease;
+}
+
+.page-medjugorje-es .guide-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+    background: white;
+}
+
+.page-medjugorje-es .guide-card h3 {
+    color: #c8a97e;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .guide-card p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.page-medjugorje-es .guide-card ul {
+    color: #555;
+    line-height: 1.8;
+    padding-left: 1.5rem;
+}
+
+.page-medjugorje-es .guide-card li {
+    margin-bottom: 0.6rem;
+}
+
+.page-medjugorje-es .guide-card strong {
+    color: #333;
+}
+
+/* Internal Links Section */
+.page-medjugorje-es .internal-links {
+    padding: 2rem 1.5rem;
+    background: #f8f9fa;
+    text-align: center;
+}
+
+.page-medjugorje-es .internal-links-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-medjugorje-es .internal-links-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.page-medjugorje-es .internal-link {
+    color: #c8a97e;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.page-medjugorje-es .internal-link:hover {
+    border-bottom-color: #c8a97e;
+}
+
+/* FAQ Section (Matches Medjugorje2026-es.html) */
+.page-medjugorje-es .faq-section {
+    padding: 3rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.page-medjugorje-es .faq-section h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.page-medjugorje-es .faq-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.page-medjugorje-es .faq-item:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border-color: #c8a97e;
+}
+
+.page-medjugorje-es .faq-item summary {
+    padding: 1.5rem;
+    cursor: pointer;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #333;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.page-medjugorje-es .faq-item summary:hover {
+    background: #f8f9fa;
+}
+
+.page-medjugorje-es .faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.page-medjugorje-es .faq-item summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: #c8a97e;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.page-medjugorje-es .faq-item[open] summary::after {
+    transform: rotate(45deg);
+}
+
+.page-medjugorje-es .faq-content {
+    padding: 0 1.5rem 1.5rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.page-medjugorje-es .faq-content p {
+    margin: 0;
+}
+
+.page-medjugorje-es .faq-content a {
+    color: #c8a97e;
+    text-decoration: underline;
+}
+
+/* Tablet Responsive */
+@media (max-width: 992px) {
+    .page-medjugorje-es .messages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-medjugorje-es .messages-grid .message-card:nth-child(4),
+    .page-medjugorje-es .messages-grid .message-card:nth-child(5) {
+        margin: 0;
+    }
+
+    .page-medjugorje-es .messages-grid .message-card:nth-child(5) {
+        grid-column: 1 / -1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .page-medjugorje-es .benefits-grid,
+    .page-medjugorje-es .messages-grid,
+    .page-medjugorje-es .guide-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-medjugorje-es .messages-grid .message-card:nth-child(4),
+    .page-medjugorje-es .messages-grid .message-card:nth-child(5) {
+        grid-column: 1;
+        margin: 0;
+    }
+
+    .page-medjugorje-es .quick-answer,
+    .page-medjugorje-es .why-medjugorje,
+    .page-medjugorje-es .medjugorje-messages,
+    .page-medjugorje-es .preparation-guide,
+    .page-medjugorje-es .faq-section {
+        padding: 2rem 1rem;
+    }
+
+    .page-medjugorje-es .answer-container h2,
+    .page-medjugorje-es .why-medjugorje h2,
+    .page-medjugorje-es .medjugorje-messages h2,
+    .page-medjugorje-es .preparation-guide h2,
+    .page-medjugorje-es .faq-section h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Dates CTA Link Style */
+.page-medjugorje-es .dates-cta-link {
+    color: #c8a97e;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.page-medjugorje-es .dates-cta-link:hover {
+    color: #b69870;
+}
+.page-medjugorje .quick-answer {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 2.5rem 2rem;
+    margin: 2rem auto;
+    max-width: 900px;
+    border-left: 4px solid #c8a97e;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.page-medjugorje .answer-container h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .answer-container h3 {
+    color: #555;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .answer-container p {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+.page-medjugorje .reasons-list {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.page-medjugorje .reasons-list li {
+    padding: 0.8rem 0;
+    color: #555;
+    line-height: 1.7;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.page-medjugorje .reasons-list li:last-child {
+    border-bottom: none;
+}
+
+/* Why Medjugorje Section */
+.page-medjugorje .why-medjugorje {
+    padding: 3rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-medjugorje .why-medjugorje h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .why-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-medjugorje .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-medjugorje .benefit-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-top: 3px solid #c8a97e;
+    transition: all 0.3s ease;
+}
+
+.page-medjugorje .benefit-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+.page-medjugorje .benefit-card h3 {
+    color: #c8a97e;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .benefit-card p {
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+    text-align: left;
+}
+
+/* Medjugorje Messages Section */
+.page-medjugorje .medjugorje-messages {
+    padding: 3rem 1.5rem;
+    background: #fafbfc;
+}
+
+.page-medjugorje .medjugorje-messages h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .messages-intro {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.page-medjugorje .messages-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+.page-medjugorje .messages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+}
+
+/* Center the last row (cards 4 and 5) */
+.page-medjugorje .messages-grid .message-card:nth-child(4) {
+    grid-column: 1 / 2;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.page-medjugorje .messages-grid .message-card:nth-child(5) {
+    grid-column: 2 / 3;
+    margin-left: 1rem;
+    margin-right: auto;
+}
+
+.page-medjugorje .message-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: relative;
+    padding-top: 3.5rem;
+    transition: all 0.3s ease;
+}
+
+.page-medjugorje .message-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+.page-medjugorje .message-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: #c8a97e;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(200,169,126,0.3);
+}
+
+.page-medjugorje .message-card h3 {
+    color: #c8a97e;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.page-medjugorje .message-card p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.page-medjugorje .message-card em {
+    color: #c8a97e;
+    font-style: italic;
+}
+
+.page-medjugorje .message-card ul {
+    color: #555;
+    line-height: 1.8;
+    padding-left: 1.5rem;
+}
+
+.page-medjugorje .message-card li {
+    margin-bottom: 0.5rem;
+}
+
+.page-medjugorje .messages-conclusion {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    border-left: 4px solid #c8a97e;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.page-medjugorje .messages-conclusion p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555;
+    margin: 0;
+}
+
+/* Preparation Guide Section */
+.page-medjugorje .preparation-guide {
+    padding: 3rem 1.5rem;
+    background: white;
+}
+
+.page-medjugorje .preparation-guide h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-medjugorje .guide-card {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-top: 3px solid #c8a97e;
+    transition: all 0.3s ease;
+}
+
+.page-medjugorje .guide-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+    background: white;
+}
+
+.page-medjugorje .guide-card h3 {
+    color: #c8a97e;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .guide-card p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.page-medjugorje .guide-card ul {
+    color: #555;
+    line-height: 1.8;
+    padding-left: 1.5rem;
+}
+
+.page-medjugorje .guide-card li {
+    margin-bottom: 0.6rem;
+}
+
+.page-medjugorje .guide-card strong {
+    color: #333;
+}
+
+/* Internal Links Section */
+.page-medjugorje .internal-links {
+    padding: 2rem 1.5rem;
+    background: #f8f9fa;
+    text-align: center;
+}
+
+.page-medjugorje .internal-links-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-medjugorje .internal-links-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.page-medjugorje .internal-link {
+    color: #c8a97e;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.page-medjugorje .internal-link:hover {
+    border-bottom-color: #c8a97e;
+}
+
+/* FAQ Section (Matches Medjugorje2026-es.html) */
+.page-medjugorje .faq-section {
+    padding: 3rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.page-medjugorje .faq-section h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.page-medjugorje .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.page-medjugorje .faq-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.page-medjugorje .faq-item:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border-color: #c8a97e;
+}
+
+.page-medjugorje .faq-item summary {
+    padding: 1.5rem;
+    cursor: pointer;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #333;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.page-medjugorje .faq-item summary:hover {
+    background: #f8f9fa;
+}
+
+.page-medjugorje .faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.page-medjugorje .faq-item summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: #c8a97e;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.page-medjugorje .faq-item[open] summary::after {
+    transform: rotate(45deg);
+}
+
+.page-medjugorje .faq-content {
+    padding: 0 1.5rem 1.5rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.page-medjugorje .faq-content p {
+    margin: 0;
+}
+
+.page-medjugorje .faq-content a {
+    color: #c8a97e;
+    text-decoration: underline;
+}
+
+/* Tablet Responsive */
+@media (max-width: 992px) {
+    .page-medjugorje .messages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-medjugorje .messages-grid .message-card:nth-child(4),
+    .page-medjugorje .messages-grid .message-card:nth-child(5) {
+        margin: 0;
+    }
+
+    .page-medjugorje .messages-grid .message-card:nth-child(5) {
+        grid-column: 1 / -1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .page-medjugorje .benefits-grid,
+    .page-medjugorje .messages-grid,
+    .page-medjugorje .guide-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-medjugorje .messages-grid .message-card:nth-child(4),
+    .page-medjugorje .messages-grid .message-card:nth-child(5) {
+        grid-column: 1;
+        margin: 0;
+    }
+
+    .page-medjugorje .quick-answer,
+    .page-medjugorje .why-medjugorje,
+    .page-medjugorje .medjugorje-messages,
+    .page-medjugorje .preparation-guide,
+    .page-medjugorje .faq-section {
+        padding: 2rem 1rem;
+    }
+
+    .page-medjugorje .answer-container h2,
+    .page-medjugorje .why-medjugorje h2,
+    .page-medjugorje .medjugorje-messages h2,
+    .page-medjugorje .preparation-guide h2,
+    .page-medjugorje .faq-section h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Dates CTA Link Style */
+.page-medjugorje .dates-cta-link {
+    color: #c8a97e;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.page-medjugorje .dates-cta-link:hover {
+    color: #b69870;
 }
