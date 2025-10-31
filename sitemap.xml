@@ -74,6 +74,27 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/Medjugorje2026.html"/>
   </url>
 
+  <!-- Holy Land 2026 - HIGHEST BUSINESS PRIORITY (Current offering) -->
+  <url>
+    <loc>https://www.skytraveljm.com/TierraSanta2026.html</loc>
+    <lastmod>2025-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/TierraSanta2026-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/TierraSanta2026-es.html</loc>
+    <lastmod>2025-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/TierraSanta2026-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
+  </url>
+
   <!-- Italy Jubilee - HIGH PRIORITY (Limited time offer) -->
   <url>
     <loc>https://www.skytraveljm.com/Italy.html</loc>
@@ -124,7 +145,7 @@
   <url>
     <loc>https://www.skytraveljm.com/contact.html</loc>
     <lastmod>2025-07-25</lastmod>
-    <changefreq>quarterly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/contact.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/contact-es.html"/>
@@ -134,7 +155,7 @@
   <url>
     <loc>https://www.skytraveljm.com/contact-es.html</loc>
     <lastmod>2025-07-25</lastmod>
-    <changefreq>quarterly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/contact.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/contact-es.html"/>
@@ -166,7 +187,7 @@
   <url>
     <loc>https://www.skytraveljm.com/about.html</loc>
     <lastmod>2025-07-25</lastmod>
-    <changefreq>quarterly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/about.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/about-es.html"/>
@@ -176,7 +197,7 @@
   <url>
     <loc>https://www.skytraveljm.com/about-es.html</loc>
     <lastmod>2025-07-25</lastmod>
-    <changefreq>quarterly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/about.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/about-es.html"/>

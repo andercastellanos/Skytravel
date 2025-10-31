@@ -8,9 +8,8 @@
   <meta name="google-site-verification" content="b7kIWNJg3tO3n75FyCzLnPWhzz1t8MWMuugQQ43va-E" />
 
   <!-- SEO Meta Tags -->
-  <title>Contáctanos - Sky Travel | Especialistas en Peregrinaciones Católicas Espirituales</title>
-  <meta name="description" content="Contacta a Sky Travel para peregrinaciones espirituales Católicas a Medjugorje, Tierra Santa, Italia y destinos sagrados. Especialistas en peregrinaciones listos para ayudarte a planificar tu viaje espiritual.">
-  <meta name="keywords" content="contactar Sky Travel, contacto peregrinación católica, consulta viaje espiritual, reserva Medjugorje, contacto tours Tierra Santa, agencia viajes peregrinación Miami">
+  <title>Contacto Sky Travel | Peregrinaciones Católicas a Medjugorje, Tierra Santa e Italia</title>
+  <meta name="description" content="Contáctanos para planificar tu peregrinación católica a Medjugorje, Tierra Santa o Italia. Asesoría bilingüe desde Miami para salidas 2025–2026.">
   <meta name="author" content="Sky Travel">
   <meta name="robots" content="index, follow">
 
@@ -22,6 +21,12 @@
   <link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/contact.html" />
   <link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/contact.html" />
 
+  <!-- Geo Location Tags -->
+  <meta name="geo.region" content="US-FL">
+  <meta name="geo.placename" content="Miami">
+  <meta name="geo.position" content="25.7617;-80.1918">
+  <meta name="ICBM" content="25.7617, -80.1918">
+
   <!-- Open Graph Tags (Facebook/Social Media) -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contacta Sky Travel - Especialistas en Peregrinaciones Católicas Espirituales">
@@ -30,7 +35,7 @@
   <meta property="og:site_name" content="Sky Travel">
   <meta property="og:locale" content="es_ES">
   <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:image" content="https://www.skytraveljm.com/images/social-share.jpg">
+  <meta property="og:image" content="https://www.skytraveljm.com/images/og-contact.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Sky Travel Contacto - Especialistas en Peregrinaciones Católicas Espirituales">
@@ -39,16 +44,16 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Contacta Sky Travel - Especialistas en Peregrinaciones Católicas">
   <meta name="twitter:description" content="Contacta a nuestro equipo experto para peregrinaciones espirituales Católicas a destinos sagrados en todo el mundo.">
-  <meta name="twitter:image" content="https://www.skytraveljm.com/images/social-share.jpg">
+  <meta name="twitter:image" content="https://www.skytraveljm.com/images/og-contact.jpg">
   <meta name="twitter:image:alt" content="Sky Travel Contacto">
 
   <!-- WhatsApp Optimization (CRITICAL for Hispanic Market) -->
   <meta property="whatsapp:title" content="Contacta Sky Travel - Especialistas en Peregrinaciones Católicas">
   <meta property="whatsapp:description" content="Contacta a nuestro equipo experto para peregrinaciones espirituales Católicas a Medjugorje, Tierra Santa y destinos sagrados.">
-  <meta property="whatsapp:image" content="https://www.skytraveljm.com/images/social-share.jpg">
+  <meta property="whatsapp:image" content="https://www.skytraveljm.com/images/og-contact.jpg">
 
   <!-- Instagram Specific -->
-  <meta property="instagram:image" content="https://www.skytraveljm.com/images/social-share.jpg">
+  <meta property="instagram:image" content="https://www.skytraveljm.com/images/og-contact.jpg">
   <meta property="instagram:title" content="Contacta Sky Travel - Especialistas en Peregrinaciones Católicas Espirituales">
 
   <!-- Favicon -->
@@ -68,36 +73,66 @@
   <!-- Global stylesheet -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Structured Data for Contact Page (Spanish) -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "name": "Contacta Sky Travel",
-    "description": "Contacta Sky Travel para peregrinaciones espirituales Católicas a destinos sagrados en todo el mundo",
-    "url": "https://www.skytraveljm.com/contact-es.html",
-    "inLanguage": "es",
-    "mainEntity": {
-      "@type": "TravelAgency",
-      "name": "Sky Travel",
-      "url": "https://www.skytraveljm.com",
-      "telephone": "+1-786-290-9114",
-      "email": "info@skytraveljm.com",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Miami",
-        "addressRegion": "FL",
-        "addressCountry": "US"
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://www.skytraveljm.com/contact-es.html",
+        "url": "https://www.skytraveljm.com/contact-es.html",
+        "name": "Contacto Sky Travel",
+        "inLanguage": "es",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.skytraveljm.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Contacto", "item": "https://www.skytraveljm.com/contact-es.html" }
+          ]
+        },
+        "isPartOf": { "@type": "WebSite", "@id": "https://www.skytraveljm.com/" }
       },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "servicio al cliente",
+      {
+        "@type": "TravelAgency",
+        "@id": "https://www.skytraveljm.com/#travel-agency",
+        "name": "Sky Travel",
+        "url": "https://www.skytraveljm.com",
         "telephone": "+1-786-290-9114",
         "email": "info@skytraveljm.com",
-        "availableLanguage": ["es", "en"],
-        "areaServed": ["US", "Latin America"]
+        "address": { "@type": "PostalAddress", "addressLocality": "Miami", "addressRegion": "FL", "addressCountry": "US" },
+        "sameAs": [
+          "https://www.facebook.com/skytraveljm",
+          "https://www.instagram.com/skytraveljm",
+          "https://www.linkedin.com/company/skytraveljm"
+        ],
+        "contactPoint": [
+          { "@type": "ContactPoint", "contactType": "servicio al cliente", "telephone": "+1-786-290-9114", "availableLanguage": ["Español","Inglés"] }
+        ]
+      },
+      {
+        "@type": "LocalBusiness",
+        "name": "Sky Travel J&M",
+        "address": { "@type": "PostalAddress", "addressLocality": "Miami", "addressRegion": "FL", "addressCountry": "US" },
+        "telephone": "+1-786-290-9114",
+        "openingHours": "Mo-Fr 09:00-17:00"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Ofrecen peregrinaciones católicas en inglés y español?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí, Sky Travel ofrece servicio bilingüe para peregrinos de habla inglesa y española." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo puedo contactar a Sky Travel?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Puedes contactarnos por WhatsApp (+1 786-290-9114), correo electrónico (info@skytraveljm.com) o llamada telefónica." }
+          }
+        ]
       }
-    }
+    ]
   }
   </script>
 
@@ -159,111 +194,97 @@
   </section>
 
   <!-- ============ ELEGANT CONTACT SECTION ============ -->
-  <section class="elegant-contact">
+  <section class="contact-section" id="contact">
     <div class="elegant-contact-container">
       <div class="elegant-contact-header">
         <h2>¿Listo para Comenzar tu Viaje Espiritual?</h2>
-        <p>Comunícate con nuestros especialistas en peregrinaciones hoy</p>
+        <p>Contacta a nuestros especialistas en peregrinaciones hoy mismo</p>
         <div class="elegant-separator"></div>
       </div>
 
-      <div class="elegant-contact-grid">
-        <!-- Teléfono -->
-        <a href="tel:+17862909114" class="phone-contact-link">
-          <div class="elegant-contact-item">
-            <div class="elegant-contact-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2
-                         19.79 19.79 0 0 1-8.63-3.07
-                         19.5 19.5 0 0 1-6-6
-                         19.79 19.79 0 0 1-3.07-8.67
-                         A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72
-                         12.84 12.84 0 0 0 .7 2.81
-                         2 2 0 0 1-.45 2.11L8.09 9.91
-                         a16 16 0 0 0 6 6
-                         l1.27-1.27a2 2 0 0 1 2.11-.45
-                         12.84 12.84 0 0 0 2.81.7
-                         A2 2 0 0 1 22 16.92z"/>
-              </svg>
-            </div>
-            <div class="elegant-contact-info">
-              <h3>Llámanos</h3>
-              <p>+1 (786) 290-9114</p>
-            </div>
+      <div class="elegant-contact-header" style="margin-top: 3rem; text-align: center;">
+        <h2>Tu Agencia de Peregrinaciones Católicas de Confianza</h2>
+        <p style="max-width: 800px; margin: 1rem auto; line-height: 1.8; color: #4a5568;">
+          Nos especializamos en organizar viajes espirituales transformadores a <strong>Medjugorje</strong>,
+          Tierra Santa, los lugares sagrados de Italia y los principales santuarios marianos.
+          Con atención experta y bilingüe en inglés y español, acompañamos a peregrinos de Miami,
+          de todo Estados Unidos y de América Latina.
+        </p>
+        <p style="max-width: 800px; margin: 1rem auto; line-height: 1.8; color: #4a5568;">
+          <strong>Siempre disponibles para ayudarte a planear tu peregrinación.</strong>
+          Nuestro equipo te ofrece acompañamiento personalizado antes, durante y después de tu viaje espiritual.
+        </p>
+      </div>
+
+      <div class="contact-info">
+        <!-- Contact Method: Llámanos (Miami) -->
+        <a href="tel:+17862909114"
+           class="contact-card link-card whatsapp-contact-link"
+           role="article"
+           aria-label="Llama a Sky Travel al +1 786 290 9114">
+          <div class="elegant-contact-icon whatsapp-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2H2v20l4-4h16V2z"></path>
+            </svg>
+          </div>
+          <div class="elegant-contact-info">
+            <h3>Llámanos (Miami)</h3>
+            <p><span class="phone">+1 (786) 290-9114</span></p>
           </div>
         </a>
 
-       
-        <!-- Contacto por Correo (general) -->
-       
-          <a
-        href="mailto:info@skytraveljm.com?subject=Consulta%20general%20Sky%20Travel%20J%26M&body=¡Hola!%0A%0AQuisiera%20informaci%C3%B3n%20sobre%20sus%20destinos,%20paquetes%20y%20pr%C3%B3ximas%20salidas.%0A%0AGracias.%0A"
-        class="email-contact-link"
-        aria-label="Enviar correo a Sky Travel J&M"
-        >
-      <div class="elegant-contact-item">
-      <div class="elegant-contact-icon">
-      <!-- mail icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-           fill="none" stroke="currentColor" stroke-width="2"
-           stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-        <polyline points="22,6 12,13 2,6"/>
-      </svg>
-     </div>
-     <div class="elegant-contact-info">
-       <h3>Envíanos un correo</h3>
-        <p>info@skytraveljm.com</p>
-      </div>
-     </div>
-    </a>
+        <!-- Contact Method: Correo Electrónico -->
+        <a href="mailto:info@skytraveljm.com?subject=Consulta%20sobre%20peregrinaciones%20católicas&body=%C2%A1Hola!%0A%0AEstoy%20interesado%20en%20una%20peregrinaci%C3%B3n%20cat%C3%B3lica.%20Por%20favor%20env%C3%ADenme%20m%C3%A1s%20informaci%C3%B3n.%0A%0AGracias."
+           class="contact-card link-card email-contact-link"
+           role="article"
+           aria-label="Enviar correo a info@skytraveljm.com">
+          <div class="elegant-contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div class="elegant-contact-info">
+            <h3>Correo Electrónico</h3>
+            <p>info@skytraveljm.com</p>
+          </div>
+        </a>
 
-
-
-        <!-- WhatsApp -->
-        <a href="https://wa.me/17862909114"
-           target="_blank" rel="noopener noreferrer"
-           class="whatsapp-contact-link">
-          <div class="elegant-contact-item">
-            <div class="elegant-contact-icon whatsapp-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8
-                         8.5 8.5 0 0 1-7.6 4.7
-                         8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7
-                         a8.38 8.38 0 0 1-.9-3.8
-                         8.5 8.5 0 0 1 4.7-7.6
-                         8.38 8.38 0 0 1 3.8-.9h.5
-                         a8.48 8.48 0 0 1 8 8v.5z"/>
-              </svg>
-            </div>
-            <div class="elegant-contact-info">
-              <h3>WhatsApp</h3>
-              <p>Envíanos un mensaje directo</p>
-            </div>
+        <!-- Contact Method: WhatsApp -->
+        <a href="https://wa.me/17862909114?text=¡Hola!%20Quiero%20información%20sobre%20peregrinaciones%20católicas."
+           target="_blank"
+           rel="noopener noreferrer"
+           class="contact-card link-card whatsapp-contact-link"
+           role="article"
+           aria-label="Abrir chat de WhatsApp con Sky Travel (+1 786 290 9114)">
+          <div class="elegant-contact-icon whatsapp-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </div>
+          <div class="elegant-contact-info">
+            <h3>WhatsApp</h3>
+            <p><span class="phone">+1 (786) 290-9114</span></p>
           </div>
         </a>
       </div>
 
       <div class="elegant-contact-action">
-        <a href="contact-es.html" class="elegant-button">Contáctanos</a>
+        <a href="https://wa.me/17862909114?text=¡Hola!%20Quiero%20información%20sobre%20peregrinaciones%20católicas." target="_blank" rel="noopener noreferrer" class="elegant-button">Contáctanos por WhatsApp</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ FORMULARIO DE CONTACTO ============ -->
-  <section class="contact-form-section">
-    <h2>Envíanos un Mensaje</h2>
-    <form action="#" method="post" class="contact-form">
-      <input type="text"   name="name"    placeholder="Tu Nombre"   required />
-      <input type="email"  name="email"   placeholder="Tu Email"    required />
-      <textarea name="message" rows="5"
-                placeholder="Tu Mensaje" required></textarea>
-      <button type="submit" class="cta-button">Enviar Mensaje</button>
-    </form>
+  <!-- ============ ENLACES SEO INTERNOS ============ -->
+  <section class="contact-seo-links" style="text-align:center;padding:2rem 1rem;background:#f8f9fa;">
+    <p style="color:#4a5568;">Explora nuestras peregrinaciones:
+      <a href="/Medjugorje-es.html" style="color:#c8a97e;font-weight:500;">Medjugorje</a> ·
+      <a href="/TierraSanta2026-es.html" style="color:#c8a97e;font-weight:500;">Tierra Santa 2026</a> ·
+      <a href="/Italy-es.html" style="color:#c8a97e;font-weight:500;">Italia y Roma</a>
+    </p>
   </section>
 
   <!-- ============ FOOTER ============ -->
