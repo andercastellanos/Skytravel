@@ -514,6 +514,9 @@ nav {
 .destination-card.tierra {
     background-image: url('images/TierraSanta/TierraSanta.jpg');
 }
+.destination-card.france {
+    background-image: url('images/France/paris.jpg');
+}
 
 /* Holy Land destination card styling */
 .destination-card.holyland {
