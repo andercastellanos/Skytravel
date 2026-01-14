@@ -517,6 +517,10 @@ nav {
 .destination-card.france {
     background-image: url('images/France/paris.jpg');
 }
+.destination-card.mariana {
+    background-image: url('images/SantuariosMarianos/lourdesvirgin.jpg');
+}
+
 
 /* Holy Land destination card styling */
 .destination-card.holyland {
