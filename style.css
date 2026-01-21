@@ -517,6 +517,10 @@ nav {
 .destination-card.france {
     background-image: url('images/France/paris.jpg');
 }
+.destination-card.mariana {
+    background-image: url('images/SantuariosMarianos/lourdesvirgin.jpg');
+}
+
 
 /* Holy Land destination card styling */
 .destination-card.holyland {
@@ -3504,6 +3508,70 @@ textarea:focus-visible {
     text-align: left;
 }
 
+/* Why Medjugorje Section (France page) */
+.page-france .why-medjugorje {
+    padding: 3rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-france .why-medjugorje h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.page-france .why-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-france .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-france .benefit-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-top: 3px solid #c8a97e;
+    transition: all 0.3s ease;
+}
+
+.page-france .benefit-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+.page-france .benefit-card h3 {
+    color: #c8a97e;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.page-france .benefit-card p {
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+    text-align: left;
+}
+
 /* Medjugorje Messages Section */
 .page-medjugorje .medjugorje-messages {
     padding: 3rem 1.5rem;
@@ -3833,6 +3901,10 @@ textarea:focus-visible {
         grid-template-columns: 1fr;
     }
 
+    .page-france .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
     .page-medjugorje .messages-grid .message-card:nth-child(4),
     .page-medjugorje .messages-grid .message-card:nth-child(5) {
         grid-column: 1;
@@ -3847,11 +3919,19 @@ textarea:focus-visible {
         padding: 2rem 1rem;
     }
 
+    .page-france .why-medjugorje {
+        padding: 2rem 1rem;
+    }
+
     .page-medjugorje .answer-container h2,
     .page-medjugorje .why-medjugorje h2,
     .page-medjugorje .medjugorje-messages h2,
     .page-medjugorje .preparation-guide h2,
     .page-medjugorje .faq-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .page-france .why-medjugorje h2 {
         font-size: 1.6rem;
     }
 }
