@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- ================================= -->
   <!-- HOMEPAGE - HIGHEST PRIORITY -->
@@ -56,43 +57,55 @@
   <!-- Medjugorje 2026 - HIGHEST BUSINESS PRIORITY (Current offering) -->
   <url>
     <loc>https://www.skytraveljm.com/Medjugorje2026.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/Medjugorje2026.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/Medjugorje2026-es.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/Medjugorje2026.html"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/images/Medjugorje/MedjugorjeVirgin.jpg</image:loc>
+    </image:image>
   </url>
 
   <url>
     <loc>https://www.skytraveljm.com/Medjugorje2026-es.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/Medjugorje2026.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/Medjugorje2026-es.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/Medjugorje2026.html"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/images/Medjugorje/MedjugorjeVirgin.jpg</image:loc>
+    </image:image>
   </url>
 
   <!-- Holy Land 2026 - HIGHEST BUSINESS PRIORITY (Current offering) -->
   <url>
     <loc>https://www.skytraveljm.com/TierraSanta2026.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/TierraSanta2026-es.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg</image:loc>
+    </image:image>
   </url>
 
   <url>
     <loc>https://www.skytraveljm.com/TierraSanta2026-es.html</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/TierraSanta2026-es.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/TierraSanta2026.html"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg</image:loc>
+    </image:image>
   </url>
 
   <!-- Italy Jubilee - HIGH PRIORITY (Limited time offer) -->
