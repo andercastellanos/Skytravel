@@ -512,7 +512,7 @@ nav {
 }
 
 .destination-card.tierra {
-    background-image: url('images/TierraSanta/TierraSanta.jpg');
+    background-image: url('images/holyland/Jerusalem_1.jpg');
 }
 .destination-card.france {
     background-image: url('images/France/paris.jpg');
@@ -525,7 +525,7 @@ nav {
 /* Holy Land destination card styling */
 .destination-card.holyland {
     background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
-                url('images/TierraSanta/TierraSanta1.jpg') center/cover;
+                url('images/holyland/Jerusalem_1.jpg') center/cover;
 }
 
 .destination-card.holyland:hover {

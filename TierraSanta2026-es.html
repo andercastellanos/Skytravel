@@ -26,6 +26,14 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Peregrinación Tierra Santa y Medjugorje 2026: Camina en las Huellas de Jesús">
     <meta property="og:description" content="Únete a nuestro viaje espiritual Católico de 20 días a Tierra Santa y Medjugorje Octubre 2026. Experimenta los lugares sagrados donde Jesús caminó y la presencia de Nuestra Señora. Salidas desde Montevideo con acompañamiento espiritual desde $5,799.">
+    <meta property="og:image" content="https://www.skytraveljm.com/images/holyland/Jerusalem_1.jpg">
+    <meta property="og:image:alt" content="Vista de la ciudad de Jerusalén">
+    <meta property="og:image" content="https://www.skytraveljm.com/images/holyland/Jerusalem_2.PNG">
+    <meta property="og:image:alt" content="Sitio de peregrinación en Jerusalén">
+    <meta property="og:image" content="https://www.skytraveljm.com/images/holyland/Jerusalem_3.PNG">
+    <meta property="og:image:alt" content="Panorama de la ciudad santa de Jerusalén">
+    <meta property="og:image" content="https://www.skytraveljm.com/images/holyland/Jerusalem_4.jpg">
+    <meta property="og:image:alt" content="Vista de la Ciudad Vieja de Jerusalén">
     <meta property="og:image" content="https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -39,16 +47,16 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Peregrinación Tierra Santa y Medjugorje 2026 | Sky Travel">
     <meta name="twitter:description" content="Peregrinación espiritual Católica de 20 días a Tierra Santa y Medjugorje Octubre 2026. Desde $5,799 con acompañamiento espiritual.">
-    <meta name="twitter:image" content="https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg">
-    <meta name="twitter:image:alt" content="Sagrado paisaje de Tierra Santa - Camina en las Huellas de Jesús Peregrinación 2026">
+    <meta name="twitter:image" content="https://www.skytraveljm.com/images/holyland/Jerusalem_1.jpg">
+    <meta name="twitter:image:alt" content="Vista de la ciudad de Jerusalén">
     
     <!-- WhatsApp optimization (CRITICAL for Hispanic market) -->
     <meta property="whatsapp:title" content="Peregrinación Tierra Santa y Medjugorje 2026">
     <meta property="whatsapp:description" content="Camina en las Huellas de Jesús - Viaje espiritual Católico de 20 días a Tierra Santa y Medjugorje. 07-26 octubre 2026. $5,799 desde Montevideo.">
-    <meta property="whatsapp:image" content="https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg">
+    <meta property="whatsapp:image" content="https://www.skytraveljm.com/images/holyland/Jerusalem_1.jpg">
     
     <!-- Instagram Specific -->
-    <meta property="instagram:image" content="https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg">
+    <meta property="instagram:image" content="https://www.skytraveljm.com/images/holyland/Jerusalem_1.jpg">
     <meta property="instagram:title" content="Peregrinación Tierra Santa y Medjugorje 2026: Camina en las Huellas de Jesús">
     
     <!-- Favicon -->
@@ -62,8 +70,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="images/HolyLandMedjugorje/hero.jpg" as="image">
+    <link rel="preload" href="images/holyland/Jerusalem_1.jpg" as="image">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -147,6 +157,101 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* Override style.css conflicting styles for Slick */
+        .destination-header {
+            height: 70vh;
+            max-height: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .destination-header .slideshow {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .destination-header .slide {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: 100%;
+            height: 70vh;
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .destination-header .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Hide custom arrows/indicators - using Slick's instead */
+        .destination-header .slide-arrow,
+        .destination-header .slide-indicators {
+            display: none !important;
+        }
+
+        /* Slick overrides for fixed height */
+        .destination-header .slick-list,
+        .destination-header .slick-track {
+            height: 100%;
+        }
+
+        .destination-header .slick-slide {
+            height: 70vh;
+            max-height: 600px;
+        }
+
+        .destination-header .slick-slide > div {
+            height: 100%;
+        }
+
+        /* Slick arrows styling */
+        .destination-header .slick-prev,
+        .destination-header .slick-next {
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+        }
+
+        .destination-header .slick-prev {
+            left: 20px;
+        }
+
+        .destination-header .slick-next {
+            right: 20px;
+        }
+
+        .destination-header .slick-prev:before,
+        .destination-header .slick-next:before {
+            font-size: 40px;
+            opacity: 0.8;
+        }
+
+        .destination-header .slick-prev:hover:before,
+        .destination-header .slick-next:hover:before {
+            opacity: 1;
+        }
+
+        /* Slick dots styling */
+        .destination-header .slick-dots {
+            bottom: 20px;
+        }
+
+        .destination-header .slick-dots li button:before {
+            color: #fff;
+            opacity: 0.7;
+            font-size: 12px;
+        }
+
+        .destination-header .slick-dots li.slick-active button:before {
+            color: #fff;
+            opacity: 1;
+        }
     </style>
 
     <!-- Enhanced Structured Data for Tierra Santa 2026 Spanish Pilgrimage -->
@@ -157,6 +262,10 @@
         "@id": "https://www.skytraveljm.com/TierraSanta2026-es.html",
         "name": "Peregrinación Tierra Santa y Medjugorje 2026",
         "image": [
+            "https://www.skytraveljm.com/images/holyland/Jerusalem_1.jpg",
+            "https://www.skytraveljm.com/images/holyland/Jerusalem_2.PNG",
+            "https://www.skytraveljm.com/images/holyland/Jerusalem_3.PNG",
+            "https://www.skytraveljm.com/images/holyland/Jerusalem_4.jpg",
             "https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg"
         ],
         "description": "Peregrinación espiritual Católica de 20 días a Tierra Santa y Medjugorje en Octubre 2026. Experimenta los sitios sagrados donde Jesús caminó, incluyendo Belén, Nazareth, Jerusalén, Cafarnaúm, Magdala y Medjugorje con orientación espiritual experta.",
@@ -372,7 +481,7 @@
         "@id": "https://www.skytraveljm.com/TierraSanta2026-es.html#webpage",
         "url": "https://www.skytraveljm.com/TierraSanta2026-es.html",
         "name": "Peregrinación a Tierra Santa y Medjugorje 2026 | Viaje de 20 días | Octubre 2026",
-        "image": "https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg",
+        "image": "https://www.skytraveljm.com/images/holyland/Jerusalem_1.jpg",
         "inLanguage": "es",
         "isPartOf": {
             "@type": "WebSite",
@@ -423,7 +532,6 @@
       alt="Peregrinación católica a Tierra Santa y Medjugorje 2026 grupo visitando Jerusalén"
       width="1200"
       height="630"
-      fetchpriority="high"
       decoding="async"
       style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"
     >
@@ -432,79 +540,87 @@
     <div class="destination-header">
         <div class="slideshow">
             <!-- Slides -->
-            <div class="slide active">
-                <img src="images/TierraSanta/TierraSanta1.jpg" alt="Tierra Santa">
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_1.jpg" alt="Vista de la ciudad de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/Beach.JPG" alt="Playa Tierra Santa">
+                <img src="images/holyland/Jerusalem_2.PNG" alt="Sitio de peregrinación en Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/Wall.jpg" alt="Muro de los Lamentos">
+                <img src="images/holyland/Jerusalem_3.PNG" alt="Panorama de la ciudad santa de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/TierraSanta.jpg" alt="Tierra Santa">
+                <img src="images/holyland/Jerusalem_4.jpg" alt="Vista de la Ciudad Vieja de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/Beach1.JPG" alt="Playa Tierra Santa">
+                <img src="images/holyland/Jerusalem_5.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/Wall1.JPG" alt="Muro de los Lamentos">
+                <img src="images/holyland/Jerusalem_6.jpg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/TierraSanta2.jpg" alt="Tierra Santa">
+                <img src="images/holyland/Jerusalem_7.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/TierraSanta3.jpg" alt="Tierra Santa">
+                <img src="images/holyland/Jerusalem_8.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/Wall2.jpg" alt="Muro de los Lamentos">
+                <img src="images/holyland/Jerusalem_10.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/Beach2.JPG" alt="Playa Tierra Santa">
-            </div>
-             <div class="slide">
-                <img src="images/TierraSanta/TierraSanta4.jpg" alt="Tierra Santa">
+                <img src="images/holyland/Jerusalem_11.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/jerusalen.png" alt="Cúpula de la Roca con domo dorado y mosaicos azules en Jerusalén">
+                <img src="images/holyland/Jerusalem_12.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/ruinascarfanaum.png" alt="Ruinas de antigua sinagoga con columnas de piedra blanca y arcos bajo cielo azul en Cafarnaúm.">
+                <img src="images/holyland/Jerusalem_13.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/nazaret.png" alt="Torre de campanario de iglesia con palmeras en la plaza del pueblo de Nazaret.">
+                <img src="images/holyland/Jerusalem_14.jpeg" alt="Vista de Jerusalén">
             </div>
             <div class="slide">
-                <img src="images/TierraSanta/cafarnaum01.jpg" alt="Sitio arqueológico de Cafarnaúm a orillas del mar de Galilea">
+                <img src="images/holyland/Jerusalem_15.jpeg" alt="Vista de Jerusalén">
             </div>
-
-            <!-- Navigation arrows -->
-            <button class="slide-arrow prev">&#10094;</button>
-            <button class="slide-arrow next">&#10095;</button>
-
-            <!-- Slide indicators - FIXED: Match 4 slides -->
-            <div class="slide-indicators">
-                <span class="indicator active"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_16.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_17.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_18.png" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_19.png" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_20.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_21.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_22.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_23.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_24.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_25.jpeg" alt="Vista de Jerusalén">
+            </div>
+            <div class="slide">
+                <img src="images/holyland/Jerusalem_26.jpeg" alt="Vista de Jerusalén">
             </div>
         </div>
         
-        <div class="header-content">
+        <div class="header-content" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
             <div class="header-text">
-                <h1>Peregrinación a Tierra Santa y Medjugorje 2026 – Viaje de 20 días de fe</h1>
-                <p>Experimenta la Gracia de caminar donde Jesús caminó</p>
+                <h1>Holy Land & Medjugorje Pilgrimage 2026 – 20-Day Journey of Faith</h1>
+                <p>Experience the Grace of walking where Jesus walked</p>
             </div>
         </div>
     </div>
@@ -930,6 +1046,7 @@
 
     <!-- Load jQuery for tab functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <!-- Load the unified navigation system first -->
     <script src="js/navigation.js" defer></script>
     
@@ -938,37 +1055,18 @@
 
     <!-- Slideshow JavaScript -->
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const indicators = document.querySelectorAll('.indicator');
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            slides[n].classList.add('active');
-            indicators[n % indicators.length].classList.add('active');
-            currentSlide = n;
-        }
-
-        document.querySelector('.next').addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
+        $(document).ready(function() {
+            $('.slideshow').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: true,
+                fade: true,
+                adaptiveHeight: false,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true
+            });
         });
-
-        document.querySelector('.prev').addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        });
-
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => showSlide(index));
-        });
-
-        // Auto advance slides every 5 seconds
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }, 5000);
     </script>
 
     <!-- Tab functionality JavaScript -->
