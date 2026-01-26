@@ -10,10 +10,8 @@
 <meta name="google-site-verification" content="b7kIWNJg3tO3n75FyCzLnPWhzz1t8MWMuugQQ43va-E">
 
 <!-- BEGIN REPLACE HEAD (ES) -->
-<title>Peregrinación a Medjugorje 2026 – Semana Santa | 7 días</title>
-<meta name="description" content="Vive una peregrinación de 7 días a Medjugorje en Semana Santa 2026. Sube al Monte de las Apariciones y Krizevac con guía espiritual bilingüe. Desde 1 999 €.">
-<title>Peregrinación a Medjugorje 2026 (Semana Santa/Pascua) | 8 días desde €1.999</title>
-<meta name="description" content="Peregrinación católica de 8 días a Medjugorje en Semana Santa 2026. Colina de las Apariciones, Monte de la Cruz, guía espiritual experta. Desde €1.999.">
+<title>Peregrinación a Medjugorje 2026 – Semana Santa | 8 días desde €1,999</title>
+<meta name="description" content="Peregrinación Semana Santa a Medjugorje 29 Mar-6 Abr 2026. Colina de las Apariciones, Monte de la Cruz, Misa diaria. Guía bilingüe. Cupos limitados desde €1,999.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://www.skytraveljm.com/Medjugorje2026-es.html">
 
@@ -49,6 +47,21 @@
 
 <link rel="stylesheet" href="style.css">
 <style>
+/* Accessibility: Skip link */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 9999;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+}
+.skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
     /* Internal links styling */
     .internal-link {
         color: #6b4a1f;
@@ -243,9 +256,13 @@ gtag('config', 'G-6FM6Y5W6ZM');
 </script>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
     <!-- Navigation Bar -->
-    <div class="nav-container">
-        <nav>
+    <header>
+        <div class="nav-container">
+            <nav aria-label="Navegación principal">
             <a href="index-es.html" class="logo">
                 <img src="images/Logo.jpg" alt="Logo de Sky Travel" class="logo-image">
             </a>
@@ -266,6 +283,9 @@ gtag('config', 'G-6FM6Y5W6ZM');
             </button>
         </nav>
     </div>
+    </header>
+
+    <main id="main-content">
 
     <!-- Encabezado del destino y carrusel de imágenes -->
     <div class="destination-header">
@@ -275,7 +295,7 @@ gtag('config', 'G-6FM6Y5W6ZM');
                 <picture>
                     <source type="image/avif" srcset="images/Medjugorje/MedjugorjeVirgin.avif">
                     <source type="image/webp" srcset="images/Medjugorje/MedjugorjeVirgin.webp">
-                    <img src="images/Medjugorje/MedjugorjeVirgin.jpg" alt="Estatua de la Virgen en Medjugorje" width="1180" height="430" decoding="async">
+                    <img src="images/Medjugorje/MedjugorjeVirgin.jpg" alt="Estatua de la Virgen en Medjugorje" width="1180" height="430" fetchpriority="high" loading="eager" decoding="async">
                 </picture>
             </div>
             <div class="slide">
@@ -600,6 +620,8 @@ gtag('config', 'G-6FM6Y5W6ZM');
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer>
         <p>© 2025 Sky Travel J&M. Creando viajes extraordinarios espirituales para viajeros exigentes.</p>
@@ -607,7 +629,7 @@ gtag('config', 'G-6FM6Y5W6ZM');
 
      
     <!-- Load jQuery for tab functionality -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
 
     <!-- Load the unified navigation system first -->
     <script src="js/navigation.js" defer></script>

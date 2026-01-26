@@ -10,7 +10,7 @@
 
     <!-- ADVANCED SEO Meta Tags - Tierra Santa & Medjugorje 2026 Spanish Focus -->
     <title>Peregrinación a Tierra Santa y Medjugorje 2026 | Viaje de 20 días | Octubre 2026</title>
-    <meta name="description" content="Camina en las Huellas de Jesús con la peregrinación espiritual Católica transformadora de 20 días de Sky Travel a Tierra Santa y Medjugorje Octubre 2026. Experimenta Belén, Nazareth, Jerusalén, Cafarnaúm, Magdala y la presencia de Nuestra Señora. Guía espiritual experta, experiencias peregrinos verificadas. Salidas Montevideo desde $5,799.">
+    <meta name="description" content="Peregrinación católica de 20 días a Tierra Santa y Medjugorje Oct 7-26, 2026. Belén, Jerusalén, Nazareth, Cafarnaúm. Guía espiritual, Misa diaria. Desde $5,799.">
     <meta name="author" content="Sky Travel">
     <meta name="robots" content="index, follow, max-image-preview:large">
     
@@ -77,6 +77,21 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+    /* Accessibility: Skip link */
+    .skip-link {
+        position: absolute;
+        left: -9999px;
+        z-index: 9999;
+        padding: 10px 20px;
+        background: #000;
+        color: #fff;
+        text-decoration: none;
+    }
+    .skip-link:focus {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+    }
         /* Elegant Tab Styling */
         .tab-container {
             margin-top: 1rem;
@@ -261,6 +276,7 @@
         "@type": "TouristTrip",
         "@id": "https://www.skytraveljm.com/TierraSanta2026-es.html",
         "name": "Peregrinación Tierra Santa y Medjugorje 2026",
+        "dateModified": "2026-01-26",
         "image": [
             "https://www.skytraveljm.com/images/holyland/Jerusalem_1.jpg",
             "https://www.skytraveljm.com/images/holyland/Jerusalem_2.PNG",
@@ -396,7 +412,6 @@
             "validThrough": "2026-10-01",
             "description": "Vuelos de ida y vuelta, 17 noches de alojamiento, todas las comidas, transporte terrestre, entradas, guía turística profesional y acompañamiento espiritual incluidos"
         },
-        "touristType": "Peregrinos Religiosos",
         "organizer": {
             "@type": "TravelAgency",
             "name": "Sky Travel",
@@ -500,9 +515,13 @@
     </script>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
     <!-- Navigation Bar -->
-    <div class="nav-container">
-        <nav aria-label="Navegación principal">
+    <header>
+        <div class="nav-container">
+            <nav aria-label="Navegación principal">
             <a href="index-es.html" class="logo">
                 <img src="images/Logo.jpg" alt="Sky Travel - Logo de Agencia de Peregrinaciones Espirituales de Lujo" class="logo-image" width="150" height="75">
             </a>
@@ -525,6 +544,9 @@
             </button>
         </nav>
     </div>
+    </header>
+
+    <main id="main-content">
 
     <!-- SEO Hero Image (hidden visually, accessible to crawlers) -->
     <img
@@ -541,79 +563,79 @@
         <div class="slideshow">
             <!-- Slides -->
             <div class="slide">
-                <img src="images/holyland/Jerusalem_1.jpg" alt="Vista de la ciudad de Jerusalén">
+                <img src="images/holyland/Jerusalem_1.jpg" alt="Vista de la ciudad de Jerusalén" fetchpriority="high" loading="eager">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_2.PNG" alt="Sitio de peregrinación en Jerusalén">
+                <img src="images/holyland/Jerusalem_2.PNG" alt="Sitio de peregrinación en Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_3.PNG" alt="Panorama de la ciudad santa de Jerusalén">
+                <img src="images/holyland/Jerusalem_3.PNG" alt="Panorama de la ciudad santa de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_4.jpg" alt="Vista de la Ciudad Vieja de Jerusalén">
+                <img src="images/holyland/Jerusalem_4.jpg" alt="Vista de la Ciudad Vieja de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_5.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_5.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_6.jpg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_6.jpg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_7.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_7.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_8.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_8.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_10.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_10.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_11.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_11.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_12.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_12.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_13.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_13.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_14.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_14.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_15.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_15.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_16.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_16.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_17.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_17.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_18.png" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_18.png" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_19.png" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_19.png" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_20.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_20.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_21.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_21.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_22.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_22.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_23.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_23.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_24.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_24.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_25.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_25.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
             <div class="slide">
-                <img src="images/holyland/Jerusalem_26.jpeg" alt="Vista de Jerusalén">
+                <img src="images/holyland/Jerusalem_26.jpeg" alt="Vista de Jerusalén" loading="lazy">
             </div>
         </div>
         
@@ -1039,14 +1061,16 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer>
         <p>© 2025 Sky Travel J&M. Creando viajes extraordinarios espirituales para viajeros Católicos.</p>
     </footer>
 
     <!-- Load jQuery for tab functionality -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" defer></script>
     <!-- Load the unified navigation system first -->
     <script src="js/navigation.js" defer></script>
     
