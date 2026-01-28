@@ -1042,13 +1042,48 @@
 
     <!-- Load contact section component -->
     <script>
-        // Load the contact section component dynamically
-        fetch('/components/contact-section.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('contact-section-container').innerHTML = html;
-            })
-            .catch(error => console.error('Error loading contact section:', error));
+        // Load the component HTML and move its CSS link into <head>.
+        (function loadContactSection() {
+            const container = document.getElementById('contact-section-container');
+            if (!container) return;
+
+            const version = '20260128';
+            const cssHref = 'components/contact-section.css?v=' + version;
+            const htmlHref = 'components/contact-section.html?v=' + version;
+
+            fetch(htmlHref, { cache: 'no-store' })
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // Move the component CSS link to <head> (avoid duplicates)
+                    const link = doc.querySelector('link[data-component="contact-section"]');
+                    if (link) {
+                        // Remove from parsed doc first
+                        link.remove();
+                        // Only add to head if not already present
+                        if (!document.querySelector('link[data-component="contact-section"]')) {
+                            link.href = cssHref;
+                            document.head.appendChild(link);
+                        }
+                    }
+
+                    // Inject the rest of the component markup
+                    container.innerHTML = doc.body ? doc.body.innerHTML : html;
+
+                    // Sanity check: log if key fields are missing
+                    const missing = [
+                        'phone',
+                        'pilgrimageInterest',
+                        'preferredContact'
+                    ].filter(id => !container.querySelector('#' + id));
+                    if (missing.length) {
+                        console.warn('Contact section missing fields:', missing);
+                    }
+                })
+                .catch(error => console.error('Error loading contact section:', error));
+        })();
     </script>
 
     <!-- Slideshow JavaScript -->
