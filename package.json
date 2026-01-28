@@ -2,10 +2,12 @@
   "name": "skytravel-jm",
   "version": "1.0.0",
   "scripts": {
-    "dev": "netlify dev"
+    "dev": "netlify dev",
+    "optimize-images": "node scripts/optimize-images.js"
   },
   "devDependencies": {
-    "netlify-cli": "^23.7.3"
+    "netlify-cli": "^23.7.3",
+    "sharp": "^0.33.5"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15"
