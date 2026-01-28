@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "netlify-cli": "^23.7.3"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15"
   }
 }
