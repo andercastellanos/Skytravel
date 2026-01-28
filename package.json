@@ -1,4 +1,9 @@
 {
+  "name": "skytravel-jm",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "netlify dev"
+  },
   "devDependencies": {
     "netlify-cli": "^23.7.3"
   },

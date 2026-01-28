@@ -363,6 +363,7 @@
             message: (formData.get('message') || '').trim(),
             consentContact: !!formData.get('consentContact'),
             consentMarketing: !!formData.get('consentMarketing'),
+            website: formData.get('website') || '',
             sourcePage: window.location.pathname,
             utmSource: utmParams.utm_source,
             utmMedium: utmParams.utm_medium,
@@ -447,20 +448,49 @@
     // INITIALIZATION
     // ============================================
 
-    function init() {
-        // Add toast styles
-        addToastStyles();
-
+    /**
+     * Sets up all tracking and form handlers once the form is available
+     */
+    function setupAll() {
         // Setup contact click tracking
         setupContactClickTracking();
 
         // Setup form handling
         const form = document.getElementById('contact-form');
-        if (form) {
+        if (form && !form.dataset.trackingInitialized) {
+            form.dataset.trackingInitialized = 'true';
             form.addEventListener('submit', handleFormSubmit);
             setupRealTimeValidation();
         }
     }
+
+    /**
+     * Main initialization function
+     * Handles both static and dynamically loaded contact sections
+     */
+    function init() {
+        // Add toast styles immediately
+        addToastStyles();
+
+        // Check if form already exists (static load)
+        const form = document.getElementById('contact-form');
+        if (form) {
+            setupAll();
+        } else {
+            // Form doesn't exist yet - watch for dynamic component loading
+            const observer = new MutationObserver(function(mutations) {
+                const form = document.getElementById('contact-form');
+                if (form && !form.dataset.trackingInitialized) {
+                    setupAll();
+                    observer.disconnect();
+                }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+    }
+
+    // Expose global function for manual initialization (if needed)
+    window.initContactTracking = setupAll;
 
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
