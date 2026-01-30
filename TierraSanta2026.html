@@ -1293,10 +1293,7 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Sky Travel J&M. Creating extraordinary spiritual journeys for discerning travelers.</p>
-    </footer>
+    <div id="footer-container"></div>
 
     <!-- Load jQuery for tab functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -1354,6 +1351,44 @@
                     }
                 })
                 .catch(error => console.error('Error loading contact section:', error));
+        })();
+    </script>
+
+    <!-- Load footer component -->
+    <script>
+        (function loadFooter() {
+            var container = document.getElementById('footer-container');
+            if (!container) return;
+
+            var cssHref  = 'components/footer.css?v=20260131f';
+            var htmlHref = 'components/footer.html?v=20260131f';
+            var faHref   = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
+
+            // Add footer CSS to <head>
+            if (!document.querySelector('link[data-component="site-footer"]')) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = cssHref;
+                link.setAttribute('data-component', 'site-footer');
+                document.head.appendChild(link);
+            }
+            // Add Font Awesome CSS to <head>
+            if (!document.querySelector('link[data-component="site-footer-fa"]')) {
+                var fa = document.createElement('link');
+                fa.rel = 'stylesheet';
+                fa.href = faHref;
+                fa.setAttribute('data-component', 'site-footer-fa');
+                document.head.appendChild(fa);
+            }
+
+            // Fetch and inject HTML — strip all <link> tags
+            fetch(htmlHref, { cache: 'no-store' })
+                .then(function (r) { return r.text(); })
+                .then(function (html) {
+                    container.innerHTML = html.replace(/<link[^>]*>/gi, '');
+                    console.log('[footer] columns:', container.querySelectorAll('.footer-col').length);
+                })
+                .catch(function (err) { console.error('[footer] load error:', err); });
         })();
     </script>
 

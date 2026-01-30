@@ -7,9 +7,24 @@
   },
   "devDependencies": {
     "netlify-cli": "^23.7.3",
+    "purgecss": "^8.0.0",
     "sharp": "^0.33.5"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15"
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andercastellanos/Skytravel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/andercastellanos/Skytravel/issues"
+  },
+  "homepage": "https://github.com/andercastellanos/Skytravel#readme"
 }
