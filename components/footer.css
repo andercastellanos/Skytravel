@@ -105,6 +105,14 @@
   color: #6a6a6a;
 }
 
+.footer-licence {
+  margin: 0;
+  font-style: normal;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #6a6a6a;
+}
+
 .footer-phone {
   display: inline-block;
   margin-top: 4px;
