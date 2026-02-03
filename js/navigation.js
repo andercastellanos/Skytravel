@@ -1,129 +1,109 @@
 /**
  * SkyTravel - Unified Navigation JavaScript
- * Version: 2.1.0 - Production-Ready with Senior-Level Optimizations
+ * Version: 3.0.0 - Vanilla JS (no jQuery dependency)
  * Fixes mobile menu toggle conflicts and provides clean event handling
  */
 
-$(document).ready(function() {
-    console.log('[SkyTravel Nav] jQuery loaded, initializing navigation...');
-    // Initialize navigation when DOM is ready
-    initializeNavigation();
-});
-
 // Cached DOM elements for performance
-let $navContainer, $navLinks, $menuToggle, $mobileLangSwitcher, $body, $nav;
-let scrollTicking = false;
-const DEBUG_MODE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+var navContainer, navLinks, menuToggle, mobileLangSwitcher, nav;
+var scrollTicking = false;
+var DEBUG_MODE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
 function initializeNavigation() {
     // Cache DOM elements once
     cacheDOMElements();
-    
-    // Clean up any existing handlers to prevent duplicates
-    cleanupHandlers();
-    
+
     // Set up all navigation functionality
     setupMobileMenu();
     setupScrollEffects();
     setupClickOutside();
     setupKeyboardNavigation();
-    
+    setupResize();
+
     // Initialize proper ARIA states
     initializeAriaStates();
-    
+
     debugLog('SkyTravel Navigation initialized with accessibility features');
 }
 
 function cacheDOMElements() {
-    $navContainer = $('.nav-container');
-    $navLinks = $('.nav-links');
-    $menuToggle = $('.menu-toggle');
-    $mobileLangSwitcher = $('.mobile-language-switcher');
-    $body = $('body');
-    $nav = $('nav');
-}
-
-function cleanupHandlers() {
-    // Remove any existing handlers to prevent duplicates
-    $menuToggle.off('click.navigation');
-    $navLinks.find('a').off('click.navigation');
-    $(document).off('click.navigation keydown.navigation');
-    $(window).off('scroll.navigation resize.navigation');
+    navContainer = document.querySelector('.nav-container');
+    navLinks = document.querySelector('.nav-links');
+    menuToggle = document.querySelector('.menu-toggle');
+    mobileLangSwitcher = document.querySelector('.mobile-language-switcher');
+    nav = document.querySelector('nav');
 }
 
 function setupMobileMenu() {
-    // Ensure we have required elements
-    if (!$menuToggle.length || !$navLinks.length) {
+    if (!menuToggle || !navLinks) {
         debugLog('Required navigation elements not found');
         return;
     }
 
-    // Single, unified mobile menu toggle handler
-    $menuToggle.on('click.navigation', function(e) {
+    menuToggle.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        // Toggle the active class
-        $navLinks.toggleClass('active');
 
-        // Update aria-expanded for accessibility
-        const isExpanded = $navLinks.hasClass('active');
-        $menuToggle.attr('aria-expanded', isExpanded.toString());
+        navLinks.classList.toggle('active');
 
-        // Debug logging for development only
-        debugLog(`Navigation menu ${isExpanded ? 'opened' : 'closed'}`);
-        
-        // Add visual state class to button
-        $menuToggle.toggleClass('menu-open', isExpanded);
-        
-        // Adjust z-index and visibility when menu opens/closes
+        var isExpanded = navLinks.classList.contains('active');
+        menuToggle.setAttribute('aria-expanded', String(isExpanded));
+
+        menuToggle.classList.toggle('menu-open', isExpanded);
+
         if (isExpanded) {
             openNavigation();
         } else {
             closeNavigation();
         }
-        
-        debugLog(`Navigation menu ${isExpanded ? 'opened' : 'closed'}`);
+
+        debugLog('Navigation menu ' + (isExpanded ? 'opened' : 'closed'));
     });
 }
 
 function openNavigation() {
-    // Set higher z-index for nav menu
-    $navContainer.css('z-index', '1001').addClass('nav-menu-open');
-    
-    // Hide mobile language switcher when menu is open to prevent overlap
-    if ($mobileLangSwitcher.length) {
-        $mobileLangSwitcher.css('visibility', 'hidden');
+    if (navContainer) {
+        navContainer.style.zIndex = '1001';
+        navContainer.classList.add('nav-menu-open');
     }
-    
-    // Prevent body scroll when menu is open
-    $body.addClass('nav-menu-open');
-    
-    // Focus first nav link for accessibility (ARIA best practice)
-    setTimeout(() => {
-        $navLinks.find('a').first().focus();
+
+    // Re-query in case it was created dynamically
+    mobileLangSwitcher = document.querySelector('.mobile-language-switcher');
+    if (mobileLangSwitcher) {
+        mobileLangSwitcher.style.visibility = 'hidden';
+    }
+
+    document.body.classList.add('nav-menu-open');
+
+    // Focus first nav link for accessibility
+    setTimeout(function () {
+        var firstLink = navLinks ? navLinks.querySelector('a') : null;
+        if (firstLink) firstLink.focus();
     }, 100);
 }
 
 function closeNavigation() {
-    // Reset states
-    $navLinks.removeClass('active');
-    $menuToggle.attr('aria-expanded', 'false').removeClass('menu-open');
-    
-    // Reset z-index and visibility
-    $navContainer.css('z-index', '1000').removeClass('nav-menu-open');
-    
-    if ($mobileLangSwitcher.length) {
-        $mobileLangSwitcher.css('visibility', 'visible');
+    if (navLinks) navLinks.classList.remove('active');
+    if (menuToggle) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.classList.remove('menu-open');
     }
-    
-    // Re-enable body scroll
-    $body.removeClass('nav-menu-open');
+
+    if (navContainer) {
+        navContainer.style.zIndex = '1000';
+        navContainer.classList.remove('nav-menu-open');
+    }
+
+    mobileLangSwitcher = document.querySelector('.mobile-language-switcher');
+    if (mobileLangSwitcher) {
+        mobileLangSwitcher.style.visibility = 'visible';
+    }
+
+    document.body.classList.remove('nav-menu-open');
 }
 
 function setupScrollEffects() {
-    // Optimized scroll handler using requestAnimationFrame
-    $(window).on('scroll.navigation', function() {
+    window.addEventListener('scroll', function () {
         if (!scrollTicking) {
             window.requestAnimationFrame(handleScroll);
             scrollTicking = true;
@@ -132,54 +112,57 @@ function setupScrollEffects() {
 }
 
 function handleScroll() {
-    const scrollTop = $(window).scrollTop();
-    
-    if (scrollTop > 50) {
-        $navContainer.addClass('nav-scrolled');
-        $navContainer.css('background', 'rgba(255, 255, 255, 0.95)');
-        $body.addClass('scrolled');
-    } else {
-        $navContainer.removeClass('nav-scrolled');
-        $navContainer.css('background', 'rgba(255, 255, 255, 0.95)');
-        $body.removeClass('scrolled');
+    var scrollTop = window.scrollY;
+
+    if (navContainer) {
+        if (scrollTop > 50) {
+            navContainer.classList.add('nav-scrolled');
+            navContainer.style.background = 'rgba(255, 255, 255, 0.95)';
+            document.body.classList.add('scrolled');
+        } else {
+            navContainer.classList.remove('nav-scrolled');
+            navContainer.style.background = 'rgba(255, 255, 255, 0.95)';
+            document.body.classList.remove('scrolled');
+        }
     }
-    
+
     scrollTicking = false;
 }
 
 function setupClickOutside() {
-    // Close menu when clicking outside navigation
-    $(document).on('click.navigation', function(event) {
-        const $target = $(event.target);
-        
-        // Check if click is outside navigation and menu is open
-        if (!$target.closest($navContainer).length && $navLinks.hasClass('active')) {
+    document.addEventListener('click', function (event) {
+        if (!navContainer || !navLinks) return;
+
+        if (!navContainer.contains(event.target) && navLinks.classList.contains('active')) {
             closeNavigation();
         }
     });
-    
-    // Close menu when navigation links are clicked
-    $navLinks.find('a').on('click.navigation', function() {
-        // Small delay to allow link navigation to start
-        setTimeout(closeNavigation, 100);
-    });
+
+    if (navLinks) {
+        var links = navLinks.querySelectorAll('a');
+        links.forEach(function (link) {
+            link.addEventListener('click', function () {
+                setTimeout(closeNavigation, 100);
+            });
+        });
+    }
 }
 
 function setupKeyboardNavigation() {
-    // Handle keyboard navigation
-    $(document).on('keydown.navigation', function(event) {
-        switch(event.key) {
+    document.addEventListener('keydown', function (event) {
+        if (!navLinks) return;
+
+        switch (event.key) {
             case 'Escape':
-                if ($navLinks.hasClass('active')) {
+                if (navLinks.classList.contains('active')) {
                     event.preventDefault();
                     closeNavigation();
-                    $menuToggle.focus(); // Return focus to toggle button
+                    if (menuToggle) menuToggle.focus();
                 }
                 break;
-                
+
             case 'Tab':
-                // Trap focus within navigation when menu is open on mobile
-                if ($navLinks.hasClass('active') && isMobileView()) {
+                if (navLinks.classList.contains('active') && isMobileView()) {
                     trapFocusInNavigation(event);
                 }
                 break;
@@ -188,19 +171,21 @@ function setupKeyboardNavigation() {
 }
 
 function trapFocusInNavigation(event) {
-    const focusableElements = $navContainer.find('a, button, [tabindex]:not([tabindex="-1"])');
-    const firstFocusable = focusableElements.first();
-    const lastFocusable = focusableElements.last();
-    
+    if (!navContainer) return;
+
+    var focusableElements = navContainer.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+    if (!focusableElements.length) return;
+
+    var firstFocusable = focusableElements[0];
+    var lastFocusable = focusableElements[focusableElements.length - 1];
+
     if (event.shiftKey) {
-        // Shift + Tab (backwards)
-        if (document.activeElement === firstFocusable[0]) {
+        if (document.activeElement === firstFocusable) {
             event.preventDefault();
             lastFocusable.focus();
         }
     } else {
-        // Tab (forwards)
-        if (document.activeElement === lastFocusable[0]) {
+        if (document.activeElement === lastFocusable) {
             event.preventDefault();
             firstFocusable.focus();
         }
@@ -208,60 +193,51 @@ function trapFocusInNavigation(event) {
 }
 
 function initializeAriaStates() {
-    // Set initial ARIA states
-    if ($menuToggle.length) {
-        // Ensure menu toggle has proper initial state
-        if (!$menuToggle.attr('aria-expanded')) {
-            $menuToggle.attr('aria-expanded', 'false');
+    if (menuToggle) {
+        if (!menuToggle.getAttribute('aria-expanded')) {
+            menuToggle.setAttribute('aria-expanded', 'false');
         }
-        
-        // Add aria-controls for better accessibility
-        const navLinksId = $navLinks.attr('id') || 'nav-links';
-        if (!$navLinks.attr('id')) {
-            $navLinks.attr('id', navLinksId);
+
+        var navLinksId = (navLinks && navLinks.id) || 'nav-links';
+        if (navLinks && !navLinks.id) {
+            navLinks.id = navLinksId;
         }
-        $menuToggle.attr('aria-controls', navLinksId);
+        menuToggle.setAttribute('aria-controls', navLinksId);
     }
-    
-    // Ensure navigation has proper role
-    if ($nav.length && !$nav.attr('role')) {
-        $nav.attr('role', 'navigation');
+
+    if (nav && !nav.getAttribute('role')) {
+        nav.setAttribute('role', 'navigation');
     }
-    
-    // Set initial visibility for mobile language switcher
-    if ($mobileLangSwitcher.length) {
-        $mobileLangSwitcher.css('visibility', 'visible');
+
+    mobileLangSwitcher = document.querySelector('.mobile-language-switcher');
+    if (mobileLangSwitcher) {
+        mobileLangSwitcher.style.visibility = 'visible';
     }
 }
 
-// Utility function to check if we're on mobile
 function isMobileView() {
     return window.innerWidth <= 768;
 }
 
-// Handle window resize events
-$(window).on('resize.navigation', function() {
-    let resizeTimeout;
-    clearTimeout(resizeTimeout);
-    
-    resizeTimeout = setTimeout(function() {
-        // Re-cache elements in case DOM changed
-        cacheDOMElements();
-        
-        // Close navigation menu if switching from mobile to desktop
-        if (!isMobileView() && $navLinks.hasClass('active')) {
-            closeNavigation();
-        }
-        
-        // Reinitialize states after resize
-        initializeAriaStates();
-    }, 250);
-});
+function setupResize() {
+    var resizeTimeout;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function () {
+            cacheDOMElements();
 
-// Debug logging function
-function debugLog(message, ...args) {
+            if (!isMobileView() && navLinks && navLinks.classList.contains('active')) {
+                closeNavigation();
+            }
+
+            initializeAriaStates();
+        }, 250);
+    });
+}
+
+function debugLog(message) {
     if (DEBUG_MODE) {
-        console.log(`[SkyTravel Nav] ${message}`, ...args);
+        console.log('[SkyTravel Nav] ' + message);
     }
 }
 
@@ -272,3 +248,10 @@ window.SkyTravelNavigation = {
     isMobileView: isMobileView,
     reinitialize: initializeNavigation
 };
+
+// Initialize on DOMContentLoaded (works with defer)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeNavigation);
+} else {
+    initializeNavigation();
+}
