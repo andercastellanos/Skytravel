@@ -9,13 +9,13 @@
 
     /* ---------- Configuration ---------- */
     var CONTACT_VERSION = '20260128';
-    var FOOTER_VERSION  = '20260131f';
+    var FOOTER_VERSION  = '20260204a';
 
     /* ---------- Base path (auto-detected from script src) ---------- */
     var basePath = (function () {
         var el = document.querySelector('script[src*="page-init.js"]');
         if (!el) return '';
-        return el.getAttribute('src').replace(/js\/page-init\.js.*$/, '');
+        return el.getAttribute('src').replace(/js\/page-init(\.min)?\.js.*$/, '');
     })();
 
     /* ---------- Helpers ---------- */
@@ -120,7 +120,9 @@
         fetch(htmlHref, { cache: 'no-store' })
             .then(function (r) { return r.text(); })
             .then(function (html) {
-                container.innerHTML = html.replace(/<link[^>]*>/gi, '');
+                var doc = new DOMParser().parseFromString(html, 'text/html');
+                // Footer fragments place the link in <head>; body holds the footer markup we need.
+                container.innerHTML = doc.body ? doc.body.innerHTML : html.replace(/<link[^>]*>/gi, '');
             })
             .catch(function (err) { console.error('[footer] load error:', err); });
     }
