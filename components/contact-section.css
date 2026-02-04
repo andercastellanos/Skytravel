@@ -361,8 +361,8 @@
     justify-content: center;
 }
 
-.elegant-contact-card-text {
-    line-height: 1;
+.contact-section .elegant-contact-card-text {
+    line-height: 1.1;
     margin: 0;
 }
 
@@ -379,6 +379,7 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
     margin: 0;
+    line-height: 0;
 }
 
 .elegant-contact-icon svg {
@@ -388,6 +389,7 @@
     stroke-width: 2;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     margin: 0;
+    display: block;
 }
 
 .elegant-contact-info {
