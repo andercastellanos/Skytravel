@@ -366,6 +366,17 @@
     margin: 0;
 }
 
+.contact-methods-grid .elegant-contact-card-text {
+    min-width: 130px;
+    text-align: left;
+}
+
+@media (max-width: 420px) {
+    .contact-methods-grid .elegant-contact-card-text {
+        min-width: 110px;
+    }
+}
+
 .elegant-contact-icon {
     width: 45px;
     height: 45px;
@@ -375,6 +386,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
@@ -390,6 +402,36 @@
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     margin: 0;
     display: block;
+}
+
+.contact-methods-grid .contact-card {
+    --icon-offset-x: 0px;
+    --icon-offset-y: 0px;
+}
+
+.contact-methods-grid .elegant-contact-icon svg {
+    transform: translate(var(--icon-offset-x), var(--icon-offset-y));
+    transform-origin: center;
+}
+
+.contact-methods-grid .sms-contact-link {
+    --icon-offset-x: 0px;
+    --icon-offset-y: -0.5px;
+}
+
+.contact-methods-grid .call-contact-link {
+    --icon-offset-x: -1px;
+    --icon-offset-y: -0.5px;
+}
+
+.contact-methods-grid .whatsapp-contact-link {
+    --icon-offset-x: 0px;
+    --icon-offset-y: -1px;
+}
+
+.contact-methods-grid .email-contact-link {
+    --icon-offset-x: 0px;
+    --icon-offset-y: -1px;
 }
 
 .elegant-contact-info {
