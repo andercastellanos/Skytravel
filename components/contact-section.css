@@ -303,3 +303,44 @@
         transform: none;
     }
 }
+
+.elegant-contact-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.elegant-contact-card-text {
+    line-height: 1;
+    margin-top: 1.5rem;
+}
+
+.elegant-contact-icon {
+    width: 45px;
+    height: 45px;
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.elegant-contact-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #666;
+    stroke-width: 2;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    margin: 0;
+}
+
+.elegant-contact-info {
+    text-align: center;
+    margin: 16px 0 0 0;
+}
