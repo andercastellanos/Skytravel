@@ -101,13 +101,14 @@
             font-weight: 500;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             max-width: 350px;
+            opacity: 1;
             background: ${bgColor};
             animation: slideIn 0.3s ease-out;
         `;
 
         container.appendChild(toast);
 
-        // Auto-remove after 4 seconds
+        // Auto-remove after 7 seconds
         setTimeout(function() {
             toast.style.animation = 'slideOut 0.3s ease-out forwards';
             setTimeout(function() {
@@ -115,7 +116,7 @@
                     toast.parentNode.removeChild(toast);
                 }
             }, 300);
-        }, 4000);
+        }, 5000);
     }
 
     // Add CSS animations for toast
