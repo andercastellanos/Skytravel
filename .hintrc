@@ -6,5 +6,13 @@
     "apple-touch-icons": "off",
     "meta-viewport": "off",
     "no-inline-styles": "off"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not and_ff <= 126",
+    "not firefox <= 127",
+    "not ios_saf <= 16.7",
+    "not opera <= 110"
+  ]
 }

@@ -79,6 +79,11 @@
   line-height: 1;
 }
 
+.footer-icon-link svg {
+  width: 13px;
+  height: 13px;
+}
+
 .footer-icon-link:hover,
 .footer-icon-link:focus-visible {
   color: #c8a97e;

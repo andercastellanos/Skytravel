@@ -44,13 +44,13 @@
 }
 
 .tab-button:hover {
-    color: #c8a97e;
+    color: #9a7b4f;
     background-color: #fafafa;
 }
 
 .tab-button.active {
-    color: #c8a97e;
-    border-bottom-color: #c8a97e;
+    color: #9a7b4f;
+    border-bottom-color: #9a7b4f;
     font-weight: 600;
 }
 
@@ -67,6 +67,11 @@
 .tab-pane.active {
     display: block;
     opacity: 1;
+}
+
+/* Improve contrast for headings/tabs */
+.info-section h3 {
+    color: #9a7b4f;
 }
 
 .tab-pane p {
@@ -100,6 +105,11 @@
         font-size: 0.9rem;
     }
 }
+
+/* Show first slide immediately before Slick initializes (reduces LCP render delay) */
+.slideshow .slide { display: none; }
+.slideshow .slide:first-child { display: block; }
+.slideshow.slick-initialized .slide { display: block; }
 
 /* Override style.css conflicting styles for Slick */
 .destination-header {

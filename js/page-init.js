@@ -114,10 +114,8 @@
 
         var cssHref  = basePath + 'components/footer.css?v=' + FOOTER_VERSION;
         var htmlHref = basePath + 'components/footer' + (isSpanish ? '-es' : '') + '.html?v=' + FOOTER_VERSION;
-        var faHref   = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
 
         loadCSS(cssHref, 'data-component', 'site-footer');
-        loadCSS(faHref, 'data-component', 'site-footer-fa');
 
         fetch(htmlHref, { cache: 'no-store' })
             .then(function (r) { return r.text(); })
@@ -140,7 +138,15 @@
                 return loadScript('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js');
             })
             .then(function () {
-                jQuery('.slideshow').slick({
+                var $slideshows = jQuery('.slideshow');
+
+                // Prevent focusable hidden slides (ARIA issue) by managing tabindex manually
+                $slideshows.on('init setPosition', function (event, slick) {
+                    slick.$slides.attr('tabindex', '-1').attr('aria-hidden', 'true');
+                    slick.$slides.filter('.slick-active').attr('tabindex', '0').attr('aria-hidden', 'false');
+                });
+
+                $slideshows.slick({
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     arrows: true,
@@ -148,7 +154,8 @@
                     adaptiveHeight: false,
                     autoplay: true,
                     autoplaySpeed: 3000,
-                    dots: true
+                    dots: true,
+                    accessibility: false
                 });
             })
             .catch(function (err) { console.error('[slideshow] load error:', err); });
