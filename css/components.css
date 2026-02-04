@@ -1,0 +1,207 @@
+/* ===================================================
+   Shared component styles
+   Used by destination pages, pilgrimage detail pages, etc.
+   =================================================== */
+
+/* Accessibility: Skip link */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 9999;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+/* Elegant Tab Styling */
+.tab-container {
+    margin-top: 1rem;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 1.5rem;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.tab-button:hover {
+    color: #9a7b4f;
+    background-color: #fafafa;
+}
+
+.tab-button.active {
+    color: #9a7b4f;
+    border-bottom-color: #9a7b4f;
+    font-weight: 600;
+}
+
+.tab-content {
+    position: relative;
+}
+
+.tab-pane {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tab-pane.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Improve contrast for headings/tabs */
+.info-section h3 {
+    color: #9a7b4f;
+}
+
+.tab-pane p {
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    color: #555;
+}
+
+/* Enhanced trip dates styling */
+.trip-dates {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 8px;
+    border-left: 4px solid #c8a97e;
+}
+
+.trip-dates h3 {
+    color: #333;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Mobile responsive tabs */
+@media (max-width: 768px) {
+    .tab-button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Show first slide immediately before Slick initializes (reduces LCP render delay) */
+.slideshow .slide { display: none; }
+.slideshow .slide:first-child { display: block; }
+.slideshow.slick-initialized .slide { display: block; }
+
+/* Override style.css conflicting styles for Slick */
+.destination-header {
+    height: 70vh;
+    max-height: 600px;
+    overflow: hidden;
+    position: relative;
+}
+
+.destination-header .slideshow {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.destination-header .slide {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: 70vh;
+    max-height: 600px;
+    opacity: 1;
+}
+
+.destination-header .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Hide custom arrows/indicators - using Slick's instead */
+.destination-header .slide-arrow,
+.destination-header .slide-indicators {
+    display: none !important;
+}
+
+/* Slick overrides for fixed height */
+.destination-header .slick-list,
+.destination-header .slick-track {
+    height: 100%;
+}
+
+.destination-header .slick-slide {
+    height: 70vh;
+    max-height: 600px;
+}
+
+.destination-header .slick-slide>div {
+    height: 100%;
+}
+
+/* Slick arrows styling */
+.destination-header .slick-prev,
+.destination-header .slick-next {
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+}
+
+.destination-header .slick-prev {
+    left: 20px;
+}
+
+.destination-header .slick-next {
+    right: 20px;
+}
+
+.destination-header .slick-prev:before,
+.destination-header .slick-next:before {
+    font-size: 40px;
+    opacity: 0.8;
+}
+
+.destination-header .slick-prev:hover:before,
+.destination-header .slick-next:hover:before {
+    opacity: 1;
+}
+
+/* Slick dots styling */
+.destination-header .slick-dots {
+    bottom: 20px;
+}
+
+.destination-header .slick-dots li button:before {
+    color: #fff;
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+.destination-header .slick-dots li.slick-active button:before {
+    color: #fff;
+    opacity: 1;
+}

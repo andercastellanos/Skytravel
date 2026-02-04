@@ -1,0 +1,178 @@
+/* ── Site Footer ─────────────────────────────────────── */
+
+.site-footer {
+  position: relative;
+  background: #fff;
+  color: #4a4a4a;
+  padding: 0 0 0;
+  font-family: inherit;
+}
+
+/* Decorative gold rule at top */
+.footer-gold-rule {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200, 169, 126, 0.15) 15%,
+    #c8a97e 50%,
+    rgba(200, 169, 126, 0.15) 85%,
+    transparent 100%
+  );
+}
+
+/* ── 3-column grid ──────────────────────────────────── */
+
+.footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  text-align: center;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Headings ───────────────────────────────────────── */
+
+.footer-heading {
+  margin: 0 0 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b09672;
+}
+
+/* ── Social icon links ──────────────────────────────── */
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-icon-link {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(200, 169, 126, 0.4);
+  border-radius: 50%;
+  color: #8a7a66;
+  background: transparent;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.footer-icon-link i {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.footer-icon-link svg {
+  width: 13px;
+  height: 13px;
+}
+
+.footer-icon-link:hover,
+.footer-icon-link:focus-visible {
+  color: #c8a97e;
+  border-color: #c8a97e;
+  background: rgba(200, 169, 126, 0.08);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* ── Name / address / phone ─────────────────────────── */
+
+.footer-name {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #3a3a3a;
+}
+
+.footer-address {
+  margin: 0;
+  font-style: normal;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #6a6a6a;
+}
+
+.footer-licence {
+  margin: 0;
+  font-style: normal;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #6a6a6a;
+}
+
+.footer-phone {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #8a7a66;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-phone:hover,
+.footer-phone:focus-visible {
+  color: #c8a97e;
+  outline: none;
+}
+
+/* ── Bottom bar ─────────────────────────────────────── */
+
+.footer-bottom {
+  text-align: center;
+  padding: 14px 24px;
+  border-top: 1px solid rgba(200, 169, 126, 0.15);
+}
+
+.footer-bottom small {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: #aaa;
+}
+
+/* ── Screen-reader only utility ─────────────────────── */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 28px 20px 16px;
+  }
+
+  .footer-col + .footer-col {
+    padding-top: 16px;
+    border-top: 1px solid rgba(200, 169, 126, 0.1);
+  }
+}

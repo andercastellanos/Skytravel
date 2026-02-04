@@ -7,3 +7,24 @@
   publish = "."
   functions = "testimony/netlify/functions"
   port = 8888
+
+# Cache headers for static assets (Netlify handles gzip/brotli automatically)
+[[headers]]
+  for = "/imagesWebp/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"

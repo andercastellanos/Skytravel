@@ -1,0 +1,305 @@
+/* ============================================
+   CONTACT SECTION STYLES
+   Matches existing Sky Travel JM elegant gold/white theme
+   ============================================ */
+
+/* Contact Methods Grid - 4 cards in a row on desktop */
+.contact-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 1024px) {
+    .contact-methods-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .contact-methods-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Lead Capture Section - White background with gold accents */
+.lead-capture-section {
+    background: #ffffff;
+    border: 2px solid #c8a97e;
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.lead-capture-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.lead-capture-header h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #c8a97e;
+    margin-bottom: 0.5rem;
+}
+
+.lead-capture-header p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Form Grid - 2 columns on desktop */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+/* Form Group Styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.form-group .required {
+    color: #c41e3a;
+}
+
+.form-group .optional {
+    font-weight: 400;
+    color: #888;
+    font-size: 0.85rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: #fafafa;
+    color: #333;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #999;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #c8a97e;
+    box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.3);
+    background: #fff;
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: #c41e3a;
+    background: #fff5f5;
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Helper Text */
+.helper-text {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.4rem;
+}
+
+/* Error Messages - only visible when populated */
+.error-message {
+    font-size: 0.8rem;
+    color: #c41e3a;
+    margin-top: 0.3rem;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.error-message:empty {
+    display: none;
+}
+
+/* Consent Section */
+.consent-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #c8a97e;
+}
+
+.checkbox-group label {
+    font-size: 0.95rem;
+    color: #444;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.checkbox-group .error-message {
+    position: absolute;
+    bottom: -1.2rem;
+    left: 32px;
+}
+
+/* Submit Button */
+.form-submit {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.submit-btn {
+    min-width: 200px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.submit-btn:not(:disabled):hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Privacy Note */
+.privacy-note {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Toast Notifications Container */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+    max-width: 350px;
+}
+
+.toast.success {
+    background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%);
+}
+
+.toast.error {
+    background: linear-gradient(135deg, #c41e3a 0%, #a01830 100%);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Accessibility: Focus states */
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible,
+.checkbox-group input:focus-visible {
+    outline: 3px solid #c8a97e;
+    outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .toast {
+        animation: none;
+    }
+
+    .submit-btn:hover {
+        transform: none;
+    }
+}
