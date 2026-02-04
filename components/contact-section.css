@@ -3,6 +3,56 @@
    Matches existing Sky Travel JM elegant gold/white theme
    ============================================ */
 
+/* ---- Overrides for gold-gradient context ----
+   style.min.css sets .elegant-contact-header h2 { color:#333 }
+   and .elegant-contact-header p { color:#666 }. Those dark
+   colours are invisible on the gold gradient, so we re-set
+   them here with higher specificity.
+   ---------------------------------------------- */
+.contact-section .elegant-contact-container {
+    position: relative;
+    z-index: 2;              /* above ::before / ::after overlays */
+}
+
+.contact-section .elegant-contact-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact-section .elegant-contact-header h2 {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
+                 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.contact-section .elegant-contact-header p {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.contact-section .elegant-separator {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---- Mobile: keep the same colours & centering ---- */
+@media (max-width: 768px) {
+    .contact-section .elegant-contact-header h2 {
+        color: #fff;
+    }
+
+    .contact-section .elegant-contact-header p {
+        color: rgba(255, 255, 255, 0.92);
+    }
+
+    .contact-section .elegant-contact-container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .lead-capture-section {
+        padding: 1.5rem;
+    }
+}
+
 /* Contact Methods Grid - 4 cards in a row on desktop */
 .contact-methods-grid {
     display: grid;
@@ -313,7 +363,7 @@
 
 .elegant-contact-card-text {
     line-height: 1;
-    margin-top: 1.5rem;
+    margin: 0;
 }
 
 .elegant-contact-icon {
