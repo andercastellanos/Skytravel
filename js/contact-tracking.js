@@ -28,6 +28,43 @@
     'use strict';
 
     // ============================================
+    // LANGUAGE DETECTION & STRINGS
+    // ============================================
+
+    var lang = (document.documentElement.lang || 'en').toLowerCase();
+    var isSpanish = lang.indexOf('es') === 0;
+
+    var strings = isSpanish ? {
+        firstNameRequired: 'El nombre es requerido',
+        lastNameRequired: 'El apellido es requerido',
+        emailRequired: 'El correo electrónico es requerido',
+        emailInvalid: 'Ingresa un correo electrónico válido',
+        phoneRequired: 'El teléfono es requerido',
+        phoneInvalid: 'Ingresa un número de teléfono válido',
+        contactMethodRequired: 'Selecciona un medio de contacto',
+        pilgrimageRequired: 'La peregrinación de interés es requerida',
+        pilgrimageMinLength: 'Ingresa al menos 2 caracteres',
+        consentRequired: 'Debes aceptar ser contactado',
+        submitting: 'Enviando...',
+        successToast: '¡Gracias! Tu consulta ha sido enviada. Te contactaremos pronto.',
+        errorToast: 'Hubo un error al enviar tu consulta. Por favor, intenta de nuevo.'
+    } : {
+        firstNameRequired: 'First name is required',
+        lastNameRequired: 'Last name is required',
+        emailRequired: 'Email is required',
+        emailInvalid: 'Please enter a valid email address',
+        phoneRequired: 'Phone number is required',
+        phoneInvalid: 'Please enter a valid phone number',
+        contactMethodRequired: 'Please select a contact method',
+        pilgrimageRequired: 'Pilgrimage of interest is required',
+        pilgrimageMinLength: 'Please enter at least 2 characters',
+        consentRequired: 'You must agree to be contacted',
+        submitting: 'Submitting...',
+        successToast: 'Thank you! Your inquiry has been submitted. We will contact you soon.',
+        errorToast: 'There was an error submitting your inquiry. Please try again.'
+    };
+
+    // ============================================
     // TOAST NOTIFICATION SYSTEM
     // ============================================
 
@@ -236,49 +273,49 @@
         // First Name
         const firstName = (formData.get('firstName') || '').trim();
         if (!firstName) {
-            errors.firstName = 'El nombre es requerido';
+            errors.firstName = strings.firstNameRequired;
         }
 
         // Last Name
         const lastName = (formData.get('lastName') || '').trim();
         if (!lastName) {
-            errors.lastName = 'El apellido es requerido';
+            errors.lastName = strings.lastNameRequired;
         }
 
         // Email
         const email = (formData.get('email') || '').trim();
         if (!email) {
-            errors.email = 'El correo electrónico es requerido';
+            errors.email = strings.emailRequired;
         } else if (!isValidEmail(email)) {
-            errors.email = 'Ingresa un correo electrónico válido';
+            errors.email = strings.emailInvalid;
         }
 
         // Phone
         const phone = (formData.get('phone') || '').trim();
         if (!phone) {
-            errors.phone = 'El teléfono es requerido';
+            errors.phone = strings.phoneRequired;
         } else if (!isValidPhone(phone)) {
-            errors.phone = 'Ingresa un número de teléfono válido';
+            errors.phone = strings.phoneInvalid;
         }
 
         // Preferred Contact
         const preferredContact = formData.get('preferredContact') || '';
         if (!preferredContact) {
-            errors.preferredContact = 'Selecciona un medio de contacto';
+            errors.preferredContact = strings.contactMethodRequired;
         }
 
         // Pilgrimage Interest (min 2 chars after trim)
         const pilgrimageInterest = (formData.get('pilgrimageInterest') || '').trim();
         if (!pilgrimageInterest) {
-            errors.pilgrimageInterest = 'La peregrinación de interés es requerida';
+            errors.pilgrimageInterest = strings.pilgrimageRequired;
         } else if (pilgrimageInterest.length < 2) {
-            errors.pilgrimageInterest = 'Ingresa al menos 2 caracteres';
+            errors.pilgrimageInterest = strings.pilgrimageMinLength;
         }
 
         // Consent Contact (checkbox)
         const consentContact = formData.get('consentContact');
         if (!consentContact) {
-            errors.consentContact = 'Debes aceptar ser contactado';
+            errors.consentContact = strings.consentRequired;
         }
 
         return {
@@ -349,7 +386,7 @@
 
         // Disable submit button
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando...';
+        submitBtn.textContent = strings.submitting;
 
         // Prepare data for API
         const utmParams = getUTMParams();
@@ -389,7 +426,7 @@
                 });
 
                 // Show success toast
-                showToast('¡Gracias! Tu consulta ha sido enviada. Te contactaremos pronto.', 'success');
+                showToast(strings.successToast, 'success');
 
                 // Reset form
                 form.reset();
@@ -408,7 +445,7 @@
             });
 
             // Show error toast
-            showToast('Hubo un error al enviar tu consulta. Por favor, intenta de nuevo.', 'error');
+            showToast(strings.errorToast, 'error');
         } finally {
             // Re-enable submit button
             submitBtn.disabled = false;

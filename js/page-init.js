@@ -109,8 +109,11 @@
         var container = document.getElementById('footer-container');
         if (!container) return;
 
+        var lang = (document.documentElement.lang || 'en').toLowerCase();
+        var isSpanish = lang.indexOf('es') === 0;
+
         var cssHref  = basePath + 'components/footer.css?v=' + FOOTER_VERSION;
-        var htmlHref = basePath + 'components/footer.html?v=' + FOOTER_VERSION;
+        var htmlHref = basePath + 'components/footer' + (isSpanish ? '-es' : '') + '.html?v=' + FOOTER_VERSION;
         var faHref   = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
 
         loadCSS(cssHref, 'data-component', 'site-footer');
