@@ -53,3 +53,16 @@
   to = "/experiences-es"
   status = 301
   force = true
+
+# Redirect experience subpages (.html -> extensionless)
+[[redirects]]
+  from = "/experiences/*.html"
+  to = "/experiences/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/*.html"
+  to = "/es/experiences/:splat"
+  status = 301
+  force = true
