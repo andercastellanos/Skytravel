@@ -28,3 +28,54 @@
   for = "*.js"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
+
+# Canonical URL redirects (extensionless/lowercase -> canonical .html)
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/tierrasanta2026"
+  to = "/TierraSanta2026.html"
+  status = 301
+
+[[redirects]]
+  from = "/medjugorje2026"
+  to = "/Medjugorje2026.html"
+  status = 301
+
+[[redirects]]
+  from = "/santuariosmarianos"
+  to = "/SantuariosMarianos.html"
+  status = 301
+
+[[redirects]]
+  from = "/medjugorje-es"
+  to = "/Medjugorje-es.html"
+  status = 301
+
+[[redirects]]
+  from = "/italy"
+  to = "/Italy.html"
+  status = 301
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301
+
+[[redirects]]
+  from = "/index-es"
+  to = "/index-es.html"
+  status = 301
+
+[[redirects]]
+  from = "/about-es"
+  to = "/about-es.html"
+  status = 301
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 301
