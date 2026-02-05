@@ -56,13 +56,157 @@
 
 # Redirect experience subpages (.html -> extensionless)
 [[redirects]]
-  from = "/experiences/:slug.html"
-  to = "/experiences/:slug"
+  from = "/experiences/catholic-pilgrimage-rome-jubilee-2025.html"
+  to = "/experiences/catholic-pilgrimage-rome-jubilee-2025"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/es/experiences/:slug.html"
-  to = "/es/experiences/:slug"
+  from = "/experiences/catholic-sanctuaries-2025.html"
+  to = "/experiences/catholic-sanctuaries-2025"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/medjugorje2017.html"
+  to = "/experiences/medjugorje2017"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/medjugorje2019.html"
+  to = "/experiences/medjugorje2019"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/medjugorje2022.html"
+  to = "/experiences/medjugorje2022"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/medjugorje2023.html"
+  to = "/experiences/medjugorje2023"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/medjugorje2024.html"
+  to = "/experiences/medjugorje2024"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/tierra-santa-2022.html"
+  to = "/experiences/tierra-santa-2022"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/tierrasanta2016.html"
+  to = "/experiences/tierrasanta2016"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/tierrasanta2017.html"
+  to = "/experiences/tierrasanta2017"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/tierrasanta2018.html"
+  to = "/experiences/tierrasanta2018"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/tierrasanta2019.html"
+  to = "/experiences/tierrasanta2019"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/experiences/tierrasanta2021.html"
+  to = "/experiences/tierrasanta2021"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/medjugorje-2017-es.html"
+  to = "/es/experiences/medjugorje-2017-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/medjugorje-2019-es.html"
+  to = "/es/experiences/medjugorje-2019-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/medjugorje-2022-es.html"
+  to = "/es/experiences/medjugorje-2022-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/medjugorje-2023-es.html"
+  to = "/es/experiences/medjugorje-2023-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/medjugorje-2024-es.html"
+  to = "/es/experiences/medjugorje-2024-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/peregrinacion-catolica-roma-jubileo-2025.html"
+  to = "/es/experiences/peregrinacion-catolica-roma-jubileo-2025"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/santuarios-catolicos-2025-es.html"
+  to = "/es/experiences/santuarios-catolicos-2025-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/tierra-santa-2016-es.html"
+  to = "/es/experiences/tierra-santa-2016-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/tierra-santa-2017-es.html"
+  to = "/es/experiences/tierra-santa-2017-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/tierra-santa-2018-es.html"
+  to = "/es/experiences/tierra-santa-2018-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/tierra-santa-2019-es.html"
+  to = "/es/experiences/tierra-santa-2019-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/tierra-santa-2021-es.html"
+  to = "/es/experiences/tierra-santa-2021-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/tierra-santa-2022-es.html"
+  to = "/es/experiences/tierra-santa-2022-es"
   status = 301
   force = true
