@@ -68,7 +68,15 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    
+    <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
+    <style>
+        .slideshow .slide { display: none; }
+        .slideshow .slide:first-child { display: block; }
+        .slideshow.slick-initialized .slide { display: block; }
+    </style>
+    <link rel="preload" href="css/components.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/components.css"></noscript>
+
     <!-- Structured Data for Travel Tour Package -->
     <script type="application/ld+json">
     {
@@ -151,9 +159,9 @@
         gtag('config', 'G-6FM6Y5W6ZM');
     </script>
     <!-- jQuery for tab functionality -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation Bar -->
     <div class="nav-container">
         <nav>
@@ -182,6 +190,8 @@
             </button>
         </nav>
     </div>
+
+  <main id="main-content">
 
         <!-- Destination header with image carousel -->
         <div class="destination-header">
@@ -459,71 +469,10 @@
     </div>
   </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Sky Travel J&M. Creating extraordinary journeys for discerning travelers.</p>
-    </footer>
+  <div id="contact-section-container"></div>
+  </main>
 
-    <!-- Load the unified navigation system first -->
-    <script src="js/navigation.js" defer></script>
-    
-    <!-- Load the language switcher -->
-    <script src="js/elegant-language-switcher.js" defer></script>
-
-    <!-- Slideshow JavaScript -->
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const indicators = document.querySelectorAll('.indicator');
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            slides[n].classList.add('active');
-            indicators[n % indicators.length].classList.add('active');
-            currentSlide = n;
-        }
-
-        document.querySelector('.next').addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        });
-
-        document.querySelector('.prev').addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        });
-
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => showSlide(index));
-        });
-
-        // Auto advance slides every 5 seconds
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }, 5000);
-    </script>
-
-    <!-- Tab functionality JavaScript -->
-    <script>
-        $(document).ready(function() {
-            // Tab functionality
-            $('.tab-button').click(function() {
-                const container = $(this).closest('.tab-container');
-                const targetTab = $(this).data('tab');
-                
-                // Remove active class from all buttons and panes in this container
-                container.find('.tab-button').removeClass('active');
-                container.find('.tab-pane').removeClass('active');
-                
-                // Add active class to clicked button and corresponding pane
-                $(this).addClass('active');
-                container.find('#' + targetTab).addClass('active');
-            });
-        });
-    </script>
-    
+  <div id="footer-container"></div>
     <style>
         /* Elegant Tab Styling */
         .tab-container {
@@ -606,5 +555,17 @@
             }
         }
     </style>
+
+  <!-- Load the unified navigation system first -->
+  <script src="js/navigation.min.js" defer></script>
+
+  <!-- Load the language switcher -->
+  <script src="js/elegant-language-switcher.min.js" defer></script>
+
+  <!-- Contact tracking and form handler -->
+  <script src="js/contact-tracking.min.js" defer></script>
+
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 </html>

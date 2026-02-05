@@ -72,8 +72,6 @@
   <link rel="preload" href="../experiences/images/roma2025/imagen1.jpeg" as="image">
 
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 
   <!-- Enhanced TouristTrip Structured Data -->
   <script type="application/ld+json">
@@ -362,6 +360,14 @@
   }
   </script>
 
+  <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
+  <style>
+    .slideshow .slide { display: none; }
+    .slideshow .slide:first-child { display: block; }
+    .slideshow.slick-initialized .slide { display: block; }
+  </style>
+  <link rel="preload" href="../css/components.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/components.css"></noscript>
   <style>
     .slideshow-container {
       max-width: 800px;
@@ -526,6 +532,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- SEO Hero Image (hidden visually, accessible to crawlers) -->
   <img
     src="../experiences/images/roma2025/imagen1.jpeg"
@@ -559,6 +566,8 @@
     </nav>
   </div>
 
+  <main id="main-content">
+
   <!-- Page Header -->
   <section class="page-header">
     <div class="header-content">
@@ -583,41 +592,6 @@
 
       <h2>Jubilee Experience</h2>
       <p>Finally, we returned to Rome to pass through the Holy Doors of the Major Basilicas—St. Peter's, St. John Lateran, St. Mary Major, and St. Paul Outside the Walls—and participate in liturgical celebrations with the Holy Father during the Jubilee of Consolation. Each day was an opportunity for encounter with God, with ourselves, and with the community of pilgrims who share the same faith and hope.</p>
-    </div>
-
-    <div class="cta-section" style="background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); padding: 40px 30px; margin: 40px 0; text-align: center; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-      <h2 style="color:#333; margin-bottom:15px;">Want to Know Upcoming Pilgrimage Dates?</h2>
-      <p style="font-size:1.1rem; color:#666; margin-bottom:25px;">Contact us directly via WhatsApp for updated schedules and destinations.</p>
-
-      <!-- WhatsApp -->
-      <a href="https://wa.me/17862909114"
-         target="_blank" rel="noopener noreferrer"
-         class="whatsapp-contact-link"
-         style="text-decoration: none;"
-         onmouseover="this.querySelector('.elegant-contact-item').style.transform='translateY(-5px)'; this.querySelector('.elegant-contact-item').style.boxShadow='0 8px 25px rgba(200, 169, 126, 0.3)';"
-         onmouseout="this.querySelector('.elegant-contact-item').style.transform='translateY(0)'; this.querySelector('.elegant-contact-item').style.boxShadow='0 4px 15px rgba(200, 169, 126, 0.2)';">
-        <div class="elegant-contact-item" style="max-width: 320px; margin: 0 auto; padding: 30px 25px; background: linear-gradient(135deg, #ffffff 0%, #fefdfb 100%); border: 2px solid #c8a97e; border-radius: 12px; box-shadow: 0 4px 15px rgba(200, 169, 126, 0.2); transition: all 0.4s ease; cursor: pointer;">
-          <div class="elegant-contact-icon whatsapp-icon" style="width: 70px; height: 70px; margin: 0 auto 20px; background: linear-gradient(135deg, #c8a97e 0%, #d4b896 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(200, 169, 126, 0.3);">
-            <!-- WhatsApp icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                 fill="none" stroke="white" stroke-width="2.5"
-                 stroke-linecap="round" stroke-linejoin="round"
-                 style="width: 36px; height: 36px;">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8
-                       8.5 8.5 0 0 1-7.6 4.7
-                       8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7
-                       a8.38 8.38 0 0 1-.9-3.8
-                       8.5 8.5 0 0 1 4.7-7.6
-                       8.38 8.38 0 0 1 3.8-.9h.5
-                       a8.48 8.48 0 0 1 8 8v.5z"/>
-            </svg>
-          </div>
-          <div class="elegant-contact-info">
-            <h3 style="color:#c8a97e; font-size:1.4rem; margin-bottom:8px; font-weight: 600; letter-spacing: 0.5px;">WhatsApp</h3>
-            <p style="color:#666; font-size:1.05rem; margin:0; font-weight: 400;">Message us directly</p>
-          </div>
-        </div>
-      </a>
     </div>
 
     <!-- Slideshow with Slick Carousel -->
@@ -825,70 +799,22 @@
     </details>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Sky Travel. Creating meaningful spiritual journeys.</p>
-  </footer>
+  <div id="contact-section-container"></div>
+  </main>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('.slideshow').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        fade: true,
-        adaptiveHeight: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        dots: true,
-        asNavFor: '.image-thumbnails'
-      });
+  <div id="footer-container"></div>
 
-      $('.image-thumbnails').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        asNavFor: '.slideshow',
-        focusOnSelect: true,
-        dots: false,
-        arrows: false,
-        centerMode: false,
-        responsive: [
-          {
-            breakpoint: 768,
-            settings: { slidesToShow: 3 }
-          }
-        ]
-      });
+  <!-- Load the unified navigation system first -->
+  <script src="../js/navigation.min.js" defer></script>
 
-      $(window).scroll(function () {
-        const bg = 'rgba(255, 255, 255, 0.95)';
-        $('.nav-container').css('background', bg);
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function () {
-      $('.menu-toggle').click(function () {
-        $('.nav-links').toggleClass('active');
-      });
+  <!-- Load the language switcher -->
+  <script src="../js/elegant-language-switcher.min.js" defer></script>
 
-      $('.nav-links a').click(function () {
-        $('.nav-links').removeClass('active');
-      });
+  <!-- Contact tracking and form handler -->
+  <script src="../js/contact-tracking.min.js" defer></script>
 
-      $(window).scroll(function () {
-        if ($(window).scrollTop() > 50) {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        } else {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        }
-      });
-    });
-  </script>
-  <script src="../js/elegant-language-switcher.js" defer></script>
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="../js/page-init.min.js?v=20260204c" defer></script>
 </body>
 
 </html>

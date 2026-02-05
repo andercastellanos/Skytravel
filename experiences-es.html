@@ -234,6 +234,7 @@
     </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <div class="nav-container">
         <nav>
             <a href="index-es.html" class="logo">
@@ -255,6 +256,8 @@
             <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
         </nav>
     </div>
+
+  <main id="main-content">
 
     <section class="page-header">
         <div class="header-content">
@@ -443,17 +446,27 @@
         </div>
     </section>
 
-    <footer>
-        <p>© 2025 Sky Travel. Creando viajes extraordinarios para viajeros exigentes.</p>
-    </footer>
+  <div id="contact-section-container"></div>
+  </main>
+
+  <div id="footer-container"></div>
 
    <!-- ========== CORE NAV/LANGUAGE HELPERS ========== -->
 
 <!-- 1️⃣  jQuery (only once, no defer so inline code can use $ immediately) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- 3️⃣  Site-wide scripts (`defer` so they download in parallel) -->
-<script src="js/navigation.js"               defer></script>
-<script src="js/elegant-language-switcher.js" defer></script>
+
+  <!-- Load the unified navigation system first -->
+  <script src="js/navigation.min.js" defer></script>
+
+  <!-- Load the language switcher -->
+  <script src="js/elegant-language-switcher.min.js" defer></script>
+
+  <!-- Contact tracking and form handler -->
+  <script src="js/contact-tracking.min.js" defer></script>
+
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 </html>

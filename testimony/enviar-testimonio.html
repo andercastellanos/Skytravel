@@ -148,10 +148,10 @@
     </script>
 
     <link rel="stylesheet" href="../style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <!-- ============ NAVIGATION ============ -->
     <div class="nav-container">
         <nav>
@@ -188,6 +188,8 @@
             </button>
         </nav>
     </div>
+
+  <main id="main-content">
 
     <!-- ============ HERO SECTION ============ -->
     <section class="contact-hero">
@@ -304,14 +306,24 @@
         </div>
     </section>
 
-    <!-- ============ FOOTER ============ -->
-    <footer>
-        <p>© 2025 Sky Travel. Creando viajes extraordinarios para viajeros exigentes.</p>
-    </footer>
+  <div id="contact-section-container"></div>
+  </main>
+
+  <div id="footer-container"></div>
 
     <!-- ============ SCRIPTS ============ -->
-    <script src="../js/navigation.js" defer></script>
-    <script src="../js/elegant-language-switcher.js" defer></script>
     <script src="js/testimony-form.js" defer></script>
+
+  <!-- Load the unified navigation system first -->
+  <script src="../js/navigation.min.js" defer></script>
+
+  <!-- Load the language switcher -->
+  <script src="../js/elegant-language-switcher.min.js" defer></script>
+
+  <!-- Contact tracking and form handler -->
+  <script src="../js/contact-tracking.min.js" defer></script>
+
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="../js/page-init.min.js?v=20260204c" defer></script>
 </body>
 </html>

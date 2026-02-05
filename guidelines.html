@@ -100,7 +100,6 @@
   </script>
 
   <!-- jQuery (must load before navigation / language-switcher scripts) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
   <style>
     /* Guidelines-specific styles that extend the main style.css */
@@ -298,6 +297,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- ============ NAVIGATION ============ -->
   <div class="nav-container">
     <nav>
@@ -342,7 +342,7 @@
   </div>
 
   <!-- ============ MAIN CONTENT ============ -->
-  <main class="main-content">
+  <main id="main-content" class="main-content">
     <header class="guidelines-header">
       <p class="guidelines-quote">
         "Walk by the inner man and you will see God" – Saint Augustine
@@ -506,35 +506,14 @@
       </div>
     </section>
 
-    <footer class="contact-footer">
-      <h3>Contact Information</h3>
-      <div class="contact-grid">
-        <div class="contact-item">
-          <strong>📍 Address</strong>
-          18181 NE 31st CT<br>
-          Aventura, FL
-        </div>
-        <div class="contact-item">
-          <strong>📞 Phone</strong>
-          +1 786 290 91 14
-        </div>
-        <div class="contact-item">
-          <strong>📧 Email</strong>
-          info@skytraveljm.com
-        </div>
-        <div class="contact-item">
-          <strong>🌐 Website</strong>
-          www.skytraveljm.com
-        </div>
-      </div>
-      
-      <p class="closing-message">
-        <em>Thank you for trusting us!</em>
-      </p>
-    </footer>
+  <div id="contact-section-container"></div>
   </main>
 
-  <!-- Navigation JavaScript -->
-  <script src="js/navigation.js" defer></script>
+  <div id="footer-container"></div>
+
+  <script src="js/navigation.min.js" defer></script>
+  <script src="js/elegant-language-switcher.min.js" defer></script>
+  <script src="js/contact-tracking.min.js" defer></script>
+  <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 </html>

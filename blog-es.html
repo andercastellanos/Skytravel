@@ -397,6 +397,7 @@
     </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <!-- ======== NAV BAR ======== -->
     <div class="nav-container">
     <nav>
@@ -419,6 +420,8 @@
         <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
     </nav>
     </div>
+
+  <main id="main-content">
 
     <!-- ======== HERO SECTION ======== -->
     <section class="page-header">
@@ -476,16 +479,10 @@
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Sky Travel. Creando viajes extraordinarios para viajeros exigentes.</p>
-    </footer>
+  <div id="contact-section-container"></div>
+  </main>
 
-    <!-- jQuery first -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- Site-wide scripts -->
-    <script src="js/navigation.js" defer></script>
-    <script src="js/elegant-language-switcher.js" defer></script>
+  <div id="footer-container"></div>
 
     <!-- Blog Filter Script -->
     <script>
@@ -511,5 +508,17 @@
         });
     });
     </script>
+
+  <!-- Load the unified navigation system first -->
+  <script src="js/navigation.min.js" defer></script>
+
+  <!-- Load the language switcher -->
+  <script src="js/elegant-language-switcher.min.js" defer></script>
+
+  <!-- Contact tracking and form handler -->
+  <script src="js/contact-tracking.min.js" defer></script>
+
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 </html>

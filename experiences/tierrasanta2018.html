@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Holy Land Pilgrimage 2018 Photo Gallery | Sky Travel Catholic Spiritual Journeys</title>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
+  <style>
+    .slideshow .slide { display: none; }
+    .slideshow .slide:first-child { display: block; }
+    .slideshow.slick-initialized .slide { display: block; }
+  </style>
+  <link rel="preload" href="../css/components.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/components.css"></noscript>
   <style>
     .slideshow-container {
         max-width: 800px;
@@ -152,6 +158,7 @@
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- Navigation -->
   <div class="nav-container">
     <nav>
@@ -173,6 +180,8 @@
       <div class="menu-toggle">☰</div>
     </nav>
   </div>
+
+  <main id="main-content">
 
   <!-- Page Header -->
   <section class="page-header">
@@ -297,79 +306,21 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Sky Travel. Creating meaningful spiritual journeys.</p>
-  </footer>
+  <div id="contact-section-container"></div>
+  </main>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      // Main slideshow
-      $('.slideshow').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        fade: true,
-        cssEase: 'linear',
-        autoplay: true,
-        autoplaySpeed: 3000,
-        dots: true,
-        asNavFor: '.image-thumbnails'
-      });
-      
-      // Thumbnail nav
-      $('.image-thumbnails').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        asNavFor: '.slideshow',
-        focusOnSelect: true,
-        dots: false,
-        arrows: false,
-        centerMode: false,
-        responsive: [
-          {
-            breakpoint: 768,
-            settings: { slidesToShow: 3 }
-          }
-        ]
-      });
-      
-      // Navigation background on scroll
-      $(window).scroll(function() {
-        if ($(window).scrollTop() > 50) {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        } else {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        }
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
-        // Mobile menu toggle
-        $('.menu-toggle').click(function() {
-            $('.nav-links').toggleClass('active');
-        });
-        
-        // Close menu when a link is clicked
-        $('.nav-links a').click(function() {
-            $('.nav-links').removeClass('active');
-        });
-        
-        // Original scroll effect
-        $(window).scroll(function() {
-          if ($(window).scrollTop() > 50) {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          } else {
-            $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-          }
-        });
-    });
-  </script>
-   <!-- language switcher js script -->
-  <script src="../js/elegant-language-switcher.js" defer></script>
+  <div id="footer-container"></div>
+
+  <!-- Load the unified navigation system first -->
+  <script src="../js/navigation.min.js" defer></script>
+
+  <!-- Load the language switcher -->
+  <script src="../js/elegant-language-switcher.min.js" defer></script>
+
+  <!-- Contact tracking and form handler -->
+  <script src="../js/contact-tracking.min.js" defer></script>
+
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="../js/page-init.min.js?v=20260204c" defer></script>
 </body>
 </html>

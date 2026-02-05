@@ -72,8 +72,6 @@
   <link rel="preload" href="../../experiences/images/roma2025/imagen1.jpeg" as="image">
 
   <link rel="stylesheet" href="../../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 
   <!-- Enhanced TouristTrip Structured Data -->
   <script type="application/ld+json">
@@ -362,6 +360,14 @@
   }
   </script>
 
+  <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
+  <style>
+    .slideshow .slide { display: none; }
+    .slideshow .slide:first-child { display: block; }
+    .slideshow.slick-initialized .slide { display: block; }
+  </style>
+  <link rel="preload" href="../../css/components.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../../css/components.css"></noscript>
   <style>
     .slideshow-container {
       max-width: 800px;
@@ -526,6 +532,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
   <!-- SEO Hero Image (hidden visually, accessible to crawlers) -->
   <img
     src="../../experiences/images/roma2025/imagen1.jpeg"
@@ -558,6 +565,8 @@
       <div class="menu-toggle">☰</div>
     </nav>
   </div>
+
+  <main id="main-content">
 
   <!-- Page Header -->
   <section class="page-header">
@@ -825,70 +834,22 @@
     </details>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Sky Travel. Creando viajes espirituales significativos.</p>
-  </footer>
+  <div id="contact-section-container"></div>
+  </main>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('.slideshow').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        fade: true,
-        adaptiveHeight: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        dots: true,
-        asNavFor: '.image-thumbnails'
-      });
+  <div id="footer-container"></div>
 
-      $('.image-thumbnails').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        asNavFor: '.slideshow',
-        focusOnSelect: true,
-        dots: false,
-        arrows: false,
-        centerMode: false,
-        responsive: [
-          {
-            breakpoint: 768,
-            settings: { slidesToShow: 3 }
-          }
-        ]
-      });
+  <!-- Load the unified navigation system first -->
+  <script src="../../js/navigation.min.js" defer></script>
 
-      $(window).scroll(function () {
-        const bg = 'rgba(255, 255, 255, 0.95)';
-        $('.nav-container').css('background', bg);
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function () {
-      $('.menu-toggle').click(function () {
-        $('.nav-links').toggleClass('active');
-      });
+  <!-- Load the language switcher -->
+  <script src="../../js/elegant-language-switcher.min.js" defer></script>
 
-      $('.nav-links a').click(function () {
-        $('.nav-links').removeClass('active');
-      });
+  <!-- Contact tracking and form handler -->
+  <script src="../../js/contact-tracking.min.js" defer></script>
 
-      $(window).scroll(function () {
-        if ($(window).scrollTop() > 50) {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        } else {
-          $('.nav-container').css('background', 'rgba(255, 255, 255, 0.95)');
-        }
-      });
-    });
-  </script>
-  <script src="../../js/elegant-language-switcher.js" defer></script>
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="../../js/page-init.min.js?v=20260204c" defer></script>
 </body>
 
 </html>
