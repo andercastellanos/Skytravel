@@ -15,6 +15,7 @@
     content="Catholic pilgrimages to Medjugorje, Holy Land and Italy. 7–20 day spiritual journeys with experienced guides. Departures from Miami and Bogotá. Contact us.">
   <meta name="author" content="Sky Travel">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#c8a97e">
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://www.skytraveljm.com/">
@@ -33,7 +34,7 @@
   <meta property="og:site_name" content="Sky Travel">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="es_ES">
-  <meta property="og:image" content="https://www.skytraveljm.com/images/social-share.jpg">
+  <meta property="og:image" content="https://www.skytraveljm.com/imagesWebp/holyland/Jerusalem_1-1600.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Catholic Pilgrimages to Medjugorje & Holy Land">
@@ -43,7 +44,7 @@
   <meta name="twitter:title" content="Catholic Pilgrimages to Medjugorje & Holy Land | Sky Travel">
   <meta name="twitter:description"
     content="Medjugorje & Holy Land Catholic pilgrimages with expert guides and premium stays. Transformative 7–20 day journeys to sacred sites.">
-  <meta name="twitter:image" content="https://www.skytraveljm.com/images/social-share.jpg">
+  <meta name="twitter:image" content="https://www.skytraveljm.com/imagesWebp/holyland/Jerusalem_1-1600.webp">
   <meta name="twitter:image:alt" content="Catholic Pilgrimages to Medjugorje & Holy Land">
 
   <!-- Favicon -->
@@ -58,8 +59,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="style.css" as="style">
-  <link rel="preload" href="images/Logo.jpg" as="image">
-  <link rel="preload" href="images/social-share.jpg" as="image">
+  <link rel="preload" href="imagesWebp/Logo.webp" as="image">
+  <link rel="preload" href="imagesWebp/holyland/Jerusalem_1-1600.webp" as="image">
 
   <link rel="stylesheet" href="style.css">
 
@@ -100,7 +101,7 @@
       "availableLanguage": ["English","Spanish"],
       "slogan": "Creating extraordinary spiritual journeys",
       "foundingDate": "2015",
-      "logo": "https://www.skytraveljm.com/images/Logo.jpg"
+      "logo": "https://www.skytraveljm.com/imagesWebp/Logo.webp"
     },
     {
       "@type": "ItemList",
@@ -125,44 +126,6 @@
         "@type": "TravelAgency",
         "@id": "https://www.skytraveljm.com/#org"
       }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.skytraveljm.com/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What Catholic pilgrimages does Sky Travel offer?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We organize Catholic pilgrimages to Medjugorje, the Holy Land, Rome and Italy, and Marian sanctuaries including Fátima and Lourdes."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Where do Sky Travel pilgrimages depart from?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Most departures are from Miami, Florida and Bogotá, Colombia. We can arrange departures from other major cities upon request."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How long are Sky Travel Catholic pilgrimages?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our pilgrimages range from 7 to 20 days depending on the destination. Medjugorje trips are typically 7-10 days, while Holy Land and Italy tours can be 12-20 days."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is included in a pilgrimage?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our pilgrimages include flights, accommodations, ground transportation, daily Mass opportunities, experienced guides, entrance fees to sacred sites, and most meals."
-          }
-        }
-      ]
     }
   ]
 }
@@ -406,7 +369,7 @@
 
       .destination-card.tierra {
         background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-          url('images/TierraSanta/TierraSanta1.jpg') center/cover;
+          url('imagesWebp/holyland/Jerusalem_1-1600.webp') center/cover;
       }
 
       .destination-card.tierra:hover {
@@ -418,35 +381,42 @@
 </head>
 
 <body>
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Navigation Bar -->
-  <div class="nav-container">
-    <nav role="navigation" aria-label="Main navigation">
-      <a href="index.html" class="logo">
-        <img src="images/Logo.jpg" alt="Sky Travel - Catholic Spiritual Pilgrimage Travel Agency Logo"
-          class="logo-image" width="150" height="75">
-      </a>
-      <!-- UPDATED: Semantic navigation structure with proper ID -->
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#featured" class="nav-item" aria-current="page">Destinations</a></li>
-        <li><a href="experiences.html" class="nav-item">Experiences</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="about.html" class="nav-item">About</a></li>
-        <li><a href="testimony/testimonials.html" class="nav-item">Testimonials</a></li>
-        <li><a href="contact.html" class="nav-item">Contact</a></li>
-        <li>
-          <!-- Desktop Language Switcher -->
-          <div class="language-switcher">
-            <a href="index.html" class="lang-option active-lang" hreflang="en">EN</a>
-            <span class="lang-separator">|</span>
-            <a href="index-es.html" class="lang-option" hreflang="es">ES</a>
-          </div>
-        </li>
-      </ul>
-      <!-- Accessible mobile menu toggle button -->
-      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"
-        aria-controls="nav-links">☰</button>
-    </nav>
-  </div>
+  <header>
+    <div class="nav-container">
+      <nav aria-label="Main navigation">
+        <a href="index.html" class="logo">
+          <img src="imagesWebp/Logo.webp" alt="Sky Travel - Catholic Spiritual Pilgrimage Travel Agency Logo"
+            class="logo-image" width="150" height="75" loading="eager" decoding="async" fetchpriority="high">
+        </a>
+        <!-- UPDATED: Semantic navigation structure with proper ID -->
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#featured" class="nav-item" aria-current="page">Destinations</a></li>
+          <li><a href="experiences.html" class="nav-item">Experiences</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html" class="nav-item">About</a></li>
+          <li><a href="testimony/testimonials.html" class="nav-item">Testimonials</a></li>
+          <li><a href="contact.html" class="nav-item">Contact</a></li>
+          <li>
+            <!-- Desktop Language Switcher -->
+            <div class="language-switcher">
+              <a href="index.html" class="lang-option active-lang" hreflang="en">EN</a>
+              <span class="lang-separator">|</span>
+              <a href="index-es.html" class="lang-option" hreflang="es">ES</a>
+            </div>
+          </li>
+        </ul>
+        <!-- Accessible mobile menu toggle button -->
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"
+          aria-controls="nav-links">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
 
   <!-- Hero Section with YouTube Video -->
   <div class="hero">
@@ -547,27 +517,23 @@
     </div>
   </section>
 
+  <!-- Contact Section - Loaded from /components/contact-section.html -->
+  <div id="contact-section-container"></div>
+  </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Sky Travel J&M. Creating extraordinary journeys for travelers.</p>
-  </footer>
+  <div id="footer-container"></div>
 
-  <!-- CRITICAL: Correct script loading order -->
-  <!-- Load jQuery first synchronously (required by navigation.js and elegant-language-switcher.js) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Load the unified navigation system first -->
+  <script src="js/navigation.min.js" defer></script>
 
-  <!-- Load navigation scripts after DOM is ready -->
-  <script>
-    // Wait for jQuery and DOM to be ready
-    $(document).ready(function () {
-      console.log('[Index] DOM ready, jQuery loaded');
-    });
-  </script>
-  <script src="js/navigation.js" defer></script>
-  <script src="js/elegant-language-switcher.js" defer></script>
+  <!-- Load the language switcher -->
+  <script src="js/elegant-language-switcher.min.js" defer></script>
+
+  <!-- Contact tracking and form handler -->
+  <script src="js/contact-tracking.min.js" defer></script>
+
+  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+  <script src="js/page-init.min.js?v=20260204c" defer></script>
 
   <!-- Page-specific JavaScript - YouTube functionality -->
   <script defer>
