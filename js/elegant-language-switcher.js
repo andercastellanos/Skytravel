@@ -18,13 +18,31 @@
     }
   }
 
+  // Normalize URLs when running on .html pages (local/static servers)
+  function normalizeUrl(url) {
+    if (!url) return url;
+    var onHtml = window.location.pathname.slice(-5) === '.html';
+    if (!onHtml) return url;
+
+    var splitIndex = url.search(/[?#]/);
+    var base = splitIndex === -1 ? url : url.slice(0, splitIndex);
+    var suffix = splitIndex === -1 ? '' : url.slice(splitIndex);
+
+    if (base && base.slice(-5) !== '.html' && base.slice(-1) !== '/') {
+      base += '.html';
+    }
+
+    return base + suffix;
+  }
+
   /* ================= Desktop Language Switcher ================= */
   function enhanceDesktopSwitcher() {
     var links = document.querySelectorAll('.language-switcher a');
     links.forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        var url = this.getAttribute('href');
+        var url = normalizeUrl(this.getAttribute('href'));
+        if (!url) return;
 
         document.body.classList.add('page-transitioning');
         setTimeout(function () { window.location.href = url; }, 200);
@@ -49,7 +67,7 @@
     optionEls.forEach(function (el) {
       langOptions.push({
         lang: escapeHtml(el.textContent.trim()),
-        url: escapeHtml(el.getAttribute('href')),
+        url: escapeHtml(normalizeUrl(el.getAttribute('href')) || ''),
         active: el.classList.contains('active-lang') || el.classList.contains('active')
       });
     });
@@ -115,7 +133,8 @@
       link.addEventListener('click', function (e) {
         e.preventDefault();
 
-        var targetUrl = this.getAttribute('href');
+        var targetUrl = normalizeUrl(this.getAttribute('href'));
+        if (!targetUrl) return;
         var selectedLang = this.textContent.trim();
 
         var currentLangEl = toggle.querySelector('.current-lang');

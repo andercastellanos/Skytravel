@@ -194,7 +194,7 @@
 }
 
 /* Error Messages - only visible when populated */
-.error-message {
+.contact-section .error-message {
     font-size: 0.8rem;
     color: #c41e3a;
     margin-top: 0.3rem;
@@ -202,7 +202,7 @@
     transition: opacity 0.2s ease;
 }
 
-.error-message:empty {
+.contact-section .error-message:empty {
     display: none;
 }
 
@@ -237,7 +237,7 @@
     line-height: 1.5;
 }
 
-.checkbox-group .error-message {
+.contact-section .checkbox-group .error-message {
     position: absolute;
     bottom: -1.2rem;
     left: 32px;
