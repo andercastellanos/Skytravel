@@ -229,6 +229,55 @@
       display: none;
     }
 
+    /* Arreglo para imágenes en móvil */
+    .testimonial-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    /* Asegurar que el contenedor no se desborde */
+    .testimonial {
+      text-align: center;
+      overflow: hidden;
+      /* Evita desbordamiento */
+      max-width: 100%;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      /* Asegura que no exceda el ancho */
+      box-sizing: border-box;
+    }
+
+    /* Móvil - ajustes importantes */
+    @media (max-width: 640px) {
+      .testimonials {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+        width: 100%;
+      }
+
+      .testimonial-img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .testimonial-text {
+        font-size: 0.9rem;
+        padding: 0 0.5rem;
+      }
+    }
+
     @media (max-width: 768px) {
       .sticky-cta-bar {
         display: flex;
@@ -792,6 +841,29 @@
             actividades extra; quiero repetir.”</p>
         </div>
       </div>
+
+      <!-- Testimonios con imágenes optimizadas -->
+      <div class="testimonials">
+
+        <div class="testimonial">
+          <img src="imagesWebp/Medjugorje/group1.webp" srcset="imagesWebp/Medjugorje/group1.webp 360w,
+              imagesWebp/Medjugorje/group1-720.webp 720w" sizes="(max-width: 768px) 100vw, 360px"
+            alt="Grupo de peregrinos en Medjugorje" width="360" height="360" loading="lazy">
+        </div>
+
+        <div class="testimonial">
+          <img src="imagesWebp/Medjugorje/group2.webp" srcset="imagesWebp/Medjugorje/group2.webp 360w,
+              imagesWebp/Medjugorje/group2-720.webp 720w" sizes="(max-width: 768px) 100vw, 360px"
+            alt="Grupo de peregrinos en Medjugorje" width="360" height="360" loading="lazy">
+        </div>
+
+        <div class="testimonial">
+          <img src="imagesWebp/Medjugorje/group3.webp" srcset="imagesWebp/Medjugorje/group3.webp 360w,
+              imagesWebp/Medjugorje/group3-720.webp 720w" sizes="(max-width: 768px) 100vw, 360px"
+            alt="Grupo de peregrinos en Medjugorje" width="360" height="360" loading="lazy">
+        </div>
+
+      </div>
     </section>
 
     <!-- Section: FAQ -->
@@ -856,7 +928,8 @@
 
       <details class="faq-item">
         <summary>¿Qué clima hace en Medjugorje?</summary>
-        <div class="faq-content">El clima varía según la fecha del viaje; antes de la salida le enviaremos la información necesaria y recomendaciones de ropa y calzado de acuerdo con el clima esperado.</div>
+        <div class="faq-content">El clima varía según la fecha del viaje; antes de la salida le enviaremos la
+          información necesaria y recomendaciones de ropa y calzado de acuerdo con el clima esperado.</div>
       </details>
 
       <details class="faq-item">
