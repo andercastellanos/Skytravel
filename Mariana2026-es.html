@@ -30,7 +30,8 @@
     <meta property="og:site_name" content="Sky Travel">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="es_ES">
-    <meta property="og:image" content="https://www.skytraveljm.com/images/SantuariosMarianos/lourdesvirgin.jpg">
+    <meta property="og:image"
+        content="https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Estatua de la Virgen de Lourdes">
@@ -40,13 +41,14 @@
     <meta name="twitter:title" content="Peregrinación Mariana 2026 | Peregrinación Católica">
     <meta name="twitter:description"
         content="Únase a esta peregrinación de oración y renovación espiritual en Fátima, Salamanca, Covadonga, Lourdes, Zaragoza, Madrid.">
-    <meta name="twitter:image" content="https://www.skytraveljm.com/images/SantuariosMarianos/lourdesvirgin.jpg">
+    <meta name="twitter:image"
+        content="https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp">
 
     <!-- Preconnect / Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="images/SantuariosMarianos/lourdesvirgin.jpg" as="image">
+    <link rel="preload" href="imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp" as="image">
 
     <link rel="stylesheet" href="style.css">
     <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
@@ -86,12 +88,12 @@
    "duration":"P12D",
    "provider":{"@type":"TravelAgency","name":"Sky Travel","url":"https://www.skytraveljm.com"},
    "image":[
-     "https://www.skytraveljm.com/images/SantuariosMarianos/lourdesvirgin.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/SantuarioFatima.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/Covadonga.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/zaragoza.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/Salamanca.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/madrid.jpg"
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/Covadonga-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/zaragoza-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/Salamanca-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/madrid-1200.webp"
    ],
    "itinerary":[
      {"@type":"Place","name":"Fátima","address":{"@type":"PostalAddress","addressLocality":"Fátima","addressCountry":"PT"}},
@@ -155,8 +157,15 @@
     <!-- Navigation Bar -->
     <div class="nav-container">
         <nav>
+<<<<<<< HEAD
             <a href="/" class="logo">
                 <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+=======
+            <a href="index.html" class="logo">
+                <img src="imagesWebp/Logo.webp"
+                    alt="Sky Travel - Logo de Agencia de Peregrinaciones Espirituales de Lujo" class="logo-image"
+                    width="200" height="200" style="width: 100px; height: auto;" loading="eager" decoding="async">
+>>>>>>> fe60e2b8e4931380114c430ac25a6836f19802f3
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="/index-es" class="nav-item">Destinos</a>
@@ -186,96 +195,89 @@
             <!-- Slides -->
             <div class="slide active">
                 <img srcset="imagesWebp/SantuariosMarianos/lourdesvirgin-800.webp 800w,
-                imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp 1600w" 
-                sizes="(max-width: 768px) 100vw, 1600px"
-                src="imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp" 
-                alt="Estatua de Nuestra Señora de Lourdes con túnica blanca y faja azul, ubicada en el nicho de piedra de la Gruta de Massabielle."
-                width="1600" height="900" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp 1600w" sizes="(max-width: 768px) 100vw, 1600px"
+                    src="imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp"
+                    alt="Estatua de Nuestra Señora de Lourdes con túnica blanca y faja azul, ubicada en el nicho de piedra de la Gruta de Massabielle."
+                    width="1600" height="900" loading="lazy" decoding="async">
             </div>
             <div class="slide">
-                <img src="images/SantuariosMarianos/Salamanca.jpg"
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/Salamanca-800.webp 800w,
+                 imagesWebp/SantuariosMarianos/Salamanca-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/Salamanca-1200.webp"
                         alt="Paisaje urbano histórico de Salamanca, España, destacando la arquitectura gótica y barroca de su casco antiguo, Patrimonio de la Humanidad."
-                        width="878" height="493" loading="lazy" decoding="async">
+                        width="1200" height="673" loading="lazy" decoding="async">
+                </div>
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/SantuarioFatima-800.webp 800w,
-                imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp" 
-                alt="Fachada blanca de la Basílica de Fátima con su alta torre central y las columnatas laterales que rodean la plaza de oración."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp"
+                    alt="Fachada blanca de la Basílica de Fátima con su alta torre central y las columnatas laterales que rodean la plaza de oración."
+                    width="1200" height="675" loading="lazy" decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/Covadonga-800.webp 800w,
-                imagesWebp/SantuariosMarianos/Covadonga-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/Covadonga-1200.webp" 
-                alt="La Santina en la Santa Cueva de Covadonga, situada en un nicho natural sobre una cascada de agua en el corazón de las montañas de Asturias."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/Covadonga-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/Covadonga-1200.webp"
+                    alt="La Santina en la Santa Cueva de Covadonga, situada en un nicho natural sobre una cascada de agua en el corazón de las montañas de Asturias."
+                    width="1200" height="675" loading="lazy" decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/cangaonis-800.webp 800w,
-                imagesWebp/SantuariosMarianos/cangaonis-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/cangaonis-1200.webp" 
-                alt="Puente medieval de Cangas de Onís, símbolo de Asturias y puerta de entrada a los Picos de Europa, coronado por la emblemática Cruz de la Victoria."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/cangaonis-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/cangaonis-1200.webp"
+                    alt="Puente medieval de Cangas de Onís, símbolo de Asturias y puerta de entrada a los Picos de Europa, coronado por la emblemática Cruz de la Victoria."
+                    width="1200" height="675" loading="lazy" decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/zaragoza-800.webp 800w,
-                imagesWebp/SantuariosMarianos/zaragoza-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/zaragoza-1200.webp" 
-                alt="Vista de la Basílica de Nuestra Señora del Pilar en Zaragoza, con sus icónicas cúpulas de azulejos de colores y altas torres a orillas del río Ebro, junto al histórico Puente de Piedra bajo un cielo despejado."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/zaragoza-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/zaragoza-1200.webp"
+                    alt="Vista de la Basílica de Nuestra Señora del Pilar en Zaragoza, con sus icónicas cúpulas de azulejos de colores y altas torres a orillas del río Ebro, junto al histórico Puente de Piedra bajo un cielo despejado."
+                    width="1200" height="675" loading="lazy" decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/madrid-800.webp 800w,
-                imagesWebp/SantuariosMarianos/madrid-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/madrid-1200.webp" 
-                alt="Madrid desde las alturas: un mar de tejados rojizos y cúpulas majestuosas que cuentan la historia de la capital de España bajo la luz dorada de la meseta."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/madrid-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/madrid-1200.webp"
+                    alt="Madrid desde las alturas: un mar de tejados rojizos y cúpulas majestuosas que cuentan la historia de la capital de España bajo la luz dorada de la meseta."
+                    width="1200" height="675" loading="lazy" decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/lagoscovadonga-800.webp 800w,
-                imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp" 
-                alt="Paisaje de los Lagos de Covadonga, Asturias, un tesoro natural en el norte de España."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp"
+                    alt="Paisaje de los Lagos de Covadonga, Asturias, un tesoro natural en el norte de España."
+                    width="1200" height="675" loading="lazy" decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/fatima-800.webp 800w,
-                imagesWebp/SantuariosMarianos/fatima-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/fatima-1200.webp" 
-                alt="Basílica de Nuestra Señora del Rosario en Fátima, Lisboa."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/fatima-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/fatima-1200.webp"
+                    alt="Basílica de Nuestra Señora del Rosario en Fátima, Lisboa." width="1200" height="675"
+                    loading="lazy" decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/covadonga1-800.webp 800w,
-                imagesWebp/SantuariosMarianos/covadonga1-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/covadonga1-1200.webp" 
-                alt="La basílica de Covadonga en Asturias, España."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/covadonga1-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/covadonga1-1200.webp"
+                    alt="La basílica de Covadonga en Asturias, España." width="1200" height="675" loading="lazy"
+                    decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/salamanca-800.webp 800w,
-                imagesWebp/SantuariosMarianos/salamanca-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/salamanca-1200.webp" 
-                alt="Salamanca, una ciudad de piedra dorada en España."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/salamanca-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/salamanca-1200.webp"
+                    alt="Salamanca, una ciudad de piedra dorada en España." width="1200" height="675" loading="lazy"
+                    decoding="async">
             </div>
             <div class="slide">
                 <img srcset="imagesWebp/SantuariosMarianos/puertaAlcala-800.webp 800w,
-                imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp" 
-                alt="La Puerta de Alcalá en Madrid, un monumento neoclásico de granito con cinco vanos y detalles escultóricos bajo un cielo azul en Madrid, España."
-                width="1200" height="675" loading="lazy" decoding="async">
+                imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                    src="imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp"
+                    alt="La Puerta de Alcalá en Madrid, un monumento neoclásico de granito con cinco vanos y detalles escultóricos bajo un cielo azul en Madrid, España."
+                    width="1200" height="675" loading="lazy" decoding="async">
             </div>
 
             <!-- Navigation arrows --><!-- Slide indicators (match number of slides) --></div>
@@ -668,6 +670,7 @@
     <section class="internal-links">
         <div class="internal-links-container">
             <p class="internal-links-paragraph">
+<<<<<<< HEAD
                 Descubre más peregrinaciones católicas: <a href="/./es/experiences/santuarios-catolicos-2025-es" class="internal-link">testimonios y experiencias de peregrinaciones a santuarios marianos 2025</a> de peregrinos que visitaron estos lugares sagrados.
             </p>
             <p class="internal-links-paragraph">
@@ -675,6 +678,20 @@
             </p>
             <p class="internal-links-paragraph">
                 Navega nuestra colección completa de <a href="/experiences-es" class="internal-link">experiencias de peregrinaciones católicas</a> para encontrar tu próximo viaje de fe.
+=======
+                Descubre más peregrinaciones católicas: <a href="/./es/experiences/santuarios-catolicos-2025-es.html"
+                    class="internal-link">testimonios y experiencias de peregrinaciones a santuarios marianos 2025</a>
+                de peregrinos que visitaron estos lugares sagrados.
+            </p>
+            <p class="internal-links-paragraph">
+                ¿Planeas un viaje espiritual más largo? Explora nuestra <a href="/TierraSanta2026.html"
+                    class="internal-link">peregrinación de 20 días a Tierra Santa y Medjugorje 2026</a>, combinando
+                sitios bíblicos con destinos de apariciones marianas.
+            </p>
+            <p class="internal-links-paragraph">
+                Navega nuestra colección completa de <a href="/experiences-es.html" class="internal-link">experiencias
+                    de peregrinaciones católicas</a> para encontrar tu próximo viaje de fe.
+>>>>>>> fe60e2b8e4931380114c430ac25a6836f19802f3
             </p>
         </div>
     </section>
