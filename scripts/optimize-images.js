@@ -27,8 +27,10 @@ const CONFIG = {
 
   // Output sizes
   sizes: [
-    { name: 'desktop', width: 1200 },
-    { name: 'mobile', width: 800 }
+    { name: 'small', width: 360 },
+    { name: 'retina', width: 720 },
+    { name: 'mobile', width: 800 },
+    { name: 'desktop', width: 1200 }
   ],
 
   // WebP settings (excellent browser support)
@@ -221,15 +223,19 @@ async function main() {
     const example = allResults[0];
     const desktop = example.results.find(r => r.size === 'desktop');
     const mobile = example.results.find(r => r.size === 'mobile');
+    const retina = example.results.find(r => r.size === 'retina');
+    const small = example.results.find(r => r.size === 'small');
 
     console.log(`\n${colors.bright}${colors.cyan}Example HTML <picture> tag:${colors.reset}\n`);
 
     console.log(`<picture>`);
     console.log(`  <source`);
     console.log(`    type="image/webp"`);
-    console.log(`    srcset="images/optimized/${mobile.webp.filename} 800w,`);
+    console.log(`    srcset="images/optimized/${small.webp.filename} 360w,`);
+    console.log(`            images/optimized/${retina.webp.filename} 720w,`);
+    console.log(`            images/optimized/${mobile.webp.filename} 800w,`);
     console.log(`            images/optimized/${desktop.webp.filename} 1200w"`);
-    console.log(`    sizes="(max-width: 768px) 100vw, 1200px">`);
+    console.log(`    sizes="(max-width: 768px) 92vw, 320px">`);
     console.log(`  <img`);
     console.log(`    src="images/optimized/${desktop.webp.filename}"`);
     console.log(`    alt="Descriptive alt text here"`);
