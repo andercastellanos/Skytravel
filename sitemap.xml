@@ -81,6 +81,20 @@
     </image:image>
   </url>
 
+  <!-- Medjugorje 2026–2027 Ads Landing (Spanish) -->
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/images/Medjugorje/MedjugorjeVirgin.jpg</image:loc>
+    </image:image>
+  </url>
+
   <!-- Holy Land 2026 - HIGHEST BUSINESS PRIORITY (Current offering) -->
   <url>
     <loc>https://www.skytraveljm.com/tierrasanta2026</loc>

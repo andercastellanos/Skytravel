@@ -210,3 +210,9 @@
   to = "/es/experiences/tierra-santa-2022-es"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/Medjugorje2026-ads-es.html"
+  to = "/peregrinacion-medjugorje-2026-2027-es"
+  status = 301
+  force = true
