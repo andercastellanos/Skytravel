@@ -36,22 +36,159 @@
   <meta name="twitter:url" content="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html">
   <meta name="twitter:image" content="imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link rel="preload" as="image" type="image/webp" href="imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp"
     media="(min-width: 769px)">
   <link rel="preload" as="image" type="image/webp" href="imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp"
     media="(max-width: 768px)">
 
-  <link rel="preload" href="style.css" as="style">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/ads-landing.css">
-  <link rel="stylesheet" href="components/contact-section.css" data-component="contact-section-es">
-  <link rel="stylesheet" href="components/footer.css" data-component="site-footer">
+  <link rel="preload" href="css/landing-medjugorje-2026-2027-es.css" as="style">
+  <link rel="stylesheet" href="css/landing-medjugorje-2026-2027-es.css">
 
   <style>
-    /* Critical CSS: hero, CTAs, trust strip, skip link, sticky bar */
+    /* Critical CSS: nav, hero, CTAs, trust strip, breadcrumb, skip link, sticky bar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+    }
+
+    body.ads-landing {
+      color: #333333;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .nav-container {
+      background-color: #ffffff;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    nav {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 90px;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .logo-image {
+      height: 100%;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a,
+    .nav-item {
+      text-decoration: none;
+      color: #333333;
+      font-size: 1.1rem;
+      padding: 0.5rem 0;
+      display: block;
+    }
+
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      margin-left: 1.5rem;
+    }
+
+    .lang-option {
+      text-decoration: none;
+      color: #333333;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.5rem;
+    }
+
+    .lang-separator {
+      margin: 0 0.3rem;
+      color: #666666;
+    }
+
+    .active-lang {
+      font-weight: bold;
+      color: #c8a97e;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #333333;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        height: 72px;
+        padding: 0 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .breadcrumb-nav {
+      max-width: 1400px;
+      margin: 90px auto 0;
+      padding: 1rem 2rem 0;
+    }
+
+    .breadcrumb-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: #666666;
+    }
+
+    .breadcrumb-list li + li::before {
+      content: "\\203A";
+      margin: 0 0.5rem;
+      color: #c8a97e;
+    }
+
+    .breadcrumb-list a {
+      color: #333333;
+      text-decoration: none;
+    }
     .ads-hero {
       position: relative;
       overflow: hidden;
@@ -480,12 +617,33 @@
   }
   </script>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6FM6Y5W6ZM"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-6FM6Y5W6ZM');
+
+    (function () {
+      var loaded = false;
+      function loadAnalytics() {
+        if (loaded) return;
+        loaded = true;
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6FM6Y5W6ZM';
+        document.head.appendChild(script);
+      }
+
+      function scheduleLoad() {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadAnalytics, { timeout: 2000 });
+          return;
+        }
+        setTimeout(loadAnalytics, 1200);
+      }
+
+      window.addEventListener('load', scheduleLoad, { once: true });
+    })();
   </script>
 </head>
 
