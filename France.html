@@ -66,12 +66,22 @@
     <link rel="stylesheet" href="style.css">
     <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
     <style>
-        .slideshow .slide { display: none; }
-        .slideshow .slide:first-child { display: block; }
-        .slideshow.slick-initialized .slide { display: block; }
+        .slideshow .slide {
+            display: none;
+        }
+
+        .slideshow .slide:first-child {
+            display: block;
+        }
+
+        .slideshow.slick-initialized .slide {
+            display: block;
+        }
     </style>
     <link rel="preload" href="css/components.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="css/components.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="css/components.css">
+    </noscript>
 
     <!-- Structured Data: WebPage + Breadcrumb + TouristTrip + FAQ (France) -->
     <script type="application/ld+json">
@@ -193,16 +203,18 @@
 </head>
 
 <body class="page-medjugorje">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="nav-container">
         <nav>
             <a href="/" class="logo">
-                <img src="imagesWebp/Logo.webp" alt="Sky Travel Logo" class="logo-image">
+                <img src="imagesWebp/Logo.webp" alt="Sky Travel - Luxury Spiritual Pilgrimage Travel Agency Logo"
+                    class="logo-image" width="200" height="200" style="width: 100px; height: auto;" loading="eager"
+                    decoding="async">
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="/" class="nav-item">Destinations</a>
                 <a href="experiences" class="nav-item">Experiences</a>
-        <a href="blog" class="nav-item">Blog</a>
+                <a href="blog" class="nav-item">Blog</a>
                 <a href="about" class="nav-item">About Us</a>
                 <a href="testimony/testimonials" class="nav-item">Testimonials</a>
                 <a href="contact" class="nav-item">Contact</a>
@@ -217,587 +229,621 @@
         </nav>
     </div>
 
-  <main id="main-content">
+    <main id="main-content">
 
-    <!-- Destination header and slideshow -->
-    <div class="destination-header">
-        <div class="slideshow">
-            <div class="slide active">
-                <img srcset="imagesWebp/France/Lourdes1-800.webp 800w,
+        <!-- Destination header and slideshow -->
+        <div class="destination-header">
+            <div class="slideshow">
+                <div class="slide active">
+                    <img srcset="imagesWebp/France/Lourdes1-800.webp 800w,
                 imagesWebp/France/Lourdes1-1600.webp 1600w" sizes="(max-width: 768px) 100vw, 1600px"
-                    src="imagesWebp/France/Lourdes1-1600.webp" alt="Lourdes sanctuary pilgrimage site in France"
-                    width="1600" height="584" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/Lourdes_2-800.webp 800w,
+                        src="imagesWebp/France/Lourdes1-1600.webp" alt="Lourdes sanctuary pilgrimage site in France"
+                        width="1600" height="584" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/Lourdes_2-800.webp 800w,
                 imagesWebp/France/Lourdes_2-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/Lourdes_2-1200.webp" alt="Lourdes pilgrimage site in France" width="1200"
-                    height="438" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/aurayapariciones-800.webp 800w,
+                        src="imagesWebp/France/Lourdes_2-1200.webp" alt="Lourdes pilgrimage site in France" width="1200"
+                        height="438" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/aurayapariciones-800.webp 800w,
                 imagesWebp/France/aurayapariciones-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/aurayapariciones-1200.webp"
-                    alt="Auray apparition site of Saint Anne, mother of Mary" width="1200" height="438"
-                    decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/lourdes-800.webp 800w,
+                        src="imagesWebp/France/aurayapariciones-1200.webp"
+                        alt="Auray apparition site of Saint Anne, mother of Mary" width="1200" height="438"
+                        decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/lourdes-800.webp 800w,
                 imagesWebp/France/lourdes-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/lourdes-1200.webp" alt="Sanctuary of Our Lady of Lourdes Catholic pilgrimage"
-                    width="1200" height="674" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/paris-800.webp 800w,
+                        src="imagesWebp/France/lourdes-1200.webp"
+                        alt="Sanctuary of Our Lady of Lourdes Catholic pilgrimage" width="1200" height="674"
+                        loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/paris-800.webp 800w,
                 imagesWebp/France/paris-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/paris-1200.webp" alt="Eiffel Tower during Catholic pilgrimage with priest"
-                    width="1200" height="728" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/notredame-800.webp 800w,
+                        src="imagesWebp/France/paris-1200.webp"
+                        alt="Eiffel Tower during Catholic pilgrimage with priest" width="1200" height="728"
+                        loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/notredame-800.webp 800w,
                 imagesWebp/France/notredame-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/notredame-1200.webp"
-                    alt="Notre-Dame Cathedral on pilgrimage with accompanying priest" width="1200" height="1363"
-                    loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/Lisieux-800.webp 800w,
+                        src="imagesWebp/France/notredame-1200.webp"
+                        alt="Notre-Dame Cathedral on pilgrimage with accompanying priest" width="1200" height="1363"
+                        loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/Lisieux-800.webp 800w,
                 imagesWebp/France/Lisieux-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/Lisieux-1200.webp"
-                    alt="Basilica of Saint Thérèse of the Child Jesus in Lisieux, a place of pilgrimage and devotion"
-                    width="1200" height="1363" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/Estaciones-PontMain-800.webp 800w,
+                        src="imagesWebp/France/Lisieux-1200.webp"
+                        alt="Basilica of Saint Thérèse of the Child Jesus in Lisieux, a place of pilgrimage and devotion"
+                        width="1200" height="1363" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/Estaciones-PontMain-800.webp 800w,
                 imagesWebp/France/Estaciones-PontMain-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/Estaciones-PontMain-1200.webp"
-                    alt="Sanctuary of Our Lady of Pontmain, site of the Marian apparition and pilgrimage" width="1200"
-                    height="1363" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/pellevoisin-800.webp 800w,
+                        src="imagesWebp/France/Estaciones-PontMain-1200.webp"
+                        alt="Sanctuary of Our Lady of Pontmain, site of the Marian apparition and pilgrimage"
+                        width="1200" height="1363" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/pellevoisin-800.webp 800w,
                 imagesWebp/France/pellevoisin-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/pellevoisin-1200.webp"
-                    alt="Sanctuary of Pellevoisin, site of the Marian apparition and spiritual devotion" width="1200"
-                    height="1363" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/rocamadour-800.webp 800w,
+                        src="imagesWebp/France/pellevoisin-1200.webp"
+                        alt="Sanctuary of Pellevoisin, site of the Marian apparition and spiritual devotion"
+                        width="1200" height="1363" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/rocamadour-800.webp 800w,
                 imagesWebp/France/rocamadour-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/rocamadour-1200.webp"
-                    alt="Sanctuary of Rocamadour, cliffside Marian site and pilgrimage destination" width="1200"
-                    height="1363" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/inmaculadaconcepcion-800.webp 800w,
+                        src="imagesWebp/France/rocamadour-1200.webp"
+                        alt="Sanctuary of Rocamadour, cliffside Marian site and pilgrimage destination" width="1200"
+                        height="1363" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/inmaculadaconcepcion-800.webp 800w,
                 imagesWebp/France/inmaculadaconcepcion-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/inmaculadaconcepcion-1200.webp"
-                    alt="Image of the Immaculate Conception, symbol of purity and Marian devotion" width="1200"
-                    height="1363" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/France/Cotignac-800.webp 800w,
+                        src="imagesWebp/France/inmaculadaconcepcion-1200.webp"
+                        alt="Image of the Immaculate Conception, symbol of purity and Marian devotion" width="1200"
+                        height="1363" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/France/Cotignac-800.webp 800w,
                 imagesWebp/France/Cotignac-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                    src="imagesWebp/France/Cotignac-1200.webp"
-                    alt="View of the village of Cotignac in Provence, known for its historic and spiritual setting"
-                    width="1200" height="1363" loading="lazy" decoding="async">
-            </div></div>
-
-        <div class="header-content">
-            <div class="header-text">
-                <h1>France Pilgrimage – Land of Grace</h1>
-                <p>Experience the grace of France’s great shrines</p>
+                        src="imagesWebp/France/Cotignac-1200.webp"
+                        alt="View of the village of Cotignac in Provence, known for its historic and spiritual setting"
+                        width="1200" height="1363" loading="lazy" decoding="async">
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Trip Details Section -->
-    <section class="trip-details">
-        <h2>Catholic Pilgrimage to France</h2>
-        <p class="subtitle">A deep Catholic journey with daily Mass celebrated by an accompanying priest.</p>
-
-        <div class="trip-dates">
-            <h3>Travel dates: September 17 - October 2, 2026 • 16 Days / 15 Nights with Daily Mass</h3>
-            <p class="dates-cta">Would you like to learn more about our previous pilgrimages? <a
-                    href="/experiences" class="dates-cta-link">Explore experiences</a></p>
-        </div>
-        <div class="highlights">
-            <div class="highlight-card" id="miami">
-                <h3>Price Land Only (Europe)</h3>
-                <ul class="highlight-list">
-                    <li>Price: €4,880</li>
-                    <li>14 nights accommodation</li>
-                    <li>Half board</li>
-                    <li>Ground transportation</li>
-                    <li>Entrance to all sites</li>
-                    <li>Bilingual tour guide</li>
-                </ul>
-            </div>
-            <div class="highlight-card">
-                <h3>Spiritual Guide</h3>
-                <p>Full accompaniment with:</p>
-                <ul class="highlight-list">
-                    <li>Bilingual tour guide</li>
-                    <li>Spiritual direction from a priest</li>
-                    <li>All program visits included</li>
-                    <li>Daily Mass opportunities</li>
-                    <li>Time for prayer and reflection</li>
-                    <li>Group spiritual activities</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Our Catholic Pilgrimage Section -->
-    <section class="why-medjugorje">
-        <h2>Why Choose Our Catholic Pilgrimage to France?</h2>
-        <div class="why-content">
-            <p>
-                Since 2016, Sky Travel has organized
-                <a href="/experiences" title="Catholic pilgrimages in France and Europe">
-                    Catholic pilgrimages to France
-                </a>
-                for Spanish-speaking pilgrims from the U.S. and Colombia. Unlike general sightseeing tours, our journeys
-                are authentic spiritual experiences with
-                <strong>daily Mass (whenever possible)</strong> and an accompanying Catholic priest.
-                Learn more
-                <a href="/about" title="About our Catholic mission">about our Catholic mission</a>
-                and read
-                <a href="/testimony/testimonials" title="Catholic pilgrim testimonials">
-                    testimonies from pilgrims
-                </a>
-                who have experienced grace and renewal in these holy places.
-            </p>
-
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h3>Accompanying Catholic Priest</h3>
-                    <p>
-                        Each pilgrimage includes a priest who celebrates
-                        <strong>daily Mass</strong> in Spanish, hears
-                        <strong>confessions</strong>, offers personal spiritual direction, and preaches
-                        homilies that help you live each stop of the journey in depth.
-                    </p>
-                </div>
-
-                <div class="benefit-card">
-                    <h3>Full Sacramental Life</h3>
-                    <p>
-                        We prioritize the <strong>Sacraments</strong>: daily Mass when possible, individual confession,
-                        Eucharistic adoration, priestly blessings, and guided moments of silence and prayer—
-                        far beyond a typical cultural or historical tour.
-                    </p>
-                </div>
-
-                <div class="benefit-card">
-                    <h3>Specialized Catholic Guides</h3>
-                    <p>
-                        Our guides are experts in the history and spirituality of each shrine, connecting faith,
-                        culture, and the stories that shaped these sanctuaries, so that every visit becomes
-                        a moment of encounter and not just information.
-                    </p>
-                </div>
-
-                <div class="benefit-card">
-                    <h3>Small Pilgrim Groups</h3>
-                    <p>
-                        We keep groups to a maximum of about 30 pilgrims to foster fraternity, shared Rosary, and
-                        deeper conversations, creating a family atmosphere where it’s easy to pray, listen,
-                        and support one another.
-                    </p>
-                </div>
-
-                <div class="benefit-card">
-                    <h3>Structured Prayer</h3>
-                    <p>
-                        A balanced schedule with daily Mass, Rosary at sacred sites, time for confession, adoration
-                        when possible, and personal prayer—without rushing, and with space to simply remain in
-                        front of the Lord.
-                    </p>
-                </div>
-
-                <div class="benefit-card">
-                    <h3>Proven Catholic Experience</h3>
-                    <p>
-                        Hundreds of pilgrims have traveled with us. Read their
-                        <a href="/testimony/testimonials">
-                            stories of conversion, spiritual healing, and renewed faith
-                        </a>
-                        and discover how the Lord has used these journeys to touch many hearts.
-                    </p>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>France Pilgrimage – Land of Grace</h1>
+                    <p>Experience the grace of France’s great shrines</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Related Pilgrimages -->
-    <section class="why-medjugorje" style="background-color: #f8f9fa; padding: 2rem 1rem;">
-        <div class="why-content" style="max-width: 900px; margin: 0 auto;">
-            <h2 style="text-align: center; margin-bottom: 1.5rem;">Explore More Catholic Pilgrimages</h2>
-            <p style="text-align: center; line-height: 1.8; margin-bottom: 1rem;">
-                Discover our <a href="/mariana2026" title="Marian shrines pilgrimage 2026">2026 Marian shrines
-                    pilgrimage to Fatima, Lourdes, and Covadonga</a> across Spain, Portugal, and France.
-            </p>
-            <p style="text-align: center; line-height: 1.8; margin-bottom: 1rem;">
-                Planning a longer spiritual journey? Join our <a href="/tierrasanta2026"
-                    title="Holy Land pilgrimage 2026">20-day Holy Land and Medjugorje 2026 pilgrimage</a>, combining
-                biblical sites with Marian apparition destinations.
-            </p>
-            <p style="text-align: center; line-height: 1.8;">
-                Browse our full collection of <a href="/experiences"
-                    title="Catholic pilgrimage experiences">Catholic pilgrimage experiences</a> to find your next
-                journey of faith.
-            </p>
-        </div>
-    </section>
+        <!-- Trip Details Section -->
+        <section class="trip-details">
+            <h2>Catholic Pilgrimage to France</h2>
+            <p class="subtitle">A deep Catholic journey with daily Mass celebrated by an accompanying priest.</p>
 
-    <!-- Detailed Information Section -->
-    <section class="destination-info">
-        <h2>Journey Highlights</h2>
-        <div class="info-container">
-            <!-- Lisieux -->
-            <div class="info-section">
-                <h3>Lisieux</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="lisieux-experience">Experience</button>
-                        <button class="tab-button" data-tab="lisieux-history">History</button>
+            <div class="trip-dates">
+                <h3>Travel dates: September 17 - October 2, 2026 • 16 Days / 15 Nights with Daily Mass</h3>
+                <p class="dates-cta">Would you like to learn more about our previous pilgrimages? <a href="/experiences"
+                        class="dates-cta-link">Explore experiences</a></p>
+            </div>
+            <div class="highlights">
+                <div class="highlight-card" id="miami">
+                    <h3>Price Land Only (Europe)</h3>
+                    <ul class="highlight-list">
+                        <li>Price: €4,880</li>
+                        <li>14 nights accommodation</li>
+                        <li>Half board</li>
+                        <li>Ground transportation</li>
+                        <li>Entrance to all sites</li>
+                        <li>Bilingual tour guide</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <h3>Spiritual Guide</h3>
+                    <p>Full accompaniment with:</p>
+                    <ul class="highlight-list">
+                        <li>Bilingual tour guide</li>
+                        <li>Spiritual direction from a priest</li>
+                        <li>All program visits included</li>
+                        <li>Daily Mass opportunities</li>
+                        <li>Time for prayer and reflection</li>
+                        <li>Group spiritual activities</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Our Catholic Pilgrimage Section -->
+        <section class="why-medjugorje">
+            <h2>Why Choose Our Catholic Pilgrimage to France?</h2>
+            <div class="why-content">
+                <p>
+                    Since 2016, Sky Travel has organized
+                    <a href="/experiences" title="Catholic pilgrimages in France and Europe">
+                        Catholic pilgrimages to France
+                    </a>
+                    for Spanish-speaking pilgrims from the U.S. and Colombia. Unlike general sightseeing tours, our
+                    journeys
+                    are authentic spiritual experiences with
+                    <strong>daily Mass (whenever possible)</strong> and an accompanying Catholic priest.
+                    Learn more
+                    <a href="/about" title="About our Catholic mission">about our Catholic mission</a>
+                    and read
+                    <a href="/testimony/testimonials" title="Catholic pilgrim testimonials">
+                        testimonies from pilgrims
+                    </a>
+                    who have experienced grace and renewal in these holy places.
+                </p>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h3>Accompanying Catholic Priest</h3>
+                        <p>
+                            Each pilgrimage includes a priest who celebrates
+                            <strong>daily Mass</strong> in Spanish, hears
+                            <strong>confessions</strong>, offers personal spiritual direction, and preaches
+                            homilies that help you live each stop of the journey in depth.
+                        </p>
                     </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="lisieux-experience">
-                            <p>
-                                Pilgrims arriving in Lisieux feel the tenderness of a simple yet burning faith.
-                                Walking through the places where Saint Thérèse loved, prayed, and wrote her “little way”
-                                is to enter into the purity of a soul given without reserve.
-                                It is an invitation to rediscover the beauty of small things and the strength
-                                of everyday love.
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="lisieux-history">
-                            <p>
-                                In the heart of Normandy, Lisieux preserves the luminous legacy of Saint Thérèse of the
-                                Child Jesus, the “little flower” who offered her life to Love. Her childhood home,
-                                Les Buissonnets, and the majestic basilica dedicated to her recall her way of
-                                spiritual childhood—a path of humility and complete trust in God.
-                            </p>
-                        </div>
+
+                    <div class="benefit-card">
+                        <h3>Full Sacramental Life</h3>
+                        <p>
+                            We prioritize the <strong>Sacraments</strong>: daily Mass when possible, individual
+                            confession,
+                            Eucharistic adoration, priestly blessings, and guided moments of silence and prayer—
+                            far beyond a typical cultural or historical tour.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <h3>Specialized Catholic Guides</h3>
+                        <p>
+                            Our guides are experts in the history and spirituality of each shrine, connecting faith,
+                            culture, and the stories that shaped these sanctuaries, so that every visit becomes
+                            a moment of encounter and not just information.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <h3>Small Pilgrim Groups</h3>
+                        <p>
+                            We keep groups to a maximum of about 30 pilgrims to foster fraternity, shared Rosary, and
+                            deeper conversations, creating a family atmosphere where it’s easy to pray, listen,
+                            and support one another.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <h3>Structured Prayer</h3>
+                        <p>
+                            A balanced schedule with daily Mass, Rosary at sacred sites, time for confession, adoration
+                            when possible, and personal prayer—without rushing, and with space to simply remain in
+                            front of the Lord.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <h3>Proven Catholic Experience</h3>
+                        <p>
+                            Hundreds of pilgrims have traveled with us. Read their
+                            <a href="/testimony/testimonials">
+                                stories of conversion, spiritual healing, and renewed faith
+                            </a>
+                            and discover how the Lord has used these journeys to touch many hearts.
+                        </p>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Mont Saint-Michel -->
-            <div class="info-section">
-                <h3>Mont Saint-Michel</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="msm-experience">Experience</button>
-                        <button class="tab-button" data-tab="msm-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="msm-experience">
-                            <p>
-                                Climb in prayer towards the abbey of Saint Michael the Archangel, letting each step
-                                become a quiet conversation with God. The meeting of rock, sea, and sky invites
-                                gratitude, awe, and inner renewal.
-                            </p>
-                            <p>
-                                Walking the path up to the monastery, contemplating the tides and the wide bay,
-                                and pausing to ask for the Archangel’s protection make this place a true school
-                                of trust and abandonment into God’s hands.
-                            </p>
+        <!-- Related Pilgrimages -->
+        <section class="why-medjugorje" style="background-color: #f8f9fa; padding: 2rem 1rem;">
+            <div class="why-content" style="max-width: 900px; margin: 0 auto;">
+                <h2 style="text-align: center; margin-bottom: 1.5rem;">Explore More Catholic Pilgrimages</h2>
+                <p style="text-align: center; line-height: 1.8; margin-bottom: 1rem;">
+                    Discover our <a href="/mariana2026" title="Marian shrines pilgrimage 2026">2026 Marian shrines
+                        pilgrimage to Fatima, Lourdes, and Covadonga</a> across Spain, Portugal, and France.
+                </p>
+                <p style="text-align: center; line-height: 1.8; margin-bottom: 1rem;">
+                    Planning a longer spiritual journey? Join our <a href="/tierrasanta2026"
+                        title="Holy Land pilgrimage 2026">20-day Holy Land and Medjugorje 2026 pilgrimage</a>, combining
+                    biblical sites with Marian apparition destinations.
+                </p>
+                <p style="text-align: center; line-height: 1.8;">
+                    Browse our full collection of <a href="/experiences"
+                        title="Catholic pilgrimage experiences">Catholic pilgrimage experiences</a> to find your next
+                    journey of faith.
+                </p>
+            </div>
+        </section>
+
+        <!-- Detailed Information Section -->
+        <section class="destination-info">
+            <h2>Journey Highlights</h2>
+            <div class="info-container">
+                <!-- Lisieux -->
+                <div class="info-section">
+                    <h3>Lisieux</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="lisieux-experience">Experience</button>
+                            <button class="tab-button" data-tab="lisieux-history">History</button>
                         </div>
-                        <div class="tab-pane" id="msm-history">
-                            <p>
-                                Located in Normandy, Mont Saint-Michel is one of the oldest sanctuaries dedicated to
-                                Saint Michael. According to tradition, in the year 708 the Archangel appeared to
-                                Bishop Aubert of Avranches, asking him to build a sanctuary on the mount.
-                            </p>
-                            <p>
-                                Since then, the abbey has become a spiritual beacon of prayer, penance, and encounter
-                                with God, and one of the most important centers of pilgrimage in Europe.
-                            </p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="lisieux-experience">
+                                <p>
+                                    Pilgrims arriving in Lisieux feel the tenderness of a simple yet burning faith.
+                                    Walking through the places where Saint Thérèse loved, prayed, and wrote her “little
+                                    way”
+                                    is to enter into the purity of a soul given without reserve.
+                                    It is an invitation to rediscover the beauty of small things and the strength
+                                    of everyday love.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="lisieux-history">
+                                <p>
+                                    In the heart of Normandy, Lisieux preserves the luminous legacy of Saint Thérèse of
+                                    the
+                                    Child Jesus, the “little flower” who offered her life to Love. Her childhood home,
+                                    Les Buissonnets, and the majestic basilica dedicated to her recall her way of
+                                    spiritual childhood—a path of humility and complete trust in God.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Auray & Vannes -->
-            <div class="info-section">
-                <h3>Auray & Vannes</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="auray-experience">Experience</button>
-                        <button class="tab-button" data-tab="auray-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="auray-experience">
-                            <p>
-                                At the Shrine of Sainte Anne d’Auray, pilgrims feel the embrace of the
-                                grandmother of the Savior. Hearts fill with gratitude for the gift of faith passed down
-                                from generation to generation. It is a place to pray for families, children, and for the
-                                transmission of God’s love in the home.
-                            </p>
+                <!-- Mont Saint-Michel -->
+                <div class="info-section">
+                    <h3>Mont Saint-Michel</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="msm-experience">Experience</button>
+                            <button class="tab-button" data-tab="msm-history">History</button>
                         </div>
-                        <div class="tab-pane" id="auray-history">
-                            <p>
-                                In Auray, Saint Anne, mother of the Virgin Mary, appeared to the farmer Yves Nicolazic,
-                                reminding the world of the holiness of family roots. Vannes, an ancient episcopal city,
-                                keeps churches and streets that have witnessed centuries of deep Breton devotion.
-                            </p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="msm-experience">
+                                <p>
+                                    Climb in prayer towards the abbey of Saint Michael the Archangel, letting each step
+                                    become a quiet conversation with God. The meeting of rock, sea, and sky invites
+                                    gratitude, awe, and inner renewal.
+                                </p>
+                                <p>
+                                    Walking the path up to the monastery, contemplating the tides and the wide bay,
+                                    and pausing to ask for the Archangel’s protection make this place a true school
+                                    of trust and abandonment into God’s hands.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="msm-history">
+                                <p>
+                                    Located in Normandy, Mont Saint-Michel is one of the oldest sanctuaries dedicated to
+                                    Saint Michael. According to tradition, in the year 708 the Archangel appeared to
+                                    Bishop Aubert of Avranches, asking him to build a sanctuary on the mount.
+                                </p>
+                                <p>
+                                    Since then, the abbey has become a spiritual beacon of prayer, penance, and
+                                    encounter
+                                    with God, and one of the most important centers of pilgrimage in Europe.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Saint-Laurent-sur-Sèvre, Les Ulmes, Pellevoisin -->
-            <div class="info-section">
-                <h3>Saint-Laurent-sur-Sèvre, Les Ulmes, Pellevoisin</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="sle-experience">Experience</button>
-                        <button class="tab-button" data-tab="sle-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="sle-experience">
-                            <p>
-                                These shrines are stations of deep encounter with Mary. Each step is an invitation
-                                to renew consecration to her Immaculate Heart and to taste the tenderness of a Mother
-                                who always leads to her Son. It is an interior pilgrimage that blossoms into surrender
-                                and hope.
-                            </p>
+                <!-- Auray & Vannes -->
+                <div class="info-section">
+                    <h3>Auray & Vannes</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="auray-experience">Experience</button>
+                            <button class="tab-button" data-tab="auray-history">History</button>
                         </div>
-                        <div class="tab-pane" id="sle-history">
-                            <p>
-                                Saint Louis-Marie Grignion de Montfort, apostle of love for the Virgin, rests in
-                                Saint-Laurent-sur-Sèvre, where his Marian spirituality continues to bear fruit.
-                                In Les Ulmes, a Eucharistic miracle confirms Christ’s real presence, and in Pellevoisin,
-                                Our Lady appeared as a compassionate Mother inviting confidence and trust.
-                            </p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="auray-experience">
+                                <p>
+                                    At the Shrine of Sainte Anne d’Auray, pilgrims feel the embrace of the
+                                    grandmother of the Savior. Hearts fill with gratitude for the gift of faith passed
+                                    down
+                                    from generation to generation. It is a place to pray for families, children, and for
+                                    the
+                                    transmission of God’s love in the home.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="auray-history">
+                                <p>
+                                    In Auray, Saint Anne, mother of the Virgin Mary, appeared to the farmer Yves
+                                    Nicolazic,
+                                    reminding the world of the holiness of family roots. Vannes, an ancient episcopal
+                                    city,
+                                    keeps churches and streets that have witnessed centuries of deep Breton devotion.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Rocamadour & Limoges -->
-            <div class="info-section">
-                <h3>Rocamadour & Limoges</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="roca-experience">Experience</button>
-                        <button class="tab-button" data-tab="roca-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="roca-experience">
-                            <p>
-                                In Rocamadour, pilgrims climb stone steps—each one a supplication, each glance upwards
-                                an act of faith. It is a place to leave fear behind and embrace trust in God, who
-                                sustains us even on the steepest rock.
-                            </p>
+                <!-- Saint-Laurent-sur-Sèvre, Les Ulmes, Pellevoisin -->
+                <div class="info-section">
+                    <h3>Saint-Laurent-sur-Sèvre, Les Ulmes, Pellevoisin</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="sle-experience">Experience</button>
+                            <button class="tab-button" data-tab="sle-history">History</button>
                         </div>
-                        <div class="tab-pane" id="roca-history">
-                            <p>
-                                Rocamadour, suspended between heaven and earth, is an ancient sanctuary dedicated to
-                                the Black Madonna, a sign of maternal protection amid human fragility. Limoges, with its
-                                Gothic cathedral and sacred art, preserves centuries of prayer and quiet fidelity.
-                            </p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="sle-experience">
+                                <p>
+                                    These shrines are stations of deep encounter with Mary. Each step is an invitation
+                                    to renew consecration to her Immaculate Heart and to taste the tenderness of a
+                                    Mother
+                                    who always leads to her Son. It is an interior pilgrimage that blossoms into
+                                    surrender
+                                    and hope.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="sle-history">
+                                <p>
+                                    Saint Louis-Marie Grignion de Montfort, apostle of love for the Virgin, rests in
+                                    Saint-Laurent-sur-Sèvre, where his Marian spirituality continues to bear fruit.
+                                    In Les Ulmes, a Eucharistic miracle confirms Christ’s real presence, and in
+                                    Pellevoisin,
+                                    Our Lady appeared as a compassionate Mother inviting confidence and trust.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Lourdes -->
-            <div class="info-section">
-                <h3>Lourdes</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="lourdes-experience">Experience</button>
-                        <button class="tab-button" data-tab="lourdes-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="lourdes-experience">
-                            <p>
-                                In Lourdes, everything becomes a gesture of encounter with Mary’s maternal love:
-                                the water, the Rosary, the candlelight procession. Pilgrims pray, sing, and often cry,
-                                finding in this sanctuary relief for both body and soul. It is a heart that beats in
-                                rhythm with the Hail Mary.
-                            </p>
+                <!-- Rocamadour & Limoges -->
+                <div class="info-section">
+                    <h3>Rocamadour & Limoges</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="roca-experience">Experience</button>
+                            <button class="tab-button" data-tab="roca-history">History</button>
                         </div>
-                        <div class="tab-pane" id="lourdes-history">
-                            <p>
-                                Since Our Lady’s apparitions to Saint Bernadette in 1858, Lourdes has become one of
-                                the most beloved Marian shrines in the world. Here Mary presents herself as the
-                                Immaculate Conception and opens a spring of healing and hope that continues to draw
-                                millions of pilgrims each year.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Avignon & Saint-Maximin-La-Sainte-Baume -->
-            <div class="info-section">
-                <h3>Avignon & Saint-Maximin-La-Sainte-Baume</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="avignon-experience">Experience</button>
-                        <button class="tab-button" data-tab="avignon-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="avignon-experience">
-                            <p>
-                                Walking through the halls of the Papal Palace and venerating the relics of Mary
-                                Magdalene is to enter the early heartbeat of the Church. Every stone speaks of the
-                                transforming power of forgiveness and conversion—a call to rediscover our mission as
-                                witnesses of the Gospel.
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="avignon-history">
-                            <p>
-                                Avignon, former seat of the Popes, preserves in its palace the memory of a Church that
-                                upheld the faith in turbulent times. In Saint-Maximin-La-Sainte-Baume, tradition
-                                venerates Saint Mary Magdalene, witness of the Resurrection and apostle of the
-                                redeeming love of Christ.
-                            </p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="roca-experience">
+                                <p>
+                                    In Rocamadour, pilgrims climb stone steps—each one a supplication, each glance
+                                    upwards
+                                    an act of faith. It is a place to leave fear behind and embrace trust in God, who
+                                    sustains us even on the steepest rock.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="roca-history">
+                                <p>
+                                    Rocamadour, suspended between heaven and earth, is an ancient sanctuary dedicated to
+                                    the Black Madonna, a sign of maternal protection amid human fragility. Limoges, with
+                                    its
+                                    Gothic cathedral and sacred art, preserves centuries of prayer and quiet fidelity.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- La Salette & Lyon -->
-            <div class="info-section">
-                <h3>La Salette & Lyon</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="salette-experience">Experience</button>
-                        <button class="tab-button" data-tab="salette-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="salette-experience">
-                            <p>
-                                Before Our Lady of La Salette, pilgrims experience the power of repentance and mercy.
-                                Lyon invites them to renew their faith with joy, remembering that grace always springs
-                                up again in hearts that are willing to listen and return to God.
-                            </p>
+                <!-- Lourdes -->
+                <div class="info-section">
+                    <h3>Lourdes</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="lourdes-experience">Experience</button>
+                            <button class="tab-button" data-tab="lourdes-history">History</button>
                         </div>
-                        <div class="tab-pane" id="salette-history">
-                            <p>
-                                At La Salette in 1846, Mary appeared weeping, calling the world to conversion and
-                                prayer as it drifted away from God. Lyon, cradle of saints and martyrs, keeps alive
-                                the memory of a Church that flourishes in fidelity and witness.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ars & Paray-le-Monial -->
-            <div class="info-section">
-                <h3>Ars & Paray-le-Monial</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="ars-experience">Experience</button>
-                        <button class="tab-button" data-tab="ars-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="ars-experience">
-                            <p>
-                                Here, prayer becomes intimate and trusting. In Ars, the soul learns the value of
-                                sacrifice out of love, and in Paray-le-Monial it discovers the compassionate heartbeat
-                                of the Sacred Heart of Jesus, who never stops loving. Two destinations where mercy
-                                truly has a face and a fire.
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="ars-history">
-                            <p>
-                                Ars was home to Saint John Vianney, the Curé of Ars, model of priests and tireless
-                                shepherd of souls. In Paray-le-Monial, Jesus revealed His Sacred Heart to Saint
-                                Margaret Mary Alacoque, a message that has set hearts ablaze throughout the world with
-                                His burning love.
-                            </p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="lourdes-experience">
+                                <p>
+                                    In Lourdes, everything becomes a gesture of encounter with Mary’s maternal love:
+                                    the water, the Rosary, the candlelight procession. Pilgrims pray, sing, and often
+                                    cry,
+                                    finding in this sanctuary relief for both body and soul. It is a heart that beats in
+                                    rhythm with the Hail Mary.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="lourdes-history">
+                                <p>
+                                    Since Our Lady’s apparitions to Saint Bernadette in 1858, Lourdes has become one of
+                                    the most beloved Marian shrines in the world. Here Mary presents herself as the
+                                    Immaculate Conception and opens a spring of healing and hope that continues to draw
+                                    millions of pilgrims each year.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Nevers & Paris -->
-            <div class="info-section">
-                <h3>Nevers & Paris</h3>
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="paris-experience">Experience</button>
-                        <button class="tab-button" data-tab="paris-history">History</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="paris-experience">
-                            <p>
-                                The pilgrimage concludes in the light of Paris, under Mary’s mantle extended over the
-                                city. Each church and each moment of prayer becomes a spark of faith that rekindles
-                                hope. The journey ends with hearts transformed by grace and ready to go back into the
-                                world as witnesses of God’s love.
-                            </p>
+                <!-- Avignon & Saint-Maximin-La-Sainte-Baume -->
+                <div class="info-section">
+                    <h3>Avignon & Saint-Maximin-La-Sainte-Baume</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="avignon-experience">Experience</button>
+                            <button class="tab-button" data-tab="avignon-history">History</button>
                         </div>
-                        <div class="tab-pane" id="paris-history">
-                            <p>
-                                In Nevers lies the incorrupt body of Saint Bernadette, a visible testimony of purity
-                                and fidelity. Paris, both spiritual and cultural heart, holds treasures of faith in the
-                                Chapel of the Miraculous Medal, the shrine of Saint Vincent de Paul, the Basilica of
-                                the Sacred Heart at Montmartre, and Notre-Dame des Victoires.
-                            </p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="avignon-experience">
+                                <p>
+                                    Walking through the halls of the Papal Palace and venerating the relics of Mary
+                                    Magdalene is to enter the early heartbeat of the Church. Every stone speaks of the
+                                    transforming power of forgiveness and conversion—a call to rediscover our mission as
+                                    witnesses of the Gospel.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="avignon-history">
+                                <p>
+                                    Avignon, former seat of the Popes, preserves in its palace the memory of a Church
+                                    that
+                                    upheld the faith in turbulent times. In Saint-Maximin-La-Sainte-Baume, tradition
+                                    venerates Saint Mary Magdalene, witness of the Resurrection and apostle of the
+                                    redeeming love of Christ.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- La Salette & Lyon -->
+                <div class="info-section">
+                    <h3>La Salette & Lyon</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="salette-experience">Experience</button>
+                            <button class="tab-button" data-tab="salette-history">History</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="salette-experience">
+                                <p>
+                                    Before Our Lady of La Salette, pilgrims experience the power of repentance and
+                                    mercy.
+                                    Lyon invites them to renew their faith with joy, remembering that grace always
+                                    springs
+                                    up again in hearts that are willing to listen and return to God.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="salette-history">
+                                <p>
+                                    At La Salette in 1846, Mary appeared weeping, calling the world to conversion and
+                                    prayer as it drifted away from God. Lyon, cradle of saints and martyrs, keeps alive
+                                    the memory of a Church that flourishes in fidelity and witness.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ars & Paray-le-Monial -->
+                <div class="info-section">
+                    <h3>Ars & Paray-le-Monial</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="ars-experience">Experience</button>
+                            <button class="tab-button" data-tab="ars-history">History</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="ars-experience">
+                                <p>
+                                    Here, prayer becomes intimate and trusting. In Ars, the soul learns the value of
+                                    sacrifice out of love, and in Paray-le-Monial it discovers the compassionate
+                                    heartbeat
+                                    of the Sacred Heart of Jesus, who never stops loving. Two destinations where mercy
+                                    truly has a face and a fire.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="ars-history">
+                                <p>
+                                    Ars was home to Saint John Vianney, the Curé of Ars, model of priests and tireless
+                                    shepherd of souls. In Paray-le-Monial, Jesus revealed His Sacred Heart to Saint
+                                    Margaret Mary Alacoque, a message that has set hearts ablaze throughout the world
+                                    with
+                                    His burning love.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nevers & Paris -->
+                <div class="info-section">
+                    <h3>Nevers & Paris</h3>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="paris-experience">Experience</button>
+                            <button class="tab-button" data-tab="paris-history">History</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="paris-experience">
+                                <p>
+                                    The pilgrimage concludes in the light of Paris, under Mary’s mantle extended over
+                                    the
+                                    city. Each church and each moment of prayer becomes a spark of faith that rekindles
+                                    hope. The journey ends with hearts transformed by grace and ready to go back into
+                                    the
+                                    world as witnesses of God’s love.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="paris-history">
+                                <p>
+                                    In Nevers lies the incorrupt body of Saint Bernadette, a visible testimony of purity
+                                    and fidelity. Paris, both spiritual and cultural heart, holds treasures of faith in
+                                    the
+                                    Chapel of the Miraculous Medal, the shrine of Saint Vincent de Paul, the Basilica of
+                                    the Sacred Heart at Montmartre, and Notre-Dame des Victoires.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+        </section>
 
-        </div>
-    </section>
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq" role="region" aria-labelledby="faq-heading">
+            <h2 id="faq-heading">Frequently Asked Questions</h2>
+            <details open class="faq-item" role="group">
+                <summary role="button" aria-expanded="true" aria-controls="faq-en-1">What’s included in the 16-day
+                    France –
+                    Land of Grace pilgrimage?</summary>
+                <div id="faq-en-1" class="faq-content">International flights, 14 hotel nights, ground transport, shrine
+                    admissions, bilingual guide, spiritual accompaniment with daily Mass when possible, plus time for
+                    prayer, adoration, and silence.</div>
+            </details>
+            <details class="faq-item" role="group">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-2">Which sanctuaries and cities will
+                    we
+                    visit?</summary>
+                <div id="faq-en-2" class="faq-content">Lisieux, Mont Saint-Michel, Auray & Vannes,
+                    Saint-Laurent-Sur-Sèvre,
+                    Les Ulmes, Pellevoisin, Rocamadour, Limoges, Lourdes, Avignon & Saint-Maximin-La-Sainte-Baume, La
+                    Salette, Lyon, Ars, Paray-le-Monial, Nevers, and Paris.</div>
+            </details>
+            <details class="faq-item" role="group">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-3">Will there be daily Mass?
+                </summary>
+                <div id="faq-en-3" class="faq-content">Yes, scheduled daily whenever local timings allow, plus Rosary,
+                    adoration when possible, and personal prayer time.</div>
+            </details>
+            <details class="faq-item" role="group">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-4">Where do departures start?
+                </summary>
+                <div id="faq-en-4" class="faq-content">Planned departures from Miami and Bogotá. If you need another
+                    city,
+                    we can help coordinate a connection to join the group.</div>
+            </details>
+            <details class="faq-item" role="group">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-5">What walking level is required?
+                </summary>
+                <div id="faq-en-5" class="faq-content">Moderate—includes hill walks (Mont Saint-Michel), shrine visits,
+                    and
+                    city touring. Wear comfortable shoes and tell us if you need special assistance.</div>
+            </details>
+            <details class="faq-item" role="group">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-6">Can I travel alone and join the
+                    group?
+                </summary>
+                <div id="faq-en-6" class="faq-content">Yes. Solo pilgrims are welcome. We can arrange a single room
+                    (supplement) or attempt to pair with another pilgrim if available.</div>
+            </details>
+        </section>
 
-    <!-- FAQ Section -->
-    <section class="faq-section" id="faq" role="region" aria-labelledby="faq-heading">
-        <h2 id="faq-heading">Frequently Asked Questions</h2>
-        <details open class="faq-item" role="group">
-            <summary role="button" aria-expanded="true" aria-controls="faq-en-1">What’s included in the 16-day France –
-                Land of Grace pilgrimage?</summary>
-            <div id="faq-en-1" class="faq-content">International flights, 14 hotel nights, ground transport, shrine
-                admissions, bilingual guide, spiritual accompaniment with daily Mass when possible, plus time for
-                prayer, adoration, and silence.</div>
-        </details>
-        <details class="faq-item" role="group">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-2">Which sanctuaries and cities will we
-                visit?</summary>
-            <div id="faq-en-2" class="faq-content">Lisieux, Mont Saint-Michel, Auray & Vannes, Saint-Laurent-Sur-Sèvre,
-                Les Ulmes, Pellevoisin, Rocamadour, Limoges, Lourdes, Avignon & Saint-Maximin-La-Sainte-Baume, La
-                Salette, Lyon, Ars, Paray-le-Monial, Nevers, and Paris.</div>
-        </details>
-        <details class="faq-item" role="group">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-3">Will there be daily Mass?</summary>
-            <div id="faq-en-3" class="faq-content">Yes, scheduled daily whenever local timings allow, plus Rosary,
-                adoration when possible, and personal prayer time.</div>
-        </details>
-        <details class="faq-item" role="group">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-4">Where do departures start?</summary>
-            <div id="faq-en-4" class="faq-content">Planned departures from Miami and Bogotá. If you need another city,
-                we can help coordinate a connection to join the group.</div>
-        </details>
-        <details class="faq-item" role="group">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-5">What walking level is required?
-            </summary>
-            <div id="faq-en-5" class="faq-content">Moderate—includes hill walks (Mont Saint-Michel), shrine visits, and
-                city touring. Wear comfortable shoes and tell us if you need special assistance.</div>
-        </details>
-        <details class="faq-item" role="group">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-6">Can I travel alone and join the group?
-            </summary>
-            <div id="faq-en-6" class="faq-content">Yes. Solo pilgrims are welcome. We can arrange a single room
-                (supplement) or attempt to pair with another pilgrim if available.</div>
-        </details>
-    </section>
+        <!-- Elegant Contact Section -->
 
-    <!-- Elegant Contact Section -->
+        <div id="contact-section-container"></div>
+    </main>
 
-  <div id="contact-section-container"></div>
-  </main>
-
-  <div id="footer-container"></div>
+    <div id="footer-container"></div>
 
     <style>
         /* Tab styling to match Spanish version */
@@ -880,17 +926,17 @@
         }
     </style>
 
-  <!-- Load the unified navigation system first -->
-  <script src="js/navigation.min.js" defer></script>
+    <!-- Load the unified navigation system first -->
+    <script src="js/navigation.min.js" defer></script>
 
-  <!-- Load the language switcher -->
-  <script src="js/elegant-language-switcher.min.js" defer></script>
+    <!-- Load the language switcher -->
+    <script src="js/elegant-language-switcher.min.js" defer></script>
 
-  <!-- Contact tracking and form handler -->
-  <script src="js/contact-tracking.min.js" defer></script>
+    <!-- Contact tracking and form handler -->
+    <script src="js/contact-tracking.min.js" defer></script>
 
-  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
-  <script src="js/page-init.min.js?v=20260204c" defer></script>
+    <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+    <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 
 </html>

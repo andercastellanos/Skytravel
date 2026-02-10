@@ -54,12 +54,22 @@
     <link rel="stylesheet" href="style.css">
     <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
     <style>
-        .slideshow .slide { display: none; }
-        .slideshow .slide:first-child { display: block; }
-        .slideshow.slick-initialized .slide { display: block; }
+        .slideshow .slide {
+            display: none;
+        }
+
+        .slideshow .slide:first-child {
+            display: block;
+        }
+
+        .slideshow.slick-initialized .slide {
+            display: block;
+        }
     </style>
     <link rel="preload" href="css/components.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="css/components.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="css/components.css">
+    </noscript>
     <style>
         /* Accessibility: Skip link */
         .skip-link {
@@ -285,7 +295,9 @@
         <div class="nav-container">
             <nav aria-label="Navegación principal">
                 <a href="/index-es" class="logo">
-                    <img src="imagesWebp/Logo.webp" alt="Logo de Sky Travel" class="logo-image">
+                    <img src="imagesWebp/Logo.webp" alt="Sky Travel - Logo de Agencia de Peregrinaciones Espirituales"
+                        class="logo-image" width="200" height="200" style="width: 100px; height: auto;" loading="eager"
+                        decoding="async">
                 </a>
                 <div class="nav-links" id="nav-links">
                     <a href="/index-es" class="nav-item">Destinos</a>
@@ -297,8 +309,7 @@
                     <div class="language-switcher">
                         <a href="https://www.skytraveljm.com/medjugorje2026" class="lang-option">EN</a>
                         <span class="lang-separator">|</span>
-                        <a href="https://www.skytraveljm.com/medjugorje2026-es"
-                            class="lang-option active-lang">ES</a>
+                        <a href="https://www.skytraveljm.com/medjugorje2026-es" class="lang-option active-lang">ES</a>
                     </div>
                 </div>
                 <button type="button" class="menu-toggle" aria-label="Alternar navegación" aria-expanded="false"
@@ -384,8 +395,9 @@
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje105-mobile-800.webp 800w,
                  imagesWebp/Medjugorje/medjugorje105-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/medjugorje105-desktop-1200.webp" alt="Confesionario del Mundo en Medjugorje"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                        src="imagesWebp/Medjugorje/medjugorje105-desktop-1200.webp"
+                        alt="Confesionario del Mundo en Medjugorje" width="1200" height="1363" loading="lazy"
+                        decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje106-mobile-800.webp 800w,
@@ -719,23 +731,23 @@
 
         <!-- Elegant Contact Section -->
 
-  <div id="contact-section-container"></div>
+        <div id="contact-section-container"></div>
 
 
     </main>
 
-  <div id="footer-container"></div>
-  <!-- Load the unified navigation system first -->
-  <script src="js/navigation.min.js" defer></script>
+    <div id="footer-container"></div>
+    <!-- Load the unified navigation system first -->
+    <script src="js/navigation.min.js" defer></script>
 
-  <!-- Load the language switcher -->
-  <script src="js/elegant-language-switcher.min.js" defer></script>
+    <!-- Load the language switcher -->
+    <script src="js/elegant-language-switcher.min.js" defer></script>
 
-  <!-- Contact tracking and form handler -->
-  <script src="js/contact-tracking.min.js" defer></script>
+    <!-- Contact tracking and form handler -->
+    <script src="js/contact-tracking.min.js" defer></script>
 
-  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
-  <script src="js/page-init.min.js?v=20260204c" defer></script>
+    <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+    <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 
 </html>
