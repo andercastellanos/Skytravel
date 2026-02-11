@@ -473,9 +473,72 @@
       },
       {
         "@type": "Event",
+        "@id": "https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html#event-2026-03-29",
         "name": "Peregrinación a Medjugorje 2026–2027",
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "startDate": "2026-03-29",
+        "endDate": "2026-04-06",
+        "location": {
+          "@type": "Place",
+          "name": "Medjugorje",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Medjugorje",
+            "addressCountry": "BA"
+          }
+        },
+        "organizer": { "@id": "https://www.skytraveljm.com#organization" },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Desde Estados Unidos",
+            "price": "1999",
+            "priceCurrency": "EUR",
+            "url": "https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html",
+            "availability": "https://schema.org/LimitedAvailability"
+          }
+        ],
+        "description": "Peregrinación católica a Medjugorje 2026–2027 con acompañamiento espiritual, Misa diaria y guía en español."
+      },
+      {
+        "@type": "Event",
+        "@id": "https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html#event-2026-09-17",
+        "name": "Peregrinación a Medjugorje 2026–2027",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "startDate": "2026-09-17",
+        "endDate": "2026-09-25",
+        "location": {
+          "@type": "Place",
+          "name": "Medjugorje",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Medjugorje",
+            "addressCountry": "BA"
+          }
+        },
+        "organizer": { "@id": "https://www.skytraveljm.com#organization" },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Desde Estados Unidos",
+            "price": "1999",
+            "priceCurrency": "EUR",
+            "url": "https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html",
+            "availability": "https://schema.org/LimitedAvailability"
+          }
+        ],
+        "description": "Peregrinación católica a Medjugorje 2026–2027 con acompañamiento espiritual, Misa diaria y guía en español."
+      },
+      {
+        "@type": "Event",
+        "@id": "https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html#event-2026-10-17",
+        "name": "Peregrinación a Medjugorje 2026–2027",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "startDate": "2026-10-17",
+        "endDate": "2026-10-25",
         "location": {
           "@type": "Place",
           "name": "Medjugorje",
@@ -598,10 +661,10 @@
           },
           {
             "@type": "Question",
-            "name": "¿Qué clima hace en Medjugorje?",
+            "name": "¿El precio de €1,999 es por persona y qué incluye?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "El clima varía según la fecha del viaje. Clima esperado: [CLIMA]. Le enviaremos recomendaciones de ropa y calzado."
+              "text": "Sí. El precio es €1,999 por persona e incluye porción terrestre y vuelo aéreo, 7 noches de alojamiento, comidas, traslados, visitas del itinerario, guía y acompañamiento espiritual."
             }
           },
           {
@@ -1090,9 +1153,9 @@
       </details>
 
       <details class="faq-item">
-        <summary>¿Qué clima hace en Medjugorje?</summary>
-        <div class="faq-content">El clima varía según la fecha del viaje; antes de la salida le enviaremos la
-          información necesaria y recomendaciones de ropa y calzado de acuerdo con el clima esperado.</div>
+        <summary>¿El precio de €1,999 es por persona y qué incluye?</summary>
+        <div class="faq-content">Sí. El precio es €1,999 por persona e incluye porción terrestre y vuelo aéreo, 7 noches
+          de alojamiento, comidas, traslados, visitas del itinerario, guía y acompañamiento espiritual.</div>
       </details>
 
       <details class="faq-item">
@@ -1431,6 +1494,7 @@
   <!-- Navigation -->
   <script src="js/navigation.js" defer></script>
   <script src="js/elegant-language-switcher.js" defer></script>
+  <script src="js/contact-tracking.min.js" defer></script>
 
   <!-- GA4 CTA + Form event tracking -->
   <script>
@@ -1454,9 +1518,40 @@
       fireGtagEvent(eventName, { section: cta.dataset.section || '' });
     });
 
+    function isLikelyValidLeadForm(form) {
+      if (!form) return false;
+      if (typeof form.checkValidity === 'function' && !form.checkValidity()) return false;
+
+      var requiredIds = ['firstName', 'lastName', 'email', 'phone', 'preferredContact', 'pilgrimageInterest'];
+      for (var i = 0; i < requiredIds.length; i++) {
+        var field = form.querySelector('#' + requiredIds[i]);
+        if (!field || !String(field.value || '').trim()) return false;
+      }
+
+      var emailField = form.querySelector('#email');
+      var emailValue = String(emailField.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) return false;
+
+      var phoneField = form.querySelector('#phone');
+      var cleanedPhone = String(phoneField.value || '').replace(/[\s\-\(\)]/g, '');
+      if (!/^\+?\d{7,15}$/.test(cleanedPhone)) return false;
+
+      var pilgrimageField = form.querySelector('#pilgrimageInterest');
+      if (String(pilgrimageField.value || '').trim().length < 2) return false;
+
+      var consentField = form.querySelector('#consentContact');
+      if (!consentField || !consentField.checked) return false;
+
+      var honeypotField = form.querySelector('#website');
+      if (honeypotField && String(honeypotField.value || '').trim()) return false;
+
+      return true;
+    }
+
     var contactForm = document.getElementById('contact-form');
     if (contactForm) {
       contactForm.addEventListener('submit', function () {
+        if (!isLikelyValidLeadForm(contactForm)) return;
         fireGtagEvent('form_submit', { section: 'contact-form' });
       });
     }
