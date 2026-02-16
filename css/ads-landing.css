@@ -1,0 +1,424 @@
+/* ──────────────────────────────────────────────────────
+   Ads Landing – Medjugorje 2026-2027
+   Layout helpers & section-specific styles.
+   Visual base comes from style.css
+   Critical above-fold (hero, CTAs, sticky bar) is
+   inlined in the HTML <style> for LCP performance.
+   ────────────────────────────────────────────────────── */
+
+body.ads-landing {
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Section rhythm: consistent max-width and padding */
+.ads-landing main > section:not(.ads-hero):not(.contact-section):not(.internal-links) {
+  padding: 3.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Breadcrumb ──────────────────────────────────────── */
+
+.breadcrumb-nav {
+  max-width: 1400px;
+  margin: 90px auto 0;
+  padding: 1rem 2rem 0;
+}
+
+.breadcrumb-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.breadcrumb-list li + li::before {
+  content: "\203A";
+  margin: 0 0.5rem;
+  color: #c8a97e;
+}
+
+.breadcrumb-list a {
+  color: #333;
+  text-decoration: none;
+}
+
+.breadcrumb-list a:hover {
+  color: #c8a97e;
+}
+
+/* ── CTA helpers (base CTA rules live in inline <style>) */
+
+.cta-btn--mid {
+  margin-top: 0.5rem;
+}
+
+.cta-btn svg {
+  flex-shrink: 0;
+}
+
+.inline-whatsapp-link {
+  color: #25D366;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* ── Lo Esencial ─────────────────────────────────────── */
+
+.essentials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .essentials-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.essential-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.essential-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.essential-value {
+  color: #555;
+  line-height: 1.6;
+}
+
+.essential-value--price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* ── Departures ──────────────────────────────────────── */
+
+.ads-departures__lead {
+  text-align: center;
+  font-weight: 600;
+  color: #555;
+  margin-top: -0.5rem;
+}
+
+.ads-departures__details {
+  margin-top: 1rem;
+}
+
+.ads-departures__details p {
+  margin-bottom: 0.5rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ── Itinerary ───────────────────────────────────────── */
+
+.ads-itinerary__intro {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 1.5rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+.itinerary-day {
+  border-left: 3px solid #c8a97e;
+  margin-bottom: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: #fafafa;
+}
+
+.itinerary-day summary {
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #333;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.itinerary-day__content ul {
+  margin: 0.75rem 0 0 1.1rem;
+  padding: 0;
+  line-height: 1.7;
+  color: #555;
+}
+
+.ads-mid-cta {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* ── Includes / Excludes ─────────────────────────────── */
+
+.includes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .includes-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.includes-column {
+  border: 1px solid #eee;
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+}
+
+.includes-column--yes {
+  border-left: 3px solid #28a745;
+}
+
+.includes-column--no {
+  border-left: 3px solid #dc3545;
+}
+
+.includes-column h3 {
+  margin-top: 0;
+}
+
+.includes-column ul {
+  margin: 0.75rem 0 0 1.1rem;
+  padding: 0;
+  line-height: 1.7;
+}
+
+/* ── Payment ─────────────────────────────────────────── */
+
+.payment-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .payment-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.payment-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-top: 3px solid #c8a97e;
+  padding: 1.5rem;
+}
+
+.payment-card h3 {
+  margin-top: 0;
+}
+
+.payment-card__price {
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.payment-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  line-height: 1.7;
+}
+
+.payment-note {
+  margin-top: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ── Trust ───────────────────────────────────────────── */
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .trust-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.trust-card {
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  background: #fafafa;
+  color: #444;
+}
+
+.trust-card h3 {
+  margin-top: 0;
+  color: #1a1a2e;
+}
+
+.trust-card ul {
+  margin: 0.75rem 0 0 1.1rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+/* ── Documents ───────────────────────────────────────── */
+
+.documents-list {
+  margin: 0.75rem 0 0 1.1rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+/* ── Testimonials ────────────────────────────────────── */
+
+.testimonials-note {
+  text-align: center;
+  color: #666;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Override the dark-background testimonial-card from style.css */
+.ads-landing .testimonial-card {
+  flex: unset;
+  min-width: unset;
+  border: 1px solid #eee;
+  border-radius: 0;
+  padding: 1.25rem;
+  background: #fff;
+  color: #444;
+}
+
+.ads-landing .testimonial-meta {
+  font-weight: 600;
+  color: #333;
+}
+
+/* ── FAQ ──────────────────────────────────────────────── */
+
+.faq-item {
+  border-left: 3px solid #c8a97e;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #fafafa;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #333;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+}
+
+.faq-content {
+  margin-top: 0.5rem;
+  color: #555;
+  line-height: 1.7;
+  padding-bottom: 0.25rem;
+}
+
+/* ── Final CTA ───────────────────────────────────────── */
+
+.ads-final-cta {
+  text-align: center;
+}
+
+.final-cta-lead {
+  color: #555;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ads-final-cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .ads-final-cta__buttons {
+    flex-direction: column;
+  }
+}
+
+/* ── Closing reassurance ─────────────────────────────── */
+
+.ads-closing-reassurance {
+  text-align: center;
+  padding: 1rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ── Internal links ──────────────────────────────────── */
+
+.internal-links {
+  padding: 1.5rem 2rem;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.internal-links .section-title {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: #555;
+  font-weight: 600;
+  letter-spacing: 0;
+  padding-bottom: 0;
+}
+
+.internal-links .section-title::after {
+  display: none;
+}
+
+.internal-links p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+.internal-link {
+  color: #6b4a1f;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.internal-link:hover,
+.internal-link:focus {
+  text-decoration: underline;
+  color: #c8a97e;
+}

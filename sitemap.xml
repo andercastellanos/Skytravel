@@ -64,7 +64,7 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje2026-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje2026"/>
     <image:image>
-      <image:loc>https://www.skytraveljm.com/images/Medjugorje/MedjugorjeVirgin.jpg</image:loc>
+      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
     </image:image>
   </url>
 
@@ -77,7 +77,35 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje2026-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje2026"/>
     <image:image>
-      <image:loc>https://www.skytraveljm.com/images/Medjugorje/MedjugorjeVirgin.jpg</image:loc>
+      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
+    </image:image>
+  </url>
+
+  <!-- Medjugorje 2026–2027 Ads Landing (Spanish) -->
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
+    </image:image>
+  </url>
+
+  <!-- Medjugorje 2026–2027 Ads Landing (English) -->
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
     </image:image>
   </url>
 
@@ -215,6 +243,70 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/about"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/about-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/about"/>
+  </url>
+
+  <!-- ================================= -->
+  <!-- BLOG PAGES - CONTENT HUB -->
+  <!-- ================================= -->
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog-es</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/god-prepares-two-hearts</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/suitable-help</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/ayuda-adecuada</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
   </url>
 
   <!-- ================================= -->

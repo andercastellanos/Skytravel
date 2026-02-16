@@ -30,7 +30,8 @@
     <meta property="og:site_name" content="Sky Travel">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="es_ES">
-    <meta property="og:image" content="https://www.skytraveljm.com/images/SantuariosMarianos/lourdesvirgin.jpg">
+    <meta property="og:image"
+        content="https://www.skytraveljm.com/images/SantuariosMarianos/imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Statue of the Virgin Mary in Lourdes">
@@ -40,23 +41,35 @@
     <meta name="twitter:title" content="2026 Marian Pilgrimage | Catholic Pilgrimage">
     <meta name="twitter:description"
         content="12-Day Marian Shrines Pilgrimage | September 2026 Visit Fatima, Salamanca, Covadonga, Lourdes, Zaragoza, and Madrid.">
-    <meta name="twitter:image" content="https://www.skytraveljm.com/images/SantuariosMarianos/lourdesvirgin.jpg">
+    <meta name="twitter:image"
+        content="https://www.skytraveljm.com/images/SantuariosMarianos/imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp">
 
     <!-- Preconnect / Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="images/SantuariosMarianos/lourdesvirgin.jpg" as="image">
+    <link rel="preload" href="images/SantuariosMarianos/imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp"
+        as="image">
 
     <link rel="stylesheet" href="style.css">
     <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
     <style>
-        .slideshow .slide { display: none; }
-        .slideshow .slide:first-child { display: block; }
-        .slideshow.slick-initialized .slide { display: block; }
+        .slideshow .slide {
+            display: none;
+        }
+
+        .slideshow .slide:first-child {
+            display: block;
+        }
+
+        .slideshow.slick-initialized .slide {
+            display: block;
+        }
     </style>
     <link rel="preload" href="css/components.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="css/components.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="css/components.css">
+    </noscript>
 
     <!-- JSON-LD -->
     <script type="application/ld+json">
@@ -86,12 +99,12 @@
    "duration":"P12D",
    "provider":{"@type":"TravelAgency","name":"Sky Travel","url":"https://www.skytraveljm.com"},
    "image":[
-     "https://www.skytraveljm.com/images/SantuariosMarianos/lourdesvirgin.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/SantuarioFatima.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/Covadonga.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/zaragoza.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/Salamanca.jpg",
-     "https://www.skytraveljm.com/images/SantuariosMarianos/madrid.jpg"
+     "https://www.skytraveljm.com/images/SantuariosMarianos/imagesWebp/SantuariosMarianos/lourdesvirgin-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/Covadonga-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/zaragoza-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/Salamanca-1200.webp",
+     "https://www.skytraveljm.com/imagesWebp/SantuariosMarianos/madrid-1200.webp"
    ],
    "itinerary":[
      {"@type":"Place","name":"Fatima","address":{"@type":"PostalAddress","addressLocality":"Fatima","addressCountry":"PT"}},
@@ -150,18 +163,20 @@
 </head>
 
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Navigation Bar -->
     <div class="nav-container">
         <nav>
             <a href="/" class="logo">
-                <img src="images/Logo.jpg" alt="Sky Travel Logo" class="logo-image">
+                <img src="imagesWebp/Logo.webp" alt="Sky Travel - Luxury Spiritual Pilgrimage Travel Agency Logo"
+                    class="logo-image" width="200" height="200" style="width: 100px; height: auto;" loading="eager"
+                    decoding="async">
             </a>
             <div class="nav-links" id="nav-links">
                 <a href="/" class="nav-item">Destinations</a>
                 <a href="experiences" class="nav-item">Experiences</a>
-        <a href="blog" class="nav-item">Blog</a>
+                <a href="blog" class="nav-item">Blog</a>
                 <a href="about" class="nav-item">About</a>
                 <a href="testimony/testimonials" class="nav-item">Testimonials</a>
                 <a href="contact" class="nav-item">Contact</a>
@@ -178,562 +193,666 @@
         </nav>
     </div>
 
-  <main id="main-content">
+    <main id="main-content">
 
-    <!-- Destination header with image carousel -->
-    <div class="destination-header">
-        <div class="slideshow">
-            <!-- Slides -->
-            <div class="slide active">
-                <img srcset="imagesWebp/SantuariosMarianos/lourdesvirgin-800.webp 800w,
-                imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp 1600w" 
-                sizes="(max-width: 768px) 100vw, 1600px"
-                src="imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp" 
-                alt="Statue of Our Lady of Lourdes with a white robe and blue sash, located in the stone niche of the Grotto of Massabielle."
-                width="1600" height="900" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/Salamanca-800.webp 800w,
-                imagesWebp/SantuariosMarianos/Salamanca-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/Salamanca-1200.webp" 
-                alt="Historic urban landscape of Salamanca, Spain, highlighting the Gothic and Baroque architecture of its old town, a World Heritage Site."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/SantuarioFatima-800.webp 800w,
-                imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp" 
-                alt="White facade of the Basilica of Fatima with its tall central tower and side colonnades surrounding the prayer square."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/Covadonga-800.webp 800w,
-                imagesWebp/SantuariosMarianos/Covadonga-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/Covadonga-1200.webp" 
-                alt="The Santina in the Holy Cave of Covadonga, located in a natural niche above a waterfall in the heart of the Asturias mountains."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/cangaonis-800.webp 800w,
-                imagesWebp/SantuariosMarianos/cangaonis-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/cangaonis-1200.webp" 
-                alt="Medieval bridge of Cangas de Onís, symbol of Asturias and gateway to the Picos de Europa, topped by the iconic Victory Cross."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/zaragoza-800.webp 800w,
-                imagesWebp/SantuariosMarianos/zaragoza-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/zaragoza-1200.webp" 
-                alt="View of the Basilica of Our Lady of the Pillar in Zaragoza, with its iconic colorful tiled domes and tall towers on the banks of the Ebro River, next to the historic Stone Bridge under a clear sky."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/madrid-800.webp 800w,
-                imagesWebp/SantuariosMarianos/madrid-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/madrid-1200.webp" 
-                alt="Madrid from above: a sea of reddish rooftops and majestic domes telling the history of Spain's capital under the golden light of the plateau."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/lagoscovadonga-800.webp 800w,
-                imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp" 
-                alt="Landscape of the Lakes of Covadonga, Asturias, a natural treasure in northern Spain."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/fatima-800.webp 800w,
-                imagesWebp/SantuariosMarianos/fatima-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/fatima-1200.webp" 
-                alt="Basilica of Our Lady of the Rosary in Fatima, Lisbon." 
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/covadonga1-800.webp 800w,
-                imagesWebp/SantuariosMarianos/covadonga1-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/covadonga1-1200.webp" 
-                alt="The Basilica of Covadonga in Asturias, Spain." 
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/salamanca-800.webp 800w,
-                imagesWebp/SantuariosMarianos/salamanca-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/salamanca-1200.webp" 
-                alt="Salamanca, a city of golden stone in Spain."
-                width="1200" height="675" loading="lazy" decoding="async">
-            </div>
-            <div class="slide">
-                <img srcset="imagesWebp/SantuariosMarianos/puertaAlcala-800.webp 800w,
-                imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp 1200w" 
-                sizes="(max-width: 768px) 100vw, 1200px"
-                src="imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp" 
-                alt="The Puerta de Alcalá in Madrid, a neoclassical granite monument with five arches and sculptural details under a blue sky in Madrid, Spain."
-                width="1200" height="675" loading="lazy" decoding="async">
+        <!-- Destination header with image carousel -->
+        <div class="destination-header">
+            <div class="slideshow">
+                <!-- Slides -->
+                <div class="slide active">
+                    <img srcset="imagesWebp/SantuariosMarianos/lourdesvirgin-800.webp 800w,
+                imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp 1600w" sizes="(max-width: 768px) 100vw, 1600px"
+                        src="imagesWebp/SantuariosMarianos/lourdesvirgin-1600.webp"
+                        alt="Statue of Our Lady of Lourdes with a white robe and blue sash, located in the stone niche of the Grotto of Massabielle."
+                        width="1600" height="900" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/Salamanca-800.webp 800w,
+                imagesWebp/SantuariosMarianos/Salamanca-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/Salamanca-1200.webp"
+                        alt="Historic urban landscape of Salamanca, Spain, highlighting the Gothic and Baroque architecture of its old town, a World Heritage Site."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/SantuarioFatima-800.webp 800w,
+                imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/SantuarioFatima-1200.webp"
+                        alt="White facade of the Basilica of Fatima with its tall central tower and side colonnades surrounding the prayer square."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/Covadonga-800.webp 800w,
+                imagesWebp/SantuariosMarianos/Covadonga-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/Covadonga-1200.webp"
+                        alt="The Santina in the Holy Cave of Covadonga, located in a natural niche above a waterfall in the heart of the Asturias mountains."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/cangaonis-800.webp 800w,
+                imagesWebp/SantuariosMarianos/cangaonis-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/cangaonis-1200.webp"
+                        alt="Medieval bridge of Cangas de Onís, symbol of Asturias and gateway to the Picos de Europa, topped by the iconic Victory Cross."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/zaragoza-800.webp 800w,
+                imagesWebp/SantuariosMarianos/zaragoza-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/zaragoza-1200.webp"
+                        alt="View of the Basilica of Our Lady of the Pillar in Zaragoza, with its iconic colorful tiled domes and tall towers on the banks of the Ebro River, next to the historic Stone Bridge under a clear sky."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/madrid-800.webp 800w,
+                imagesWebp/SantuariosMarianos/madrid-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/madrid-1200.webp"
+                        alt="Madrid from above: a sea of reddish rooftops and majestic domes telling the history of Spain's capital under the golden light of the plateau."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/lagoscovadonga-800.webp 800w,
+                imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/lagoscovadonga-1200.webp"
+                        alt="Landscape of the Lakes of Covadonga, Asturias, a natural treasure in northern Spain."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/fatima-800.webp 800w,
+                imagesWebp/SantuariosMarianos/fatima-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/fatima-1200.webp"
+                        alt="Basilica of Our Lady of the Rosary in Fatima, Lisbon." width="1200" height="675"
+                        loading="lazy" decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/covadonga1-800.webp 800w,
+                imagesWebp/SantuariosMarianos/covadonga1-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/covadonga1-1200.webp"
+                        alt="The Basilica of Covadonga in Asturias, Spain." width="1200" height="675" loading="lazy"
+                        decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/salamanca-800.webp 800w,
+                imagesWebp/SantuariosMarianos/salamanca-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/salamanca-1200.webp"
+                        alt="Salamanca, a city of golden stone in Spain." width="1200" height="675" loading="lazy"
+                        decoding="async">
+                </div>
+                <div class="slide">
+                    <img srcset="imagesWebp/SantuariosMarianos/puertaAlcala-800.webp 800w,
+                imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/SantuariosMarianos/puertaAlcala-1200.webp"
+                        alt="The Puerta de Alcalá in Madrid, a neoclassical granite monument with five arches and sculptural details under a blue sky in Madrid, Spain."
+                        width="1200" height="675" loading="lazy" decoding="async">
+                </div>
+
+                <!-- Navigation arrows --><!-- Slide indicators (match number of slides) -->
             </div>
 
-            <!-- Navigation arrows --><!-- Slide indicators (match number of slides) --></div>
-
-        <div class="header-content">
-            <div class="header-text">
-                <h1>Marian Pilgrimage 2026</h1>
-                <p>Experience the grace of the Marian Shrines</p>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Marian Pilgrimage 2026</h1>
+                    <p>Experience the grace of the Marian Shrines</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Trip Details Section -->
-    <section class="trip-details">
-        <p>Enjoy a 12-day Catholic pilgrimage through the Marian shrines of Fatima, Salamanca,
-            Covadonga, Lourdes, Zaragoza, and Madrid, featuring daily Mass and moments of deep reflection.</p>
+        <!-- Trip Details Section -->
+        <section class="trip-details">
+            <p>Enjoy a 12-day Catholic pilgrimage through the Marian shrines of Fatima, Salamanca,
+                Covadonga, Lourdes, Zaragoza, and Madrid, featuring daily Mass and moments of deep reflection.</p>
 
-        <div class="trip-dates">
-            <h3>Travel Dates: September 5 – 16, 2026 • 12 Days / 11 Nights</h3>
-        </div>
-        <div class="highlights">
-            <div class="highlight-card">
-                <h3>From Miami</h3>
-                <p>$4,199 per person</p>
-                <ul class="highlight-list">
-                    <li>Round-trip flights included</li>
-                    <li>10 nights of accommodation</li>
-                    <li>Half-board meal plan</li>
-                    <li>Ground transportation</li>
-                    <li>Entrance fees to mentioned sites</li>
-                    <li>Professional tour guide</li>
-                </ul>
+            <div class="trip-dates">
+                <h3>Travel Dates: September 5 – 16, 2026 • 12 Days / 11 Nights</h3>
             </div>
-            <div class="highlight-card">
-                <h3>From Bogota</h3>
-                <p>$4,399 per person</p>
-                <ul class="highlight-list">
-                    <li>Round-trip flights included</li>
-                    <li>10 nights of accommodation</li>
-                    <li>Half-board meal plan</li>
-                    <li>Ground transportation</li>
-                    <li>Entrance fees to mentioned sites</li>
-                    <li>Professional tour guide</li>
-                </ul>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <h3>From Miami</h3>
+                    <p>$4,199 per person</p>
+                    <ul class="highlight-list">
+                        <li>Round-trip flights included</li>
+                        <li>10 nights of accommodation</li>
+                        <li>Half-board meal plan</li>
+                        <li>Ground transportation</li>
+                        <li>Entrance fees to mentioned sites</li>
+                        <li>Professional tour guide</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <h3>From Bogota</h3>
+                    <p>$4,399 per person</p>
+                    <ul class="highlight-list">
+                        <li>Round-trip flights included</li>
+                        <li>10 nights of accommodation</li>
+                        <li>Half-board meal plan</li>
+                        <li>Ground transportation</li>
+                        <li>Entrance fees to mentioned sites</li>
+                        <li>Professional tour guide</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <h3>Spiritual Guidance</h3>
+                    <p>Complete accompaniment including:</p>
+                    <ul class="highlight-list">
+                        <li>Professional tour guide</li>
+                        <li>Spiritual direction by a priest</li>
+                        <li>All scheduled visits included</li>
+                        <li>Opportunities for daily Mass</li>
+                        <li>Time for prayer and reflection</li>
+                        <li>Group spiritual activities</li>
+                    </ul>
+                </div>
             </div>
-            <div class="highlight-card">
-                <h3>Spiritual Guidance</h3>
-                <p>Complete accompaniment including:</p>
-                <ul class="highlight-list">
-                    <li>Professional tour guide</li>
-                    <li>Spiritual direction by a priest</li>
-                    <li>All scheduled visits included</li>
-                    <li>Opportunities for daily Mass</li>
-                    <li>Time for prayer and reflection</li>
-                    <li>Group spiritual activities</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Detailed Information Section -->
-    <section class="destination-info">
-        <h2>Journey Details</h2>
-        <div class="info-container">
-            <div class="info-section">
-                <h3>Fatima</h3>
+        <!-- Detailed Information Section -->
+        <section class="destination-info">
+            <h2>Journey Details</h2>
+            <div class="info-container">
+                <div class="info-section">
+                    <h3>Fatima</h3>
 
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="stjames-experience">Experience</button>
-                        <button class="tab-button" data-tab="stjames-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="stjames-experience">
-                            <p>The Sanctuary of Fátima is a place essentially dedicated to prayer, where the Holy
-                                Rosary, requested by the Virgin to the three little shepherds, occupies a central place
-                                as an offering for world peace. Pilgrims usually participate in praying the Rosary at
-                                the Capelinha, in the daily Eucharist, and in the traditional candlelight procession,
-                                experiences that deeply mark their visit.</p>
-                            <p>The Sanctuary offers numerous spaces for worship and encounter with God, highlighting the
-                                Basilica of Our Lady of the Rosary of Fátima and the Basilica of the Most Holy Trinity,
-                                with capacity for 9,000 faithful. Between both extends a large esplanade destined for
-                                communal prayer and massive celebrations.</p>
-                            <p>Additionally, it features chapels dedicated to different moments in the life of Christ,
-                                as well as places for Reconciliation and Perpetual Adoration, providing pilgrims with
-                                multiple opportunities to live a profound experience of faith.</p>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="stjames-experience">Experience</button>
+                            <button class="tab-button" data-tab="stjames-history">History</button>
                         </div>
-                        <div class="tab-pane" id="stjames-history">
-                            <p>The devotion of recent pontiffs toward Fátima has been especially significant,
-                                particularly that of Saint John Paul II, who after the assassination attempt on May 13,
-                                1981, attributed his survival to the protection of the Virgin, stating that "a maternal
-                                hand" had deflected the bullet. Years later, the projectile was offered to the Sanctuary
-                                and placed in the crown of the image of Our Lady of the Rosary of Fátima.</p>
-                            <p>Saint John Paul II made pilgrimages to Fátima on three occasions: 1982, 1991, and 2000.
-                                Other pontiffs joined him: Paul VI in 1967, on the occasion of the fiftieth anniversary
-                                of the apparitions; Benedict XVI in 2010; and Pope Francis in 2017, during the centenary
-                                of the Marian apparitions.</p>
-                            <p>Among the places linked to the apparitions stands out the Chapel of the Apparitions, the
-                                spiritual center of the Sanctuary, where the Virgin appeared five times to the three
-                                little shepherds. Other spaces of great historical and spiritual value also stand out,
-                                such as Loca do Cabeço, the Arneiro Well, and Valinhos, linked to extraordinary events.
-                            </p>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="stjames-experience">
+                                <p>The Sanctuary of Fátima is a place essentially dedicated to prayer, where the Holy
+                                    Rosary, requested by the Virgin to the three little shepherds, occupies a central
+                                    place
+                                    as an offering for world peace. Pilgrims usually participate in praying the Rosary
+                                    at
+                                    the Capelinha, in the daily Eucharist, and in the traditional candlelight
+                                    procession,
+                                    experiences that deeply mark their visit.</p>
+                                <p>The Sanctuary offers numerous spaces for worship and encounter with God, highlighting
+                                    the
+                                    Basilica of Our Lady of the Rosary of Fátima and the Basilica of the Most Holy
+                                    Trinity,
+                                    with capacity for 9,000 faithful. Between both extends a large esplanade destined
+                                    for
+                                    communal prayer and massive celebrations.</p>
+                                <p>Additionally, it features chapels dedicated to different moments in the life of
+                                    Christ,
+                                    as well as places for Reconciliation and Perpetual Adoration, providing pilgrims
+                                    with
+                                    multiple opportunities to live a profound experience of faith.</p>
+                            </div>
+                            <div class="tab-pane" id="stjames-history">
+                                <p>The devotion of recent pontiffs toward Fátima has been especially significant,
+                                    particularly that of Saint John Paul II, who after the assassination attempt on May
+                                    13,
+                                    1981, attributed his survival to the protection of the Virgin, stating that "a
+                                    maternal
+                                    hand" had deflected the bullet. Years later, the projectile was offered to the
+                                    Sanctuary
+                                    and placed in the crown of the image of Our Lady of the Rosary of Fátima.</p>
+                                <p>Saint John Paul II made pilgrimages to Fátima on three occasions: 1982, 1991, and
+                                    2000.
+                                    Other pontiffs joined him: Paul VI in 1967, on the occasion of the fiftieth
+                                    anniversary
+                                    of the apparitions; Benedict XVI in 2010; and Pope Francis in 2017, during the
+                                    centenary
+                                    of the Marian apparitions.</p>
+                                <p>Among the places linked to the apparitions stands out the Chapel of the Apparitions,
+                                    the
+                                    spiritual center of the Sanctuary, where the Virgin appeared five times to the three
+                                    little shepherds. Other spaces of great historical and spiritual value also stand
+                                    out,
+                                    such as Loca do Cabeço, the Arneiro Well, and Valinhos, linked to extraordinary
+                                    events.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="info-section">
-                <h3>Valinhos y Aljustrel</h3>
+                <div class="info-section">
+                    <h3>Valinhos y Aljustrel</h3>
 
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="apparition-experience">Experience</button>
-                        <button class="tab-button" data-tab="apparition-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="apparition-experience">
-                            <p>The Way of the Cross of Valinhos invites pilgrims to walk a path marked by silence,
-                                nature, and prayer, which leads to the homes where the little shepherds lived in
-                                Aljustrel. Along the way, each station offers a suitable space to stop, pray, and
-                                meditate, fostering deep reflection on the simplicity of life and the trusting surrender
-                                of the visionaries. This experience is enriched by visits to other significant places
-                                such as Loca do Cabeço and the Arneiro Well, scenes of the little shepherds' daily life
-                                and decisive encounters with God. These are paths that invite unhurried prayer,
-                                contemplation, and a deeper experience of the message of Fátima, allowing pilgrims to
-                                walk both outwardly and inwardly, accompanied by faith and recollection.</p>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="apparition-experience">Experience</button>
+                            <button class="tab-button" data-tab="apparition-history">History</button>
                         </div>
-                        <div class="tab-pane" id="apparition-history">
-                            <p>Valinhos and Aljustrel occupy a central place in the history of the apparitions of
-                                Fátima. In Valinhos and its surroundings, some of the most significant encounters with
-                                the Angel of Portugal and the Virgin Mary took place, events that deepened the message
-                                of prayer, conversion, and trust in God entrusted to the three little shepherds. These
-                                places, marked by the silence and simplicity of the countryside, preserve to this day
-                                the recollected character that accompanied those manifestations.</p>
-                            <p>For its part, Aljustrel houses the original homes of Lúcia, Francisco, and Jacinta,
-                                humble dwellings that bear witness to the simple, family-oriented, and deeply faithful
-                                life of the visionaries. Visiting these spaces allows for a better understanding of the
-                                human context in which the apparitions took place and how, from a simple reality, a
-                                message emerged that would profoundly mark the history of the Church.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="info-section">
-                <h3>Salamanca</h3>
-
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="cross-experience">Experience</button>
-                        <button class="tab-button" data-tab="cross-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="cross-experience">
-                            <p>In Salamanca, pilgrims can immerse themselves in a university and cultural atmosphere,
-                                walking through its golden stone streets that reflect centuries of history, thought, and
-                                faith. The guided tour of the two Cathedrals, together with the historic center, allows
-                                visitors to contemplate a valuable heritage where art, architecture, and spirituality
-                                intertwine in a unique setting.</p>
-                            <p>The itinerary is enriched by a visit to the University of Salamanca, one of the oldest in
-                                Europe, whose cloister and façade invite visitors to discover the profound intellectual
-                                and humanist legacy that has marked the city's identity. The experience culminates in
-                                the Plaza Mayor, an ideal space for rest and fellowship, where pilgrims can enjoy the
-                                local charm and be enveloped by the serene rhythm of Salamantine life.</p>
-                        </div>
-                        <div class="tab-pane" id="cross-history">
-                            <p>Salamanca, declared a UNESCO World Heritage Site, is one of the oldest university cities
-                                in Europe. Of Roman origin, it reached its greatest splendor in the Middle Ages,
-                                establishing itself as a prominent center of knowledge, faith, and culture.</p>
-                            <p>The city houses the Old and New Cathedrals, an exceptional ensemble that reflects the
-                                evolution of sacred art from Romanesque to Baroque, testimony to Salamanca's profound
-                                religious tradition. Founded in 1218, the University of Salamanca was a reference point
-                                for European thought, especially during the Golden Age, thanks to the work of the School
-                                of Salamanca, which was decisive in the development of international law and reflection
-                                on human dignity.</p>
-                            <p>Today, Salamanca preserves its identity as a meeting place between faith, knowledge, and
-                                university life, offering visitors a cultural and spiritual experience of great
-                                richness.</p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="apparition-experience">
+                                <p>The Way of the Cross of Valinhos invites pilgrims to walk a path marked by silence,
+                                    nature, and prayer, which leads to the homes where the little shepherds lived in
+                                    Aljustrel. Along the way, each station offers a suitable space to stop, pray, and
+                                    meditate, fostering deep reflection on the simplicity of life and the trusting
+                                    surrender
+                                    of the visionaries. This experience is enriched by visits to other significant
+                                    places
+                                    such as Loca do Cabeço and the Arneiro Well, scenes of the little shepherds' daily
+                                    life
+                                    and decisive encounters with God. These are paths that invite unhurried prayer,
+                                    contemplation, and a deeper experience of the message of Fátima, allowing pilgrims
+                                    to
+                                    walk both outwardly and inwardly, accompanied by faith and recollection.</p>
+                            </div>
+                            <div class="tab-pane" id="apparition-history">
+                                <p>Valinhos and Aljustrel occupy a central place in the history of the apparitions of
+                                    Fátima. In Valinhos and its surroundings, some of the most significant encounters
+                                    with
+                                    the Angel of Portugal and the Virgin Mary took place, events that deepened the
+                                    message
+                                    of prayer, conversion, and trust in God entrusted to the three little shepherds.
+                                    These
+                                    places, marked by the silence and simplicity of the countryside, preserve to this
+                                    day
+                                    the recollected character that accompanied those manifestations.</p>
+                                <p>For its part, Aljustrel houses the original homes of Lúcia, Francisco, and Jacinta,
+                                    humble dwellings that bear witness to the simple, family-oriented, and deeply
+                                    faithful
+                                    life of the visionaries. Visiting these spaces allows for a better understanding of
+                                    the
+                                    human context in which the apparitions took place and how, from a simple reality, a
+                                    message emerged that would profoundly mark the history of the Church.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="info-section">
-                <h3>Covadonga</h3>
+                <div class="info-section">
+                    <h3>Salamanca</h3>
 
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="evening-experience">Experience</button>
-                        <button class="tab-button" data-tab="evening-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="evening-experience">
-                            <p>The visit to the Sanctuary of Covadonga is an experience that invites silence and
-                                contemplation, framed by the imposing beauty of Asturian nature. From arrival, the
-                                setting conveys a profound sense of peace that prepares the heart for prayer and
-                                encounter with God.</p>
-                            <p>The path to the Holy Cave, where the Virgin of Covadonga is venerated, affectionately
-                                called La Santina, is experienced as a moment of recollection and trust. In this simple
-                                space full of symbolism, the murmur of water and the maternal presence of Mary invite
-                                visitors to present their personal intentions, give thanks, and be consoled.</p>
-                            <p>The celebration of the Eucharist and the time dedicated to personal prayer allow pilgrims
-                                to experience Covadonga not only as a historic place, but as a true space of spiritual
-                                renewal. Pilgrims depart with serene and strengthened hearts, aware of having lived a
-                                profound encounter with the Virgin Mary.</p>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="cross-experience">Experience</button>
+                            <button class="tab-button" data-tab="cross-history">History</button>
                         </div>
-                        <div class="tab-pane" id="evening-history">
-                            <p>The Virgin of Covadonga, affectionately known as La Santina, is one of the most important
-                                religious and spiritual symbols of Spain. Covadonga is closely linked to the Battle of
-                                Covadonga (722), considered by tradition as the beginning of the Reconquest, when Don
-                                Pelayo and a small group of Christians resisted Muslim power, giving rise to the Kingdom
-                                of Asturias.</p>
-                            <p>Since then, the place has been associated not only with a historical event, but also with
-                                a providential vision in which Christian faith and trust in the Virgin Mary played a
-                                central role. Tradition attributes the victory to her intercession, venerated in the
-                                Holy Cave, which strengthened devotion to her throughout the centuries.</p>
-                            <p>Over time, Covadonga became established as an important Marian sanctuary and spiritual
-                                center for all of Spain. The construction of the Basilica of Santa María la Real de
-                                Covadonga in the 19th century reinforced its religious and symbolic relevance, making it
-                                today a place of pilgrimage where history, faith, and nature converge.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="info-section">
-                <h3>Lake Enol</h3>
-
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="evening-experience">Experience</button>
-                        <button class="tab-button" data-tab="evening-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="evening-experience">
-                            <p>The visit to the Lakes of Enol offers pilgrims a profound experience of encounter with
-                                nature in the heart of the Picos de Europa. The ascent to this location allows visitors
-                                to contemplate landscapes of great beauty, where silence, pure air, and the immensity of
-                                the surroundings invite them to pause and reflect. Facing the serenity of the waters and
-                                the majesty of the mountains, pilgrims can experience a moment of inner recollection,
-                                recognizing the grandeur of creation and renewing their spirit in an atmosphere of peace
-                                and contemplation.</p>
-                        </div>
-                        <div class="tab-pane" id="evening-history">
-                            <p>The Lakes of Enol are part of the Picos de Europa National Park, one of the oldest
-                                protected natural areas in Spain. Since ancient times, these lands have been inhabited
-                                and traversed by shepherds and settlers, who found in these mountains a place of
-                                sustenance, refuge, and coexistence with nature. Livestock activity, especially
-                                transhumance, has shaped the landscape and life of the area for centuries, leaving a
-                                profound mark on its cultural identity.</p>
-                            <p>Over time, this natural environment became a symbol of northern Spain, not only for its
-                                extraordinary beauty, but also for its ecological and heritage value. Today, the Lakes
-                                of Enol represent a space where history, tradition, and nature intertwine, offering
-                                visitors the possibility of understanding the ancestral relationship between human
-                                beings and the natural environment, in a setting that invites respect, contemplation,
-                                and care for creation.</p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="cross-experience">
+                                <p>In Salamanca, pilgrims can immerse themselves in a university and cultural
+                                    atmosphere,
+                                    walking through its golden stone streets that reflect centuries of history, thought,
+                                    and
+                                    faith. The guided tour of the two Cathedrals, together with the historic center,
+                                    allows
+                                    visitors to contemplate a valuable heritage where art, architecture, and
+                                    spirituality
+                                    intertwine in a unique setting.</p>
+                                <p>The itinerary is enriched by a visit to the University of Salamanca, one of the
+                                    oldest in
+                                    Europe, whose cloister and façade invite visitors to discover the profound
+                                    intellectual
+                                    and humanist legacy that has marked the city's identity. The experience culminates
+                                    in
+                                    the Plaza Mayor, an ideal space for rest and fellowship, where pilgrims can enjoy
+                                    the
+                                    local charm and be enveloped by the serene rhythm of Salamantine life.</p>
+                            </div>
+                            <div class="tab-pane" id="cross-history">
+                                <p>Salamanca, declared a UNESCO World Heritage Site, is one of the oldest university
+                                    cities
+                                    in Europe. Of Roman origin, it reached its greatest splendor in the Middle Ages,
+                                    establishing itself as a prominent center of knowledge, faith, and culture.</p>
+                                <p>The city houses the Old and New Cathedrals, an exceptional ensemble that reflects the
+                                    evolution of sacred art from Romanesque to Baroque, testimony to Salamanca's
+                                    profound
+                                    religious tradition. Founded in 1218, the University of Salamanca was a reference
+                                    point
+                                    for European thought, especially during the Golden Age, thanks to the work of the
+                                    School
+                                    of Salamanca, which was decisive in the development of international law and
+                                    reflection
+                                    on human dignity.</p>
+                                <p>Today, Salamanca preserves its identity as a meeting place between faith, knowledge,
+                                    and
+                                    university life, offering visitors a cultural and spiritual experience of great
+                                    richness.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="info-section">
-                <h3>Lourdes</h3>
+                <div class="info-section">
+                    <h3>Covadonga</h3>
 
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="evening-experience">Experience</button>
-                        <button class="tab-button" data-tab="evening-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="evening-experience">
-                            <p>The visit to Lourdes allows pilgrims to live a profound experience of faith at the
-                                sanctuary where the Virgin Mary appeared to Saint Bernadette. The itinerary includes the
-                                Grotto of the Apparitions, a central place of prayer and recollection, as well as
-                                participation in the candlelight procession and the praying of the Holy Rosary,
-                                celebrated in various languages alongside pilgrims from all over the world.</p>
-                            <p>Pilgrims also have the opportunity to participate in the water gesture, a simple and
-                                deeply spiritual moment that recalls the message entrusted by the Virgin to Saint
-                                Bernadette and the signs of healing that, over time, have strengthened the faith of
-                                millions of people.</p>
-                            <p>The experience is completed by following in the footsteps of Saint Bernadette and
-                                visiting the main spaces of the Sanctuary, such as the Basilica of Our Lady of the
-                                Rosary, the Basilica of the Immaculate Conception, and the underground Basilica of Saint
-                                Pius X. Likewise, participation in the Eucharistic procession and in moments of
-                                adoration offers a conducive setting for prayer, contemplation, and spiritual renewal.
-                            </p>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="evening-experience">Experience</button>
+                            <button class="tab-button" data-tab="evening-history">History</button>
                         </div>
-                        <div class="tab-pane" id="evening-history">
-                            <p>It is one of the most visited pilgrimage destinations in the world, famous for the
-                                apparitions of the Virgin Mary to Saint Bernadette Soubirous in 1858. This sanctuary is
-                                a symbol of faith, healing, and hope for millions of pilgrims who come each year.</p>
-                            <p>The Grotto of Massabielle, where the apparitions occurred, is the spiritual heart of the
-                                sanctuary, together with the basilicas that surround it. Many pilgrims come to the pools
-                                to immerse themselves in the waters considered miraculous or, simply, to drink from the
-                                fountains, following the message of penance and conversion that the Virgin left in this
-                                sacred place.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="info-section">
-                <h3>Zaragoza</h3>
-
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="evening-experience">Experience</button>
-                        <button class="tab-button" data-tab="evening-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="evening-experience">
-                            <p>The visit to one of the most emblematic Marian sanctuaries in Spain, the Basilica of Our
-                                Lady of the Pillar, located on the banks of the Ebro River, offers pilgrims a profound
-                                experience of faith and recollection. This majestic space invites personal prayer,
-                                contemplation, and veneration of the Virgin of the Pillar, to whom thousands of faithful
-                                come daily to present their intentions and give thanks for the gifts received.</p>
-                            <p>Pilgrims can participate in the celebration of the Eucharist, approach the Holy Pillar in
-                                a gesture of devotion, and walk through the interior of the temple, admiring its
-                                artistic and spiritual richness. The spaciousness of the basilica and the serenity of
-                                its surroundings foster an interior encounter with God, making the visit to Zaragoza an
-                                experience that strengthens faith and leaves a profound mark on the heart.</p>
-                        </div>
-                        <div class="tab-pane" id="evening-history">
-                            <p>Tradition affirms that the Virgin Mary appeared in mortal flesh to the Apostle James in
-                                Zaragoza around 40 AD, leaving as a sign the Pillar upon which the sanctuary was built,
-                                making it the oldest Marian devotion in Christianity. Since then, Zaragoza has been
-                                established as an important center of devotion and pilgrimage.</p>
-                            <p>Of Roman origin, known as Caesaraugusta, the city has witnessed the development of
-                                Christianity throughout the centuries. The current Basilica of Our Lady of the Pillar,
-                                built between the 17th and 18th centuries, is today a symbol of faith, history, and
-                                tradition, where Marian devotion remains alive and summons pilgrims from around the
-                                world.</p>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="evening-experience">
+                                <p>The visit to the Sanctuary of Covadonga is an experience that invites silence and
+                                    contemplation, framed by the imposing beauty of Asturian nature. From arrival, the
+                                    setting conveys a profound sense of peace that prepares the heart for prayer and
+                                    encounter with God.</p>
+                                <p>The path to the Holy Cave, where the Virgin of Covadonga is venerated, affectionately
+                                    called La Santina, is experienced as a moment of recollection and trust. In this
+                                    simple
+                                    space full of symbolism, the murmur of water and the maternal presence of Mary
+                                    invite
+                                    visitors to present their personal intentions, give thanks, and be consoled.</p>
+                                <p>The celebration of the Eucharist and the time dedicated to personal prayer allow
+                                    pilgrims
+                                    to experience Covadonga not only as a historic place, but as a true space of
+                                    spiritual
+                                    renewal. Pilgrims depart with serene and strengthened hearts, aware of having lived
+                                    a
+                                    profound encounter with the Virgin Mary.</p>
+                            </div>
+                            <div class="tab-pane" id="evening-history">
+                                <p>The Virgin of Covadonga, affectionately known as La Santina, is one of the most
+                                    important
+                                    religious and spiritual symbols of Spain. Covadonga is closely linked to the Battle
+                                    of
+                                    Covadonga (722), considered by tradition as the beginning of the Reconquest, when
+                                    Don
+                                    Pelayo and a small group of Christians resisted Muslim power, giving rise to the
+                                    Kingdom
+                                    of Asturias.</p>
+                                <p>Since then, the place has been associated not only with a historical event, but also
+                                    with
+                                    a providential vision in which Christian faith and trust in the Virgin Mary played a
+                                    central role. Tradition attributes the victory to her intercession, venerated in the
+                                    Holy Cave, which strengthened devotion to her throughout the centuries.</p>
+                                <p>Over time, Covadonga became established as an important Marian sanctuary and
+                                    spiritual
+                                    center for all of Spain. The construction of the Basilica of Santa María la Real de
+                                    Covadonga in the 19th century reinforced its religious and symbolic relevance,
+                                    making it
+                                    today a place of pilgrimage where history, faith, and nature converge.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="info-section">
-                <h3>Madrid</h3>
+                <div class="info-section">
+                    <h3>Lake Enol</h3>
 
-                <div class="tab-container">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="evening-experience">Experience</button>
-                        <button class="tab-button" data-tab="evening-history">History</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="evening-experience">
-                            <p>Madrid offers pilgrims a space of encounter between faith, culture, and urban life. Free
-                                time allows visitors to explore its historic temples, stroll through emblematic squares,
-                                and discover the artistic and cultural richness that characterizes the city. The visit
-                                is complemented by the possibility of enjoying its gastronomy and Madrid's hospitality,
-                                which provide warmth and rest at the end of the journey.</p>
-                            <p>This time in the capital is experienced as a serene closing of the itinerary, conducive
-                                to personal prayer, grateful reflection, and rest before returning home. Madrid invites
-                                visitors to integrate what has been experienced during the pilgrimage, offering an
-                                environment where faith intertwines with everyday life and shared experience.</p>
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="evening-experience">Experience</button>
+                            <button class="tab-button" data-tab="evening-history">History</button>
                         </div>
-                        <div class="tab-pane" id="evening-history">
-                            <p>Madrid houses important historic temples, such as the Almudena Cathedral, a symbol of the
-                                religious life of the capital, along with numerous convents and churches that reflect
-                                the city's profound Christian tradition. Throughout the centuries, Madrid became
-                                established as the political and cultural center of Spain, especially since the 16th
-                                century, when it was proclaimed the capital of the kingdom, which spurred its urban,
-                                artistic, and spiritual growth.</p>
-                            <p>Its cultural heritage bears witness to various stages of Spanish history, visible in its
-                                palaces, squares, and museums, where faith, art, and daily life intertwine. Today,
-                                Madrid continues to be a meeting place between tradition and modernity, offering
-                                visitors a living vision of the country's history and its spiritual and cultural
-                                richness.</p>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="evening-experience">
+                                <p>The visit to the Lakes of Enol offers pilgrims a profound experience of encounter
+                                    with
+                                    nature in the heart of the Picos de Europa. The ascent to this location allows
+                                    visitors
+                                    to contemplate landscapes of great beauty, where silence, pure air, and the
+                                    immensity of
+                                    the surroundings invite them to pause and reflect. Facing the serenity of the waters
+                                    and
+                                    the majesty of the mountains, pilgrims can experience a moment of inner
+                                    recollection,
+                                    recognizing the grandeur of creation and renewing their spirit in an atmosphere of
+                                    peace
+                                    and contemplation.</p>
+                            </div>
+                            <div class="tab-pane" id="evening-history">
+                                <p>The Lakes of Enol are part of the Picos de Europa National Park, one of the oldest
+                                    protected natural areas in Spain. Since ancient times, these lands have been
+                                    inhabited
+                                    and traversed by shepherds and settlers, who found in these mountains a place of
+                                    sustenance, refuge, and coexistence with nature. Livestock activity, especially
+                                    transhumance, has shaped the landscape and life of the area for centuries, leaving a
+                                    profound mark on its cultural identity.</p>
+                                <p>Over time, this natural environment became a symbol of northern Spain, not only for
+                                    its
+                                    extraordinary beauty, but also for its ecological and heritage value. Today, the
+                                    Lakes
+                                    of Enol represent a space where history, tradition, and nature intertwine, offering
+                                    visitors the possibility of understanding the ancestral relationship between human
+                                    beings and the natural environment, in a setting that invites respect,
+                                    contemplation,
+                                    and care for creation.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="info-section">
+                    <h3>Lourdes</h3>
+
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="evening-experience">Experience</button>
+                            <button class="tab-button" data-tab="evening-history">History</button>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="evening-experience">
+                                <p>The visit to Lourdes allows pilgrims to live a profound experience of faith at the
+                                    sanctuary where the Virgin Mary appeared to Saint Bernadette. The itinerary includes
+                                    the
+                                    Grotto of the Apparitions, a central place of prayer and recollection, as well as
+                                    participation in the candlelight procession and the praying of the Holy Rosary,
+                                    celebrated in various languages alongside pilgrims from all over the world.</p>
+                                <p>Pilgrims also have the opportunity to participate in the water gesture, a simple and
+                                    deeply spiritual moment that recalls the message entrusted by the Virgin to Saint
+                                    Bernadette and the signs of healing that, over time, have strengthened the faith of
+                                    millions of people.</p>
+                                <p>The experience is completed by following in the footsteps of Saint Bernadette and
+                                    visiting the main spaces of the Sanctuary, such as the Basilica of Our Lady of the
+                                    Rosary, the Basilica of the Immaculate Conception, and the underground Basilica of
+                                    Saint
+                                    Pius X. Likewise, participation in the Eucharistic procession and in moments of
+                                    adoration offers a conducive setting for prayer, contemplation, and spiritual
+                                    renewal.
+                                </p>
+                            </div>
+                            <div class="tab-pane" id="evening-history">
+                                <p>It is one of the most visited pilgrimage destinations in the world, famous for the
+                                    apparitions of the Virgin Mary to Saint Bernadette Soubirous in 1858. This sanctuary
+                                    is
+                                    a symbol of faith, healing, and hope for millions of pilgrims who come each year.
+                                </p>
+                                <p>The Grotto of Massabielle, where the apparitions occurred, is the spiritual heart of
+                                    the
+                                    sanctuary, together with the basilicas that surround it. Many pilgrims come to the
+                                    pools
+                                    to immerse themselves in the waters considered miraculous or, simply, to drink from
+                                    the
+                                    fountains, following the message of penance and conversion that the Virgin left in
+                                    this
+                                    sacred place.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Zaragoza</h3>
+
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="evening-experience">Experience</button>
+                            <button class="tab-button" data-tab="evening-history">History</button>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="evening-experience">
+                                <p>The visit to one of the most emblematic Marian sanctuaries in Spain, the Basilica of
+                                    Our
+                                    Lady of the Pillar, located on the banks of the Ebro River, offers pilgrims a
+                                    profound
+                                    experience of faith and recollection. This majestic space invites personal prayer,
+                                    contemplation, and veneration of the Virgin of the Pillar, to whom thousands of
+                                    faithful
+                                    come daily to present their intentions and give thanks for the gifts received.</p>
+                                <p>Pilgrims can participate in the celebration of the Eucharist, approach the Holy
+                                    Pillar in
+                                    a gesture of devotion, and walk through the interior of the temple, admiring its
+                                    artistic and spiritual richness. The spaciousness of the basilica and the serenity
+                                    of
+                                    its surroundings foster an interior encounter with God, making the visit to Zaragoza
+                                    an
+                                    experience that strengthens faith and leaves a profound mark on the heart.</p>
+                            </div>
+                            <div class="tab-pane" id="evening-history">
+                                <p>Tradition affirms that the Virgin Mary appeared in mortal flesh to the Apostle James
+                                    in
+                                    Zaragoza around 40 AD, leaving as a sign the Pillar upon which the sanctuary was
+                                    built,
+                                    making it the oldest Marian devotion in Christianity. Since then, Zaragoza has been
+                                    established as an important center of devotion and pilgrimage.</p>
+                                <p>Of Roman origin, known as Caesaraugusta, the city has witnessed the development of
+                                    Christianity throughout the centuries. The current Basilica of Our Lady of the
+                                    Pillar,
+                                    built between the 17th and 18th centuries, is today a symbol of faith, history, and
+                                    tradition, where Marian devotion remains alive and summons pilgrims from around the
+                                    world.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Madrid</h3>
+
+                    <div class="tab-container">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" data-tab="evening-experience">Experience</button>
+                            <button class="tab-button" data-tab="evening-history">History</button>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="evening-experience">
+                                <p>Madrid offers pilgrims a space of encounter between faith, culture, and urban life.
+                                    Free
+                                    time allows visitors to explore its historic temples, stroll through emblematic
+                                    squares,
+                                    and discover the artistic and cultural richness that characterizes the city. The
+                                    visit
+                                    is complemented by the possibility of enjoying its gastronomy and Madrid's
+                                    hospitality,
+                                    which provide warmth and rest at the end of the journey.</p>
+                                <p>This time in the capital is experienced as a serene closing of the itinerary,
+                                    conducive
+                                    to personal prayer, grateful reflection, and rest before returning home. Madrid
+                                    invites
+                                    visitors to integrate what has been experienced during the pilgrimage, offering an
+                                    environment where faith intertwines with everyday life and shared experience.</p>
+                            </div>
+                            <div class="tab-pane" id="evening-history">
+                                <p>Madrid houses important historic temples, such as the Almudena Cathedral, a symbol of
+                                    the
+                                    religious life of the capital, along with numerous convents and churches that
+                                    reflect
+                                    the city's profound Christian tradition. Throughout the centuries, Madrid became
+                                    established as the political and cultural center of Spain, especially since the 16th
+                                    century, when it was proclaimed the capital of the kingdom, which spurred its urban,
+                                    artistic, and spiritual growth.</p>
+                                <p>Its cultural heritage bears witness to various stages of Spanish history, visible in
+                                    its
+                                    palaces, squares, and museums, where faith, art, and daily life intertwine. Today,
+                                    Madrid continues to be a meeting place between tradition and modernity, offering
+                                    visitors a living vision of the country's history and its spiritual and cultural
+                                    richness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+        </section>
 
-
-        </div>
-    </section>
-
-    <!-- Internal Linking Section -->
-    <section class="internal-links">
-    <div class="internal-links-container">
-        <p class="internal-links-paragraph">
-            Discover more Catholic pilgrimages: <a href="/./es/experiences/santuarios-catolicos-2025-es" class="internal-link">2025 Marian Shrines pilgrimage testimonials and experiences</a> from past pilgrims who visited these sacred sites.
-        </p>
-        <p class="internal-links-paragraph">
-            Planning a longer spiritual journey? Explore our <a href="/tierrasanta2026" class="internal-link">20-day Holy Land and Medjugorje pilgrimage 2026</a>, combining biblical sites with Marian apparition destinations.
-        </p>
-        <p class="internal-links-paragraph">
-            Browse our complete collection of <a href="/experiences" class="internal-link">Catholic pilgrimage experiences</a> to find your next faith journey.
-        </p>
-    </div>
-</section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section" id="faq" role="region" aria-labelledby="faq-heading"
-        style="padding: 3rem 1rem; max-width: 900px; margin: 0 auto;">
-        <h2 id="faq-heading" style="text-align: center; margin-bottom: 2rem; color: #333;">Frequently Asked Questions
-        </h2>
-        <details open class="faq-item" role="group"
-            style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
-            <summary role="button" aria-expanded="true" aria-controls="faq-en-1"
-                style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">How much does it cost to go on the Marian Pilgrimage 2026?</summary>
-            <div id="faq-en-1" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">From
-                <strong>$4,199</strong> departing from Miami and <strong>$4,399</strong> departing from Bogotá. Includes
-                flights, 11 nights, half board for meals, transfers, entrance fees, tour guide and spiritual accompaniment.
+        <!-- Internal Linking Section -->
+        <section class="internal-links">
+            <div class="internal-links-container">
+                <p class="internal-links-paragraph">
+                    Discover more Catholic pilgrimages: <a href="/./es/experiences/santuarios-catolicos-2025-es"
+                        class="internal-link">2025 Marian Shrines pilgrimage testimonials and experiences</a> from past
+                    pilgrims who visited these sacred sites.
+                </p>
+                <p class="internal-links-paragraph">
+                    Planning a longer spiritual journey? Explore our <a href="/tierrasanta2026"
+                        class="internal-link">20-day Holy Land and Medjugorje pilgrimage 2026</a>, combining biblical
+                    sites with Marian apparition destinations.
+                </p>
+                <p class="internal-links-paragraph">
+                    Browse our complete collection of <a href="/experiences" class="internal-link">Catholic pilgrimage
+                        experiences</a> to find your next faith journey.
+                </p>
             </div>
-        </details>
-        <details class="faq-item" role="group"
-            style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-2"
-                style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">What does the package include?
-            </summary>
-            <div id="faq-en-2" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">Round-trip flights, 10 hotel nights, half board, ground transportation, entrance fees, tour guide, daily Mass and evening program.</div>
-        </details>
-        <details class="faq-item" role="group"
-            style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-3"
-                style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">Do I need a visa or insurance?
-            </summary>
-            <div id="faq-en-3" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">Generally, a short-stay visa is not required for Fátima, Salamanca, Covadonga, Lourdes, Zaragoza, Madrid for people from the U.S. and Colombia; additionally, we recommend travel insurance with international medical coverage.</div>
-        </details>
-        <details class="faq-item" role="group"
-            style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-4"
-                style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">From what place in the world can I join this Marian Pilgrimage 2026?</summary>
-            <div id="faq-en-4" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">From anywhere in the world. We can help you coordinate flights and connections to join the group. Contact us and we will guide you.</div>
-        </details>
-        <details class="faq-item" role="group"
-            style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-5"
-                style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">Will there be daily Mass during the pilgrimage?</summary>
-            <div id="faq-en-5" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">Yes, there is always daily Mass during the pilgrimage. We will also have moments of prayer, adoration and, when possible, confession.</div>
-        </details>
-        <details class="faq-item" role="group"
-            style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
-            <summary role="button" aria-expanded="false" aria-controls="faq-en-6"
-                style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">Can I travel alone and join the group?</summary>
-            <div id="faq-en-6" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">Yes, the pilgrim traveling alone is very welcome to join the pilgrimage. Many pilgrims travel alone. Contact us for details on how to join the group.</div>
-        </details>
-    </section>
+        </section>
 
-    <!-- Elegant Contact Section -->
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq" role="region" aria-labelledby="faq-heading"
+            style="padding: 3rem 1rem; max-width: 900px; margin: 0 auto;">
+            <h2 id="faq-heading" style="text-align: center; margin-bottom: 2rem; color: #333;">Frequently Asked
+                Questions
+            </h2>
+            <details open class="faq-item" role="group"
+                style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
+                <summary role="button" aria-expanded="true" aria-controls="faq-en-1"
+                    style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">How much does it cost to
+                    go on the Marian Pilgrimage 2026?</summary>
+                <div id="faq-en-1" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">From
+                    <strong>$4,199</strong> departing from Miami and <strong>$4,399</strong> departing from Bogotá.
+                    Includes
+                    flights, 11 nights, half board for meals, transfers, entrance fees, tour guide and spiritual
+                    accompaniment.
+                </div>
+            </details>
+            <details class="faq-item" role="group"
+                style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-2"
+                    style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">What does the package
+                    include?
+                </summary>
+                <div id="faq-en-2" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">
+                    Round-trip flights, 10 hotel nights, half board, ground transportation, entrance fees, tour guide,
+                    daily Mass and evening program.</div>
+            </details>
+            <details class="faq-item" role="group"
+                style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-3"
+                    style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">Do I need a visa or
+                    insurance?
+                </summary>
+                <div id="faq-en-3" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">
+                    Generally, a short-stay visa is not required for Fátima, Salamanca, Covadonga, Lourdes, Zaragoza,
+                    Madrid for people from the U.S. and Colombia; additionally, we recommend travel insurance with
+                    international medical coverage.</div>
+            </details>
+            <details class="faq-item" role="group"
+                style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-4"
+                    style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">From what place in the
+                    world can I join this Marian Pilgrimage 2026?</summary>
+                <div id="faq-en-4" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">From
+                    anywhere in the world. We can help you coordinate flights and connections to join the group. Contact
+                    us and we will guide you.</div>
+            </details>
+            <details class="faq-item" role="group"
+                style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-5"
+                    style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">Will there be daily Mass
+                    during the pilgrimage?</summary>
+                <div id="faq-en-5" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">Yes,
+                    there is always daily Mass during the pilgrimage. We will also have moments of prayer, adoration
+                    and, when possible, confession.</div>
+            </details>
+            <details class="faq-item" role="group"
+                style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">
+                <summary role="button" aria-expanded="false" aria-controls="faq-en-6"
+                    style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">Can I travel alone and
+                    join the group?</summary>
+                <div id="faq-en-6" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">Yes, the
+                    pilgrim traveling alone is very welcome to join the pilgrimage. Many pilgrims travel alone. Contact
+                    us for details on how to join the group.</div>
+            </details>
+        </section>
 
-  <div id="contact-section-container"></div>
-  </main>
+        <!-- Elegant Contact Section -->
 
-  <div id="footer-container"></div>
+        <div id="contact-section-container"></div>
+    </main>
+
+    <div id="footer-container"></div>
     <style>
         /* Internal links styling */
         .internal-link {
@@ -850,17 +969,17 @@
         }
     </style>
 
-  <!-- Load the unified navigation system first -->
-  <script src="js/navigation.min.js" defer></script>
+    <!-- Load the unified navigation system first -->
+    <script src="js/navigation.min.js" defer></script>
 
-  <!-- Load the language switcher -->
-  <script src="js/elegant-language-switcher.min.js" defer></script>
+    <!-- Load the language switcher -->
+    <script src="js/elegant-language-switcher.min.js" defer></script>
 
-  <!-- Contact tracking and form handler -->
-  <script src="js/contact-tracking.min.js" defer></script>
+    <!-- Contact tracking and form handler -->
+    <script src="js/contact-tracking.min.js" defer></script>
 
-  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
-  <script src="js/page-init.min.js?v=20260204c" defer></script>
+    <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+    <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 
 </html>
