@@ -54,6 +54,71 @@
   status = 301
   force = true
 
+# ========================================================================
+# DESTINATION LANDING PAGES - CRITICAL FOR GSC VALIDATION
+# These redirects fix the "Page with redirect" errors in Google Search Console
+# ========================================================================
+
+[[redirects]]
+  from = "/Medjugorje.html"
+  to = "/medjugorje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Medjugorje-es.html"
+  to = "/medjugorje-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Medjugorje2026.html"
+  to = "/medjugorje2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Medjugorje2026-es.html"
+  to = "/medjugorje2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/TierraSanta2026.html"
+  to = "/tierrasanta2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/TierraSanta2026-es.html"
+  to = "/tierrasanta2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Italy.html"
+  to = "/italy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Italy-es.html"
+  to = "/italy-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/SantuariosMarianos.html"
+  to = "/santuariosmarianos"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/SantuariosMarianos-es.html"
+  to = "/santuariosmarianos-es"
+  status = 301
+  force = true
+
 # Redirect experience subpages (.html -> extensionless)
 [[redirects]]
   from = "/experiences/catholic-pilgrimage-rome-jubilee-2025.html"
