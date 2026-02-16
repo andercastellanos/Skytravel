@@ -246,6 +246,70 @@
   </url>
 
   <!-- ================================= -->
+  <!-- BLOG PAGES - CONTENT HUB -->
+  <!-- ================================= -->
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog-es</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/god-prepares-two-hearts</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/suitable-help</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/ayuda-adecuada</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
+  </url>
+
+  <!-- ================================= -->
   <!-- CURRENT EXPERIENCE OFFERINGS (2024-2025) -->
   <!-- ================================= -->
 
