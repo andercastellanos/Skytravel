@@ -54,12 +54,22 @@
     <link rel="stylesheet" href="style.css">
     <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
     <style>
-        .slideshow .slide { display: none; }
-        .slideshow .slide:first-child { display: block; }
-        .slideshow.slick-initialized .slide { display: block; }
+        .slideshow .slide {
+            display: none;
+        }
+
+        .slideshow .slide:first-child {
+            display: block;
+        }
+
+        .slideshow.slick-initialized .slide {
+            display: block;
+        }
     </style>
     <link rel="preload" href="css/components.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="css/components.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="css/components.css">
+    </noscript>
     <style>
         /* Accessibility: Skip link */
         .skip-link {
@@ -438,7 +448,11 @@
                 Week in Medjugorje lets you accompany Our Lady during the most sacred days of the year—immersed in
                 prayer, peace, and renewal.</p>
             <div class="trip-dates">
-                <h3>Travel Dates: March 29 - April 6, 2026 • 8 Days / 7 Nights</h3>
+                <h3>Travel Date – Holy Week • (8 days / 7 nights)</h3>
+                <h3>March 29 to April 6, 2026</h3> <br>
+                <h4>We also offer additional dates to experience Medjugorje</h4>
+                <h4>September 17 to 25, 2026</h4>
+                <h4>October 17 to 25, 2026</h4>
             </div>
             <div class="highlights">
                 <div class="highlight-card">
@@ -463,6 +477,17 @@
                         <li>Ground transportation</li>
                         <li>Entrance fees to all sites</li>
                         <li>Bilingual tour guide</li>
+                    </ul>
+                </div>
+                 <div class="highlight-card">
+                    <h3>From Argentina, España</h3>
+                    <p>Contact us for the price</p>
+                    <ul class="highlight-list">
+                        <li>7 nights accommodation</li>
+                        <li>All meals included</li>
+                        <li>Ground transportation</li>
+                        <li>Entrance fees to all sites</li>
+                        <li>Tour guide</li>
                     </ul>
                 </div>
                 <div class="highlight-card">
@@ -712,23 +737,23 @@
 
         <!-- Elegant Contact Section -->
 
-  <div id="contact-section-container"></div>
+        <div id="contact-section-container"></div>
 
 
     </main>
 
-  <div id="footer-container"></div>
-  <!-- Load the unified navigation system first -->
-  <script src="js/navigation.min.js" defer></script>
+    <div id="footer-container"></div>
+    <!-- Load the unified navigation system first -->
+    <script src="js/navigation.min.js" defer></script>
 
-  <!-- Load the language switcher -->
-  <script src="js/elegant-language-switcher.min.js" defer></script>
+    <!-- Load the language switcher -->
+    <script src="js/elegant-language-switcher.min.js" defer></script>
 
-  <!-- Contact tracking and form handler -->
-  <script src="js/contact-tracking.min.js" defer></script>
+    <!-- Contact tracking and form handler -->
+    <script src="js/contact-tracking.min.js" defer></script>
 
-  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
-  <script src="js/page-init.min.js?v=20260204c" defer></script>
+    <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
+    <script src="js/page-init.min.js?v=20260204c" defer></script>
 </body>
 
 </html>
