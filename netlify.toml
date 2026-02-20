@@ -22,12 +22,22 @@
 [[headers]]
   for = "*.css"
   [headers.values]
-    Cache-Control = "public, max-age=2592000"
+    Cache-Control = "public, max-age=15552000"
 
 [[headers]]
   for = "*.js"
   [headers.values]
-    Cache-Control = "public, max-age=2592000"
+    Cache-Control = "public, max-age=15552000"
+
+[[headers]]
+  for = "/images/favicon/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 # Redirect .html variants to extensionless canonical URLs
 [[redirects]]
@@ -126,12 +136,145 @@
 [[redirects]]
   from = "/peregrinacion-medjugorje-2026-2027.html"
   to = "/peregrinacion-medjugorje-2026-2027"
+# SUPPORTING PAGES - Add missing redirects for about, contact, blog, guidelines
+# ========================================================================
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
   status = 301
   force = true
 
 [[redirects]]
   from = "/peregrinacion-medjugorje-2026-2027-es.html"
   to = "/peregrinacion-medjugorje-2026-2027-es"
+  from = "/about-es.html"
+  to = "/about-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact-es.html"
+  to = "/contact-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-es.html"
+  to = "/blog-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guidelines.html"
+  to = "/guidelines"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guidelines-es.html"
+  to = "/guidelines-es"
+  status = 301
+  force = true
+
+# ========================================================================
+# LOWERCASE VARIANTS - Handle case-insensitive .html requests
+# These catch requests to lowercase .html files and redirect to canonical URLs
+# ========================================================================
+
+[[redirects]]
+  from = "/medjugorje.html"
+  to = "/medjugorje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/medjugorje-es.html"
+  to = "/medjugorje-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/medjugorje2026.html"
+  to = "/medjugorje2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/medjugorje2026-es.html"
+  to = "/medjugorje2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/santuariosmarianos.html"
+  to = "/santuariosmarianos"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/santuariosmarianos-es.html"
+  to = "/santuariosmarianos-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tierrasanta2026.html"
+  to = "/tierrasanta2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tierrasanta2026-es.html"
+  to = "/tierrasanta2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/italy.html"
+  to = "/italy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/italy-es.html"
+  to = "/italy-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/france.html"
+  to = "/france"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/france-es.html"
+  to = "/france-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mariana2026.html"
+  to = "/mariana2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mariana2026-es.html"
+  to = "/mariana2026-es"
   status = 301
   force = true
 
