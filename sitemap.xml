@@ -36,7 +36,7 @@
   <!-- Medjugorje 2025 - HIGHEST BUSINESS PRIORITY (Current offering) -->
   <url>
     <loc>https://www.skytraveljm.com/medjugorje</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
@@ -46,7 +46,7 @@
 
   <url>
     <loc>https://www.skytraveljm.com/medjugorje-es</loc>
-    <lastmod>2025-07-25</lastmod>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
@@ -57,7 +57,7 @@
   <!-- Medjugorje 2026 - HIGHEST BUSINESS PRIORITY (Current offering) -->
   <url>
     <loc>https://www.skytraveljm.com/medjugorje2026</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje2026"/>
@@ -70,7 +70,7 @@
 
   <url>
     <loc>https://www.skytraveljm.com/medjugorje2026-es</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje2026"/>
@@ -83,13 +83,13 @@
 
   <!-- Medjugorje 2026–2027 Ads Landing (Spanish) -->
   <url>
-    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html</loc>
+    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
     <image:image>
       <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
     </image:image>
@@ -97,13 +97,13 @@
 
   <!-- Medjugorje 2026–2027 Ads Landing (English) -->
   <url>
-    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027.html</loc>
+    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027.html"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
     <image:image>
       <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
     </image:image>
@@ -155,6 +155,27 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/italy"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/italy-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/italy"/>
+  </url>
+
+  <!-- Marian Pilgrimage 2026 -->
+  <url>
+    <loc>https://www.skytraveljm.com/mariana2026</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/mariana2026"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/mariana2026-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/mariana2026"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/mariana2026-es</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/mariana2026"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/mariana2026-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/mariana2026"/>
   </url>
 
   <!-- Marian Sanctuaries - MEDIUM-HIGH PRIORITY -->

@@ -130,6 +130,12 @@
   force = true
 
 # ========================================================================
+# GOOGLE ADS LANDING PAGES - CRITICAL FOR AD CAMPAIGNS
+# ========================================================================
+
+[[redirects]]
+  from = "/peregrinacion-medjugorje-2026-2027.html"
+  to = "/peregrinacion-medjugorje-2026-2027"
 # SUPPORTING PAGES - Add missing redirects for about, contact, blog, guidelines
 # ========================================================================
 
@@ -140,6 +146,8 @@
   force = true
 
 [[redirects]]
+  from = "/peregrinacion-medjugorje-2026-2027-es.html"
+  to = "/peregrinacion-medjugorje-2026-2027-es"
   from = "/about-es.html"
   to = "/about-es"
   status = 301
@@ -430,5 +438,83 @@
 [[redirects]]
   from = "/Medjugorje2026-ads-es.html"
   to = "/peregrinacion-medjugorje-2026-2027-es"
+  status = 301
+  force = true
+
+# ========================================================================
+# SUPPORTING PAGES - Explicit redirects
+# These pages work via Netlify Pretty URLs but adding explicit rules
+# eliminates verification warnings and provides complete control
+# ========================================================================
+
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about-es.html"
+  to = "/about-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact-es.html"
+  to = "/contact-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-es.html"
+  to = "/blog-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guidelines.html"
+  to = "/guidelines"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guidelines-es.html"
+  to = "/guidelines-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/France.html"
+  to = "/france"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/France-es.html"
+  to = "/france-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Mariana2026.html"
+  to = "/mariana2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Mariana2026-es.html"
+  to = "/mariana2026-es"
   status = 301
   force = true
