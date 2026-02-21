@@ -153,6 +153,8 @@
                     slidesToScroll: 1,
                     arrows: true,
                     fade: true,
+                    swipe: true,
+                    touchMove: true,
                     adaptiveHeight: false,
                     autoplay: true,
                     autoplaySpeed: 3000,
