@@ -148,6 +148,10 @@
 [[redirects]]
   from = "/peregrinacion-medjugorje-2026-2027-es.html"
   to = "/peregrinacion-medjugorje-2026-2027-es"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/about-es.html"
   to = "/about-es"
   status = 301
