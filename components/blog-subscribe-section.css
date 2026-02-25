@@ -1,0 +1,331 @@
+/* ============================================
+   BLOG SUBSCRIBE SECTION STYLES
+   Self-contained — does not depend on contact-section.css
+   Visually distinct from contact form: light bg, navy accent, single column
+   ============================================ */
+
+/* Section wrapper */
+.blog-subscribe-section {
+    padding: 4rem 2rem;
+    background: #f8f9fa;
+    border-top: 2px solid #e8e0d4;
+    border-bottom: 2px solid #e8e0d4;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-subscribe-container {
+    max-width: 520px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* Bell icon */
+.bs-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    color: #2c3e50;
+    opacity: 0.7;
+}
+
+/* Header */
+.blog-subscribe-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.blog-subscribe-header h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #333;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.blog-subscribe-header p {
+    font-size: 1.05rem;
+    color: #555;
+    margin: 0;
+}
+
+.blog-subscribe-separator {
+    width: 60px;
+    height: 2px;
+    background-color: #c8a97e;
+    margin: 1.5rem auto 0;
+}
+
+/* Form card — open borderless layout */
+.blog-subscribe-card {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+.blog-subscribe-card-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.blog-subscribe-card-header h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.4rem;
+}
+
+.blog-subscribe-card-header p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Form layout — single column */
+.bs-form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.bs-form-group-full {
+    /* No special treatment needed in single column */
+}
+
+/* Form group */
+.bs-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.bs-form-group label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.bs-form-group .bs-required {
+    color: #c41e3a;
+}
+
+.bs-form-group input,
+.bs-form-group select {
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.bs-form-group input::placeholder {
+    color: #999;
+}
+
+.bs-form-group input:focus,
+.bs-form-group select:focus {
+    outline: none;
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+    background: #fff;
+}
+
+.bs-form-group input.bs-error,
+.bs-form-group select.bs-error {
+    border-color: #c41e3a;
+    background: #fff5f5;
+}
+
+.bs-form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Conditional field groups — shown/hidden by JS */
+.bs-conditional-field {
+    animation: bsFadeIn 0.3s ease;
+}
+
+@keyframes bsFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Phone input group — country code dropdown + phone input side by side */
+.bs-phone-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bs-phone-group select {
+    width: 140px;
+    min-width: 140px;
+    padding: 0.9rem 0.6rem;
+    font-size: 0.9rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 1.8rem;
+}
+
+.bs-phone-group select:focus {
+    outline: none;
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+    background-color: #fff;
+}
+
+.bs-phone-group select:focus-visible {
+    outline: 3px solid #2c3e50;
+    outline-offset: 2px;
+}
+
+.bs-phone-group input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Helper text */
+.bs-helper-text {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.4rem;
+}
+
+/* Error messages */
+.blog-subscribe-section .bs-error-message {
+    font-size: 0.8rem;
+    color: #c41e3a;
+    margin-top: 0.3rem;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.blog-subscribe-section .bs-error-message:empty {
+    display: none;
+}
+
+/* Consent section */
+.bs-consent-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.bs-checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.bs-checkbox-group input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #2c3e50;
+}
+
+.bs-checkbox-group label {
+    font-size: 0.95rem;
+    color: #444;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.blog-subscribe-section .bs-checkbox-group .bs-error-message {
+    position: absolute;
+    bottom: -1.2rem;
+    left: 32px;
+}
+
+/* Submit button — navy gradient with gold text */
+.bs-form-submit {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.bs-submit-btn {
+    min-width: 200px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, #2c3e50 0%, #1b2731 100%);
+    color: #dfc5a0;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.4);
+}
+
+.bs-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.bs-submit-btn:not(:disabled):hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(44, 62, 80, 0.5);
+}
+
+/* Privacy note */
+.bs-privacy-note {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Accessibility: Focus states — navy */
+.bs-form-group input:focus-visible,
+.bs-form-group select:focus-visible,
+.bs-checkbox-group input:focus-visible {
+    outline: 3px solid #2c3e50;
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .bs-submit-btn:hover {
+        transform: none;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .blog-subscribe-section {
+        padding: 3rem 1rem;
+    }
+
+    .blog-subscribe-header h2 {
+        font-size: 1.6rem;
+    }
+}
