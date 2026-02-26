@@ -447,3 +447,27 @@
   to = "/peregrinacion-medjugorje-2026-2027-es"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/tierrasanta2027"
+  to = "/peregrinacion-tierrasanta-2027"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tierrasanta2027-es"
+  to = "/peregrinacion-tierrasanta-2027-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-tierrasanta-2027.html"
+  to = "/peregrinacion-tierrasanta-2027"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-tierrasanta-2027-es.html"
+  to = "/peregrinacion-tierrasanta-2027-es"
+  status = 301
+  force = true

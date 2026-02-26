@@ -524,11 +524,47 @@ nav {
 
 /* Holy Land destination card styling */
 .destination-card.holyland {
-    background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+    background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
                 url('images/holyland/Jerusalem_1.jpg') center/cover;
 }
 
 .destination-card.holyland:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Holy Land 2027 card - unique image */
+.destination-card.holyland-2027 {
+    background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+                url('imagesWebp/holyland/jerusalem-3-desktop-1200.webp') center/cover;
+}
+
+@media (max-width: 768px) {
+    .destination-card.holyland-2027 {
+        background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+                    url('imagesWebp/holyland/jerusalem-3-mobile-800.webp') center/cover;
+    }
+}
+
+.destination-card.holyland-2027:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Tierra Santa 2027 card - unique image */
+.destination-card.tierra-2027 {
+    background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+                url('imagesWebp/holyland/jerusalem-3-desktop-1200.webp') center/cover;
+}
+
+@media (max-width: 768px) {
+    .destination-card.tierra-2027 {
+        background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+                    url('imagesWebp/holyland/jerusalem-3-mobile-800.webp') center/cover;
+    }
+}
+
+.destination-card.tierra-2027:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
