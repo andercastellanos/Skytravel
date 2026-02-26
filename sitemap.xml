@@ -33,12 +33,12 @@
   <!-- MAIN DESTINATION PAGES - BUSINESS PRIORITY -->
   <!-- ================================= -->
 
-  <!-- Medjugorje 2025 - HIGHEST BUSINESS PRIORITY (Current offering) -->
+  <!-- Medjugorje 2025 - MEDIUM PRIORITY (Past offering) -->
   <url>
     <loc>https://www.skytraveljm.com/medjugorje</loc>
     <lastmod>2026-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje"/>
@@ -47,8 +47,8 @@
   <url>
     <loc>https://www.skytraveljm.com/medjugorje-es</loc>
     <lastmod>2026-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje"/>
@@ -136,12 +136,39 @@
     </image:image>
   </url>
 
-  <!-- Italy Jubilee - HIGH PRIORITY (Limited time offer) -->
+  <!-- Holy Land & Medjugorje 2027 - HIGH PRIORITY (Upcoming offering) -->
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-tierrasanta-2027</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/imagesWebp/HolyLandMedjugorje/hero.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
+    <image:image>
+      <image:loc>https://www.skytraveljm.com/imagesWebp/HolyLandMedjugorje/hero.webp</image:loc>
+    </image:image>
+  </url>
+
+  <!-- Italy - MEDIUM PRIORITY (Trust signal / destination awareness) -->
   <url>
     <loc>https://www.skytraveljm.com/italy</loc>
     <lastmod>2025-07-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/italy"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/italy-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/italy"/>
@@ -151,7 +178,7 @@
     <loc>https://www.skytraveljm.com/italy-es</loc>
     <lastmod>2025-07-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/italy"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/italy-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/italy"/>
@@ -229,7 +256,7 @@
     <loc>https://www.skytraveljm.com/experiences</loc>
     <lastmod>2025-07-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/experiences-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences"/>
@@ -239,7 +266,7 @@
     <loc>https://www.skytraveljm.com/experiences-es</loc>
     <lastmod>2025-07-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/experiences-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences"/>
@@ -294,7 +321,7 @@
     <loc>https://www.skytraveljm.com/blog/god-prepares-two-hearts</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
@@ -304,7 +331,7 @@
     <loc>https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
@@ -314,7 +341,7 @@
     <loc>https://www.skytraveljm.com/blog/suitable-help</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
@@ -324,7 +351,7 @@
     <loc>https://www.skytraveljm.com/blog/ayuda-adecuada</loc>
     <lastmod>2026-02-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.50</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
@@ -374,224 +401,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2024-es"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
-  </url>
-
-  <!-- ================================= -->
-  <!-- RECENT HISTORICAL EXPERIENCES (2022-2023) -->
-  <!-- ================================= -->
-
-  <!-- Medjugorje 2023 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/medjugorje2023</loc>
-    <lastmod>2023-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.65</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2023-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2023-es</loc>
-    <lastmod>2023-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.65</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2023-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
-  </url>
-
-  <!-- Medjugorje 2022 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/medjugorje2022</loc>
-    <lastmod>2022-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.65</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2022-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2022-es</loc>
-    <lastmod>2022-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.65</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2022-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
-  </url>
-
-  <!-- Tierra Santa 2022 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/tierra-santa-2022</loc>
-    <lastmod>2022-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.65</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2022-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2022-es</loc>
-    <lastmod>2022-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.65</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2022-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
-  </url>
-
-  <!-- ================================= -->
-  <!-- OLDER HISTORICAL EXPERIENCES (2016-2021) -->
-  <!-- ================================= -->
-
-  <!-- Tierra Santa 2021 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/tierrasanta2021</loc>
-    <lastmod>2021-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2021"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2021-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2021"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2021-es</loc>
-    <lastmod>2021-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2021"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2021-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2021"/>
-  </url>
-
-  <!-- Medjugorje 2019 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/medjugorje2019</loc>
-    <lastmod>2019-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2019-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2019-es</loc>
-    <lastmod>2019-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2019-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
-  </url>
-
-  <!-- Tierra Santa 2019 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/tierrasanta2019</loc>
-    <lastmod>2019-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2019"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2019-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2019"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2019-es</loc>
-    <lastmod>2019-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2019"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2019-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2019"/>
-  </url>
-
-  <!-- Tierra Santa 2018 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/tierrasanta2018</loc>
-    <lastmod>2018-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.55</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2018"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2018-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2018"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2018-es</loc>
-    <lastmod>2018-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.55</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2018"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2018-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2018"/>
-  </url>
-
-  <!-- Medjugorje 2017 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/medjugorje2017</loc>
-    <lastmod>2017-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.55</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2017-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2017-es</loc>
-    <lastmod>2017-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.55</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2017-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
-  </url>
-
-  <!-- Tierra Santa 2017 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/tierrasanta2017</loc>
-    <lastmod>2017-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.55</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2017-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2017-es</loc>
-    <lastmod>2017-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.55</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2017-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
-  </url>
-
-  <!-- Tierra Santa 2016 -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences/tierrasanta2016</loc>
-    <lastmod>2016-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2016-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2016-es</loc>
-    <lastmod>2016-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2016-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
   </url>
 
 </urlset>
