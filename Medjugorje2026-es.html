@@ -75,26 +75,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="style.css" as="style">
-    <!-- Hero image preloads: desktop and mobile breakpoints for LCP optimization -->
-    <link rel="preload" as="image" type="image/webp" href="imagesWebp/Medjugorje/MedjugorjeVirgin-1600.webp"
-        media="(min-width: 769px)">
-    <link rel="preload" as="image" type="image/webp" href="imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp"
-        media="(max-width: 768px)">
+    <link rel="preload" as="image" href="imagesWebp/Medjugorje/MedjugorjeVirgin-1200.webp"
+        imagesrcset="imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp 800w, imagesWebp/Medjugorje/MedjugorjeVirgin-1200.webp 1200w"
+        imagesizes="(max-width: 768px) 100vw, 1200px">
 
     <link rel="stylesheet" href="style.css">
     <!-- Critical slideshow visibility to avoid FOUC while components.css loads asynchronously -->
     <style>
-        .slideshow .slide {
-            display: none;
-        }
-
-        .slideshow .slide:first-child {
-            display: block;
-        }
-
-        .slideshow.slick-initialized .slide {
-            display: block;
-        }
+        .slideshow .slide { display: none; }
+        .slideshow .slide:first-child { display: block; }
+        .slideshow.slick-initialized .slide { display: block; }
     </style>
     <link rel="preload" href="css/components.css" as="style" onload="this.rel='stylesheet'">
     <noscript>
@@ -309,8 +299,7 @@
           "@type": "Offer",
           "name": "Desde Estados Unidos",
           "price": "1999",
-          "priceCurrency": "EUR",
-          "availability": "https://schema.org/InStock",
+          "priceCurrency": "EUR", "validFrom": "2026-02-21",           "availability": "https://schema.org/InStock",
           "url": "https://www.skytraveljm.com/medjugorje2026-es",
           "validThrough": "2026-03-25"
         },
@@ -318,8 +307,7 @@
           "@type": "Offer",
           "name": "Desde Sur América",
           "price": "2299",
-          "priceCurrency": "EUR",
-          "availability": "https://schema.org/InStock",
+          "priceCurrency": "EUR", "validFrom": "2026-02-21",           "availability": "https://schema.org/InStock",
           "url": "https://www.skytraveljm.com/medjugorje2026-es",
           "validThrough": "2026-03-25"
         },
@@ -327,8 +315,7 @@
           "@type": "Offer",
           "name": "Desde Europa y resto del mundo",
           "price": "0",
-          "priceCurrency": "EUR",
-          "availability": "https://schema.org/InStock",
+          "priceCurrency": "EUR", "validFrom": "2026-02-21",           "availability": "https://schema.org/InStock",
           "url": "https://www.skytraveljm.com/medjugorje2026-es",
           "validThrough": "2026-03-25"
         }
@@ -355,8 +342,7 @@
       "offers": {
         "@type": "Offer",
         "price": "1999",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
+        "priceCurrency": "EUR", "validFrom": "2026-02-21",         "availability": "https://schema.org/InStock",
         "url": "https://www.skytraveljm.com/medjugorje2026-es",
         "validThrough": "2026-03-25"
       }
@@ -470,106 +456,94 @@
         <!-- Encabezado del destino y carrusel de imágenes -->
         <div class="destination-header">
             <div class="slideshow">
-                <!-- Diapositivas -->
-                <div class="slide active">
+                <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp 800w,
                 imagesWebp/Medjugorje/MedjugorjeVirgin-1600.webp 1600w" sizes="(max-width: 768px) 100vw, 1600px"
-                        src="imagesWebp/Medjugorje/MedjugorjeVirgin-1600.webp" alt="Estatua de la Virgen en Medjugorje"
-                        width="1600" height="584" loading="eager" decoding="async">
+                        src="imagesWebp/Medjugorje/MedjugorjeVirgin-1600.webp"
+                        alt="Estatua de la Virgen María en Medjugorje durante el atardecer" width="1600" height="583"
+                        loading="eager" fetchpriority="high" decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/Cross-800.webp 800w,
                 imagesWebp/Medjugorje/Cross-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/Cross-1200.webp" alt="Cruz en el Monte Krizevac" width="1200"
-                        height="1363" loading="lazy" decoding="async">
+                        src="imagesWebp/Medjugorje/Cross-1200.webp" alt="Gran cruz en el Monte Krizevac en Medjugorje"
+                        width="1200" height="728" loading="lazy" decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/Church1-800.webp 800w,
                 imagesWebp/Medjugorje/Church1-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/Church1-1200.webp" alt="Interior de la Iglesia de Santiago"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                        src="imagesWebp/Medjugorje/Church1-1200.webp"
+                        alt="Interior de la Iglesia de Santiago en Medjugorje" width="1200" height="1363"
+                        loading="lazy" decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/mountain-800.webp 800w,
                 imagesWebp/Medjugorje/mountain-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/mountain-1200.webp" alt="Panorama de las montañas de Medjugorje"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                        src="imagesWebp/Medjugorje/mountain-1200.webp"
+                        alt="Vista panorámica de las montañas de Medjugorje" width="1200" height="800" loading="lazy"
+                        decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/Medjugorjechurch3-800.webp 800w,
                 imagesWebp/Medjugorje/Medjugorjechurch3-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/Medjugorjechurch3-1200.webp" alt="Altar de la Iglesia de Santiago"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                        src="imagesWebp/Medjugorje/Medjugorjechurch3-1200.webp"
+                        alt="Altar principal de la Iglesia de Santiago en Medjugorje" width="1200" height="800"
+                        loading="lazy" decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/Virgin1-800.webp 800w,
                 imagesWebp/Medjugorje/Virgin1-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/Virgin1-1200.webp" alt="Estatua Reina de la Paz" width="1200"
-                        height="1363" loading="lazy" decoding="async">
+                        src="imagesWebp/Medjugorje/Virgin1-1200.webp" alt="Estatua de la Reina de la Paz en Medjugorje"
+                        width="1200" height="956" loading="lazy" decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje100-mobile-800.webp 800w,
-                 imagesWebp/Medjugorje/medjugorje100-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/medjugorje100-desktop-1200.webp" alt="Monte de la Cruz" width="1200"
-                        height="1363" loading="lazy" decoding="async">
+                imagesWebp/Medjugorje/medjugorje100-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/Medjugorje/medjugorje100-desktop-1200.webp"
+                        alt="Peregrinos subiendo el Monte de la Cruz en Medjugorje" width="1200" height="675"
+                        loading="lazy" decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje101-mobile-800.webp 800w,
-                 imagesWebp/Medjugorje/medjugorje101-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/medjugorje101-desktop-1200.webp" alt="Parroquia de Santiago Apóstol"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                imagesWebp/Medjugorje/medjugorje101-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/Medjugorje/medjugorje101-desktop-1200.webp"
+                        alt="Parroquia de Santiago Apóstol en Medjugorje" width="1200" height="799" loading="lazy"
+                        decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje102-mobile-800.webp 800w,
-                 imagesWebp/Medjugorje/medjugorje102-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/medjugorje102-desktop-1200.webp" alt="Estatua de Cristo Resucitado"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                imagesWebp/Medjugorje/medjugorje102-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/Medjugorje/medjugorje102-desktop-1200.webp"
+                        alt="Estatua de Cristo Resucitado en Medjugorje" width="1200" height="805" loading="lazy"
+                        decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje103-mobile-800.webp 800w,
-                 imagesWebp/Medjugorje/medjugorje103-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/medjugorje103-desktop-1200.webp" alt="Estatua de la Reina de la Paz"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                imagesWebp/Medjugorje/medjugorje103-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/Medjugorje/medjugorje103-desktop-1200.webp"
+                        alt="Monumento de la Reina de la Paz en Medjugorje" width="1200" height="808" loading="lazy"
+                        decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje104-mobile-800.webp 800w,
-                 imagesWebp/Medjugorje/medjugorje104-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
-                        src="imagesWebp/Medjugorje/medjugorje104-desktop-1200.webp" alt="Estatua de la Reina de la Paz"
-                        width="1200" height="1363" loading="lazy" decoding="async">
+                imagesWebp/Medjugorje/medjugorje104-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                        src="imagesWebp/Medjugorje/medjugorje104-desktop-1200.webp"
+                        alt="Peregrinos en oración en Medjugorje" width="1200" height="1600" loading="lazy"
+                        decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje105-mobile-800.webp 800w,
-                 imagesWebp/Medjugorje/medjugorje105-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                imagesWebp/Medjugorje/medjugorje105-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
                         src="imagesWebp/Medjugorje/medjugorje105-desktop-1200.webp"
-                        alt="Confesionario del Mundo en Medjugorje" width="1200" height="1363" loading="lazy"
+                        alt="Confesionario del Mundo en Medjugorje" width="1200" height="1600" loading="lazy"
                         decoding="async">
                 </div>
                 <div class="slide">
                     <img srcset="imagesWebp/Medjugorje/medjugorje106-mobile-800.webp 800w,
-                 imagesWebp/Medjugorje/medjugorje106-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
+                imagesWebp/Medjugorje/medjugorje106-desktop-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 1200px"
                         src="imagesWebp/Medjugorje/medjugorje106-desktop-1200.webp"
-                        alt="Castillo de Nancy y Patrick en Medjugorje" width="1200" height="1363" loading="lazy"
+                        alt="Castillo de Nancy y Patrick en Medjugorje" width="1200" height="1600" loading="lazy"
                         decoding="async">
-                </div>
-                <!-- Flechas de navegación -->
-                <button class="slide-arrow prev">&#10094;</button>
-                <button class="slide-arrow next">&#10095;</button>
-
-                <!-- Indicadores de diapositiva -->
-                <div class="slide-indicators">
-                    <span class="indicator active"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
-                    <span class="indicator"></span>
                 </div>
             </div>
 
