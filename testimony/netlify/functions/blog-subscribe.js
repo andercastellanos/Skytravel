@@ -128,6 +128,9 @@ function buildUserThankYouEmail(body) {
     const isSpanish = (body.lang || 'en').toLowerCase().startsWith('es');
     const firstName = body.name.trim().split(' ')[0];
 
+    const notifMethodEN = { 'Correo': 'Email' };
+    const notifEN = notifMethodEN[body.notificationPref] || body.notificationPref;
+
     const text = isSpanish ? {
         greeting: `Hola ${firstName},`,
         thankYou: '¡Gracias por suscribirte a nuestro blog!',
@@ -141,7 +144,7 @@ function buildUserThankYouEmail(body) {
         greeting: `Hello ${firstName},`,
         thankYou: 'Thank you for subscribing to our blog!',
         body: 'We\'ll notify you when we publish new articles about pilgrimages, sacred destinations, and spiritual travel guides.',
-        notify: `You\'ll receive notifications via <strong>${body.notificationPref}</strong>.`,
+        notify: `You\'ll receive notifications via <strong>${notifEN}</strong>.`,
         closing: 'God bless,',
         teamName: 'The Sky Travel J&M Team',
         phone: 'Phone',

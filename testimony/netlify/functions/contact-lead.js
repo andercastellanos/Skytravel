@@ -155,6 +155,9 @@ function buildManagerEmail(body) {
 function buildUserThankYouEmail(body) {
     const isSpanish = (body.lang || 'en').toLowerCase().startsWith('es');
 
+    const contactMethodEN = { 'Correo': 'Email', 'Llamada': 'Call', 'Texto (SMS)': 'Text (SMS)' };
+    const preferredEN = contactMethodEN[body.preferredContact] || body.preferredContact;
+
     const text = isSpanish ? {
         greeting: `Hola ${body.firstName},`,
         thankYou: '¡Gracias por tu interés en nuestras peregrinaciones!',
@@ -167,7 +170,7 @@ function buildUserThankYouEmail(body) {
     } : {
         greeting: `Hello ${body.firstName},`,
         thankYou: 'Thank you for your interest in our pilgrimages!',
-        received: `We have received your inquiry about <strong>${body.pilgrimageInterest}</strong> and will contact you soon via <strong>${body.preferredContact}</strong>.`,
+        received: `We have received your inquiry about <strong>${body.pilgrimageInterest}</strong> and will contact you soon via <strong>${preferredEN}</strong>.`,
         team: 'Our team will review your information and get back to you as soon as possible.',
         closing: 'God bless,',
         teamName: 'The Sky Travel J&M Team',
