@@ -248,6 +248,7 @@
             notificationPref: formData.get('notificationPref'),
             consentSubscribe: !!formData.get('consentSubscribe'),
             website: formData.get('website') || '',
+            lang: document.documentElement.lang || 'en',
             sourcePage: window.location.pathname
         };
 

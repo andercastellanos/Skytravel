@@ -402,6 +402,7 @@
             consentContact: !!formData.get('consentContact'),
             consentMarketing: !!formData.get('consentMarketing'),
             website: formData.get('website') || '',
+            lang: document.documentElement.lang || 'en',
             sourcePage: window.location.pathname,
             utmSource: utmParams.utm_source,
             utmMedium: utmParams.utm_medium,
