@@ -134,7 +134,7 @@ function buildUserThankYouEmail(body) {
         body: 'Te notificaremos cuando publiquemos nuevos artículos sobre peregrinaciones, destinos sagrados, y guías de viaje espiritual.',
         notify: `Recibirás notificaciones a través de <strong>${body.notificationPref}</strong>.`,
         closing: 'Que Dios te bendiga,',
-        teamName: 'El Equipo de Sky Travel JM',
+        teamName: 'El Equipo de Sky Travel J&M',
         phone: 'Teléfono',
         website: 'Sitio Web'
     } : {
@@ -143,7 +143,7 @@ function buildUserThankYouEmail(body) {
         body: 'We\'ll notify you when we publish new articles about pilgrimages, sacred destinations, and spiritual travel guides.',
         notify: `You\'ll receive notifications via <strong>${body.notificationPref}</strong>.`,
         closing: 'God bless,',
-        teamName: 'The Sky Travel JM Team',
+        teamName: 'The Sky Travel J&M Team',
         phone: 'Phone',
         website: 'Website'
     };
@@ -168,7 +168,7 @@ function buildUserThankYouEmail(body) {
         <!-- Footer -->
         <div style="border-top:3px solid #c8a97e;padding:20px 30px;text-align:center;background:#faf8f5;">
             <p style="color:#666;font-size:13px;margin:4px 0;">Email: info@skytraveljm.com</p>
-            <p style="color:#666;font-size:13px;margin:4px 0;">${text.phone}: +1 (845) 709-3999</p>
+            <p style="color:#666;font-size:13px;margin:4px 0;">${text.phone}: +1 (239) 355-4007</p>
             <p style="color:#666;font-size:13px;margin:4px 0;">${text.website}: <a href="https://www.skytraveljm.com" style="color:#c8a97e;">skytraveljm.com</a></p>
             <div style="margin-top:12px;">
                 <a href="https://www.facebook.com/skytraveljm" style="color:#c8a97e;text-decoration:none;margin:0 8px;">Facebook</a>
