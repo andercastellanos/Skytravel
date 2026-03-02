@@ -11,7 +11,8 @@
     "sharp": "^0.33.5"
   },
   "dependencies": {
-    "@notionhq/client": "^2.3.0"
+    "@notionhq/client": "^2.3.0",
+    "resend": "^6.9.2"
   },
   "description": "",
   "main": "index.js",
