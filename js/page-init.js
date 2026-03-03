@@ -8,8 +8,9 @@
     'use strict';
 
     /* ---------- Configuration ---------- */
-    var CONTACT_VERSION = '20260128';
-    var FOOTER_VERSION  = '20260204a';
+    var CONTACT_VERSION    = '20260128';
+    var BLOG_SUB_VERSION   = '20260224';
+    var FOOTER_VERSION     = '20260204a';
 
     /* ---------- Base path (auto-detected from script src) ---------- */
     var basePath = (function () {
@@ -69,6 +70,38 @@
             var pane = container.querySelector('#' + targetTab);
             if (pane) pane.classList.add('active');
         });
+    }
+
+    /* ---------- Blog Subscribe Section Loader ---------- */
+
+    function loadBlogSubscribeSection() {
+        var container = document.getElementById('blog-subscribe-container');
+        if (!container) return;
+
+        var lang = (document.documentElement.lang || 'en').toLowerCase();
+        var isSpanish = lang.indexOf('es') === 0;
+
+        var htmlFile = basePath + 'components/blog-subscribe-section' + (isSpanish ? '-es' : '') + '.html?v=' + BLOG_SUB_VERSION;
+        var cssHref  = basePath + 'components/blog-subscribe-section.css?v=' + BLOG_SUB_VERSION;
+        var dataComp = isSpanish ? 'blog-subscribe-section-es' : 'blog-subscribe-section';
+
+        fetch(htmlFile, { cache: 'no-store' })
+            .then(function (r) { return r.text(); })
+            .then(function (html) {
+                var doc = new DOMParser().parseFromString(html, 'text/html');
+
+                var link = doc.querySelector('link[data-component="' + dataComp + '"]');
+                if (link) {
+                    link.remove();
+                    if (!document.querySelector('link[data-component="' + dataComp + '"]')) {
+                        link.href = cssHref;
+                        document.head.appendChild(link);
+                    }
+                }
+
+                container.innerHTML = doc.body ? doc.body.innerHTML : html;
+            })
+            .catch(function (err) { console.error('Error loading blog subscribe section:', err); });
     }
 
     /* ---------- Contact Section Loader ---------- */
@@ -169,6 +202,7 @@
 
     ready(function () {
         initTabs();
+        loadBlogSubscribeSection();
         loadContactSection();
         loadFooter();
         initSlideshow();
