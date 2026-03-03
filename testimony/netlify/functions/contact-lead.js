@@ -182,7 +182,7 @@ function buildUserThankYouEmail(body) {
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#faf8f5;">
         <!-- Header with logo -->
         <div style="padding:30px;text-align:center;">
-            <img src="https://www.skytraveljm.com/images/Logo.jpg" alt="Sky Travel JM" style="max-width:160px;height:auto;" />
+            <img src="https://www.skytraveljm.com/images/Logo.jpg" alt="Sky Travel J&amp;M" style="max-width:160px;height:auto;" />
         </div>
 
         <!-- Body -->
