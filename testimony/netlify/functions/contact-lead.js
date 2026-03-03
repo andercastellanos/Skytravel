@@ -228,7 +228,7 @@ async function sendEmails(body) {
     const managerEmail = resend.emails.send({
         from: fromEmail,
         to: notificationEmail,
-        subject: `New Lead: ${body.firstName} ${body.lastName} — ${body.pilgrimageInterest}`,
+        subject: `New Lead: ${body.firstName} ${body.lastName} — ${body.pilgrimageInterest} | Sky Travel J&M`,
         html: buildManagerEmail(body)
     });
 
