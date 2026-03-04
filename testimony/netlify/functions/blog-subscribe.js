@@ -81,6 +81,7 @@ function isValidEmail(email) {
 // EMAIL NOTIFICATIONS VIA RESEND
 // ============================================
 
+
 /**
  * Builds the manager notification email for a new blog subscriber
  * @param {object} body - Form submission data
@@ -139,7 +140,8 @@ function buildUserThankYouEmail(body) {
         closing: 'Que Dios te bendiga,',
         teamName: 'Equipo de Sky Travel J&M',
         phone: 'Teléfono',
-        website: 'Sitio Web'
+        website: 'Sitio Web',
+        license: 'Licencia de Vendedor de Viajes (FDACS) No. ST45413'
     } : {
         greeting: `Hello ${firstName},`,
         thankYou: 'Thank you for subscribing to our blog!',
@@ -148,7 +150,8 @@ function buildUserThankYouEmail(body) {
         closing: 'God bless,',
         teamName: 'The Sky Travel J&M Team',
         phone: 'Phone',
-        website: 'Website'
+        website: 'Website',
+        license: 'FDACS Seller of Travel License No. ST45413'
     };
 
     return `
@@ -170,12 +173,15 @@ function buildUserThankYouEmail(body) {
 
         <!-- Footer -->
         <div style="border-top:3px solid #c8a97e;padding:20px 30px;text-align:center;background:#faf8f5;">
-            <p style="color:#666;font-size:13px;margin:2px 0;">Email: info@skytraveljm.com</p>
+            <p style="color:#666;font-size:13px;margin:2px 0;">1000 Brickell Ave Ste 715</p>
+            <p style="color:#666;font-size:13px;margin:2px 0;">Miami, FL 33131</p>
+            <p style="color:#666;font-size:13px;margin:8px 0 2px 0;">${text.license}</p>
+            <p style="color:#666;font-size:13px;margin:8px 0 2px 0;">Email: info@skytraveljm.com</p>
             <p style="color:#666;font-size:13px;margin:2px 0;">${text.phone}: +1 (239) 355-4007</p>
             <p style="color:#666;font-size:13px;margin:2px 0;">${text.website}: <a href="https://www.skytraveljm.com" style="color:#c8a97e;">skytraveljm.com</a></p>
             <div style="margin-top:12px;">
-                <a href="https://www.facebook.com/skytraveljm" style="color:#c8a97e;text-decoration:none;margin:0 8px;">Facebook</a>
-                <a href="https://www.instagram.com/skytraveljm" style="color:#c8a97e;text-decoration:none;margin:0 8px;">Instagram</a>
+                <a href="https://www.facebook.com/skytraveljm" style="text-decoration:none;margin:0 6px;"><img src="https://www.skytraveljm.com/images/email/facebook-gold.png" alt="" width="24" height="24" style="vertical-align:middle;" /></a>
+                <a href="https://www.instagram.com/skytraveljm" style="text-decoration:none;margin:0 6px;"><img src="https://www.skytraveljm.com/images/email/instagram-gold.png" alt="" width="24" height="24" style="vertical-align:middle;" /></a>
             </div>
         </div>
     </div>`;
