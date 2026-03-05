@@ -1594,6 +1594,7 @@
 
   <!-- GA4 CTA + Form event tracking -->
   <script>
+    window.__skyTravelHasInlineWhatsappTracking = true;
     function fireGtagEvent(eventName, extra) {
       if (typeof gtag !== 'function') return;
       var payload = Object.assign({
