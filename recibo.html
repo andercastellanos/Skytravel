@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#c8a97e">
+  <title>Recibo — Sky Travel J&M</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components/contact-section.css">
+
+  <style>
+    /* Page-specific styles */
+    .receipt-header {
+      text-align: center;
+      padding: 20px 0;
+      background: #ffffff;
+      border-bottom: 2px solid #f0ebe3;
+    }
+
+    .receipt-header img {
+      max-width: 140px;
+      height: auto;
+    }
+
+    .receipt-container {
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .receipt-card {
+      background: #ffffff;
+      border: 2px solid #c8a97e;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .receipt-title {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .lang-btn {
+      padding: 6px 18px;
+      border: 2px solid #c8a97e;
+      border-radius: 20px;
+      background: transparent;
+      color: #c8a97e;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: #c8a97e;
+      color: #ffffff;
+    }
+
+    .lang-btn:hover {
+      background: #c8a97e;
+      color: #ffffff;
+    }
+
+    /* Form layout */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: Arial, sans-serif;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #c8a97e;
+      box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.15);
+    }
+
+    /* Line items table */
+    .line-items-section {
+      margin-top: 24px;
+    }
+
+    .line-items-section h3 {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 12px;
+    }
+
+    .line-items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+    }
+
+    .line-items-table th {
+      background: #c8a97e;
+      color: #ffffff;
+      padding: 10px 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .line-items-table th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+
+    .line-items-table th:last-child {
+      border-radius: 0 8px 0 0;
+      width: 36px;
+      text-align: center;
+    }
+
+    .line-items-table td {
+      padding: 6px 4px;
+      vertical-align: middle;
+    }
+
+    .line-items-table .form-input {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+    }
+
+    .line-items-table select.form-input {
+      padding: 8px 6px;
+    }
+
+    .remove-row-btn {
+      background: none;
+      border: none;
+      color: #c41e3a;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .remove-row-btn:hover {
+      background: #fff5f5;
+    }
+
+    #add-row-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1.5px dashed #c8a97e;
+      border-radius: 8px;
+      color: #c8a97e;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #add-row-btn:hover {
+      background: #faf6f0;
+    }
+
+    /* Total display */
+    .total-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 14px 0;
+      border-top: 2px solid #c8a97e;
+      margin-top: 12px;
+      gap: 12px;
+    }
+
+    .total-label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    .total-amount {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #c8a97e;
+    }
+
+    /* PDF upload */
+    .pdf-section {
+      margin-top: 24px;
+      padding: 16px;
+      border: 1.5px dashed #ddd;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .pdf-section label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .pdf-section input[type="file"] {
+      font-size: 0.85rem;
+    }
+
+    .pdf-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 6px;
+    }
+
+    .pdf-filename {
+      font-size: 0.85rem;
+      color: #c8a97e;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* Submit button */
+    .submit-section {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    #submit-btn {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(200, 169, 126, 0.35);
+    }
+
+    #submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .receipt-card {
+        padding: 24px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .line-items-table {
+        font-size: 0.8rem;
+      }
+
+      .line-items-table .form-input {
+        padding: 6px;
+        font-size: 0.8rem;
+      }
+
+      /* Stack table for mobile */
+      .line-items-table,
+      .line-items-table thead,
+      .line-items-table tbody,
+      .line-items-table th,
+      .line-items-table td,
+      .line-items-table tr {
+        display: block;
+      }
+
+      .line-items-table thead {
+        display: none;
+      }
+
+      .line-items-table tr {
+        margin-bottom: 12px;
+        padding: 12px;
+        border: 1px solid #e0d6c8;
+        border-radius: 8px;
+        position: relative;
+      }
+
+      .line-items-table td {
+        padding: 4px 0;
+      }
+
+      .line-items-table td:last-child {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Minimal header: logo only, no navigation -->
+  <div class="receipt-header">
+    <a href="/">
+      <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
+    </a>
+  </div>
+
+  <div class="receipt-container">
+    <div class="receipt-card">
+      <!-- Language toggle -->
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn active" data-lang="es">ES</button>
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+      </div>
+
+      <h1 class="receipt-title" data-i18n="pageTitle">Generar Recibo</h1>
+
+      <form id="receipt-form" novalidate>
+        <!-- Customer info -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="customer-name" data-i18n-label="customerName">Nombre del Cliente</label>
+            <input type="text" id="customer-name" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="customer-email" data-i18n-label="customerEmail">Correo Electrónico del Cliente</label>
+            <input type="email" id="customer-email" class="form-input" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="receipt-date" data-i18n-label="date">Fecha</label>
+            <input type="date" id="receipt-date" class="form-input" required />
+          </div>
+        </div>
+
+        <!-- Line Items -->
+        <div class="line-items-section">
+          <h3 data-i18n="lineItemsTitle">Detalle de Pagos</h3>
+          <div style="overflow-x:auto;">
+            <table class="line-items-table">
+              <thead>
+                <tr>
+                  <th data-i18n="description">Descripción</th>
+                  <th data-i18n="paymentDate">Fecha de Pago</th>
+                  <th data-i18n="method">Método</th>
+                  <th data-i18n="amount">Monto</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="line-items-body">
+                <tr>
+                  <td><input type="text" class="li-description form-input" /></td>
+                  <td><input type="date" class="li-pay-date form-input" /></td>
+                  <td>
+                    <select class="li-method form-input">
+                      <option value="">—</option>
+                      <option value="Zelle">Zelle</option>
+                      <option value="Cash">Efectivo</option>
+                      <option value="Credit Card">Tarjeta de Crédito</option>
+                      <option value="Wire Transfer">Transferencia Bancaria</option>
+                      <option value="Check">Cheque</option>
+                    </select>
+                  </td>
+                  <td><input type="number" class="li-amount form-input" min="0" step="0.01" /></td>
+                  <td><button type="button" class="remove-row-btn" title="Remove">&times;</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <button type="button" id="add-row-btn">+ Agregar Fila</button>
+
+          <!-- Total -->
+          <div class="total-row">
+            <span class="total-label" data-i18n="total">Total</span>
+            <span class="total-amount" id="receipt-total">$0.00</span>
+          </div>
+        </div>
+
+        <!-- PDF Upload -->
+        <div class="pdf-section">
+          <label for="pdf-upload" data-i18n-label="pdfUpload">Adjuntar PDF del Recibo</label>
+          <input type="file" id="pdf-upload" accept=".pdf,application/pdf" />
+          <p class="pdf-hint" id="pdf-hint">Solo PDF, máximo 500KB</p>
+          <p class="pdf-filename" id="pdf-filename"></p>
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-section">
+          <button type="submit" id="submit-btn">Enviar Recibo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/receipt-form.js"></script>
+  <script src="js/page-init.min.js"></script>
+</body>
+
+</html>

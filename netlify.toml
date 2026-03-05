@@ -39,6 +39,13 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Hidden receipt page redirect
+[[redirects]]
+  from = "/recibo.html"
+  to = "/recibo"
+  status = 301
+  force = true
+
 # Redirect .html variants to extensionless canonical URLs
 [[redirects]]
   from = "/index.html"
