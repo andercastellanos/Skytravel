@@ -714,6 +714,11 @@
               "@type": "Answer",
               "text": "Message us on WhatsApp or call us. We'll send you the itinerary, answer your questions, and confirm your reservation with the €499 deposit."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you organize pilgrimages for groups?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. We organize parish, family, or community groups and help with dates, flights, and logistics." }
           }
         ]
       }
@@ -1219,6 +1224,11 @@
         <div class="faq-content">Message us on WhatsApp or call us. We'll send you the itinerary, answer your questions, and
           confirm your reservation with the €499 deposit.</div>
       </details>
+
+      <details class="faq-item">
+          <summary>Do you organize pilgrimages for groups?</summary>
+          <div class="faq-content">Yes. We organize parish, family, or community groups and help with dates, flights, and logistics.</div>
+      </details>
     </section>
 
     <!-- Section: Final CTA -->
@@ -1604,6 +1614,7 @@
 
   <!-- GA4 CTA + Form event tracking -->
   <script>
+    window.__skyTravelHasInlineWhatsappTracking = true;
     function fireGtagEvent(eventName, extra) {
       if (typeof gtag !== 'function') return;
       var payload = Object.assign({
