@@ -357,6 +357,26 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
   </url>
 
+  <url>
+    <loc>https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje</loc>
+    <lastmod>2026-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje</loc>
+    <lastmod>2026-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
+  </url>
+
   <!-- ================================= -->
   <!-- CURRENT EXPERIENCE OFFERINGS (2024-2025) -->
   <!-- ================================= -->
