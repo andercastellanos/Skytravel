@@ -392,7 +392,6 @@
               <thead>
                 <tr>
                   <th data-i18n="description">Descripción</th>
-                  <th data-i18n="paymentDate">Fecha de Pago</th>
                   <th data-i18n="method">Método</th>
                   <th data-i18n="amount">Monto</th>
                   <th></th>
@@ -401,7 +400,6 @@
               <tbody id="line-items-body">
                 <tr>
                   <td><input type="text" class="li-description form-input" /></td>
-                  <td><input type="date" class="li-pay-date form-input" /></td>
                   <td>
                     <select class="li-method form-input">
                       <option value="">—</option>
@@ -432,7 +430,7 @@
         <div class="pdf-section">
           <label for="pdf-upload" data-i18n-label="pdfUpload">Adjuntar PDF del Recibo</label>
           <input type="file" id="pdf-upload" accept=".pdf,application/pdf" />
-          <p class="pdf-hint" id="pdf-hint">Solo PDF, máximo 500KB</p>
+          <p class="pdf-hint" id="pdf-hint">Solo PDF, máximo 2MB</p>
           <p class="pdf-filename" id="pdf-filename"></p>
         </div>
 
@@ -444,6 +442,8 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
   <script src="js/receipt-form.js"></script>
   <script src="js/page-init.min.js"></script>
 </body>

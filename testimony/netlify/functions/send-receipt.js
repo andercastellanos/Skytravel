@@ -25,6 +25,23 @@ function isValidEmail(email) {
 }
 
 /**
+ * Formats YYYY-MM-DD date into localized string
+ */
+function formatDate(dateStr, isSpanish) {
+    const months = isSpanish
+        ? ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
+        : ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    const day = parseInt(parts[2], 10);
+    const month = months[parseInt(parts[1], 10) - 1];
+    const year = parts[0];
+    return isSpanish
+        ? `${String(day).padStart(2, '0')} de ${month} de ${year}`
+        : `${month} ${String(day).padStart(2, '0')}, ${year}`;
+}
+
+/**
  * Builds the branded receipt HTML email
  */
 function buildReceiptEmail(body) {
@@ -36,11 +53,11 @@ function buildReceiptEmail(body) {
         customerLabel: 'Cliente',
         dateLabel: 'Fecha',
         descriptionLabel: 'Descripción',
-        paymentDateLabel: 'Fecha de Pago',
         methodLabel: 'Método',
         amountLabel: 'Monto',
         totalLabel: 'Total',
-        attachmentNote: 'Se adjunta el recibo en formato PDF para sus registros.',
+        greeting: 'Hola',
+        message: 'Te enviamos el recibo correspondiente al abono realizado el día {date}. Adjuntamos el recibo en formato PDF para su respectivo registro.',
         closing: 'Gracias por su confianza.',
         teamName: 'Equipo de Sky Travel J&M',
         phone: 'Teléfono',
@@ -52,11 +69,11 @@ function buildReceiptEmail(body) {
         customerLabel: 'Customer',
         dateLabel: 'Date',
         descriptionLabel: 'Description',
-        paymentDateLabel: 'Payment Date',
         methodLabel: 'Method',
         amountLabel: 'Amount',
         totalLabel: 'Total',
-        attachmentNote: 'Please find the receipt PDF attached for your records.',
+        greeting: 'Hello',
+        message: 'We are sending you the receipt for the payment made on {date}. The receipt is attached in PDF format for your records.',
         closing: 'Thank you for your trust.',
         teamName: 'The Sky Travel J&M Team',
         phone: 'Phone',
@@ -68,7 +85,6 @@ function buildReceiptEmail(body) {
     const lineItemRows = (body.lineItems || []).map(item =>
         `<tr>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;">${item.description || ''}</td>
-            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.paymentDate || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.method || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">$${parseFloat(item.amount || 0).toFixed(2)}</td>
         </tr>`
@@ -89,15 +105,14 @@ function buildReceiptEmail(body) {
         <div style="padding:30px;background:#ffffff;">
             <h1 style="color:#2c3e50;font-size:22px;margin:0 0 20px 0;text-align:center;">${text.title}</h1>
 
-            <p style="color:#333;font-size:15px;margin:0 0 6px 0;"><strong>${text.customerLabel}:</strong> ${body.customerName}</p>
-            <p style="color:#333;font-size:15px;margin:0 0 20px 0;"><strong>${text.dateLabel}:</strong> ${body.date}</p>
+            <p style="color:#333;font-size:15px;margin:0 0 6px 0;">${text.greeting} ${body.customerName},</p>
+            <p style="color:#333;font-size:15px;margin:0 0 20px 0;line-height:1.5;">${text.message.replace('{date}', formatDate(body.date, isSpanish))}</p>
 
             <!-- Line Items Table -->
             <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
                 <thead>
                     <tr>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:left;border:1px solid #c8a97e;">${text.descriptionLabel}</th>
-                        <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:center;border:1px solid #c8a97e;">${text.paymentDateLabel}</th>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:center;border:1px solid #c8a97e;">${text.methodLabel}</th>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:right;border:1px solid #c8a97e;">${text.amountLabel}</th>
                     </tr>
@@ -106,13 +121,6 @@ function buildReceiptEmail(body) {
                     ${lineItemRows}
                 </tbody>
             </table>
-
-            <!-- Total -->
-            <div style="text-align:right;padding:12px 0;border-top:2px solid #c8a97e;">
-                <span style="font-size:16px;font-weight:700;color:#2c3e50;">${text.totalLabel}: $${total.toFixed(2)}</span>
-            </div>
-
-            <p style="color:#666;font-size:14px;margin:20px 0 0 0;line-height:1.5;">${text.attachmentNote}</p>
 
             <p style="color:#2c3e50;font-size:15px;margin:24px 0 4px 0;">${text.closing}</p>
             <p style="color:#c8a97e;font-weight:600;font-size:15px;margin:0;">${text.teamName}</p>
@@ -201,12 +209,12 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Validate PDF if provided (base64 ~700KB = ~500KB file)
-        if (body.pdfBase64 && body.pdfBase64.length > 700000) {
+        // Validate PDF if provided (base64 ~2.67MB = ~2MB file)
+        if (body.pdfBase64 && body.pdfBase64.length > 2800000) {
             return {
                 statusCode: 400,
                 headers: corsHeaders,
-                body: JSON.stringify({ success: false, error: 'PDF file is too large (max 500KB)' })
+                body: JSON.stringify({ success: false, error: 'PDF file is too large (max 2MB)' })
             };
         }
 

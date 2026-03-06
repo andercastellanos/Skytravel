@@ -26,13 +26,12 @@
             date: 'Fecha',
             lineItemsTitle: 'Detalle de Pagos',
             description: 'Descripción',
-            paymentDate: 'Fecha de Pago',
             method: 'Método',
             amount: 'Monto',
             addRow: '+ Agregar Fila',
             total: 'Total',
             pdfUpload: 'Adjuntar PDF del Recibo',
-            pdfHint: 'Solo PDF, máximo 500KB',
+            pdfHint: 'Solo PDF, máximo 2MB',
             submit: 'Enviar Recibo',
             submitting: 'Enviando...',
             successToast: '¡Recibo enviado exitosamente!',
@@ -42,7 +41,7 @@
             emailInvalid: 'Correo electrónico inválido',
             lineItemRequired: 'Agregue al menos un concepto válido',
             pdfInvalidType: 'Solo se aceptan archivos PDF',
-            pdfTooLarge: 'El archivo excede 500KB',
+            pdfTooLarge: 'El archivo excede 2MB',
             maxRowsReached: 'Máximo 6 filas permitidas',
             methodZelle: 'Zelle',
             methodCash: 'Efectivo',
@@ -57,13 +56,12 @@
             date: 'Date',
             lineItemsTitle: 'Payment Details',
             description: 'Description',
-            paymentDate: 'Payment Date',
             method: 'Method',
             amount: 'Amount',
             addRow: '+ Add Row',
             total: 'Total',
             pdfUpload: 'Attach Receipt PDF',
-            pdfHint: 'PDF only, max 500KB',
+            pdfHint: 'PDF only, max 2MB',
             submit: 'Send Receipt',
             submitting: 'Sending...',
             successToast: 'Receipt sent successfully!',
@@ -73,7 +71,7 @@
             emailInvalid: 'Invalid email address',
             lineItemRequired: 'Add at least one valid line item',
             pdfInvalidType: 'Only PDF files are accepted',
-            pdfTooLarge: 'File exceeds 500KB',
+            pdfTooLarge: 'File exceeds 2MB',
             maxRowsReached: 'Maximum 6 rows allowed',
             methodZelle: 'Zelle',
             methodCash: 'Cash',
@@ -212,7 +210,6 @@
 
         var tr = document.createElement('tr');
         tr.innerHTML = '<td><input type="text" class="li-description form-input" /></td>'
-            + '<td><input type="date" class="li-pay-date form-input" /></td>'
             + '<td><select class="li-method form-input">' + getMethodOptions() + '</select></td>'
             + '<td><input type="number" class="li-amount form-input" min="0" step="0.01" /></td>'
             + '<td><button type="button" class="remove-row-btn" title="Remove">&times;</button></td>';
@@ -243,6 +240,171 @@
     // PDF UPLOAD HANDLER
     // ============================================
 
+    // Method name mapping (PDF Spanish text -> form dropdown value)
+    var methodMap = {
+        'zelle': 'Zelle',
+        'efectivo': 'Cash',
+        'cash': 'Cash',
+        'tarjeta de crédito': 'Credit Card',
+        'tarjeta de credito': 'Credit Card',
+        'tarjeta': 'Credit Card',
+        'credit card': 'Credit Card',
+        'transferencia bancaria': 'Wire Transfer',
+        'transferencia': 'Wire Transfer',
+        'wire transfer': 'Wire Transfer',
+        'cheque': 'Check',
+        'check': 'Check'
+    };
+
+    function mapMethod(raw) {
+        var lower = (raw || '').toLowerCase().trim();
+        return methodMap[lower] || '';
+    }
+
+    function convertPdfDate(dateStr) {
+        // Convert M/D/YYYY -> YYYY-MM-DD for date input
+        var parts = dateStr.trim().split('/');
+        if (parts.length === 3) {
+            return parts[2] + '-' + parts[0].padStart(2, '0') + '-' + parts[1].padStart(2, '0');
+        }
+        return dateStr;
+    }
+
+    /**
+     * Parses a receipt PDF using PDF.js and returns structured data
+     */
+    async function parsePdfData(arrayBuffer) {
+        var pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        var page = await pdf.getPage(1);
+        var textContent = await page.getTextContent();
+
+        // Group text items into rows by y-coordinate (tolerance 3px)
+        var rowMap = {};
+        textContent.items.forEach(function(item) {
+            if (!item.str.trim()) return;
+            var y = Math.round(item.transform[5]);
+            // Find existing row within tolerance
+            var key = Object.keys(rowMap).find(function(k) {
+                return Math.abs(parseInt(k) - y) < 3;
+            });
+            if (!key) key = String(y);
+            if (!rowMap[key]) rowMap[key] = [];
+            rowMap[key].push({ text: item.str.trim(), x: item.transform[4] });
+        });
+
+        // Sort rows top-to-bottom, cells left-to-right
+        var sortedKeys = Object.keys(rowMap).sort(function(a, b) { return parseInt(b) - parseInt(a); });
+        var rows = sortedKeys.map(function(key) {
+            return rowMap[key].sort(function(a, b) { return a.x - b.x; }).map(function(item) { return item.text; });
+        });
+
+        var result = { date: '', customerName: '', lineItems: [] };
+        var headerFound = false;
+
+        rows.forEach(function(cells) {
+            var joined = cells.join(' ');
+
+            // Find date (skip "Fecha de Pago" header)
+            if (!headerFound && joined.match(/Fecha:\s*/)) {
+                var match = joined.match(/Fecha:\s*(.+)/);
+                if (match) result.date = match[1].trim();
+            }
+
+            // Find customer name
+            if (joined.match(/Recibido de:\s*/)) {
+                var match = joined.match(/Recibido de:\s*(.+)/);
+                if (match) result.customerName = match[1].trim();
+            }
+
+            // Detect table header
+            if (joined.includes('Concepto') && (joined.includes('todo') || joined.includes('Método'))) {
+                headerFound = true;
+                return;
+            }
+
+            // End of table
+            if (headerFound && (joined.includes('Gracias') || joined.match(/^\s*Total/))) {
+                headerFound = false;
+                return;
+            }
+
+            // Parse table data rows
+            if (headerFound && cells.length >= 3) {
+                // Find dollar amount cell
+                var amountCell = null;
+                var amountIdx = -1;
+                for (var i = cells.length - 1; i >= 0; i--) {
+                    if (cells[i].match(/\$[\d,.]+/)) {
+                        amountCell = cells[i];
+                        amountIdx = i;
+                        break;
+                    }
+                }
+                if (amountCell && cells[0]) {
+                    var method = amountIdx >= 2 ? cells[amountIdx - 1] : '';
+                    result.lineItems.push({
+                        description: cells[0],
+                        method: method,
+                        amount: parseFloat(amountCell.replace(/[$,]/g, ''))
+                    });
+                }
+            }
+        });
+
+        return result;
+    }
+
+    /**
+     * Populates form fields from parsed PDF data
+     */
+    function populateFromPdf(data) {
+        // Fill date
+        if (data.date) {
+            document.getElementById('receipt-date').value = convertPdfDate(data.date);
+        }
+
+        // Fill customer name
+        if (data.customerName) {
+            document.getElementById('customer-name').value = data.customerName;
+        }
+
+        // Fill line items
+        if (data.lineItems.length > 0) {
+            var tbody = document.getElementById('line-items-body');
+            // Clear existing rows
+            while (tbody.rows.length > 0) {
+                tbody.deleteRow(0);
+            }
+
+            data.lineItems.forEach(function(item, i) {
+                if (i >= 6) return; // max 6 rows
+
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td><input type="text" class="li-description form-input" /></td>'
+                    + '<td><select class="li-method form-input">' + getMethodOptions() + '</select></td>'
+                    + '<td><input type="number" class="li-amount form-input" min="0" step="0.01" /></td>'
+                    + '<td><button type="button" class="remove-row-btn" title="Remove">&times;</button></td>';
+
+                tbody.appendChild(tr);
+
+                // Fill values
+                tr.querySelector('.li-description').value = item.description;
+                var methodValue = mapMethod(item.method);
+                if (methodValue) tr.querySelector('.li-method').value = methodValue;
+                if (item.amount > 0) tr.querySelector('.li-amount').value = item.amount.toFixed(2);
+
+                // Bind events
+                tr.querySelector('.li-amount').addEventListener('input', recalcTotal);
+                tr.querySelector('.remove-row-btn').addEventListener('click', function() {
+                    tbody.removeChild(tr);
+                    recalcTotal();
+                });
+            });
+
+            recalcTotal();
+        }
+    }
+
     function handlePdfSelect(e) {
         var file = e.target.files[0];
         var t = translations[currentLang];
@@ -265,8 +427,8 @@
             return;
         }
 
-        // Validate size (500KB)
-        if (file.size > 500 * 1024) {
+        // Validate size (2MB)
+        if (file.size > 2 * 1024 * 1024) {
             showToast(t.pdfTooLarge, 'error');
             e.target.value = '';
             pdfBase64 = null;
@@ -278,13 +440,27 @@
         pdfFilename = file.name;
         fileNameDisplay.textContent = file.name;
 
+        // Read as base64 for submission
         var reader = new FileReader();
         reader.onload = function(evt) {
-            // Strip the data:application/pdf;base64, prefix
             var result = evt.target.result;
             pdfBase64 = result.split(',')[1];
         };
         reader.readAsDataURL(file);
+
+        // Also read as ArrayBuffer for PDF.js parsing
+        var reader2 = new FileReader();
+        reader2.onload = async function(evt) {
+            try {
+                var data = await parsePdfData(evt.target.result);
+                if (data.customerName || data.lineItems.length > 0) {
+                    populateFromPdf(data);
+                }
+            } catch (err) {
+                console.warn('PDF auto-fill failed, manual entry available:', err);
+            }
+        };
+        reader2.readAsArrayBuffer(file);
     }
 
     // ============================================
@@ -345,13 +521,11 @@
         var lineItems = [];
         document.querySelectorAll('#line-items-body tr').forEach(function(row) {
             var desc = row.querySelector('.li-description').value.trim();
-            var payDate = row.querySelector('.li-pay-date').value;
             var method = row.querySelector('.li-method').value;
             var amount = parseFloat(row.querySelector('.li-amount').value);
             if (desc && amount > 0) {
                 lineItems.push({
                     description: desc,
-                    paymentDate: payDate,
                     method: method,
                     amount: amount
                 });
