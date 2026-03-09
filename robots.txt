@@ -1,6 +1,7 @@
 # Sky Travel – robots.txt
 User-agent: *
 Disallow: /recibo
+Disallow: /estado
 Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/

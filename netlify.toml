@@ -46,6 +46,13 @@
   status = 301
   force = true
 
+# Hidden account statement page redirect
+[[redirects]]
+  from = "/estado.html"
+  to = "/estado"
+  status = 301
+  force = true
+
 # Redirect .html variants to extensionless canonical URLs
 [[redirects]]
   from = "/index.html"
