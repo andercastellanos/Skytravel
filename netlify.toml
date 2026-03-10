@@ -60,6 +60,13 @@
   status = 301
   force = true
 
+# Employee portal page redirect
+[[redirects]]
+  from = "/empleados.html"
+  to = "/empleados"
+  status = 301
+  force = true
+
 # Redirect .html variants to extensionless canonical URLs
 [[redirects]]
   from = "/index.html"
