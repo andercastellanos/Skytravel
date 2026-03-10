@@ -1,5 +1,4 @@
 (function () {
-  var CODE = 'sky2026';
   var KEY = 'empleados_unlocked';
 
   var gate = document.getElementById('access-gate');
@@ -22,13 +21,28 @@
   }
 
   function handleSubmit() {
-    if (input.value === CODE) {
-      unlock();
-    } else {
-      showToast();
-      input.value = '';
-      input.focus();
-    }
+    btn.disabled = true;
+    fetch('/.netlify/functions/verify-employee', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: input.value })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok) {
+          unlock();
+        } else {
+          showToast();
+          input.value = '';
+          input.focus();
+        }
+      })
+      .catch(function () {
+        showToast();
+      })
+      .finally(function () {
+        btn.disabled = false;
+      });
   }
 
   // Auto-unlock if already authenticated in this session
