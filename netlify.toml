@@ -53,6 +53,13 @@
   status = 301
   force = true
 
+# Hidden birthday greeting page redirect
+[[redirects]]
+  from = "/cumpleanos.html"
+  to = "/cumpleanos"
+  status = 301
+  force = true
+
 # Redirect .html variants to extensionless canonical URLs
 [[redirects]]
   from = "/index.html"

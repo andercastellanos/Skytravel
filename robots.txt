@@ -2,6 +2,7 @@
 User-agent: *
 Disallow: /recibo
 Disallow: /estado
+Disallow: /cumpleanos
 Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/
