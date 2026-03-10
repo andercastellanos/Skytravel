@@ -520,6 +520,9 @@ nav {
 .destination-card.mariana {
     background-image: url('images/SantuariosMarianos/lourdesvirgin.jpg');
 }
+.destination-card.romemedjugorje {
+    background-image: url('images/Italy/Rome1.jpg');
+}
 
 
 /* Holy Land destination card styling */

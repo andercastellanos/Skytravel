@@ -91,10 +91,6 @@
     gap: 1.5rem;
 }
 
-.bs-form-group-full {
-    /* No special treatment needed in single column */
-}
-
 /* Form group */
 .bs-form-group {
     display: flex;

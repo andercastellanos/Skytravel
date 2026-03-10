@@ -69,6 +69,16 @@ When adding a new bilingual page, ensure `<html lang="…">` is set correctly �
 - Critical inline CSS in heads keeps first slide visible pre-Slick init; don’t remove unless you inline critical CSS another way.
 - Keep `style.css` under version control; regenerate `style.min.css` after edits.
 
+## Git branch creation and push
+- When creating a test/QA branch for an engineer, start from `main`, then push with upstream tracking:
+  1) `git switch main`
+  2) `git pull origin main`
+  3) `git switch -c qa/<engineer>-validation`
+  4) `git push -u origin qa/<engineer>-validation`
+- Example for Andrea:
+  - `git switch -c qa/andrea-validation`
+  - `git push -u origin qa/andrea-validation`
+
 ## Rest of Website Optimization
 - Apply the “TierraSanta pattern” to remaining pages (e.g., Medjugorje2026/en & es):
   1) Swap head links to preload + load `style.min.css` (instead of `style.css`).

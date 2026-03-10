@@ -205,3 +205,11 @@
     color: #fff;
     opacity: 1;
 }
+
+/* Hide arrows on mobile — swipe/touch is the natural interaction */
+@media (max-width: 768px) {
+    .destination-header .slick-prev,
+    .destination-header .slick-next {
+        display: none !important;
+    }
+}
