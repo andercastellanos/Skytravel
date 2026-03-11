@@ -1,5 +1,8 @@
 [build]
   publish = "."
+
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "NOTIFICATION_EMAIL"
 [functions]
   directory = "testimony/netlify/functions"
   node_bundler = "esbuild"
@@ -473,5 +476,29 @@
 [[redirects]]
   from = "/Medjugorje2026-ads-es.html"
   to = "/peregrinacion-medjugorje-2026-2027-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tierrasanta2027"
+  to = "/peregrinacion-tierrasanta-2027"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tierrasanta2027-es"
+  to = "/peregrinacion-tierrasanta-2027-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-tierrasanta-2027.html"
+  to = "/peregrinacion-tierrasanta-2027"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-tierrasanta-2027-es.html"
+  to = "/peregrinacion-tierrasanta-2027-es"
   status = 301
   force = true

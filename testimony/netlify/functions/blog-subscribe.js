@@ -15,16 +15,14 @@
  *
  * ENVIRONMENT VARIABLES:
  *   - NOTION_API_KEY (existing)
- *   - NOTION_BLOG_DB_ID (new — fallback to hardcoded ID below)
+ *   - NOTION_BLOG_DB_ID (required — set in Netlify environment variables)
  *
- * Last updated: 2026-02-24
+ * Last updated: 2026-03-05
  * ============================================
  */
 
 const { Client } = require('@notionhq/client');
 const { Resend } = require('resend');
-
-const FALLBACK_DB_ID = '311dbf8a7fa0804c9ad2ed39878cab47';
 
 // CORS headers
 const corsHeaders = {
@@ -293,10 +291,10 @@ exports.handler = async (event) => {
 
         // Environment variables
         const notionApiKey = process.env.NOTION_API_KEY;
-        const notionDatabaseId = process.env.NOTION_BLOG_DB_ID || FALLBACK_DB_ID;
+        const notionDatabaseId = process.env.NOTION_BLOG_DB_ID;
 
-        if (!notionApiKey) {
-            console.error('Missing NOTION_API_KEY environment variable');
+        if (!notionApiKey || !notionDatabaseId) {
+            console.error('Missing required environment variables: NOTION_API_KEY and/or NOTION_BLOG_DB_ID');
             return {
                 statusCode: 500,
                 headers: corsHeaders,
