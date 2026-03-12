@@ -283,7 +283,7 @@ function generateStatementPdf(body, logoDataUri) {
         title: 'Estado de Cuenta',
         pilgrimsLabel: 'Peregrinos',
         servicesTitle: 'Servicios',
-        descriptionLabel: 'Descripcion',
+        descriptionLabel: 'Descripción',
         qtyLabel: 'Cantidad',
         unitPriceLabel: 'Valor Unitario',
         rowTotalLabel: 'Valor Total',
@@ -368,19 +368,13 @@ function generateStatementPdf(body, logoDataUri) {
     doc.line(margin, y, pageWidth - margin, y);
     y += 20;
 
-    // --- Customer & Date ---
+    // --- Date ---
     doc.setFontSize(11);
     doc.setTextColor(...textColor);
-    doc.setFont('helvetica', 'normal');
-    doc.text(text.greeting + ': ', margin, y);
-    const greetingWidth = doc.getTextWidth(text.greeting + ': ');
     doc.setFont('helvetica', 'bold');
-    doc.text(body.customerName, margin + greetingWidth, y);
-    y += 18;
-    doc.setFont('helvetica', 'normal');
     doc.text(text.dateLabel + ': ', margin, y);
     const dateWidth = doc.getTextWidth(text.dateLabel + ': ');
-    doc.setFont('helvetica', 'bold');
+    doc.setFont('helvetica', 'normal');
     doc.text(formatDate(body.date, isSpanish), margin + dateWidth, y);
     y += 24;
 

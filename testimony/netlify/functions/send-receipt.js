@@ -170,8 +170,8 @@ function generateReceiptPdf(body, logoDataUri) {
     const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
     const text = isSpanish ? {
         title: 'Recibo de Pago',
-        descriptionLabel: 'Descripcion',
-        methodLabel: 'Metodo',
+        descriptionLabel: 'Descripción',
+        methodLabel: 'Método',
         amountLabel: 'Monto',
         totalLabel: 'Total',
         greeting: 'Recibido de',
@@ -225,16 +225,16 @@ function generateReceiptPdf(body, logoDataUri) {
     // --- Customer & Date ---
     doc.setFontSize(11);
     doc.setTextColor(...textColor);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('helvetica', 'bold');
     doc.text(text.greeting + ': ', margin, y);
     const greetingWidth = doc.getTextWidth(text.greeting + ': ');
-    doc.setFont('helvetica', 'bold');
+    doc.setFont('helvetica', 'normal');
     doc.text(body.customerName, margin + greetingWidth, y);
     y += 18;
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('helvetica', 'bold');
     doc.text(text.dateLabel + ': ', margin, y);
     const dateWidth = doc.getTextWidth(text.dateLabel + ': ');
-    doc.setFont('helvetica', 'bold');
+    doc.setFont('helvetica', 'normal');
     doc.text(formatDate(body.date, isSpanish), margin + dateWidth, y);
     y += 28;
 
