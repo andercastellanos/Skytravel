@@ -13,6 +13,7 @@
  */
 
 const { Resend } = require('resend');
+const { jsPDF } = require('jspdf');
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -255,6 +256,313 @@ function buildStatementEmail(body) {
     };
 }
 
+/**
+ * Fetches the company logo as a base64 data URI for use in jsPDF
+ */
+async function fetchLogoBase64() {
+    try {
+        const response = await fetch('https://www.skytraveljm.com/images/Logo.jpg');
+        if (!response.ok) return null;
+        const buffer = Buffer.from(await response.arrayBuffer());
+        return 'data:image/jpeg;base64,' + buffer.toString('base64');
+    } catch (e) {
+        console.error('Failed to fetch logo for PDF:', e.message);
+        return null;
+    }
+}
+
+/**
+ * Generates a branded account statement PDF from form data
+ * Returns a Buffer containing the PDF bytes
+ */
+function generateStatementPdf(body, logoDataUri) {
+    const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
+    const cur = body.currency || '$';
+
+    const text = isSpanish ? {
+        title: 'Estado de Cuenta',
+        pilgrimsLabel: 'Peregrinos',
+        servicesTitle: 'Servicios',
+        descriptionLabel: 'Descripcion',
+        qtyLabel: 'Cantidad',
+        unitPriceLabel: 'Valor Unitario',
+        rowTotalLabel: 'Valor Total',
+        grandTotalLabel: 'VALOR TOTAL',
+        paymentPlanTitle: 'Plan de Pagos',
+        valueLabel: 'Valor',
+        statusLabel: 'Estado',
+        statusPaid: 'Pagado',
+        statusPending: 'Pendiente',
+        balanceTitle: 'Balance',
+        balanceTotalLabel: 'Valor Total',
+        balancePaidLabel: 'Valor Abonado',
+        balancePendingLabel: 'Valor Pendiente',
+        greeting: 'Cliente',
+        dateLabel: 'Fecha',
+        closing: 'Gracias por su confianza.',
+        license: 'Licencia de Vendedor de Viajes (FDACS) No. ST45413'
+    } : {
+        title: 'Account Statement',
+        pilgrimsLabel: 'Pilgrims',
+        servicesTitle: 'Services',
+        descriptionLabel: 'Description',
+        qtyLabel: 'Quantity',
+        unitPriceLabel: 'Unit Price',
+        rowTotalLabel: 'Total',
+        grandTotalLabel: 'GRAND TOTAL',
+        paymentPlanTitle: 'Payment Plan',
+        valueLabel: 'Value',
+        statusLabel: 'Status',
+        statusPaid: 'Paid',
+        statusPending: 'Pending',
+        balanceTitle: 'Balance',
+        balanceTotalLabel: 'Total Value',
+        balancePaidLabel: 'Amount Paid',
+        balancePendingLabel: 'Amount Pending',
+        greeting: 'Customer',
+        dateLabel: 'Date',
+        closing: 'Thank you for your trust.',
+        license: 'FDACS Seller of Travel License No. ST45413'
+    };
+
+    const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 50;
+    const contentWidth = pageWidth - margin * 2;
+
+    // Colors
+    const gold = [200, 169, 126];
+    const dark = [44, 62, 80];
+    const gray = [102, 102, 102];
+    const textColor = [51, 51, 51];
+    const green = [39, 174, 96];
+    const orange = [230, 126, 34];
+
+    let y = 40;
+
+    // Helper: check if we need a new page
+    function checkPage(needed) {
+        if (y + needed > pageHeight - 100) {
+            doc.addPage();
+            y = 40;
+        }
+    }
+
+    // --- Logo ---
+    if (logoDataUri) {
+        doc.addImage(logoDataUri, 'JPEG', (pageWidth - 80) / 2, y, 80, 80);
+        y += 95;
+    }
+
+    // --- Title ---
+    doc.setFontSize(20);
+    doc.setTextColor(...dark);
+    doc.setFont('helvetica', 'bold');
+    doc.text(text.title, pageWidth / 2, y, { align: 'center' });
+    y += 20;
+
+    // --- Gold separator ---
+    doc.setDrawColor(...gold);
+    doc.setLineWidth(2);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 20;
+
+    // --- Customer & Date ---
+    doc.setFontSize(11);
+    doc.setTextColor(...textColor);
+    doc.setFont('helvetica', 'normal');
+    doc.text(text.greeting + ': ', margin, y);
+    const greetingWidth = doc.getTextWidth(text.greeting + ': ');
+    doc.setFont('helvetica', 'bold');
+    doc.text(body.customerName, margin + greetingWidth, y);
+    y += 18;
+    doc.setFont('helvetica', 'normal');
+    doc.text(text.dateLabel + ': ', margin, y);
+    const dateWidth = doc.getTextWidth(text.dateLabel + ': ');
+    doc.setFont('helvetica', 'bold');
+    doc.text(formatDate(body.date, isSpanish), margin + dateWidth, y);
+    y += 24;
+
+    // --- Pilgrims ---
+    const pilgrims = (body.pilgrims || []).filter(p => p.trim());
+    if (pilgrims.length > 0) {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(...dark);
+        doc.text(text.pilgrimsLabel + ':', margin, y);
+        y += 16;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(...textColor);
+        pilgrims.forEach(p => {
+            checkPage(16);
+            doc.text('•  ' + p, margin + 10, y);
+            y += 14;
+        });
+        y += 10;
+    }
+
+    // --- Services Table ---
+    checkPage(60);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(...dark);
+    doc.text(text.servicesTitle + ':', margin, y);
+    y += 14;
+
+    const rowHeight = 22;
+    const svcCol1 = margin;
+    const svcCol2 = 280;
+    const svcCol3 = 370;
+    const svcCol4 = pageWidth - margin;
+
+    // Header
+    doc.setFillColor(...gold);
+    doc.rect(svcCol1, y, contentWidth, 24, 'F');
+    doc.setFontSize(9);
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.text(text.descriptionLabel, svcCol1 + 8, y + 16);
+    doc.text(text.qtyLabel, svcCol2 + 8, y + 16, { align: 'center' });
+    doc.text(text.unitPriceLabel, svcCol3 + 8, y + 16);
+    doc.text(text.rowTotalLabel, svcCol4 - 8, y + 16, { align: 'right' });
+    y += 24;
+
+    // Rows
+    const validServices = (body.services || []).filter(item =>
+        item.description && item.description.trim() && parseFloat(item.qty) > 0 && parseFloat(item.unitPrice) > 0
+    );
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    validServices.forEach((item, i) => {
+        checkPage(rowHeight);
+        doc.setFillColor(i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 245 : 255);
+        doc.rect(svcCol1, y, contentWidth, rowHeight, 'F');
+        doc.setTextColor(...textColor);
+        const qty = parseFloat(item.qty || 0);
+        const unitPrice = parseFloat(item.unitPrice || 0);
+        const rowTotal = qty * unitPrice;
+        doc.text(item.description || '', svcCol1 + 8, y + 15);
+        doc.text(String(qty), svcCol2 + 8, y + 15, { align: 'center' });
+        doc.text(cur + formatMoney(unitPrice), svcCol3 + 8, y + 15);
+        doc.text(cur + formatMoney(rowTotal), svcCol4 - 8, y + 15, { align: 'right' });
+        y += rowHeight;
+    });
+
+    // Grand total
+    const grandTotal = validServices.reduce((sum, item) => sum + (parseFloat(item.qty || 0) * parseFloat(item.unitPrice || 0)), 0);
+    doc.setDrawColor(...gold);
+    doc.setLineWidth(2);
+    doc.line(svcCol1, y, pageWidth - margin, y);
+    y += 4;
+    doc.setFillColor(250, 246, 240);
+    doc.rect(svcCol1, y, contentWidth, 24, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(...dark);
+    doc.text(text.grandTotalLabel + ': ' + cur + formatMoney(grandTotal), svcCol4 - 8, y + 16, { align: 'right' });
+    y += 38;
+
+    // --- Payment Plan ---
+    const paymentPlan = (body.paymentPlan || []).filter(item => item.description && item.description.trim());
+    if (paymentPlan.length > 0) {
+        checkPage(60);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(...dark);
+        doc.text(text.paymentPlanTitle + ':', margin, y);
+        y += 14;
+
+        // Header
+        doc.setFillColor(...gold);
+        doc.rect(margin, y, contentWidth, 24, 'F');
+        doc.setFontSize(9);
+        doc.setTextColor(255, 255, 255);
+        doc.setFont('helvetica', 'bold');
+        doc.text(text.descriptionLabel, margin + 8, y + 16);
+        doc.text(text.valueLabel, 360, y + 16, { align: 'right' });
+        doc.text(text.statusLabel, pageWidth - margin - 8, y + 16, { align: 'right' });
+        y += 24;
+
+        doc.setFontSize(10);
+        paymentPlan.forEach((item, i) => {
+            checkPage(rowHeight);
+            doc.setFillColor(i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 245 : 255);
+            doc.rect(margin, y, contentWidth, rowHeight, 'F');
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(...textColor);
+            doc.text(item.description || '', margin + 8, y + 15);
+            doc.text(cur + formatMoney(parseFloat(item.value || 0)), 360, y + 15, { align: 'right' });
+            const isPaid = item.status === 'Pagado';
+            doc.setTextColor(...(isPaid ? green : orange));
+            doc.setFont('helvetica', 'bold');
+            doc.text(isPaid ? text.statusPaid : text.statusPending, pageWidth - margin - 8, y + 15, { align: 'right' });
+            y += rowHeight;
+        });
+        y += 14;
+    }
+
+    // --- Balance ---
+    const paidTotal = (body.paymentPlan || [])
+        .filter(item => item.status === 'Pagado')
+        .reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
+    const pendingTotal = (body.paymentPlan || [])
+        .filter(item => item.status === 'Pendiente')
+        .reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
+
+    checkPage(80);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(...dark);
+    doc.text(text.balanceTitle + ':', margin, y);
+    y += 14;
+
+    const balanceRows = [
+        { label: text.balanceTotalLabel, value: grandTotal, color: dark },
+        { label: text.balancePaidLabel, value: paidTotal, color: green },
+        { label: text.balancePendingLabel, value: pendingTotal, color: orange }
+    ];
+    balanceRows.forEach((row, i) => {
+        doc.setFillColor(i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 245 : 255);
+        doc.rect(margin, y, contentWidth, rowHeight, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(10);
+        doc.setTextColor(...row.color);
+        doc.text(row.label, margin + 8, y + 15);
+        doc.text(cur + formatMoney(row.value), pageWidth - margin - 8, y + 15, { align: 'right' });
+        y += rowHeight;
+    });
+    y += 24;
+
+    // --- Closing ---
+    checkPage(40);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(...textColor);
+    doc.text(text.closing, margin, y);
+    y += 18;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...gold);
+    doc.text('Sky Travel J&M', margin, y);
+
+    // --- Footer ---
+    const footerY = pageHeight - 80;
+    doc.setDrawColor(...gold);
+    doc.setLineWidth(2);
+    doc.line(margin, footerY, pageWidth - margin, footerY);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(...gray);
+    doc.text('1000 Brickell Ave Ste 715, Miami, FL 33131', pageWidth / 2, footerY + 14, { align: 'center' });
+    doc.text('Email: info@skytraveljm.com  |  Phone: +1 (239) 355-4007  |  skytraveljm.com', pageWidth / 2, footerY + 26, { align: 'center' });
+    doc.text(text.license, pageWidth / 2, footerY + 38, { align: 'center' });
+
+    const arrayBuffer = doc.output('arraybuffer');
+    return Buffer.from(arrayBuffer);
+}
+
 exports.handler = async (event, context) => {
     // CORS preflight
     if (event.httpMethod === 'OPTIONS') {
@@ -354,12 +662,20 @@ exports.handler = async (event, context) => {
             html: html
         };
 
-        // Attach PDF if provided
+        // Attach uploaded PDF, or generate one from form data
         if (body.pdfBase64) {
             const pdfFilename = body.pdfFilename || 'estado-de-cuenta.pdf';
             emailOptions.attachments = [{
                 filename: pdfFilename,
                 content: Buffer.from(body.pdfBase64, 'base64')
+            }];
+        } else {
+            const logoDataUri = await fetchLogoBase64();
+            const generatedPdf = generateStatementPdf({ ...body, services: validServices }, logoDataUri);
+            const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
+            emailOptions.attachments = [{
+                filename: isSpanish ? 'Estado-de-Cuenta-SkyTravel.pdf' : 'Statement-SkyTravel.pdf',
+                content: generatedPdf
             }];
         }
 
