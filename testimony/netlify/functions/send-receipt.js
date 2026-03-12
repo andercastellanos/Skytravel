@@ -13,6 +13,7 @@
  */
 
 const { Resend } = require('resend');
+const { jsPDF } = require('jspdf');
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -146,6 +147,177 @@ function buildReceiptEmail(body) {
     };
 }
 
+/**
+ * Fetches the company logo as a base64 data URI for use in jsPDF
+ */
+async function fetchLogoBase64() {
+    try {
+        const response = await fetch('https://www.skytraveljm.com/images/Logo.jpg');
+        if (!response.ok) return null;
+        const buffer = Buffer.from(await response.arrayBuffer());
+        return 'data:image/jpeg;base64,' + buffer.toString('base64');
+    } catch (e) {
+        console.error('Failed to fetch logo for PDF:', e.message);
+        return null;
+    }
+}
+
+/**
+ * Generates a branded receipt PDF from form data
+ * Returns a Buffer containing the PDF bytes
+ */
+function generateReceiptPdf(body, logoDataUri) {
+    const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
+    const text = isSpanish ? {
+        title: 'Recibo de Pago',
+        descriptionLabel: 'Descripcion',
+        methodLabel: 'Metodo',
+        amountLabel: 'Monto',
+        totalLabel: 'Total',
+        greeting: 'Recibido de',
+        dateLabel: 'Fecha',
+        closing: 'Gracias por su confianza.',
+        license: 'Licencia de Vendedor de Viajes (FDACS) No. ST45413'
+    } : {
+        title: 'Payment Receipt',
+        descriptionLabel: 'Description',
+        methodLabel: 'Method',
+        amountLabel: 'Amount',
+        totalLabel: 'Total',
+        greeting: 'Received from',
+        dateLabel: 'Date',
+        closing: 'Thank you for your trust.',
+        license: 'FDACS Seller of Travel License No. ST45413'
+    };
+
+    const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 50;
+    const contentWidth = pageWidth - margin * 2;
+
+    // Colors
+    const gold = [200, 169, 126];
+    const dark = [44, 62, 80];
+    const gray = [102, 102, 102];
+    const textColor = [51, 51, 51];
+
+    let y = 40;
+
+    // --- Logo ---
+    if (logoDataUri) {
+        doc.addImage(logoDataUri, 'JPEG', (pageWidth - 80) / 2, y, 80, 80);
+        y += 95;
+    }
+
+    // --- Title ---
+    doc.setFontSize(20);
+    doc.setTextColor(...dark);
+    doc.setFont('helvetica', 'bold');
+    doc.text(text.title, pageWidth / 2, y, { align: 'center' });
+    y += 20;
+
+    // --- Gold separator ---
+    doc.setDrawColor(...gold);
+    doc.setLineWidth(2);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 20;
+
+    // --- Customer & Date ---
+    doc.setFontSize(11);
+    doc.setTextColor(...textColor);
+    doc.setFont('helvetica', 'normal');
+    doc.text(text.greeting + ': ', margin, y);
+    const greetingWidth = doc.getTextWidth(text.greeting + ': ');
+    doc.setFont('helvetica', 'bold');
+    doc.text(body.customerName, margin + greetingWidth, y);
+    y += 18;
+    doc.setFont('helvetica', 'normal');
+    doc.text(text.dateLabel + ': ', margin, y);
+    const dateWidth = doc.getTextWidth(text.dateLabel + ': ');
+    doc.setFont('helvetica', 'bold');
+    doc.text(formatDate(body.date, isSpanish), margin + dateWidth, y);
+    y += 28;
+
+    // --- Table ---
+    const col1X = margin;
+    const col2X = 300;
+    const col3X = 420;
+    const rowHeight = 22;
+
+    // Header
+    doc.setFillColor(...gold);
+    doc.rect(col1X, y, contentWidth, 24, 'F');
+    doc.setFontSize(10);
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.text(text.descriptionLabel, col1X + 8, y + 16);
+    doc.text(text.methodLabel, col2X + 8, y + 16);
+    doc.text(text.amountLabel, pageWidth - margin - 8, y + 16, { align: 'right' });
+    y += 24;
+
+    // Rows
+    const validItems = (body.lineItems || []).filter(item =>
+        item.description && item.description.trim() && parseFloat(item.amount) > 0
+    );
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    validItems.forEach((item, i) => {
+        if (i % 2 === 0) {
+            doc.setFillColor(250, 248, 245);
+        } else {
+            doc.setFillColor(255, 255, 255);
+        }
+        doc.rect(col1X, y, contentWidth, rowHeight, 'F');
+        doc.setTextColor(...textColor);
+        doc.text(item.description || '', col1X + 8, y + 15);
+        doc.text(item.method || '', col2X + 8, y + 15);
+        doc.text('$' + parseFloat(item.amount || 0).toFixed(2), pageWidth - margin - 8, y + 15, { align: 'right' });
+        y += rowHeight;
+    });
+
+    // Table bottom border
+    doc.setDrawColor(224, 214, 200);
+    doc.setLineWidth(1);
+    doc.line(col1X, y, pageWidth - margin, y);
+    y += 14;
+
+    // --- Total ---
+    const total = validItems.reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(...dark);
+    doc.text(text.totalLabel + ':', col2X + 8, y);
+    doc.text('$' + total.toFixed(2), pageWidth - margin - 8, y, { align: 'right' });
+    y += 40;
+
+    // --- Closing ---
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(...textColor);
+    doc.text(text.closing, margin, y);
+    y += 18;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...gold);
+    doc.text('Sky Travel J&M', margin, y);
+
+    // --- Footer ---
+    const footerY = doc.internal.pageSize.getHeight() - 80;
+    doc.setDrawColor(...gold);
+    doc.setLineWidth(2);
+    doc.line(margin, footerY, pageWidth - margin, footerY);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(...gray);
+    doc.text('1000 Brickell Ave Ste 715, Miami, FL 33131', pageWidth / 2, footerY + 14, { align: 'center' });
+    doc.text('Email: info@skytraveljm.com  |  Phone: +1 (239) 355-4007  |  skytraveljm.com', pageWidth / 2, footerY + 26, { align: 'center' });
+    doc.text(text.license, pageWidth / 2, footerY + 38, { align: 'center' });
+
+    // Return as Buffer
+    const arrayBuffer = doc.output('arraybuffer');
+    return Buffer.from(arrayBuffer);
+}
+
 exports.handler = async (event, context) => {
     // CORS preflight
     if (event.httpMethod === 'OPTIONS') {
@@ -245,12 +417,20 @@ exports.handler = async (event, context) => {
             html: html
         };
 
-        // Attach PDF if provided
+        // Attach uploaded PDF, or generate one from form data
         if (body.pdfBase64) {
             const pdfFilename = body.pdfFilename || 'receipt.pdf';
             emailOptions.attachments = [{
                 filename: pdfFilename,
                 content: Buffer.from(body.pdfBase64, 'base64')
+            }];
+        } else {
+            const logoDataUri = await fetchLogoBase64();
+            const generatedPdf = generateReceiptPdf({ ...body, lineItems: validItems }, logoDataUri);
+            const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
+            emailOptions.attachments = [{
+                filename: isSpanish ? 'Recibo-SkyTravel.pdf' : 'Receipt-SkyTravel.pdf',
+                content: generatedPdf
             }];
         }
 
