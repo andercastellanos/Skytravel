@@ -12,6 +12,7 @@
     "packageJson": {
       "dependencies": [
         "npm:@notionhq/client@^2.3.0",
+        "npm:jspdf@^4.2.0",
         "npm:netlify-cli@^23.7.3",
         "npm:purgecss@8",
         "npm:resend@^6.9.2",

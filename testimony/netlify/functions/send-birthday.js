@@ -8,7 +8,7 @@
  * email clients including Gmail web/desktop.
  *
  * ENV VARS: RESEND_API_KEY, FROM_EMAIL, NOTIFICATION_EMAIL,
- *           CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+ *           CLOUDINARY_CLOUD_NAME_BIRTHDAY, CLOUDINARY_API_KEY_BIRTHDAY, CLOUDINARY_API_SECRET_BIRTHDAY
  *
  * Last updated: 2026-03-10
  * ============================================
@@ -32,9 +32,9 @@ function isValidEmail(email) {
  * Uses Cloudinary's REST API with signed upload — no SDK needed.
  */
 async function uploadToCloudinary(base64Data, mimeType) {
-    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-    const apiKey = process.env.CLOUDINARY_API_KEY;
-    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME_BIRTHDAY;
+    const apiKey = process.env.CLOUDINARY_API_KEY_BIRTHDAY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET_BIRTHDAY;
 
     if (!cloudName || !apiKey || !apiSecret) {
         throw new Error('Cloudinary environment variables not configured');
