@@ -25,6 +25,10 @@ function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function formatMoney(value) {
+    return parseFloat(value || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 /**
  * Formats YYYY-MM-DD date into localized string
  */
@@ -47,6 +51,7 @@ function formatDate(dateStr, isSpanish) {
  */
 function buildReceiptEmail(body) {
     const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
+    const curr = body.currency || '$';
 
     const text = isSpanish ? {
         subject: 'Recibo de Pago — Sky Travel J&M',
@@ -87,7 +92,7 @@ function buildReceiptEmail(body) {
         `<tr>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;">${item.description || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.method || ''}</td>
-            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">$${parseFloat(item.amount || 0).toFixed(2)}</td>
+            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">${curr}${formatMoney(item.amount)}</td>
         </tr>`
     ).join('');
 
@@ -168,6 +173,7 @@ async function fetchLogoBase64() {
  */
 function generateReceiptPdf(body, logoDataUri) {
     const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
+    const curr = body.currency || '$';
     const text = isSpanish ? {
         title: 'Recibo de Pago',
         descriptionLabel: 'Descripción',
@@ -272,7 +278,7 @@ function generateReceiptPdf(body, logoDataUri) {
         doc.setTextColor(...textColor);
         doc.text(item.description || '', col1X + 8, y + 15);
         doc.text(item.method || '', col2X + 8, y + 15);
-        doc.text('$' + parseFloat(item.amount || 0).toFixed(2), pageWidth - margin - 8, y + 15, { align: 'right' });
+        doc.text(curr + formatMoney(item.amount), pageWidth - margin - 8, y + 15, { align: 'right' });
         y += rowHeight;
     });
 
@@ -288,7 +294,7 @@ function generateReceiptPdf(body, logoDataUri) {
     doc.setFontSize(12);
     doc.setTextColor(...dark);
     doc.text(text.totalLabel + ':', col2X + 8, y);
-    doc.text('$' + total.toFixed(2), pageWidth - margin - 8, y, { align: 'right' });
+    doc.text(curr + formatMoney(total), pageWidth - margin - 8, y, { align: 'right' });
     y += 40;
 
     // --- Closing ---

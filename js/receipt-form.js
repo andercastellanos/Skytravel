@@ -82,6 +82,7 @@
     };
 
     var currentLang = 'es';
+    var currentCurrency = '$';
     var pdfBase64 = null;
     var pdfFilename = null;
 
@@ -233,7 +234,7 @@
             var val = parseFloat(input.value);
             if (!isNaN(val)) total += val;
         });
-        document.getElementById('receipt-total').textContent = '$' + total.toFixed(2);
+        document.getElementById('receipt-total').textContent = currentCurrency + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
     // ============================================
@@ -341,9 +342,11 @@
                     }
                 }
                 if (amountCell && cells[0]) {
-                    var method = amountIdx >= 2 ? cells[amountIdx - 1] : '';
+                    var methodIdx = amountIdx >= 2 ? amountIdx - 1 : -1;
+                    var method = methodIdx >= 0 ? cells[methodIdx] : '';
+                    var descParts = cells.slice(0, methodIdx >= 0 ? methodIdx : amountIdx);
                     result.lineItems.push({
-                        description: cells[0],
+                        description: descParts.join(' '),
                         method: method,
                         amount: parseFloat(amountCell.replace(/[$,]/g, ''))
                     });
@@ -537,7 +540,8 @@
             email: document.getElementById('customer-email').value.trim(),
             date: document.getElementById('receipt-date').value,
             lineItems: lineItems,
-            lang: currentLang
+            lang: currentLang,
+            currency: currentCurrency
         };
 
         if (pdfBase64) {
@@ -615,6 +619,17 @@
         document.querySelectorAll('.lang-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Currency toggle
+        document.querySelectorAll('.currency-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                currentCurrency = btn.dataset.currency;
+                document.querySelectorAll('.currency-btn').forEach(function(b) {
+                    b.classList.toggle('active', b.dataset.currency === currentCurrency);
+                });
+                recalcTotal();
             });
         });
 

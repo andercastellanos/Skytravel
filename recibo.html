@@ -24,11 +24,28 @@
       padding: 20px 0;
       background: #ffffff;
       border-bottom: 2px solid #f0ebe3;
+      position: relative;
     }
 
     .receipt-header img {
       max-width: 140px;
       height: auto;
+    }
+
+    .back-to-portal {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c8a97e;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .back-to-portal:hover {
+      color: #b69268;
     }
 
     .receipt-container {
@@ -60,7 +77,8 @@
       margin-bottom: 24px;
     }
 
-    .lang-btn {
+    .lang-btn,
+    .currency-btn {
       padding: 6px 18px;
       border: 2px solid #c8a97e;
       border-radius: 20px;
@@ -72,14 +90,23 @@
       transition: all 0.2s;
     }
 
-    .lang-btn.active {
+    .lang-btn.active,
+    .currency-btn.active {
       background: #c8a97e;
       color: #ffffff;
     }
 
-    .lang-btn:hover {
+    .lang-btn:hover,
+    .currency-btn:hover {
       background: #c8a97e;
       color: #ffffff;
+    }
+
+    .currency-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
     }
 
     /* Form layout */
@@ -349,6 +376,7 @@
 <body>
   <!-- Minimal header: logo only, no navigation -->
   <div class="receipt-header">
+    <a href="/empleados" class="back-to-portal">← Volver</a>
     <a href="/">
       <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
     </a>
@@ -360,6 +388,12 @@
       <div class="lang-toggle">
         <button type="button" class="lang-btn active" data-lang="es">ES</button>
         <button type="button" class="lang-btn" data-lang="en">EN</button>
+      </div>
+
+      <!-- Currency toggle -->
+      <div class="currency-toggle">
+        <button type="button" class="currency-btn active" data-currency="$">$</button>
+        <button type="button" class="currency-btn" data-currency="€">€</button>
       </div>
 
       <h1 class="receipt-title" data-i18n="pageTitle">Generar Recibo</h1>

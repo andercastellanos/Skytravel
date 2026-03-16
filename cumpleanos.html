@@ -24,11 +24,28 @@
       padding: 20px 0;
       background: #ffffff;
       border-bottom: 2px solid #f0ebe3;
+      position: relative;
     }
 
     .receipt-header img {
       max-width: 140px;
       height: auto;
+    }
+
+    .back-to-portal {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c8a97e;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .back-to-portal:hover {
+      color: #b69268;
     }
 
     .receipt-container {
@@ -210,6 +227,7 @@
 <body>
   <!-- Minimal header: logo only, no navigation -->
   <div class="receipt-header">
+    <a href="/empleados" class="back-to-portal">← Volver</a>
     <a href="/">
       <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
     </a>
