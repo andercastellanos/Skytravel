@@ -206,10 +206,20 @@
     opacity: 1;
 }
 
-/* Hide arrows on mobile — swipe/touch is the natural interaction */
+/*
+ * ⚠️  DO NOT REMOVE OR HIDE THESE ARROWS ON MOBILE.
+ * Our customer base is elderly and many are not familiar with swipe gestures.
+ * Arrows are REQUIRED on mobile. Swipe also works — both coexist intentionally.
+ */
 @media (max-width: 768px) {
     .destination-header .slick-prev,
     .destination-header .slick-next {
-        display: none !important;
+        width: 48px;
+        height: 48px;
+    }
+
+    .destination-header .slick-prev:before,
+    .destination-header .slick-next:before {
+        font-size: 36px;
     }
 }
