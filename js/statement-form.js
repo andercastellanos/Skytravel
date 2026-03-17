@@ -45,6 +45,7 @@
             balanceTotal: 'Valor Total',
             balancePaid: 'Valor Abonado',
             balancePending: 'Valor Pendiente',
+            balanceRefund: 'Valor Pendiente Devolución',
             pdfUpload: 'Adjuntar PDF del Estado de Cuenta',
             pdfHint: 'Solo PDF, máximo 2MB',
             submit: 'Enviar Estado de Cuenta',
@@ -86,6 +87,7 @@
             balanceTotal: 'Total Value',
             balancePaid: 'Amount Paid',
             balancePending: 'Amount Pending',
+            balanceRefund: 'Refund Amount Due',
             pdfUpload: 'Attach Statement PDF',
             pdfHint: 'PDF only, max 2MB',
             submit: 'Send Statement',
@@ -373,12 +375,22 @@
             }
         });
 
-        var pendingTotal = servicesTotal - paidTotal;
-        if (pendingTotal < 0) pendingTotal = 0;
+        var diff = servicesTotal - paidTotal;
+        var pendingTotal = diff > 0 ? diff : 0;
+        var refundAmount = diff < 0 ? Math.abs(diff) : 0;
 
         document.getElementById('balance-total').textContent = currentCurrency + formatMoney(servicesTotal);
         document.getElementById('balance-paid').textContent = currentCurrency + formatMoney(paidTotal);
         document.getElementById('balance-pending').textContent = currentCurrency + formatMoney(pendingTotal);
+
+        var refundRow = document.getElementById('balance-refund-row');
+        var refundCell = document.getElementById('balance-refund');
+        if (refundAmount > 0) {
+            refundRow.style.display = '';
+            refundCell.textContent = currentCurrency + formatMoney(refundAmount);
+        } else {
+            refundRow.style.display = 'none';
+        }
     }
 
     // ============================================

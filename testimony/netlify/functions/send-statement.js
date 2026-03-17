@@ -78,6 +78,7 @@ function buildStatementEmail(body) {
         balanceTotalLabel: 'Valor Total',
         balancePaidLabel: 'Valor Abonado',
         balancePendingLabel: 'Valor Pendiente',
+        balanceRefundLabel: 'Valor Pendiente Devolución',
         closing: 'Gracias por su confianza.',
         teamName: 'Equipo de Sky Travel J&M',
         phone: 'Teléfono',
@@ -104,6 +105,7 @@ function buildStatementEmail(body) {
         balanceTotalLabel: 'Total Value',
         balancePaidLabel: 'Amount Paid',
         balancePendingLabel: 'Amount Pending',
+        balanceRefundLabel: 'Refund Amount Due',
         closing: 'Thank you for your trust.',
         teamName: 'The Sky Travel J&M Team',
         phone: 'Phone',
@@ -157,9 +159,9 @@ function buildStatementEmail(body) {
     const paidTotal = (body.paymentPlan || [])
         .filter(item => item.status === 'Pagado')
         .reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
-    const pendingTotal = (body.paymentPlan || [])
-        .filter(item => item.status === 'Pendiente')
-        .reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
+    const diff = grandTotal - paidTotal;
+    const pendingTotal = diff > 0 ? diff : 0;
+    const refundAmount = diff < 0 ? Math.abs(diff) : 0;
 
     return {
         subject: text.subject,
@@ -230,6 +232,10 @@ function buildStatementEmail(body) {
                     <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#e67e22;font-weight:600;">${text.balancePendingLabel}</td>
                     <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#e67e22;text-align:right;font-weight:600;">${cur}${formatMoney(pendingTotal)}</td>
                 </tr>
+                ${refundAmount > 0 ? `<tr>
+                    <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#c41e3a;font-weight:600;">${text.balanceRefundLabel}</td>
+                    <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#c41e3a;text-align:right;font-weight:600;">${cur}${formatMoney(refundAmount)}</td>
+                </tr>` : ''}
             </table>
 
             <p style="color:#2c3e50;font-size:15px;margin:24px 0 4px 0;">${text.closing}</p>
@@ -297,6 +303,7 @@ function generateStatementPdf(body, logoDataUri) {
         balanceTotalLabel: 'Valor Total',
         balancePaidLabel: 'Valor Abonado',
         balancePendingLabel: 'Valor Pendiente',
+        balanceRefundLabel: 'Valor Pendiente Devolución',
         greeting: 'Cliente',
         dateLabel: 'Fecha',
         closing: 'Gracias por su confianza.',
@@ -319,6 +326,7 @@ function generateStatementPdf(body, logoDataUri) {
         balanceTotalLabel: 'Total Value',
         balancePaidLabel: 'Amount Paid',
         balancePendingLabel: 'Amount Pending',
+        balanceRefundLabel: 'Refund Amount Due',
         greeting: 'Customer',
         dateLabel: 'Date',
         closing: 'Thank you for your trust.',
@@ -502,9 +510,9 @@ function generateStatementPdf(body, logoDataUri) {
     const paidTotal = (body.paymentPlan || [])
         .filter(item => item.status === 'Pagado')
         .reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
-    const pendingTotal = (body.paymentPlan || [])
-        .filter(item => item.status === 'Pendiente')
-        .reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
+    const pdfDiff = grandTotal - paidTotal;
+    const pendingTotal = pdfDiff > 0 ? pdfDiff : 0;
+    const refundAmount = pdfDiff < 0 ? Math.abs(pdfDiff) : 0;
 
     checkPage(80);
     doc.setFont('helvetica', 'bold');
@@ -513,11 +521,15 @@ function generateStatementPdf(body, logoDataUri) {
     doc.text(text.balanceTitle + ':', margin, y);
     y += 14;
 
+    const red = [196, 30, 58];
     const balanceRows = [
         { label: text.balanceTotalLabel, value: grandTotal, color: dark },
         { label: text.balancePaidLabel, value: paidTotal, color: green },
         { label: text.balancePendingLabel, value: pendingTotal, color: orange }
     ];
+    if (refundAmount > 0) {
+        balanceRows.push({ label: text.balanceRefundLabel, value: refundAmount, color: red });
+    }
     balanceRows.forEach((row, i) => {
         doc.setFillColor(i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 245 : 255);
         doc.rect(margin, y, contentWidth, rowHeight, 'F');
