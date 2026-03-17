@@ -363,18 +363,18 @@
             servicesTotal += qty * unitPrice;
         });
 
-        // Paid and pending from payment plan
+        // Paid from payment plan rows marked as Pagado
         var paidTotal = 0;
-        var pendingTotal = 0;
         document.querySelectorAll('#payment-plan-body tr').forEach(function(row) {
             var val = parseFloat(row.querySelector('.pp-value').value) || 0;
             var status = row.querySelector('.pp-status').value;
             if (status === 'Pagado') {
                 paidTotal += val;
-            } else {
-                pendingTotal += val;
             }
         });
+
+        var pendingTotal = servicesTotal - paidTotal;
+        if (pendingTotal < 0) pendingTotal = 0;
 
         document.getElementById('balance-total').textContent = currentCurrency + formatMoney(servicesTotal);
         document.getElementById('balance-paid').textContent = currentCurrency + formatMoney(paidTotal);
