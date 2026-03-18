@@ -526,8 +526,13 @@
                         unitPrice: amounts[1]
                     });
                 } else if (amounts.length < 2 && descParts.length > 0) {
-                    // Row with no amounts — likely a wrapped description line
-                    pendingServiceDesc = descParts.join(' ');
+                    // Row with no amounts — likely a wrapped description continuation.
+                    // Append to the LAST service if one was just pushed, otherwise store as pending.
+                    if (result.services.length > 0 && !pendingServiceDesc) {
+                        result.services[result.services.length - 1].description += ' ' + descParts.join(' ');
+                    } else {
+                        pendingServiceDesc = (pendingServiceDesc ? pendingServiceDesc + ' ' : '') + descParts.join(' ');
+                    }
                 }
                 return;
             }
@@ -571,8 +576,13 @@
                         status: payStatus || 'Pendiente'
                     });
                 } else if (payAmount === null && payDesc.length > 0 && !payStatus) {
-                    // Row with no amount — likely a wrapped description line
-                    pendingPayDesc = payDesc.join(' ');
+                    // Row with no amount — likely a wrapped description continuation.
+                    // Append to the LAST payment if one was just pushed, otherwise store as pending.
+                    if (result.paymentPlan.length > 0 && !pendingPayDesc) {
+                        result.paymentPlan[result.paymentPlan.length - 1].description += ' ' + payDesc.join(' ');
+                    } else {
+                        pendingPayDesc = (pendingPayDesc ? pendingPayDesc + ' ' : '') + payDesc.join(' ');
+                    }
                 }
                 return;
             }
