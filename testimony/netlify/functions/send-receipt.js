@@ -56,7 +56,8 @@ function translateMethod(method, isSpanish) {
         'Cash': 'Efectivo',
         'Credit Card': 'Tarjeta de Crédito',
         'Wire Transfer': 'Transferencia Bancaria',
-        'Check': 'Cheque'
+        'Check': 'Cheque',
+        'Deposit': 'Depósito'
     };
     return map[method] || method;
 }

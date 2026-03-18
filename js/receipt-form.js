@@ -48,7 +48,8 @@
             methodCash: 'Efectivo',
             methodCard: 'Tarjeta de Crédito',
             methodWire: 'Transferencia Bancaria',
-            methodCheck: 'Cheque'
+            methodCheck: 'Cheque',
+            methodDeposit: 'Depósito'
         },
         en: {
             pageTitle: 'Generate Receipt',
@@ -79,7 +80,8 @@
             methodCash: 'Cash',
             methodCard: 'Credit Card',
             methodWire: 'Wire Transfer',
-            methodCheck: 'Check'
+            methodCheck: 'Check',
+            methodDeposit: 'Deposit'
         }
     };
 
@@ -199,7 +201,8 @@
             + '<option value="Cash">' + t.methodCash + '</option>'
             + '<option value="Credit Card">' + t.methodCard + '</option>'
             + '<option value="Wire Transfer">' + t.methodWire + '</option>'
-            + '<option value="Check">' + t.methodCheck + '</option>';
+            + '<option value="Check">' + t.methodCheck + '</option>'
+            + '<option value="Deposit">' + t.methodDeposit + '</option>';
     }
 
     function addLineItemRow() {
@@ -257,7 +260,10 @@
         'transferencia': 'Wire Transfer',
         'wire transfer': 'Wire Transfer',
         'cheque': 'Check',
-        'check': 'Check'
+        'check': 'Check',
+        'depósito': 'Deposit',
+        'deposito': 'Deposit',
+        'deposit': 'Deposit'
     };
 
     function mapMethod(raw) {
