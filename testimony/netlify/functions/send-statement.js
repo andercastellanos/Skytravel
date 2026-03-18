@@ -131,7 +131,7 @@ function buildStatementEmail(body) {
         const unitPrice = parseFloat(item.unitPrice || 0);
         const rowTotal = qty * unitPrice;
         return `<tr>
-            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;">${item.description || ''}</td>
+            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;word-wrap:break-word;overflow-wrap:break-word;">${item.description || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${qty}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">${cur}${formatMoney(unitPrice)}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">${cur}${formatMoney(rowTotal)}</td>
@@ -149,7 +149,7 @@ function buildStatementEmail(body) {
             : (isSpanish ? text.statusPending : text.statusPending);
         const statusColor = item.status === 'Pagado' ? '#27ae60' : '#e67e22';
         return `<tr>
-            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;">${item.description || ''}</td>
+            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;word-wrap:break-word;overflow-wrap:break-word;">${item.description || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">${cur}${formatMoney(parseFloat(item.value || 0))}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:${statusColor};font-weight:600;text-align:center;">${statusText}</td>
         </tr>`;
@@ -183,7 +183,13 @@ function buildStatementEmail(body) {
 
             <!-- Services Table -->
             <p style="color:#2c3e50;font-size:15px;font-weight:600;margin:20px 0 8px 0;">${text.servicesTitle}:</p>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:4px;">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:4px;table-layout:fixed;">
+                <colgroup>
+                    <col style="width:40%;">
+                    <col style="width:15%;">
+                    <col style="width:22%;">
+                    <col style="width:23%;">
+                </colgroup>
                 <thead>
                     <tr>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:left;border:1px solid #c8a97e;">${text.descriptionLabel}</th>
@@ -203,7 +209,12 @@ function buildStatementEmail(body) {
             <!-- Payment Plan Table -->
             ${paymentRows ? `
             <p style="color:#2c3e50;font-size:15px;font-weight:600;margin:20px 0 8px 0;">${text.paymentPlanTitle}:</p>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:16px;table-layout:fixed;">
+                <colgroup>
+                    <col style="width:45%;">
+                    <col style="width:30%;">
+                    <col style="width:25%;">
+                </colgroup>
                 <thead>
                     <tr>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:left;border:1px solid #c8a97e;">${text.descriptionLabel}</th>
