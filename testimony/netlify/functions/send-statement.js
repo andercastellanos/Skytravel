@@ -438,19 +438,24 @@ function generateStatementPdf(body, logoDataUri) {
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
+    const descColWidth = svcCol2 - svcCol1 - 16;
     validServices.forEach((item, i) => {
-        checkPage(rowHeight);
+        const descLines = doc.splitTextToSize(item.description || '', descColWidth);
+        const lineHeight = 14;
+        const actualRowHeight = Math.max(rowHeight, descLines.length * lineHeight + 8);
+        checkPage(actualRowHeight);
         doc.setFillColor(i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 248 : 255, i % 2 === 0 ? 245 : 255);
-        doc.rect(svcCol1, y, contentWidth, rowHeight, 'F');
+        doc.rect(svcCol1, y, contentWidth, actualRowHeight, 'F');
         doc.setTextColor(...textColor);
         const qty = parseFloat(item.qty || 0);
         const unitPrice = parseFloat(item.unitPrice || 0);
         const rowTotal = qty * unitPrice;
-        doc.text(item.description || '', svcCol1 + 8, y + 15);
-        doc.text(String(qty), svcCol2 + 8, y + 15, { align: 'center' });
-        doc.text(cur + formatMoney(unitPrice), svcCol3 + 8, y + 15);
-        doc.text(cur + formatMoney(rowTotal), svcCol4 - 8, y + 15, { align: 'right' });
-        y += rowHeight;
+        doc.text(descLines, svcCol1 + 8, y + 15);
+        const midY = y + actualRowHeight / 2 + 4;
+        doc.text(String(qty), svcCol2 + 8, midY, { align: 'center' });
+        doc.text(cur + formatMoney(unitPrice), svcCol3 + 8, midY);
+        doc.text(cur + formatMoney(rowTotal), svcCol4 - 8, midY, { align: 'right' });
+        y += actualRowHeight;
     });
 
     // Grand total

@@ -445,6 +445,8 @@
         };
 
         var section = '';
+        var pendingServiceDesc = '';
+        var pendingPayDesc = '';
 
         allRows.forEach(function(cells) {
             var joined = cells.join(' ');
@@ -503,6 +505,11 @@
                 // Try to extract: description, qty, unit price, total
                 var amounts = [];
                 var descParts = [];
+                // Prepend any pending description from a previous wrapped line
+                if (pendingServiceDesc) {
+                    descParts.push(pendingServiceDesc);
+                    pendingServiceDesc = '';
+                }
                 cells.forEach(function(cell) {
                     var cleaned = cell.replace(/[$€,]/g, '').trim();
                     if (cleaned.match(/^\d+(\.\d+)?$/) && parseFloat(cleaned) >= 0) {
@@ -518,6 +525,9 @@
                         qty: amounts[0],
                         unitPrice: amounts[1]
                     });
+                } else if (amounts.length < 2 && descParts.length > 0) {
+                    // Row with no amounts — likely a wrapped description line
+                    pendingServiceDesc = descParts.join(' ');
                 }
                 return;
             }
@@ -532,6 +542,12 @@
                 var payAmount = null;
                 var payDesc = [];
                 var payStatus = '';
+
+                // Prepend any pending description from a previous wrapped line
+                if (pendingPayDesc) {
+                    payDesc.push(pendingPayDesc);
+                    pendingPayDesc = '';
+                }
 
                 cells.forEach(function(cell) {
                     if (cell.match(/Pagado/i) || cell.match(/Paid/i)) {
@@ -554,6 +570,9 @@
                         value: payAmount,
                         status: payStatus || 'Pendiente'
                     });
+                } else if (payAmount === null && payDesc.length > 0 && !payStatus) {
+                    // Row with no amount — likely a wrapped description line
+                    pendingPayDesc = payDesc.join(' ');
                 }
                 return;
             }
