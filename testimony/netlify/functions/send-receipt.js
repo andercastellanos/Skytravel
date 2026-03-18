@@ -59,6 +59,7 @@ function buildReceiptEmail(body) {
         customerLabel: 'Cliente',
         dateLabel: 'Fecha',
         descriptionLabel: 'Descripción',
+        paymentDateLabel: 'Fecha de Pago',
         methodLabel: 'Método',
         amountLabel: 'Monto',
         totalLabel: 'Total',
@@ -75,6 +76,7 @@ function buildReceiptEmail(body) {
         customerLabel: 'Customer',
         dateLabel: 'Date',
         descriptionLabel: 'Description',
+        paymentDateLabel: 'Payment Date',
         methodLabel: 'Method',
         amountLabel: 'Amount',
         totalLabel: 'Total',
@@ -91,6 +93,7 @@ function buildReceiptEmail(body) {
     const lineItemRows = (body.lineItems || []).map(item =>
         `<tr>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;">${item.description || ''}</td>
+            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.paymentDate ? formatDate(item.paymentDate, isSpanish) : ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.method || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">${curr}${formatMoney(item.amount)}</td>
         </tr>`
@@ -119,6 +122,7 @@ function buildReceiptEmail(body) {
                 <thead>
                     <tr>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:left;border:1px solid #c8a97e;">${text.descriptionLabel}</th>
+                        <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:center;border:1px solid #c8a97e;">${text.paymentDateLabel}</th>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:center;border:1px solid #c8a97e;">${text.methodLabel}</th>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:right;border:1px solid #c8a97e;">${text.amountLabel}</th>
                     </tr>
@@ -177,6 +181,7 @@ function generateReceiptPdf(body, logoDataUri) {
     const text = isSpanish ? {
         title: 'Recibo de Pago',
         descriptionLabel: 'Descripción',
+        paymentDateLabel: 'Fecha de Pago',
         methodLabel: 'Método',
         amountLabel: 'Monto',
         totalLabel: 'Total',
@@ -187,6 +192,7 @@ function generateReceiptPdf(body, logoDataUri) {
     } : {
         title: 'Payment Receipt',
         descriptionLabel: 'Description',
+        paymentDateLabel: 'Payment Date',
         methodLabel: 'Method',
         amountLabel: 'Amount',
         totalLabel: 'Total',
@@ -246,8 +252,8 @@ function generateReceiptPdf(body, logoDataUri) {
 
     // --- Table ---
     const col1X = margin;
-    const col2X = 300;
-    const col3X = 420;
+    const col2X = 240;
+    const col3X = 350;
     const rowHeight = 22;
 
     // Header
@@ -257,7 +263,8 @@ function generateReceiptPdf(body, logoDataUri) {
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
     doc.text(text.descriptionLabel, col1X + 8, y + 16);
-    doc.text(text.methodLabel, col2X + 8, y + 16);
+    doc.text(text.paymentDateLabel, col2X + 8, y + 16);
+    doc.text(text.methodLabel, col3X + 8, y + 16);
     doc.text(text.amountLabel, pageWidth - margin - 8, y + 16, { align: 'right' });
     y += 24;
 
@@ -277,7 +284,8 @@ function generateReceiptPdf(body, logoDataUri) {
         doc.rect(col1X, y, contentWidth, rowHeight, 'F');
         doc.setTextColor(...textColor);
         doc.text(item.description || '', col1X + 8, y + 15);
-        doc.text(item.method || '', col2X + 8, y + 15);
+        doc.text(item.paymentDate ? formatDate(item.paymentDate, isSpanish) : '', col2X + 8, y + 15);
+        doc.text(item.method || '', col3X + 8, y + 15);
         doc.text(curr + formatMoney(item.amount), pageWidth - margin - 8, y + 15, { align: 'right' });
         y += rowHeight;
     });

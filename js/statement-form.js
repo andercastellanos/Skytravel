@@ -270,7 +270,7 @@
         }
 
         var tr = document.createElement('tr');
-        tr.innerHTML = '<td><input type="text" class="svc-description form-input" /></td>'
+        tr.innerHTML = '<td><textarea class="svc-description form-input" rows="1" style="resize:none;overflow:hidden;"></textarea></td>'
             + '<td><input type="number" class="svc-qty form-input" min="0" step="1" value="1" /></td>'
             + '<td><input type="number" class="svc-unit-price form-input" min="0" step="0.01" /></td>'
             + '<td class="svc-row-total" style="text-align:right;font-weight:600;color:#2c3e50;padding:6px 8px;">' + currentCurrency + '0.00</td>'
@@ -283,6 +283,15 @@
             if (data.qty) tr.querySelector('.svc-qty').value = data.qty;
             if (data.unitPrice) tr.querySelector('.svc-unit-price').value = data.unitPrice;
         }
+
+        // Auto-resize description textarea
+        var desc = tr.querySelector('.svc-description');
+        function autoResize() {
+            desc.style.height = 'auto';
+            desc.style.height = desc.scrollHeight + 'px';
+        }
+        desc.addEventListener('input', autoResize);
+        if (data && data.description) setTimeout(autoResize, 0);
 
         // Bind events
         tr.querySelector('.svc-qty').addEventListener('input', recalcServicesTotal);

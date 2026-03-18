@@ -26,6 +26,7 @@
             date: 'Fecha',
             lineItemsTitle: 'Detalle de Pagos',
             description: 'Descripción',
+            paymentDate: 'Fecha de Pago',
             method: 'Método',
             amount: 'Monto',
             addRow: '+ Agregar Fila',
@@ -56,6 +57,7 @@
             date: 'Date',
             lineItemsTitle: 'Payment Details',
             description: 'Description',
+            paymentDate: 'Payment Date',
             method: 'Method',
             amount: 'Amount',
             addRow: '+ Add Row',
@@ -211,6 +213,7 @@
 
         var tr = document.createElement('tr');
         tr.innerHTML = '<td><input type="text" class="li-description form-input" /></td>'
+            + '<td><input type="date" class="li-date form-input" /></td>'
             + '<td><select class="li-method form-input">' + getMethodOptions() + '</select></td>'
             + '<td><input type="number" class="li-amount form-input" min="0" step="0.01" /></td>'
             + '<td><button type="button" class="remove-row-btn" title="Remove">&times;</button></td>';
@@ -344,9 +347,20 @@
                 if (amountCell && cells[0]) {
                     var methodIdx = amountIdx >= 2 ? amountIdx - 1 : -1;
                     var method = methodIdx >= 0 ? cells[methodIdx] : '';
-                    var descParts = cells.slice(0, methodIdx >= 0 ? methodIdx : amountIdx);
+                    // Separate date from description
+                    var descEnd = methodIdx >= 0 ? methodIdx : amountIdx;
+                    var paymentDate = '';
+                    var descParts = [];
+                    for (var j = 0; j < descEnd; j++) {
+                        if (cells[j].match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/) || cells[j].match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
+                            paymentDate = cells[j];
+                        } else {
+                            descParts.push(cells[j]);
+                        }
+                    }
                     result.lineItems.push({
                         description: descParts.join(' '),
+                        paymentDate: paymentDate,
                         method: method,
                         amount: parseFloat(amountCell.replace(/[$,]/g, ''))
                     });
@@ -384,6 +398,7 @@
 
                 var tr = document.createElement('tr');
                 tr.innerHTML = '<td><input type="text" class="li-description form-input" /></td>'
+                    + '<td><input type="date" class="li-date form-input" /></td>'
                     + '<td><select class="li-method form-input">' + getMethodOptions() + '</select></td>'
                     + '<td><input type="number" class="li-amount form-input" min="0" step="0.01" /></td>'
                     + '<td><button type="button" class="remove-row-btn" title="Remove">&times;</button></td>';
@@ -392,6 +407,10 @@
 
                 // Fill values
                 tr.querySelector('.li-description').value = item.description;
+                if (item.paymentDate) {
+                    var converted = convertPdfDate(item.paymentDate);
+                    if (converted) tr.querySelector('.li-date').value = converted;
+                }
                 var methodValue = mapMethod(item.method);
                 if (methodValue) tr.querySelector('.li-method').value = methodValue;
                 if (item.amount > 0) tr.querySelector('.li-amount').value = item.amount.toFixed(2);
@@ -524,11 +543,13 @@
         var lineItems = [];
         document.querySelectorAll('#line-items-body tr').forEach(function(row) {
             var desc = row.querySelector('.li-description').value.trim();
+            var payDate = row.querySelector('.li-date').value;
             var method = row.querySelector('.li-method').value;
             var amount = parseFloat(row.querySelector('.li-amount').value);
             if (desc && amount > 0) {
                 lineItems.push({
                     description: desc,
+                    paymentDate: payDate,
                     method: method,
                     amount: amount
                 });
