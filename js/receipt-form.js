@@ -304,6 +304,7 @@
 
         var result = { date: '', customerName: '', lineItems: [] };
         var headerFound = false;
+        var pendingDesc = '';
 
         rows.forEach(function(cells) {
             var joined = cells.join(' ');
@@ -333,7 +334,7 @@
             }
 
             // Parse table data rows
-            if (headerFound && cells.length >= 3) {
+            if (headerFound && cells.length >= 1) {
                 // Find dollar amount cell
                 var amountCell = null;
                 var amountIdx = -1;
@@ -351,6 +352,11 @@
                     var descEnd = methodIdx >= 0 ? methodIdx : amountIdx;
                     var paymentDate = '';
                     var descParts = [];
+                    // Prepend any pending description from a previous wrapped line
+                    if (pendingDesc) {
+                        descParts.push(pendingDesc);
+                        pendingDesc = '';
+                    }
                     for (var j = 0; j < descEnd; j++) {
                         if (cells[j].match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/) || cells[j].match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
                             paymentDate = cells[j];
@@ -364,6 +370,9 @@
                         method: method,
                         amount: parseFloat(amountCell.replace(/[$,]/g, ''))
                     });
+                } else if (!amountCell && cells.length < 3) {
+                    // Row with no amount — likely a wrapped description line
+                    pendingDesc = (pendingDesc ? pendingDesc + ' ' : '') + joined.trim();
                 }
             }
         });

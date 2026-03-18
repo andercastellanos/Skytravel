@@ -47,6 +47,21 @@ function formatDate(dateStr, isSpanish) {
 }
 
 /**
+ * Translates English method values to Spanish
+ */
+function translateMethod(method, isSpanish) {
+    if (!isSpanish || !method) return method || '';
+    const map = {
+        'Zelle': 'Zelle',
+        'Cash': 'Efectivo',
+        'Credit Card': 'Tarjeta de Crédito',
+        'Wire Transfer': 'Transferencia Bancaria',
+        'Check': 'Cheque'
+    };
+    return map[method] || method;
+}
+
+/**
  * Builds the branded receipt HTML email
  */
 function buildReceiptEmail(body) {
@@ -94,7 +109,7 @@ function buildReceiptEmail(body) {
         `<tr>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;">${item.description || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.paymentDate ? formatDate(item.paymentDate, isSpanish) : ''}</td>
-            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.method || ''}</td>
+            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${translateMethod(item.method, isSpanish)}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">${curr}${formatMoney(item.amount)}</td>
         </tr>`
     ).join('');
@@ -285,7 +300,7 @@ function generateReceiptPdf(body, logoDataUri) {
         doc.setTextColor(...textColor);
         doc.text(item.description || '', col1X + 8, y + 15);
         doc.text(item.paymentDate ? formatDate(item.paymentDate, isSpanish) : '', col2X + 8, y + 15);
-        doc.text(item.method || '', col3X + 8, y + 15);
+        doc.text(translateMethod(item.method, isSpanish), col3X + 8, y + 15);
         doc.text(curr + formatMoney(item.amount), pageWidth - margin - 8, y + 15, { align: 'right' });
         y += rowHeight;
     });
