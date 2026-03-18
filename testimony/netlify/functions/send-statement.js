@@ -185,10 +185,10 @@ function buildStatementEmail(body) {
             <p style="color:#2c3e50;font-size:15px;font-weight:600;margin:20px 0 8px 0;">${text.servicesTitle}:</p>
             <table style="width:100%;border-collapse:collapse;margin-bottom:4px;table-layout:fixed;">
                 <colgroup>
-                    <col style="width:40%;">
-                    <col style="width:15%;">
+                    <col style="width:46%;">
+                    <col style="width:10%;">
                     <col style="width:22%;">
-                    <col style="width:23%;">
+                    <col style="width:22%;">
                 </colgroup>
                 <thead>
                     <tr>
@@ -370,22 +370,22 @@ function generateStatementPdf(body, logoDataUri) {
 
     // --- Logo ---
     if (logoDataUri) {
-        doc.addImage(logoDataUri, 'JPEG', (pageWidth - 80) / 2, y, 80, 80);
-        y += 95;
+        doc.addImage(logoDataUri, 'JPEG', (pageWidth - 70) / 2, y, 70, 70);
+        y += 80;
     }
 
     // --- Title ---
-    doc.setFontSize(20);
+    doc.setFontSize(18);
     doc.setTextColor(...dark);
     doc.setFont('helvetica', 'bold');
     doc.text(text.title, pageWidth / 2, y, { align: 'center' });
-    y += 20;
+    y += 16;
 
     // --- Gold separator ---
     doc.setDrawColor(...gold);
     doc.setLineWidth(2);
     doc.line(margin, y, pageWidth - margin, y);
-    y += 20;
+    y += 14;
 
     // --- Date ---
     doc.setFontSize(11);
@@ -395,38 +395,38 @@ function generateStatementPdf(body, logoDataUri) {
     const dateWidth = doc.getTextWidth(text.dateLabel + ': ');
     doc.setFont('helvetica', 'normal');
     doc.text(formatDate(body.date, isSpanish), margin + dateWidth, y);
-    y += 24;
+    y += 16;
 
     // --- Pilgrims ---
     const pilgrims = (body.pilgrims || []).filter(p => p.trim());
     if (pilgrims.length > 0) {
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
+        doc.setFontSize(11);
         doc.setTextColor(...dark);
         doc.text(text.pilgrimsLabel + ':', margin, y);
-        y += 16;
+        y += 14;
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
         doc.setTextColor(...textColor);
         pilgrims.forEach(p => {
-            checkPage(16);
+            checkPage(14);
             doc.text('•  ' + p, margin + 10, y);
-            y += 14;
+            y += 12;
         });
-        y += 10;
+        y += 6;
     }
 
     // --- Services Table ---
     checkPage(60);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
+    doc.setFontSize(11);
     doc.setTextColor(...dark);
     doc.text(text.servicesTitle + ':', margin, y);
-    y += 14;
+    y += 10;
 
-    const rowHeight = 22;
+    const rowHeight = 20;
     const svcCol1 = margin;
-    const svcCol2 = 280;
+    const svcCol2 = 310;
     const svcCol3 = 370;
     const svcCol4 = pageWidth - margin;
 
@@ -481,17 +481,17 @@ function generateStatementPdf(body, logoDataUri) {
     doc.setFontSize(11);
     doc.setTextColor(...dark);
     doc.text(text.grandTotalLabel + ': ' + cur + formatMoney(grandTotal), svcCol4 - 8, y + 16, { align: 'right' });
-    y += 38;
+    y += 28;
 
     // --- Payment Plan ---
     const paymentPlan = (body.paymentPlan || []).filter(item => item.description && item.description.trim());
     if (paymentPlan.length > 0) {
         checkPage(60);
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
+        doc.setFontSize(11);
         doc.setTextColor(...dark);
         doc.text(text.paymentPlanTitle + ':', margin, y);
-        y += 14;
+        y += 10;
 
         // Header
         doc.setFillColor(...gold);
@@ -519,7 +519,7 @@ function generateStatementPdf(body, logoDataUri) {
             doc.text(isPaid ? text.statusPaid : text.statusPending, pageWidth - margin - 8, y + 15, { align: 'right' });
             y += rowHeight;
         });
-        y += 14;
+        y += 8;
     }
 
     // --- Balance ---
@@ -532,10 +532,10 @@ function generateStatementPdf(body, logoDataUri) {
 
     checkPage(80);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
+    doc.setFontSize(11);
     doc.setTextColor(...dark);
     doc.text(text.balanceTitle + ':', margin, y);
-    y += 14;
+    y += 10;
 
     const red = [196, 30, 58];
     const balanceRows = [
@@ -556,7 +556,7 @@ function generateStatementPdf(body, logoDataUri) {
         doc.text(cur + formatMoney(row.value), pageWidth - margin - 8, y + 15, { align: 'right' });
         y += rowHeight;
     });
-    y += 24;
+    y += 16;
 
     // --- Closing ---
     checkPage(40);
