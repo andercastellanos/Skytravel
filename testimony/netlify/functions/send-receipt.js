@@ -108,7 +108,7 @@ function buildReceiptEmail(body) {
     // Build line items rows
     const lineItemRows = (body.lineItems || []).map(item =>
         `<tr>
-            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;">${item.description || ''}</td>
+            <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;word-wrap:break-word;overflow-wrap:break-word;">${item.description || ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${item.paymentDate ? formatDate(item.paymentDate, isSpanish) : ''}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:center;">${translateMethod(item.method, isSpanish)}</td>
             <td style="padding:10px 12px;border:1px solid #e0d6c8;font-size:14px;color:#333;text-align:right;">${curr}${formatMoney(item.amount)}</td>
@@ -134,7 +134,13 @@ function buildReceiptEmail(body) {
             <p style="color:#333;font-size:15px;margin:0 0 20px 0;line-height:1.5;">${text.message.replace('{date}', formatDate(body.date, isSpanish))}</p>
 
             <!-- Line Items Table -->
-            <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:16px;table-layout:fixed;">
+                <colgroup>
+                    <col style="width:40%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                </colgroup>
                 <thead>
                     <tr>
                         <th style="padding:10px 12px;background:#c8a97e;color:#ffffff;font-size:13px;font-weight:600;text-align:left;border:1px solid #c8a97e;">${text.descriptionLabel}</th>
@@ -291,19 +297,22 @@ function generateReceiptPdf(body, logoDataUri) {
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
+    const descMaxWidth = col2X - col1X - 16;
     validItems.forEach((item, i) => {
+        const descLines = doc.splitTextToSize(item.description || '', descMaxWidth);
+        const dynamicHeight = Math.max(rowHeight, descLines.length * 14 + 8);
         if (i % 2 === 0) {
             doc.setFillColor(250, 248, 245);
         } else {
             doc.setFillColor(255, 255, 255);
         }
-        doc.rect(col1X, y, contentWidth, rowHeight, 'F');
+        doc.rect(col1X, y, contentWidth, dynamicHeight, 'F');
         doc.setTextColor(...textColor);
-        doc.text(item.description || '', col1X + 8, y + 15);
+        doc.text(descLines, col1X + 8, y + 15);
         doc.text(item.paymentDate ? formatDate(item.paymentDate, isSpanish) : '', col2X + 8, y + 15);
         doc.text(translateMethod(item.method, isSpanish), col3X + 8, y + 15);
         doc.text(curr + formatMoney(item.amount), pageWidth - margin - 8, y + 15, { align: 'right' });
-        y += rowHeight;
+        y += dynamicHeight;
     });
 
     // Table bottom border
