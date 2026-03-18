@@ -376,9 +376,14 @@
                         method: method,
                         amount: parseFloat(amountCell.replace(/[$,]/g, ''))
                     });
-                } else if (!amountCell && cells.length < 3) {
-                    // Row with no amount — likely a wrapped description line
-                    pendingDesc = (pendingDesc ? pendingDesc + ' ' : '') + joined.trim();
+                } else if (!amountCell) {
+                    // Row with no amount — likely a wrapped description continuation.
+                    // Append to the LAST line item if one was just pushed, otherwise store as pending.
+                    if (result.lineItems.length > 0 && !pendingDesc) {
+                        result.lineItems[result.lineItems.length - 1].description += ' ' + joined.trim();
+                    } else {
+                        pendingDesc = (pendingDesc ? pendingDesc + ' ' : '') + joined.trim();
+                    }
                 }
             }
         });
