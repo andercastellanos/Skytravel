@@ -136,10 +136,10 @@ function buildReceiptEmail(body) {
             <!-- Line Items Table -->
             <table style="width:100%;border-collapse:collapse;margin-bottom:16px;table-layout:fixed;">
                 <colgroup>
-                    <col style="width:40%;">
-                    <col style="width:20%;">
-                    <col style="width:20%;">
-                    <col style="width:20%;">
+                    <col style="width:36%;">
+                    <col style="width:18%;">
+                    <col style="width:28%;">
+                    <col style="width:18%;">
                 </colgroup>
                 <thead>
                     <tr>
