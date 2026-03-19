@@ -352,30 +352,42 @@
                     }
                 }
                 if (amountCell && cells[0]) {
-                    var methodIdx = amountIdx >= 2 ? amountIdx - 1 : -1;
-                    var method = methodIdx >= 0 ? cells[methodIdx] : '';
-                    // Separate date from description
-                    var descEnd = methodIdx >= 0 ? methodIdx : amountIdx;
-                    var paymentDate = '';
-                    var descParts = [];
-                    // Prepend any pending description from a previous wrapped line
-                    if (pendingDesc) {
-                        descParts.push(pendingDesc);
-                        pendingDesc = '';
-                    }
-                    for (var j = 0; j < descEnd; j++) {
-                        if (cells[j].match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/) || cells[j].match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
-                            paymentDate = cells[j];
-                        } else {
-                            descParts.push(cells[j]);
-                        }
-                    }
-                    result.lineItems.push({
-                        description: descParts.join(' '),
-                        paymentDate: paymentDate,
-                        method: method,
-                        amount: parseFloat(amountCell.replace(/[$,]/g, ''))
+                    // Check if this row has a date — real payment rows always have one.
+                    // Rows with $ but no date are description continuations with embedded prices
+                    // (e.g., "Valor $2.000.000 Tasa $3.689").
+                    var hasDate = cells.some(function(c) {
+                        return c.match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/) || c.match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/);
                     });
+
+                    if (!hasDate && result.lineItems.length > 0) {
+                        // Has $ but no date — append to previous line item as description
+                        result.lineItems[result.lineItems.length - 1].description += ' ' + joined.trim();
+                    } else {
+                        var methodIdx = amountIdx >= 2 ? amountIdx - 1 : -1;
+                        var method = methodIdx >= 0 ? cells[methodIdx] : '';
+                        // Separate date from description
+                        var descEnd = methodIdx >= 0 ? methodIdx : amountIdx;
+                        var paymentDate = '';
+                        var descParts = [];
+                        // Prepend any pending description from a previous wrapped line
+                        if (pendingDesc) {
+                            descParts.push(pendingDesc);
+                            pendingDesc = '';
+                        }
+                        for (var j = 0; j < descEnd; j++) {
+                            if (cells[j].match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/) || cells[j].match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
+                                paymentDate = cells[j];
+                            } else {
+                                descParts.push(cells[j]);
+                            }
+                        }
+                        result.lineItems.push({
+                            description: descParts.join(' '),
+                            paymentDate: paymentDate,
+                            method: method,
+                            amount: parseFloat(amountCell.replace(/[$,]/g, ''))
+                        });
+                    }
                 } else if (!amountCell) {
                     // Row with no amount — likely a wrapped description continuation.
                     // Append to the LAST line item if one was just pushed, otherwise store as pending.
