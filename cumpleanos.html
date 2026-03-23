@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#c8a97e">
+  <title>Cumpleaños — Sky Travel J&M</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components/contact-section.css">
+
+  <style>
+    /* Page-specific styles */
+    .receipt-header {
+      text-align: center;
+      padding: 20px 0;
+      background: #ffffff;
+      border-bottom: 2px solid #f0ebe3;
+      position: relative;
+    }
+
+    .receipt-header img {
+      max-width: 140px;
+      height: auto;
+    }
+
+    .back-to-portal {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c8a97e;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .back-to-portal:hover {
+      color: #b69268;
+    }
+
+    .receipt-container {
+      max-width: 720px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .receipt-card {
+      background: #ffffff;
+      border: 2px solid #c8a97e;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .receipt-title {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .lang-btn {
+      padding: 6px 18px;
+      border: 2px solid #c8a97e;
+      border-radius: 20px;
+      background: transparent;
+      color: #c8a97e;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: #c8a97e;
+      color: #ffffff;
+    }
+
+    .lang-btn:hover {
+      background: #c8a97e;
+      color: #ffffff;
+    }
+
+    /* Form layout */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: Arial, sans-serif;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #c8a97e;
+      box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.15);
+    }
+
+    /* Message textarea */
+    .message-textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    /* Image upload */
+    .image-section {
+      margin-top: 24px;
+      padding: 16px;
+      border: 1.5px dashed #ddd;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .image-section label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .image-section input[type="file"] {
+      font-size: 0.85rem;
+    }
+
+    .image-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 6px;
+    }
+
+    .image-preview {
+      display: none;
+      max-width: 200px;
+      max-height: 200px;
+      margin: 12px auto 0;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid #e0d6c8;
+    }
+
+    /* Submit button */
+    .submit-section {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    #submit-btn {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(200, 169, 126, 0.35);
+    }
+
+    #submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .receipt-card {
+        padding: 24px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Minimal header: logo only, no navigation -->
+  <div class="receipt-header">
+    <a href="/empleados" class="back-to-portal">← Volver</a>
+    <a href="/">
+      <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
+    </a>
+  </div>
+
+  <div class="receipt-container">
+    <div class="receipt-card">
+      <!-- Language toggle -->
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn active" data-lang="es">ES</button>
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+      </div>
+
+      <h1 class="receipt-title" data-i18n="pageTitle">Felicitación de Cumpleaños</h1>
+
+      <form id="birthday-form" novalidate>
+        <!-- Recipient info -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="recipient-name" data-i18n-label="recipientName">Nombre del Destinatario</label>
+            <input type="text" id="recipient-name" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="recipient-email" data-i18n-label="recipientEmail">Correo Electrónico del Destinatario</label>
+            <input type="email" id="recipient-email" class="form-input" required />
+          </div>
+        </div>
+
+        <!-- Custom message -->
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="birthday-message" data-i18n-label="message">Mensaje Personalizado</label>
+            <textarea id="birthday-message" class="form-input message-textarea" required></textarea>
+          </div>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="image-section">
+          <label for="image-upload" data-i18n-label="imageUpload">Subir Imagen</label>
+          <input type="file" id="image-upload" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <p class="image-hint" id="image-hint">JPG, PNG, WebP o GIF — máximo 2MB</p>
+          <img id="image-preview" class="image-preview" alt="" />
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-section">
+          <button type="submit" id="submit-btn">Enviar Felicitación</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/birthday-form.js"></script>
+  <script src="js/page-init.min.js"></script>
+</body>
+
+</html>

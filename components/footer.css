@@ -148,6 +148,22 @@
   color: #aaa;
 }
 
+.footer-employee-link {
+  display: inline-block;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(170, 170, 170, 0.4);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-employee-link:hover {
+  color: #c8a97e;
+}
+
 /* ── Screen-reader only utility ─────────────────────── */
 
 .sr-only {

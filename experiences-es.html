@@ -495,6 +495,23 @@
 
     <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
     <script src="js/page-init.min.js?v=20260204c" defer></script>
+
+    <!-- Employee portal link (hidden on this page only) -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var check = setInterval(function() {
+          var fb = document.querySelector('.footer-bottom');
+          if (fb) {
+            clearInterval(check);
+            var a = document.createElement('a');
+            a.href = '/empleados';
+            a.className = 'footer-employee-link';
+            a.textContent = 'Empleados';
+            fb.appendChild(a);
+          }
+        }, 200);
+      });
+    </script>
 </body>
 
 </html>
