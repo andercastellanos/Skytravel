@@ -63,6 +63,13 @@
   status = 301
   force = true
 
+# Hidden destination creator page redirect
+[[redirects]]
+  from = "/crear-destino.html"
+  to = "/crear-destino"
+  status = 301
+  force = true
+
 # Employee portal page redirect
 [[redirects]]
   from = "/empleados.html"

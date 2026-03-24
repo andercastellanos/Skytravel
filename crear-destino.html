@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#c8a97e">
+  <title>Crear Destino — Sky Travel J&M</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Page-specific styles */
+    .receipt-header {
+      text-align: center;
+      padding: 20px 0;
+      background: #ffffff;
+      border-bottom: 2px solid #f0ebe3;
+      position: relative;
+    }
+
+    .receipt-header img {
+      max-width: 140px;
+      height: auto;
+    }
+
+    .back-to-portal {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c8a97e;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .back-to-portal:hover {
+      color: #b69268;
+    }
+
+    .receipt-container {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .receipt-card {
+      background: #ffffff;
+      border: 2px solid #c8a97e;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .receipt-title {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+    }
+
+    /* Form layout */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: Arial, sans-serif;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #c8a97e;
+      box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.15);
+    }
+
+    .section-title {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .add-row-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1.5px dashed #c8a97e;
+      border-radius: 8px;
+      color: #c8a97e;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .add-row-btn:hover {
+      background: #faf6f0;
+    }
+
+    .remove-row-btn {
+      background: none;
+      border: none;
+      color: #c41e3a;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .remove-row-btn:hover {
+      background: #fff5f5;
+    }
+
+    /* Dynamic row card styling */
+    .dynamic-card {
+      border: 1.5px solid #e0d6c8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .dynamic-card .remove-row-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 2px solid #f0ebe3;
+      margin: 32px 0;
+    }
+
+    .field-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    /* Submit section */
+    .submit-section {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    #generate-btn {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(200, 169, 126, 0.35);
+    }
+
+    #generate-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #c41e3a;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .receipt-card {
+        padding: 24px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Minimal header: logo only, no navigation -->
+  <div class="receipt-header">
+    <a href="/empleados" class="back-to-portal">&larr; Volver</a>
+    <a href="/">
+      <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
+    </a>
+  </div>
+
+  <div class="receipt-container">
+    <div class="receipt-card">
+      <h1 class="receipt-title">Crear Destino</h1>
+
+      <form id="destination-form">
+
+        <!-- 1. Basic Info -->
+        <h3 class="section-title">Informaci&oacute;n B&aacute;sica</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="destination-name-en">Destination Name EN</label>
+            <input type="text" id="destination-name-en" class="form-input" placeholder="Medjugorje">
+          </div>
+          <div class="form-group">
+            <label for="destination-name-es">Destination Name ES</label>
+            <input type="text" id="destination-name-es" class="form-input" placeholder="Medjugorje">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="url-slug">URL Slug</label>
+            <input type="text" id="url-slug" class="form-input" placeholder="medjugorje2026">
+          </div>
+          <div class="form-group">
+            <label for="event-type-en">Event Type EN</label>
+            <input type="text" id="event-type-en" class="form-input" placeholder="Pilgrimage">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="event-type-es">Event Type ES</label>
+            <input type="text" id="event-type-es" class="form-input" placeholder="Peregrinaci&oacute;n">
+          </div>
+          <div class="form-group">
+            <label for="image-folder">Image Folder Name</label>
+            <input type="text" id="image-folder" class="form-input" placeholder="Medjugorje">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="trip-theme-en">Trip Theme EN (SEO keyword)</label>
+            <input type="text" id="trip-theme-en" class="form-input" placeholder="Holy Week">
+            <span class="field-hint">Keyword used in page title and meta tags</span>
+          </div>
+          <div class="form-group">
+            <label for="trip-theme-es">Trip Theme ES (SEO keyword)</label>
+            <input type="text" id="trip-theme-es" class="form-input" placeholder="Semana Santa">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="start-date">Start Date</label>
+            <input type="date" id="start-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="end-date">End Date</label>
+            <input type="date" id="end-date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="duration-en">Duration Label EN</label>
+            <input type="text" id="duration-en" class="form-input" placeholder="8 days / 7 nights">
+          </div>
+          <div class="form-group">
+            <label for="duration-es">Duration Label ES</label>
+            <input type="text" id="duration-es" class="form-input" placeholder="8 d&iacute;as / 7 noches">
+          </div>
+        </div>
+
+        <!-- Alternate Dates -->
+        <h3 class="section-title">Fechas Alternativas</h3>
+        <div id="alternate-dates-list"></div>
+        <button type="button" id="add-alt-date-btn" class="add-row-btn">+ Agregar Fecha</button>
+
+        <hr class="section-divider">
+
+        <!-- 2. Hero -->
+        <h3 class="section-title">Hero / Encabezado</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="og-image-filename">OG Image Filename (social media)</label>
+            <input type="text" id="og-image-filename" class="form-input" placeholder="virgin-1200.webp">
+            <span class="field-hint">Imagen optimizada para redes sociales (1200x630). Si se deja vac&iacute;o, se usa la primera imagen del slideshow.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="h1-en">H1 Heading EN</label>
+            <input type="text" id="h1-en" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="h1-es">H1 Heading ES</label>
+            <input type="text" id="h1-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="subheading-en">Subheading EN</label>
+            <input type="text" id="subheading-en" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="subheading-es">Subheading ES</label>
+            <input type="text" id="subheading-es" class="form-input">
+          </div>
+        </div>
+
+        <!-- Slideshow Images -->
+        <h3 class="section-title">Im&aacute;genes del Slideshow</h3>
+        <div id="slideshow-images-list"></div>
+        <button type="button" id="add-slide-btn" class="add-row-btn">+ Agregar Imagen</button>
+
+        <hr class="section-divider">
+
+        <!-- 4. Trip Details -->
+        <h3 class="section-title">Detalles del Viaje</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="overview-heading-en">Overview Heading EN</label>
+            <input type="text" id="overview-heading-en" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="overview-heading-es">Overview Heading ES</label>
+            <input type="text" id="overview-heading-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="overview-p1-en">Overview Paragraph 1 EN</label>
+            <textarea id="overview-p1-en" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="overview-p1-es">Overview Paragraph 1 ES</label>
+            <textarea id="overview-p1-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="overview-p2-en">Overview Paragraph 2 EN</label>
+            <textarea id="overview-p2-en" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="overview-p2-es">Overview Paragraph 2 ES</label>
+            <textarea id="overview-p2-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 5. Pricing Cards -->
+        <h3 class="section-title">Tarjetas de Precios</h3>
+        <div id="pricing-cards-list"></div>
+        <button type="button" id="add-pricing-btn" class="add-row-btn">+ Agregar Tarjeta</button>
+
+        <hr class="section-divider">
+
+        <!-- 6. Journey Tabs -->
+        <h3 class="section-title">Secciones del Recorrido</h3>
+        <div id="journey-tabs-list"></div>
+        <button type="button" id="add-journey-btn" class="add-row-btn">+ Agregar Ubicaci&oacute;n</button>
+
+        <hr class="section-divider">
+
+        <!-- 7. Internal Links -->
+        <h3 class="section-title">Enlaces Internos</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="internal-heading-en">Section Heading EN</label>
+            <input type="text" id="internal-heading-en" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="internal-heading-es">Section Heading ES</label>
+            <input type="text" id="internal-heading-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="internal-intro-en">Intro Text EN</label>
+            <textarea id="internal-intro-en" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="internal-intro-es">Intro Text ES</label>
+            <textarea id="internal-intro-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div id="internal-links-list"></div>
+        <button type="button" id="add-link-btn" class="add-row-btn">+ Agregar Enlace</button>
+
+        <hr class="section-divider">
+
+        <!-- 8. Payment Plan -->
+        <h3 class="section-title">Plan de Pagos</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="payment-intro-en">Intro Text EN</label>
+            <textarea id="payment-intro-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="payment-intro-es">Intro Text ES</label>
+            <textarea id="payment-intro-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="deposit-text-en">Deposit Text EN</label>
+            <input type="text" id="deposit-text-en" class="form-input" placeholder="Deposit: €499 today to reserve your spot">
+          </div>
+          <div class="form-group">
+            <label for="deposit-text-es">Deposit Text ES</label>
+            <input type="text" id="deposit-text-es" class="form-input" placeholder="Dep&oacute;sito: €499 hoy para reservar tu cupo">
+          </div>
+        </div>
+
+        <!-- Option A -->
+        <h4 class="section-title">Option A</h4>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="option-a-label-en">Label EN</label>
+            <input type="text" id="option-a-label-en" class="form-input" placeholder="Option A">
+          </div>
+          <div class="form-group">
+            <label for="option-a-label-es">Label ES</label>
+            <input type="text" id="option-a-label-es" class="form-input" placeholder="Opci&oacute;n A">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="option-a-price-en">Price EN</label>
+            <input type="text" id="option-a-price-en" class="form-input" placeholder="6 &times; &euro;250">
+          </div>
+          <div class="form-group">
+            <label for="option-a-price-es">Price ES</label>
+            <input type="text" id="option-a-price-es" class="form-input" placeholder="6 &times; &euro;250">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="option-a-desc-en">Description EN</label>
+            <textarea id="option-a-desc-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="option-a-desc-es">Description ES</label>
+            <textarea id="option-a-desc-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- Option B -->
+        <h4 class="section-title">Option B</h4>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="option-b-label-en">Label EN</label>
+            <input type="text" id="option-b-label-en" class="form-input" placeholder="Option B">
+          </div>
+          <div class="form-group">
+            <label for="option-b-label-es">Label ES</label>
+            <input type="text" id="option-b-label-es" class="form-input" placeholder="Opci&oacute;n B">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="option-b-price-en">Price EN</label>
+            <input type="text" id="option-b-price-en" class="form-input" placeholder="3 &times; &euro;500">
+          </div>
+          <div class="form-group">
+            <label for="option-b-price-es">Price ES</label>
+            <input type="text" id="option-b-price-es" class="form-input" placeholder="3 &times; &euro;500">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="option-b-desc-en">Description EN</label>
+            <textarea id="option-b-desc-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="option-b-desc-es">Description ES</label>
+            <textarea id="option-b-desc-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 9. FAQ -->
+        <h3 class="section-title">Preguntas Frecuentes</h3>
+        <div id="faq-list"></div>
+        <button type="button" id="add-faq-btn" class="add-row-btn">+ Agregar Pregunta</button>
+
+        <hr class="section-divider">
+
+        <!-- 10. JSON-LD Extras -->
+        <h3 class="section-title">JSON-LD / Datos Estructurados</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="location-name">Event Location Name</label>
+            <input type="text" id="location-name" class="form-input" placeholder="Medjugorje">
+          </div>
+          <div class="form-group">
+            <label for="location-country">Country Code</label>
+            <input type="text" id="location-country" class="form-input" placeholder="BA">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="valid-from">Offer Valid From</label>
+            <input type="date" id="valid-from" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="valid-through">Offer Valid Through</label>
+            <input type="date" id="valid-through" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="same-as">sameAs URL (optional)</label>
+            <input type="text" id="same-as" class="form-input" placeholder="https://en.wikipedia.org/wiki/Medjugorje">
+          </div>
+        </div>
+
+        <p class="field-hint">Los precios se toman de las Tarjetas de Precios. Aseg&uacute;rese de que el primer precio sea num&eacute;rico (ej: 1999).</p>
+
+        <hr class="section-divider">
+
+        <!-- Submit -->
+        <div class="submit-section">
+          <button type="button" id="generate-btn">Generar P&aacute;ginas</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="js/destination-generator.js"></script>
+</body>
+
+</html>
