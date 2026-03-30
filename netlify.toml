@@ -63,6 +63,19 @@
   status = 301
   force = true
 
+# Trip gallery page redirects
+[[redirects]]
+  from = "/galeria-viaje.html"
+  to = "/galeria-viaje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/trip-gallery.html"
+  to = "/trip-gallery"
+  status = 301
+  force = true
+
 # Hidden destination creator page redirect
 [[redirects]]
   from = "/crear-destino.html"
