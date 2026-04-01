@@ -169,7 +169,10 @@ function renderPreview() {
     });
 }
 
-// --- Upload to Cloudinary via Netlify function ---
+// --- Upload directly to Cloudinary (unsigned preset) ---
+const CLOUDINARY_CLOUD = 'disfxqaof';
+const CLOUDINARY_PRESET = 'gallery_unsigned';
+
 async function handleUpload() {
     if (selectedFiles.length === 0) return;
 
@@ -189,15 +192,15 @@ async function handleUpload() {
         progressBar.style.setProperty('--progress', ((uploaded / total) * 100) + '%');
 
         try {
-            const base64 = await fileToBase64(file);
-            const res = await fetch('/.netlify/functions/gallery-upload', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    tripCode: currentTripCode,
-                    photo: { data: base64, type: file.type }
-                })
-            });
+            const form = new FormData();
+            form.append('file', file);
+            form.append('upload_preset', CLOUDINARY_PRESET);
+            form.append('folder', 'trip-galleries/' + currentTripCode);
+
+            const res = await fetch(
+                'https://api.cloudinary.com/v1_1/' + CLOUDINARY_CLOUD + '/image/upload',
+                { method: 'POST', body: form }
+            );
 
             if (!res.ok) throw new Error('Upload failed');
             uploaded++;
@@ -219,19 +222,9 @@ async function handleUpload() {
 
     uploadBtn.disabled = false;
     progress.style.display = 'none';
-    // Close upload panel after successful upload
     if (uploaded > 0) {
         document.getElementById('upload-panel').style.display = 'none';
     }
-}
-
-function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
 }
 
 // --- Lightbox ---
