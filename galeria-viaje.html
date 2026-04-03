@@ -64,7 +64,10 @@
                         <h1 id="trip-title"></h1>
                         <p id="photo-count" class="gallery-count"></p>
                     </div>
-                    <button type="button" id="upload-toggle-btn" class="gallery-upload-btn">+ Subir Fotos</button>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" id="upload-toggle-btn" class="gallery-upload-btn">+ Subir Fotos</button>
+                        <button type="button" id="admin-toggle-btn" class="gallery-admin-btn" title="Modo administrador">🔒</button>
+                    </div>
                 </div>
 
                 <!-- Upload Panel (hidden, toggles open) -->
@@ -111,6 +114,7 @@
                 <img id="lightbox-img" class="lightbox-image" src="" alt="">
                 <div class="lightbox-footer">
                     <a id="lightbox-download" href="" download class="lightbox-download-btn">⬇ Descargar</a>
+                    <button type="button" id="lightbox-delete" class="lightbox-delete-btn" style="display:none;">🗑 Eliminar</button>
                 </div>
             </div>
         </div>

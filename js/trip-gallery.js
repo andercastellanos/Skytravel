@@ -20,6 +20,13 @@ const T = {
     invalidType: isEN ? 'Only JPG, PNG, WebP allowed' : 'Solo se permiten JPG, PNG, WebP',
     selectedCount: isEN ? '{n} photos selected' : '{n} fotos seleccionadas',
     loading: isEN ? 'Loading gallery...' : 'Cargando galería...',
+    adminPrompt: isEN ? 'Enter employee code:' : 'Ingresa el código de empleado:',
+    adminOn: isEN ? 'Admin mode enabled' : 'Modo administrador activado',
+    adminOff: isEN ? 'Admin mode disabled' : 'Modo administrador desactivado',
+    adminWrong: isEN ? 'Incorrect code' : 'Código incorrecto',
+    deleteConfirm: isEN ? 'Delete this photo?' : '¿Eliminar esta foto?',
+    deleteSuccess: isEN ? 'Photo deleted' : 'Foto eliminada',
+    deleteError: isEN ? 'Error deleting photo' : 'Error al eliminar la foto',
 };
 
 // --- Toast helper ---
@@ -36,6 +43,7 @@ let currentTripCode = '';
 let photos = [];
 let selectedFiles = [];
 let lightboxIndex = 0;
+let adminMode = false;
 
 // --- Access code handling ---
 function handleAccess() {
@@ -94,6 +102,7 @@ function renderGallery() {
         <div class="gallery-photo-item" data-index="${i}">
             <img src="${photo.thumbnail}" alt="" loading="lazy">
             <a href="${photo.url}" download class="gallery-photo-download" onclick="event.stopPropagation();">⬇</a>
+            ${adminMode ? `<button type="button" class="gallery-photo-delete" data-index="${i}" data-public-id="${photo.publicId}" onclick="event.stopPropagation();">🗑</button>` : ''}
         </div>
     `).join('');
 
@@ -103,6 +112,15 @@ function renderGallery() {
             openLightbox(parseInt(item.dataset.index));
         });
     });
+
+    // Delete handlers (admin mode)
+    if (adminMode) {
+        grid.querySelectorAll('.gallery-photo-delete').forEach(btn => {
+            btn.addEventListener('click', () => {
+                deletePhoto(btn.dataset.publicId, parseInt(btn.dataset.index));
+            });
+        });
+    }
 }
 
 // --- Upload panel toggle ---
@@ -227,6 +245,57 @@ async function handleUpload() {
     }
 }
 
+// --- Admin mode (employee delete) ---
+function toggleAdmin() {
+    const btn = document.getElementById('admin-toggle-btn');
+    if (adminMode) {
+        adminMode = false;
+        btn.textContent = '🔒';
+        btn.classList.remove('active');
+        showToast(T.adminOff, false);
+        renderGallery();
+        return;
+    }
+    const code = prompt(T.adminPrompt);
+    if (!code) return;
+
+    fetch('/.netlify/functions/verify-employee', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code })
+    }).then(res => {
+        if (res.ok) {
+            adminMode = true;
+            btn.textContent = '🔓';
+            btn.classList.add('active');
+            showToast(T.adminOn, false);
+            renderGallery();
+        } else {
+            showToast(T.adminWrong);
+        }
+    }).catch(() => showToast(T.adminWrong));
+}
+
+async function deletePhoto(publicId, index) {
+    if (!confirm(T.deleteConfirm)) return;
+
+    try {
+        const res = await fetch('/.netlify/functions/gallery-delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ publicId: publicId })
+        });
+
+        if (!res.ok) throw new Error('Delete failed');
+
+        photos.splice(index, 1);
+        renderGallery();
+        showToast(T.deleteSuccess, false);
+    } catch (err) {
+        showToast(T.deleteError);
+    }
+}
+
 // --- Lightbox ---
 function openLightbox(index) {
     lightboxIndex = index;
@@ -246,6 +315,11 @@ function updateLightbox() {
     if (!photo) return;
     document.getElementById('lightbox-img').src = photo.url;
     document.getElementById('lightbox-download').href = photo.url;
+
+    const delBtn = document.getElementById('lightbox-delete');
+    if (delBtn) {
+        delBtn.style.display = adminMode ? 'inline-block' : 'none';
+    }
 }
 
 function lightboxPrev() {
@@ -305,6 +379,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Upload panel toggle
     document.getElementById('upload-toggle-btn').addEventListener('click', toggleUploadPanel);
+
+    // Admin mode toggle
+    document.getElementById('admin-toggle-btn').addEventListener('click', toggleAdmin);
+
+    // Lightbox delete
+    document.getElementById('lightbox-delete').addEventListener('click', () => {
+        const photo = photos[lightboxIndex];
+        if (photo) {
+            closeLightbox();
+            deletePhoto(photo.publicId, lightboxIndex);
+        }
+    });
 
     // Upload button
     document.getElementById('upload-btn').addEventListener('click', handleUpload);

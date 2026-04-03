@@ -59,6 +59,18 @@
 .gallery-photo-download { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.8rem; cursor: pointer; opacity: 0; transition: opacity 0.3s; text-decoration: none; }
 .gallery-photo-item:hover .gallery-photo-download { opacity: 1; }
 .gallery-photo-download:hover { background: rgba(200,169,126,0.9); }
+.gallery-photo-delete { position: absolute; top: 10px; right: 10px; background: rgba(196,30,58,0.8); color: #fff; border: none; border-radius: 8px; padding: 6px 10px; font-size: 0.8rem; cursor: pointer; opacity: 0; transition: opacity 0.3s; }
+.gallery-photo-item:hover .gallery-photo-delete { opacity: 1; }
+.gallery-photo-delete:hover { background: rgba(196,30,58,1); }
+
+/* --- Admin button --- */
+.gallery-admin-btn { padding: 10px 14px; background: transparent; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+.gallery-admin-btn:hover { border-color: #c8a97e; background: #faf6f0; }
+.gallery-admin-btn.active { border-color: #c8a97e; background: #c8a97e; }
+
+/* --- Lightbox delete --- */
+.lightbox-delete-btn { color: #fff; background: #c41e3a; padding: 8px 24px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-left: 12px; transition: background 0.2s; }
+.lightbox-delete-btn:hover { background: #a01830; }
 
 /* --- Empty state --- */
 .gallery-empty { text-align: center; padding: 60px 20px; color: #999; font-size: 1.1rem; }
