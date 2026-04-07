@@ -503,29 +503,39 @@
                 }
 
                 // Try to extract: description, qty, unit price, total
-                var amounts = [];
+                // The qty/unitPrice/total are the LAST 2-3 numbers in the row.
+                // Numbers earlier in the row (like years embedded in descriptions
+                // such as "Peregrinación Mariana 2026") stay in the description.
+                var numericPositions = [];
+                cells.forEach(function(cell, i) {
+                    var cleaned = cell.replace(/[$€,]/g, '').trim();
+                    if (cleaned.match(/^\d+(\.\d+)?$/) && parseFloat(cleaned) >= 0) {
+                        numericPositions.push({ index: i, value: parseFloat(cleaned) });
+                    }
+                });
+
+                // Take the last 3 numbers (qty, unitPrice, total) — or fewer if less exist
+                var dataPositions = numericPositions.slice(-3);
+                var dataIndices = dataPositions.map(function(p) { return p.index; });
+
                 var descParts = [];
-                // Prepend any pending description from a previous wrapped line
                 if (pendingServiceDesc) {
                     descParts.push(pendingServiceDesc);
                     pendingServiceDesc = '';
                 }
-                cells.forEach(function(cell) {
-                    var cleaned = cell.replace(/[$€,]/g, '').trim();
-                    if (cleaned.match(/^\d+(\.\d+)?$/) && parseFloat(cleaned) >= 0) {
-                        amounts.push(parseFloat(cleaned));
-                    } else {
+                cells.forEach(function(cell, i) {
+                    if (dataIndices.indexOf(i) === -1) {
                         descParts.push(cell);
                     }
                 });
 
-                if (descParts.length > 0 && amounts.length >= 2) {
+                if (descParts.length > 0 && dataPositions.length >= 2) {
                     result.services.push({
                         description: descParts.join(' '),
-                        qty: amounts[0],
-                        unitPrice: amounts[1]
+                        qty: dataPositions[0].value,
+                        unitPrice: dataPositions[1].value
                     });
-                } else if (amounts.length < 2 && descParts.length > 0) {
+                } else if (dataPositions.length < 2 && descParts.length > 0) {
                     // Row with no amounts — likely a wrapped description continuation.
                     // Append to the LAST service if one was just pushed, otherwise store as pending.
                     if (result.services.length > 0 && !pendingServiceDesc) {
