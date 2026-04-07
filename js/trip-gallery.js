@@ -136,7 +136,7 @@ function toggleUploadPanel() {
 // --- File selection + validation ---
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
 const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
-const MAX_FILES = 15;
+const MAX_FILES = Infinity;
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const VIDEO_TYPES = ['video/mp4', 'video/quicktime', 'video/webm'];
 const ALLOWED_TYPES = [...IMAGE_TYPES, ...VIDEO_TYPES];
