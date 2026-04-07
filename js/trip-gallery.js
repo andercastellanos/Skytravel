@@ -29,6 +29,13 @@ const T = {
     deleteError: isEN ? 'Error deleting photo' : 'Error al eliminar la foto',
     linkCopied: isEN ? 'Share link copied!' : '¡Enlace copiado!',
     copyLink: isEN ? 'Copy share link' : 'Copiar enlace para compartir',
+    selected: isEN ? '{n} selected' : '{n} seleccionadas',
+    downloadingZip: isEN ? 'Preparing download...' : 'Preparando descarga...',
+    downloadComplete: isEN ? 'Download ready!' : '¡Descarga lista!',
+    downloadError: isEN ? 'Error preparing download' : 'Error al preparar la descarga',
+    nothingSelected: isEN ? 'Select at least one item' : 'Selecciona al menos un elemento',
+    selectMode: isEN ? '☑ Select' : '☑ Seleccionar',
+    selectExit: isEN ? '✕ Exit' : '✕ Salir',
 };
 
 // --- Toast helper ---
@@ -46,6 +53,8 @@ let photos = [];
 let selectedFiles = [];
 let lightboxIndex = 0;
 let adminMode = false;
+let selectionMode = false;
+let selectedSet = new Set();
 
 // --- Access code handling ---
 function handleAccess() {
@@ -102,20 +111,30 @@ function renderGallery() {
     empty.style.display = 'none';
     grid.innerHTML = photos.map((photo, i) => {
         const isVid = photo.resourceType === 'video';
+        const isSelected = selectedSet.has(i);
         const media = isVid
             ? `<video src="${photo.thumbnail}" muted playsinline preload="metadata"></video><span class="gallery-play-icon">▶</span>`
             : `<img src="${photo.thumbnail}" alt="" loading="lazy">`;
-        return `<div class="gallery-photo-item${isVid ? ' is-video' : ''}" data-index="${i}">
+        const classes = ['gallery-photo-item'];
+        if (isVid) classes.push('is-video');
+        if (selectionMode) classes.push('selectable');
+        if (isSelected) classes.push('selected');
+        return `<div class="${classes.join(' ')}" data-index="${i}">
             ${media}
-            <a href="${photo.url}" download class="gallery-photo-download" onclick="event.stopPropagation();">⬇</a>
-            ${adminMode ? `<button type="button" class="gallery-photo-delete" data-index="${i}" data-public-id="${photo.publicId}" onclick="event.stopPropagation();">🗑</button>` : ''}
+            ${selectionMode ? '' : `<a href="${photo.url}" download class="gallery-photo-download" onclick="event.stopPropagation();">⬇</a>`}
+            ${adminMode && !selectionMode ? `<button type="button" class="gallery-photo-delete" data-index="${i}" data-public-id="${photo.publicId}" onclick="event.stopPropagation();">🗑</button>` : ''}
         </div>`;
     }).join('');
 
-    // Click handlers for lightbox
+    // Click handlers — selection mode toggles selection, otherwise opens lightbox
     grid.querySelectorAll('.gallery-photo-item').forEach(item => {
         item.addEventListener('click', () => {
-            openLightbox(parseInt(item.dataset.index));
+            const idx = parseInt(item.dataset.index);
+            if (selectionMode) {
+                toggleSelected(idx);
+            } else {
+                openLightbox(idx);
+            }
         });
     });
 
@@ -258,6 +277,100 @@ async function handleUpload() {
     progress.style.display = 'none';
     if (uploaded > 0) {
         document.getElementById('upload-panel').style.display = 'none';
+    }
+}
+
+// --- Selection mode + bulk download ---
+function toggleSelectionMode() {
+    selectionMode = !selectionMode;
+    selectedSet.clear();
+    const bar = document.getElementById('selection-bar');
+    const btn = document.getElementById('select-toggle-btn');
+    if (selectionMode) {
+        bar.style.display = 'flex';
+        btn.textContent = T.selectExit;
+    } else {
+        bar.style.display = 'none';
+        btn.textContent = T.selectMode;
+    }
+    updateSelectionCount();
+    renderGallery();
+}
+
+function toggleSelected(index) {
+    if (selectedSet.has(index)) {
+        selectedSet.delete(index);
+    } else {
+        selectedSet.add(index);
+    }
+    updateSelectionCount();
+    // Re-render only the changed item
+    const item = document.querySelector('.gallery-photo-item[data-index="' + index + '"]');
+    if (item) item.classList.toggle('selected');
+}
+
+function updateSelectionCount() {
+    const el = document.getElementById('selection-count');
+    if (el) el.textContent = T.selected.replace('{n}', selectedSet.size);
+}
+
+async function downloadSelected() {
+    if (selectedSet.size === 0) {
+        showToast(T.nothingSelected);
+        return;
+    }
+    if (typeof JSZip === 'undefined') {
+        showToast(T.downloadError);
+        return;
+    }
+
+    const btn = document.getElementById('download-selected-btn');
+    btn.disabled = true;
+    showToast(T.downloadingZip, false);
+
+    try {
+        const zip = new JSZip();
+        const indices = Array.from(selectedSet);
+        let count = 0;
+
+        for (const idx of indices) {
+            const photo = photos[idx];
+            if (!photo) continue;
+            try {
+                const res = await fetch(photo.url);
+                const blob = await res.blob();
+                // Build filename from publicId (last segment)
+                const pubParts = photo.publicId.split('/');
+                let fname = pubParts[pubParts.length - 1];
+                // Add extension if missing — try to get from URL
+                const urlExt = (photo.url.match(/\.(jpg|jpeg|png|webp|mp4|mov|webm)(\?|$)/i) || [])[1];
+                if (urlExt && !fname.toLowerCase().endsWith('.' + urlExt.toLowerCase())) {
+                    fname += '.' + urlExt;
+                }
+                zip.file(fname, blob);
+                count++;
+            } catch (err) {
+                console.error('Failed to fetch:', photo.url, err);
+            }
+        }
+
+        if (count === 0) throw new Error('No files downloaded');
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = (currentTripCode || 'gallery') + '.zip';
+        a.click();
+        URL.revokeObjectURL(url);
+
+        showToast(T.downloadComplete, false);
+        toggleSelectionMode();
+    } catch (err) {
+        console.error('Download error:', err);
+        showToast(T.downloadError);
+    } finally {
+        btn.disabled = false;
     }
 }
 
@@ -453,6 +566,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Copy share link
     const copyBtn = document.getElementById('copy-link-btn');
     if (copyBtn) copyBtn.addEventListener('click', copyShareLink);
+
+    // Selection mode
+    document.getElementById('select-toggle-btn').addEventListener('click', toggleSelectionMode);
+    document.getElementById('cancel-selection-btn').addEventListener('click', toggleSelectionMode);
+    document.getElementById('download-selected-btn').addEventListener('click', downloadSelected);
 
     // Lightbox delete
     document.getElementById('lightbox-delete').addEventListener('click', () => {

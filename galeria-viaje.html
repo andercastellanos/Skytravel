@@ -66,6 +66,7 @@
                     </div>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                         <button type="button" id="upload-toggle-btn" class="gallery-upload-btn">+ Subir Fotos y Videos</button>
+                        <button type="button" id="select-toggle-btn" class="gallery-upload-btn">☑ Seleccionar</button>
                         <button type="button" id="copy-link-btn" class="gallery-upload-btn" style="display:none;">🔗 Copiar Enlace</button>
                         <button type="button" id="admin-toggle-btn" class="gallery-admin-btn" title="Modo administrador">🔒</button>
                     </div>
@@ -124,12 +125,20 @@
 
     <div id="footer-container"></div>
 
+    <!-- Selection Bar -->
+    <div id="selection-bar" class="gallery-selection-bar" style="display:none;">
+        <span id="selection-count">0 seleccionadas</span>
+        <button type="button" id="cancel-selection-btn" class="gallery-selection-cancel">Cancelar</button>
+        <button type="button" id="download-selected-btn" class="gallery-selection-download">⬇ Descargar</button>
+    </div>
+
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <script src="js/navigation.min.js" defer></script>
     <script src="js/elegant-language-switcher.min.js" defer></script>
     <script src="js/page-init.min.js?v=20260204c" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
     <script src="js/trip-gallery.js" defer></script>
 </body>
 

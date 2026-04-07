@@ -76,6 +76,25 @@
 .gallery-play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.5rem; color: rgba(255,255,255,0.9); text-shadow: 0 2px 8px rgba(0,0,0,0.5); pointer-events: none; }
 .gallery-photo-item.is-video video { width: 100%; height: 100%; object-fit: cover; }
 
+/* --- Selection mode --- */
+.gallery-photo-item.selected { box-shadow: 0 0 0 4px #c8a97e, 0 6px 20px rgba(200,169,126,0.3); }
+.gallery-photo-item.selected::before { content: '✓'; position: absolute; top: 10px; left: 10px; background: #c8a97e; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.gallery-photo-item.selectable { cursor: pointer; }
+
+/* --- Selection bar (floating) --- */
+.gallery-selection-bar { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #fff; border: 2px solid #c8a97e; border-radius: 50px; padding: 12px 20px 12px 24px; display: flex; align-items: center; gap: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 999; }
+.gallery-selection-bar span { color: #2c3e50; font-weight: 600; font-size: 0.95rem; }
+.gallery-selection-cancel { padding: 8px 18px; background: transparent; border: 1.5px solid #ddd; border-radius: 20px; color: #555; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+.gallery-selection-cancel:hover { border-color: #c41e3a; color: #c41e3a; }
+.gallery-selection-download { padding: 8px 22px; background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%); color: #fff; border: none; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s; }
+.gallery-selection-download:hover { transform: translateY(-1px); }
+.gallery-selection-download:disabled { opacity: 0.6; cursor: not-allowed; }
+
+@media (max-width: 600px) {
+    .gallery-selection-bar { width: calc(100% - 40px); justify-content: space-between; padding: 10px 14px; }
+    .gallery-selection-bar span { font-size: 0.85rem; }
+}
+
 /* --- Empty state --- */
 .gallery-empty { text-align: center; padding: 60px 20px; color: #999; font-size: 1.1rem; }
 
