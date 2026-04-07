@@ -27,8 +27,6 @@
         .payment-card .label { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
         .payment-card .title { font-size: 1.6rem; font-weight: 700; color: #333; margin: 0.5rem 0; }
         .payment-card .desc { color: #555; font-size: 0.9rem; margin-bottom: 1.25rem; }
-        .payment-logo { margin-bottom: 1rem; }
-        .payment-logo svg { width: 180px; height: auto; max-height: 50px; }
         .payment-btn { display: inline-block; background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%); color: #fff; padding: 14px 40px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(200,169,126,0.3); }
         .payment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,169,126,0.4); }
         .payment-note { color: #999; font-size: 0.78rem; margin-top: 0.75rem; }
@@ -75,13 +73,8 @@
             <div class="payment-cards">
                 <!-- Square -->
                 <div class="payment-card square">
-                    <div class="payment-logo">
-                        <svg viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="6" y="10" width="40" height="40" rx="6" fill="#000"/>
-                            <rect x="18" y="22" width="16" height="16" rx="2" fill="#fff"/>
-                            <text x="58" y="40" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#000">Square</text>
-                        </svg>
-                    </div>
+                    <p class="label">Pagar con Tarjeta</p>
+                    <p class="title">Square Checkout</p>
                     <p class="desc">Tarjeta de crédito, débito, Apple Pay, Google Pay</p>
                     <a href="https://square.link/u/efjaSe0R?src=sheet" target="_blank" rel="noopener" class="payment-btn">Pagar Ahora</a>
                     <p class="payment-note">Pago seguro procesado por Square</p>
@@ -89,13 +82,8 @@
 
                 <!-- Zelle -->
                 <div class="payment-card zelle">
-                    <div class="payment-logo">
-                        <svg viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="30" cy="30" r="22" fill="#6D1ED4"/>
-                            <text x="22" y="40" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#fff">Z</text>
-                            <text x="62" y="40" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#6D1ED4">zelle</text>
-                        </svg>
-                    </div>
+                    <p class="label">Pagar con Zelle</p>
+                    <p class="title">Transferencia Bancaria</p>
                     <p class="desc">Envía tu pago directamente por Zelle a:</p>
                     <p class="zelle-email">info@skytraveljm.com</p>
                     <p class="payment-note" id="zelle-memo-note">Incluye tu nombre completo y el nombre del viaje en el memo</p>
