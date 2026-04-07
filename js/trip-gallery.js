@@ -15,9 +15,9 @@ const T = {
     uploadSuccess: isEN ? 'Photos uploaded successfully!' : '¡Fotos subidas correctamente!',
     uploadError: isEN ? 'Error uploading photos' : 'Error al subir las fotos',
     invalidCode: isEN ? 'Invalid trip code' : 'Código de viaje inválido',
-    fileTooLarge: isEN ? 'File too large (max 10MB)' : 'Archivo muy grande (máx. 10MB)',
-    tooManyFiles: isEN ? 'Maximum 15 photos per session' : 'Máximo 15 fotos por sesión',
-    invalidType: isEN ? 'Only JPG, PNG, WebP allowed' : 'Solo se permiten JPG, PNG, WebP',
+    fileTooLarge: isEN ? 'File too large (photos: 10MB, videos: 100MB)' : 'Archivo muy grande (fotos: 10MB, videos: 100MB)',
+    tooManyFiles: isEN ? 'Maximum 15 files per session' : 'Máximo 15 archivos por sesión',
+    invalidType: isEN ? 'Only JPG, PNG, WebP, MP4, MOV allowed' : 'Solo se permiten JPG, PNG, WebP, MP4, MOV',
     selectedCount: isEN ? '{n} photos selected' : '{n} fotos seleccionadas',
     loading: isEN ? 'Loading gallery...' : 'Cargando galería...',
     adminPrompt: isEN ? 'Enter employee code:' : 'Ingresa el código de empleado:',
@@ -98,13 +98,17 @@ function renderGallery() {
     }
 
     empty.style.display = 'none';
-    grid.innerHTML = photos.map((photo, i) => `
-        <div class="gallery-photo-item" data-index="${i}">
-            <img src="${photo.thumbnail}" alt="" loading="lazy">
+    grid.innerHTML = photos.map((photo, i) => {
+        const isVid = photo.resourceType === 'video';
+        const media = isVid
+            ? `<video src="${photo.thumbnail}" muted playsinline preload="metadata"></video><span class="gallery-play-icon">▶</span>`
+            : `<img src="${photo.thumbnail}" alt="" loading="lazy">`;
+        return `<div class="gallery-photo-item${isVid ? ' is-video' : ''}" data-index="${i}">
+            ${media}
             <a href="${photo.url}" download class="gallery-photo-download" onclick="event.stopPropagation();">⬇</a>
             ${adminMode ? `<button type="button" class="gallery-photo-delete" data-index="${i}" data-public-id="${photo.publicId}" onclick="event.stopPropagation();">🗑</button>` : ''}
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 
     // Click handlers for lightbox
     grid.querySelectorAll('.gallery-photo-item').forEach(item => {
@@ -130,9 +134,17 @@ function toggleUploadPanel() {
 }
 
 // --- File selection + validation ---
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
 const MAX_FILES = 15;
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const VIDEO_TYPES = ['video/mp4', 'video/quicktime', 'video/webm'];
+const ALLOWED_TYPES = [...IMAGE_TYPES, ...VIDEO_TYPES];
+
+function isVideo(typeOrUrl) {
+    if (typeOrUrl.startsWith('video/')) return true;
+    return /\.(mp4|mov|webm)$/i.test(typeOrUrl);
+}
 
 function handleFiles(files) {
     const remaining = MAX_FILES - selectedFiles.length;
@@ -147,7 +159,8 @@ function handleFiles(files) {
             showToast(T.invalidType);
             continue;
         }
-        if (file.size > MAX_FILE_SIZE) {
+        const maxSize = VIDEO_TYPES.includes(file.type) ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
+        if (file.size > maxSize) {
             showToast(T.fileTooLarge);
             continue;
         }
@@ -215,8 +228,9 @@ async function handleUpload() {
             form.append('upload_preset', CLOUDINARY_PRESET);
             form.append('folder', 'trip-galleries/' + currentTripCode);
 
+            const uploadType = VIDEO_TYPES.includes(file.type) ? 'video' : 'image';
             const res = await fetch(
-                'https://api.cloudinary.com/v1_1/' + CLOUDINARY_CLOUD + '/image/upload',
+                'https://api.cloudinary.com/v1_1/' + CLOUDINARY_CLOUD + '/' + uploadType + '/upload',
                 { method: 'POST', body: form }
             );
 
@@ -279,11 +293,12 @@ function toggleAdmin() {
 async function deletePhoto(publicId, index) {
     if (!confirm(T.deleteConfirm)) return;
 
+    const photo = photos[index];
     try {
         const res = await fetch('/.netlify/functions/gallery-delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ publicId: publicId })
+            body: JSON.stringify({ publicId: publicId, resourceType: photo ? photo.resourceType : 'image' })
         });
 
         if (!res.ok) throw new Error('Delete failed');
@@ -308,12 +323,29 @@ function openLightbox(index) {
 function closeLightbox() {
     document.getElementById('lightbox').style.display = 'none';
     document.body.style.overflow = '';
+    const vid = document.getElementById('lightbox-video');
+    if (vid) vid.pause();
 }
 
 function updateLightbox() {
     const photo = photos[lightboxIndex];
     if (!photo) return;
-    document.getElementById('lightbox-img').src = photo.url;
+    const imgEl = document.getElementById('lightbox-img');
+    const vidEl = document.getElementById('lightbox-video');
+    const isVid = photo.resourceType === 'video';
+
+    if (isVid) {
+        imgEl.style.display = 'none';
+        vidEl.style.display = 'block';
+        vidEl.src = photo.url;
+        vidEl.load();
+    } else {
+        vidEl.style.display = 'none';
+        vidEl.pause();
+        imgEl.style.display = 'block';
+        imgEl.src = photo.url;
+    }
+
     document.getElementById('lightbox-download').href = photo.url;
 
     const delBtn = document.getElementById('lightbox-delete');

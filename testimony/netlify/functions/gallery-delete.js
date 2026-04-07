@@ -7,11 +7,13 @@ exports.handler = async (event) => {
 
     try {
         const body = JSON.parse(event.body);
-        const { publicId } = body;
+        const { publicId, resourceType } = body;
 
         if (!publicId) {
             return { statusCode: 400, body: JSON.stringify({ error: 'Missing publicId' }) };
         }
+
+        const resType = resourceType === 'video' ? 'video' : 'image';
 
         // Ensure the publicId is within the trip-galleries folder (security check)
         if (!publicId.startsWith('trip-galleries/')) {
@@ -39,7 +41,7 @@ exports.handler = async (event) => {
         params.append('api_key', apiKey);
 
         const response = await fetch(
-            `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`,
+            `https://api.cloudinary.com/v1_1/${cloudName}/${resType}/destroy`,
             { method: 'POST', body: params }
         );
 

@@ -29,36 +29,50 @@ exports.handler = async (event) => {
         // Use Cloudinary Admin API to list resources in a folder
         // Auth: Basic auth with api_key:api_secret
         const auth = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
+        const headers = { 'Authorization': `Basic ${auth}` };
+        const baseUrl = `https://api.cloudinary.com/v1_1/${cloudName}/resources`;
+        const qs = `prefix=${encodeURIComponent(folder)}&max_results=500&type=upload`;
 
-        const response = await fetch(
-            `https://api.cloudinary.com/v1_1/${cloudName}/resources/image/upload?prefix=${encodeURIComponent(folder)}&max_results=500&type=upload`,
-            {
-                headers: {
-                    'Authorization': `Basic ${auth}`
-                }
-            }
-        );
+        // Fetch images and videos in parallel
+        const [imgRes, vidRes] = await Promise.all([
+            fetch(`${baseUrl}/image/upload?${qs}`, { headers }),
+            fetch(`${baseUrl}/video/upload?${qs}`, { headers })
+        ]);
 
-        const result = await response.json();
+        const imgData = await imgRes.json();
+        const vidData = await vidRes.json();
 
-        if (!response.ok) {
-            console.error('Cloudinary list error:', result);
+        if (!imgRes.ok && !vidRes.ok) {
+            console.error('Cloudinary list error:', imgData, vidData);
             return { statusCode: 500, body: JSON.stringify({ error: 'Failed to load gallery' }) };
         }
 
         // Transform Cloudinary response to our format
-        const photos = (result.resources || []).map(resource => {
-            // Generate thumbnail URL using Cloudinary transformations
-            // c_fill = crop to fill, w_400 h_533 = 3:4 aspect ratio at 400px width
+        const imageItems = (imgData.resources || []).map(resource => {
             const thumbnailUrl = resource.secure_url.replace('/upload/', '/upload/c_fill,w_400,h_533,q_80/');
-
             return {
                 url: resource.secure_url,
                 thumbnail: thumbnailUrl,
                 publicId: resource.public_id,
+                resourceType: 'image',
                 uploadedAt: resource.created_at
             };
         });
+
+        const videoItems = (vidData.resources || []).map(resource => {
+            // For videos, generate a thumbnail poster and use a smaller video for the grid
+            const posterUrl = resource.secure_url.replace('/video/upload/', '/video/upload/c_fill,w_400,h_533,so_0/').replace(/\.\w+$/, '.jpg');
+            return {
+                url: resource.secure_url,
+                thumbnail: resource.secure_url,
+                poster: posterUrl,
+                publicId: resource.public_id,
+                resourceType: 'video',
+                uploadedAt: resource.created_at
+            };
+        });
+
+        const photos = [...imageItems, ...videoItems];
 
         // Sort newest first
         photos.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));

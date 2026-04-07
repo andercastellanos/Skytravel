@@ -76,9 +76,9 @@
                         <div class="upload-dropzone-content">
                             <span class="upload-icon">📁</span>
                             <p>Arrastra tus fotos aquí o haz clic para seleccionar</p>
-                            <p class="upload-hint">JPG, PNG, WebP — Máx. 10MB por foto — Hasta 15 fotos</p>
+                            <p class="upload-hint">Fotos: JPG, PNG, WebP (máx. 10MB) — Videos: MP4, MOV (máx. 100MB) — Hasta 15 archivos</p>
                         </div>
-                        <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp" style="display:none;">
+                        <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm" style="display:none;">
                     </div>
                     <!-- Preview grid for selected files before upload -->
                     <div id="upload-preview" class="upload-preview-grid"></div>
@@ -112,6 +112,7 @@
                 <button type="button" class="lightbox-prev">&#10094;</button>
                 <button type="button" class="lightbox-next">&#10095;</button>
                 <img id="lightbox-img" class="lightbox-image" src="" alt="">
+                <video id="lightbox-video" class="lightbox-image" controls playsinline style="display:none;"></video>
                 <div class="lightbox-footer">
                     <a id="lightbox-download" href="" download class="lightbox-download-btn">⬇ Descargar</a>
                     <button type="button" id="lightbox-delete" class="lightbox-delete-btn" style="display:none;">🗑 Eliminar</button>
