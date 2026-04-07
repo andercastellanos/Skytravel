@@ -514,8 +514,22 @@
                     }
                 });
 
-                // Take the last 3 numbers (qty, unitPrice, total) — or fewer if less exist
-                var dataPositions = numericPositions.slice(-3);
+                // Find a valid (qty, unitPrice, total) triplet by checking qty*unitPrice ≈ total.
+                // Walk consecutive triplets from right to left and pick the first valid one.
+                var dataPositions = [];
+                for (var t = numericPositions.length - 3; t >= 0; t--) {
+                    var a = numericPositions[t].value;
+                    var b = numericPositions[t + 1].value;
+                    var c = numericPositions[t + 2].value;
+                    if (Math.abs(a * b - c) < 0.5) {
+                        dataPositions = numericPositions.slice(t, t + 3);
+                        break;
+                    }
+                }
+                // Fallback: no valid triplet found — use last 2 as qty/unitPrice
+                if (dataPositions.length === 0) {
+                    dataPositions = numericPositions.slice(-2);
+                }
                 var dataIndices = dataPositions.map(function(p) { return p.index; });
 
                 var descParts = [];
