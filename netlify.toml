@@ -63,6 +63,19 @@
   status = 301
   force = true
 
+# Payment page redirects
+[[redirects]]
+  from = "/pay.html"
+  to = "/pay"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pagar.html"
+  to = "/pagar"
+  status = 301
+  force = true
+
 # Trip gallery page redirects
 [[redirects]]
   from = "/galeria-viaje.html"

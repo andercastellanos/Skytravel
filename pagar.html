@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#c8a97e">
+    <title>Pagar — Sky Travel J&M</title>
+
+    <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .payment-page-container { max-width: 900px; margin: 100px auto 60px; padding: 0 20px; text-align: center; }
+        .payment-page-container h1 { color: #2c3e50; font-size: 2rem; margin-bottom: 0.5rem; }
+        .payment-page-container .subtitle { color: #555; font-size: 1.05rem; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem; }
+        .payment-trip-name { display: inline-block; background: #f0ebe3; color: #c8a97e; padding: 6px 18px; border-radius: 20px; font-weight: 600; font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .payment-cards { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; }
+        .payment-card { flex: 1; min-width: 280px; max-width: 400px; border-radius: 16px; padding: 2rem; }
+        .payment-card.square { border: 2px solid #c8a97e; background: #fff; }
+        .payment-card.zelle { border: 2px solid #e0e0e0; background: #fafafa; }
+        .payment-card .label { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .payment-card .title { font-size: 1.6rem; font-weight: 700; color: #333; margin: 0.5rem 0; }
+        .payment-card .desc { color: #555; font-size: 0.9rem; margin-bottom: 1.25rem; }
+        .payment-btn { display: inline-block; background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%); color: #fff; padding: 14px 40px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(200,169,126,0.3); }
+        .payment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,169,126,0.4); }
+        .payment-note { color: #999; font-size: 0.78rem; margin-top: 0.75rem; }
+        .zelle-email { background: #f0ebe3; padding: 12px 20px; border-radius: 8px; font-size: 1.05rem; font-weight: 600; color: #2c3e50; margin-bottom: 0.75rem; }
+        .payment-help { color: #888; font-size: 0.9rem; margin-top: 1.5rem; }
+        .payment-help a { color: #c8a97e; font-weight: 600; text-decoration: none; }
+        .back-to-trip { display: inline-block; color: #c8a97e; text-decoration: none; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .back-to-trip:hover { text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+            <nav aria-label="Navegación principal">
+                <a href="/index-es" class="logo">
+                    <img src="imagesWebp/Logo.webp" alt="Sky Travel - Logo de Agencia de Peregrinaciones Espirituales" class="logo-image" width="200" height="200" style="width: 100px; height: auto;" loading="eager" decoding="async">
+                </a>
+                <div class="nav-links" id="nav-links">
+                    <a href="/index-es#featured" class="nav-item">Destinos</a>
+                    <a href="experiences-es" class="nav-item">Experiencias</a>
+                    <a href="blog-es" class="nav-item">Blog</a>
+                    <a href="about-es" class="nav-item">Sobre Nosotros</a>
+                    <a href="testimony/testimonios" class="nav-item">Testimonios</a>
+                    <a href="contact-es" class="nav-item">Contacto</a>
+                    <div class="language-switcher">
+                        <a href="/pay" class="lang-option">EN</a>
+                        <span class="lang-separator">|</span>
+                        <a href="/pagar" class="lang-option active-lang">ES</a>
+                    </div>
+                </div>
+                <button type="button" class="menu-toggle" aria-label="Alternar navegación" aria-expanded="false" aria-controls="nav-links">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="payment-page-container">
+            <a href="javascript:history.back()" class="back-to-trip">← Volver</a>
+            <h1>Realizar Pago</h1>
+            <p id="trip-badge-wrap"></p>
+            <p class="subtitle">Elige tu método de pago preferido. Pago seguro con Square o transferencia directa por Zelle.</p>
+
+            <div class="payment-cards">
+                <!-- Square -->
+                <div class="payment-card square">
+                    <p class="label">Pagar con Tarjeta</p>
+                    <p class="title">Square Checkout</p>
+                    <p class="desc">Tarjeta de crédito, débito, Apple Pay, Google Pay</p>
+                    <a href="https://square.link/u/efjaSe0R?src=sheet" target="_blank" rel="noopener" class="payment-btn">Pagar Ahora</a>
+                    <p class="payment-note">Pago seguro procesado por Square</p>
+                </div>
+
+                <!-- Zelle -->
+                <div class="payment-card zelle">
+                    <p class="label">Pagar con Zelle</p>
+                    <p class="title">Transferencia Bancaria</p>
+                    <p class="desc">Envía tu pago directamente por Zelle a:</p>
+                    <p class="zelle-email">info@skytraveljm.com</p>
+                    <p class="payment-note" id="zelle-memo-note">Incluye tu nombre completo y el nombre del viaje en el memo</p>
+                </div>
+            </div>
+
+            <p class="payment-help">¿Preguntas? <a href="/contact-es">Contáctanos</a> o llama al <a href="tel:+12393554007">+1 (239) 355-4007</a></p>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+    <script src="js/navigation.min.js" defer></script>
+    <script src="js/elegant-language-switcher.min.js" defer></script>
+    <script src="js/page-init.min.js?v=20260204c" defer></script>
+    <script>
+        // Read trip name from URL parameter and display it
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var trip = params.get('trip');
+            if (trip) {
+                var wrap = document.getElementById('trip-badge-wrap');
+                wrap.innerHTML = '<span class="payment-trip-name">' + trip.replace(/[<>]/g, '') + '</span>';
+                var memo = document.getElementById('zelle-memo-note');
+                memo.textContent = 'Incluye tu nombre completo y "' + trip.replace(/[<>]/g, '') + '" en el memo';
+            }
+        })();
+    </script>
+</body>
+</html>
