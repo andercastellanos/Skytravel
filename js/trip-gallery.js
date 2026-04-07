@@ -27,6 +27,8 @@ const T = {
     deleteConfirm: isEN ? 'Delete this photo?' : '¿Eliminar esta foto?',
     deleteSuccess: isEN ? 'Photo deleted' : 'Foto eliminada',
     deleteError: isEN ? 'Error deleting photo' : 'Error al eliminar la foto',
+    linkCopied: isEN ? 'Share link copied!' : '¡Enlace copiado!',
+    copyLink: isEN ? 'Copy share link' : 'Copiar enlace para compartir',
 };
 
 // --- Toast helper ---
@@ -259,13 +261,45 @@ async function handleUpload() {
     }
 }
 
+// --- Copy share link ---
+function copyShareLink() {
+    const url = window.location.origin + window.location.pathname + '#' + currentTripCode;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+            showToast(T.linkCopied, false);
+        }).catch(() => {
+            fallbackCopy(url);
+        });
+    } else {
+        fallbackCopy(url);
+    }
+}
+
+function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+        document.execCommand('copy');
+        showToast(T.linkCopied, false);
+    } catch (e) {
+        prompt(T.copyLink, text);
+    }
+    document.body.removeChild(ta);
+}
+
 // --- Admin mode (employee delete) ---
 function toggleAdmin() {
     const btn = document.getElementById('admin-toggle-btn');
+    const copyBtn = document.getElementById('copy-link-btn');
     if (adminMode) {
         adminMode = false;
         btn.textContent = '🔒';
         btn.classList.remove('active');
+        if (copyBtn) copyBtn.style.display = 'none';
         showToast(T.adminOff, false);
         renderGallery();
         return;
@@ -282,6 +316,7 @@ function toggleAdmin() {
             adminMode = true;
             btn.textContent = '🔓';
             btn.classList.add('active');
+            if (copyBtn) copyBtn.style.display = 'inline-block';
             showToast(T.adminOn, false);
             renderGallery();
         } else {
@@ -414,6 +449,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Admin mode toggle
     document.getElementById('admin-toggle-btn').addEventListener('click', toggleAdmin);
+
+    // Copy share link
+    const copyBtn = document.getElementById('copy-link-btn');
+    if (copyBtn) copyBtn.addEventListener('click', copyShareLink);
 
     // Lightbox delete
     document.getElementById('lightbox-delete').addEventListener('click', () => {
