@@ -89,6 +89,9 @@
 .gallery-selection-download { padding: 8px 22px; background: linear-gradient(135deg, #c8a97e 0%, #b69268 100%); color: #fff; border: none; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s; }
 .gallery-selection-download:hover { transform: translateY(-1px); }
 .gallery-selection-download:disabled { opacity: 0.6; cursor: not-allowed; }
+.gallery-selection-delete { padding: 8px 22px; background: #c41e3a; color: #fff; border: none; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.gallery-selection-delete:hover { background: #a01830; }
+.gallery-selection-delete:disabled { opacity: 0.6; cursor: not-allowed; }
 
 @media (max-width: 600px) {
     .gallery-selection-bar { width: calc(100% - 40px); justify-content: space-between; padding: 10px 14px; }

@@ -121,10 +121,18 @@ function renderGallery() {
         if (isSelected) classes.push('selected');
         return `<div class="${classes.join(' ')}" data-index="${i}">
             ${media}
-            ${selectionMode ? '' : `<a href="${photo.url}" download class="gallery-photo-download" onclick="event.stopPropagation();">⬇</a>`}
+            ${selectionMode ? '' : `<button type="button" class="gallery-photo-download" data-index="${i}" onclick="event.stopPropagation();">⬇</button>`}
             ${adminMode && !selectionMode ? `<button type="button" class="gallery-photo-delete" data-index="${i}" data-public-id="${photo.publicId}" onclick="event.stopPropagation();">🗑</button>` : ''}
         </div>`;
     }).join('');
+
+    // Single download handlers
+    grid.querySelectorAll('.gallery-photo-download').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            downloadSinglePhoto(parseInt(btn.dataset.index));
+        });
+    });
 
     // Click handlers — selection mode toggles selection, otherwise opens lightbox
     grid.querySelectorAll('.gallery-photo-item').forEach(item => {
@@ -286,9 +294,11 @@ function toggleSelectionMode() {
     selectedSet.clear();
     const bar = document.getElementById('selection-bar');
     const btn = document.getElementById('select-toggle-btn');
+    const delBtn = document.getElementById('delete-selected-btn');
     if (selectionMode) {
         bar.style.display = 'flex';
         btn.textContent = T.selectExit;
+        if (delBtn) delBtn.style.display = adminMode ? 'inline-block' : 'none';
     } else {
         bar.style.display = 'none';
         btn.textContent = T.selectMode;
@@ -312,6 +322,36 @@ function toggleSelected(index) {
 function updateSelectionCount() {
     const el = document.getElementById('selection-count');
     if (el) el.textContent = T.selected.replace('{n}', selectedSet.size);
+}
+
+function buildFilename(photo) {
+    const pubParts = photo.publicId.split('/');
+    let fname = pubParts[pubParts.length - 1];
+    const urlExt = (photo.url.match(/\.(jpg|jpeg|png|webp|mp4|mov|webm)(\?|$)/i) || [])[1];
+    if (urlExt && !fname.toLowerCase().endsWith('.' + urlExt.toLowerCase())) {
+        fname += '.' + urlExt;
+    }
+    return fname;
+}
+
+async function downloadSinglePhoto(index) {
+    const photo = photos[index];
+    if (!photo) return;
+    try {
+        const res = await fetch(photo.url);
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = buildFilename(photo);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error('Download error:', err);
+        showToast(T.downloadError);
+    }
 }
 
 async function downloadSelected() {
@@ -339,15 +379,7 @@ async function downloadSelected() {
             try {
                 const res = await fetch(photo.url);
                 const blob = await res.blob();
-                // Build filename from publicId (last segment)
-                const pubParts = photo.publicId.split('/');
-                let fname = pubParts[pubParts.length - 1];
-                // Add extension if missing — try to get from URL
-                const urlExt = (photo.url.match(/\.(jpg|jpeg|png|webp|mp4|mov|webm)(\?|$)/i) || [])[1];
-                if (urlExt && !fname.toLowerCase().endsWith('.' + urlExt.toLowerCase())) {
-                    fname += '.' + urlExt;
-                }
-                zip.file(fname, blob);
+                zip.file(buildFilename(photo), blob);
                 count++;
             } catch (err) {
                 console.error('Failed to fetch:', photo.url, err);
@@ -372,6 +404,47 @@ async function downloadSelected() {
     } finally {
         btn.disabled = false;
     }
+}
+
+async function deleteSelected() {
+    if (selectedSet.size === 0) {
+        showToast(T.nothingSelected);
+        return;
+    }
+    if (!confirm(T.deleteConfirm + ' (' + selectedSet.size + ')')) return;
+
+    const btn = document.getElementById('delete-selected-btn');
+    btn.disabled = true;
+
+    const indices = Array.from(selectedSet).sort((a, b) => b - a); // delete from end first
+    let deleted = 0;
+
+    for (const idx of indices) {
+        const photo = photos[idx];
+        if (!photo) continue;
+        try {
+            const res = await fetch('/.netlify/functions/gallery-delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ publicId: photo.publicId, resourceType: photo.resourceType })
+            });
+            if (res.ok) {
+                photos.splice(idx, 1);
+                deleted++;
+            }
+        } catch (err) {
+            console.error('Delete error:', err);
+        }
+    }
+
+    if (deleted > 0) {
+        showToast(T.deleteSuccess, false);
+        toggleSelectionMode();
+    } else {
+        showToast(T.deleteError);
+    }
+
+    btn.disabled = false;
 }
 
 // --- Copy share link ---
@@ -408,11 +481,13 @@ function fallbackCopy(text) {
 function toggleAdmin() {
     const btn = document.getElementById('admin-toggle-btn');
     const copyBtn = document.getElementById('copy-link-btn');
+    const delSelBtn = document.getElementById('delete-selected-btn');
     if (adminMode) {
         adminMode = false;
         btn.textContent = '🔒';
         btn.classList.remove('active');
         if (copyBtn) copyBtn.style.display = 'none';
+        if (delSelBtn) delSelBtn.style.display = 'none';
         showToast(T.adminOff, false);
         renderGallery();
         return;
@@ -430,6 +505,7 @@ function toggleAdmin() {
             btn.textContent = '🔓';
             btn.classList.add('active');
             if (copyBtn) copyBtn.style.display = 'inline-block';
+            if (delSelBtn && selectionMode) delSelBtn.style.display = 'inline-block';
             showToast(T.adminOn, false);
             renderGallery();
         } else {
@@ -494,7 +570,13 @@ function updateLightbox() {
         imgEl.src = photo.url;
     }
 
-    document.getElementById('lightbox-download').href = photo.url;
+    // Lightbox download — use blob download for cross-origin URLs
+    const dlBtn = document.getElementById('lightbox-download');
+    dlBtn.href = '#';
+    dlBtn.onclick = function(e) {
+        e.preventDefault();
+        downloadSinglePhoto(lightboxIndex);
+    };
 
     const delBtn = document.getElementById('lightbox-delete');
     if (delBtn) {
@@ -571,6 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('select-toggle-btn').addEventListener('click', toggleSelectionMode);
     document.getElementById('cancel-selection-btn').addEventListener('click', toggleSelectionMode);
     document.getElementById('download-selected-btn').addEventListener('click', downloadSelected);
+    document.getElementById('delete-selected-btn').addEventListener('click', deleteSelected);
 
     // Lightbox delete
     document.getElementById('lightbox-delete').addEventListener('click', () => {
