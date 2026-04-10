@@ -628,15 +628,44 @@
   <script>
   document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
+          var prevLang = document.querySelector('.lang-toggle .lang-btn.active');
+          var fromLang = prevLang ? prevLang.dataset.lang : 'en';
+          var toLang = btn.dataset.lang;
+
           document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(b) { b.classList.remove('active'); });
           btn.classList.add('active');
-          var lang = btn.dataset.lang;
+
+          // Auto-populate empty fields from the other language
+          if (fromLang !== toLang) {
+              var fromSuffix = '-' + fromLang;
+              var toSuffix = '-' + toLang;
+              // Static fields (inputs and textareas with IDs ending in -en/-es)
+              document.querySelectorAll('.lang-field.lang-' + fromLang + ' input, .lang-field.lang-' + fromLang + ' textarea').forEach(function(fromEl) {
+                  var fromId = fromEl.id || '';
+                  if (!fromId.endsWith(fromSuffix)) return;
+                  var toId = fromId.slice(0, -fromSuffix.length) + toSuffix;
+                  var toEl = document.getElementById(toId);
+                  if (toEl && !toEl.value.trim() && fromEl.value.trim()) {
+                      toEl.value = fromEl.value;
+                  }
+              });
+              // Dynamic fields (inputs and textareas with classes ending in -en/-es)
+              document.querySelectorAll('.dynamic-card').forEach(function(card) {
+                  card.querySelectorAll('.lang-field.lang-' + fromLang + ' input, .lang-field.lang-' + fromLang + ' textarea').forEach(function(fromEl) {
+                      var cls = Array.from(fromEl.classList).find(function(c) { return c.endsWith(fromSuffix); });
+                      if (!cls) return;
+                      var toCls = cls.slice(0, -fromSuffix.length) + toSuffix;
+                      var toEl = card.querySelector('.' + toCls);
+                      if (toEl && !toEl.value.trim() && fromEl.value.trim()) {
+                          toEl.value = fromEl.value;
+                      }
+                  });
+              });
+          }
+
+          // Toggle visibility
           document.querySelectorAll('.lang-field').forEach(function(el) {
-              if (el.classList.contains('lang-' + lang)) {
-                  el.style.display = '';
-              } else {
-                  el.style.display = 'none';
-              }
+              el.style.display = el.classList.contains('lang-' + toLang) ? '' : 'none';
           });
       });
   });
