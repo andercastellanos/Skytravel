@@ -1227,6 +1227,115 @@ ${faqItemsHtml}
 
 // --------------- Generate & ZIP download ---------------
 
+function generateSetupInstructions(data, fileBase) {
+  const slug = data.slug;
+  const slugLower = slug.toLowerCase();
+  const nameEN = data.destinationNameEN || fileBase;
+  const nameES = data.destinationNameES || nameEN;
+  const price = '';
+  if (data.pricing && data.pricing.length > 0) {
+    var p = data.pricing[0].textEN || data.pricing[0].textES || '';
+    var m = p.match(/[€$]\s?[\d,]+/);
+    var priceTag = m ? m[0] : '';
+  } else {
+    var priceTag = '';
+  }
+  const imgFolder = data.imageFolder || 'Medjugorje';
+  const cardClass = slugLower.replace(/[^a-z0-9]/g, '');
+
+  return `========================================
+SETUP INSTRUCTIONS — ${fileBase}
+========================================
+
+Follow these steps to deploy the generated pages:
+
+────────────────────────────────────────
+1. ADD FILES TO REPO
+────────────────────────────────────────
+
+Place both HTML files in the project root:
+  - ${fileBase}.html
+  - ${fileBase}-es.html
+
+Make sure your images exist in:
+  - imagesWebp/${imgFolder}/
+
+
+────────────────────────────────────────
+2. ADD CARD TO ENGLISH HOMEPAGE (index.html)
+────────────────────────────────────────
+
+Find the </div> that closes <div class="destinations-grid"> and paste
+this BEFORE it:
+
+        <div class="destination-card ${cardClass}">
+          <div class="card-content">
+            <h3>${esc(nameEN)}</h3>
+            ${priceTag ? '<h4 style="color:#ffd900">From ' + esc(priceTag) + '</h4><br>' : ''}
+            <p>${esc(data.subheadingEN || '')}</p>
+            <a href="${slugLower}" class="cta-button" aria-label="Learn more about ${esc(nameEN)}">Learn More</a>
+          </div>
+        </div>
+
+
+────────────────────────────────────────
+3. ADD CARD TO SPANISH HOMEPAGE (index-es.html)
+────────────────────────────────────────
+
+Same location — paste BEFORE the closing </div> of destinations-grid:
+
+        <div class="destination-card ${cardClass}">
+          <div class="card-content">
+            <h3>${esc(nameES)}</h3>
+            ${priceTag ? '<h4 style="color:#ffd900">Desde ' + esc(priceTag) + '</h4><br>' : ''}
+            <p>${esc(data.subheadingES || '')}</p>
+            <a href="${slugLower}-es" class="cta-button" aria-label="Saber m\u00e1s sobre ${esc(nameES)}">Saber M\u00e1s</a>
+          </div>
+        </div>
+
+
+────────────────────────────────────────
+4. ADD CARD BACKGROUND CSS (style.css)
+────────────────────────────────────────
+
+Add this line to style.css (near the other .destination-card styles):
+
+.destination-card.${cardClass} {
+    background-image: url('imagesWebp/${imgFolder}/${data.slides && data.slides.length > 0 ? data.slides[0].file1200 : 'hero.webp'}');
+}
+
+
+────────────────────────────────────────
+5. ADD REDIRECTS TO netlify.toml
+────────────────────────────────────────
+
+Add these redirect rules:
+
+[[redirects]]
+  from = "/${fileBase}.html"
+  to = "/${slugLower}"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/${fileBase}-es.html"
+  to = "/${slugLower}-es"
+  status = 301
+  force = true
+
+
+────────────────────────────────────────
+6. COMMIT AND PUSH
+────────────────────────────────────────
+
+git add ${fileBase}.html ${fileBase}-es.html index.html index-es.html style.css netlify.toml
+git commit -m "Add ${nameEN} destination page"
+git push
+
+========================================
+`;
+}
+
 function handleGenerate() {
   const data = collectFormData();
   if (!validate(data)) return;
@@ -1237,9 +1346,13 @@ function handleGenerate() {
   // Derive filename: capitalize first letter of slug
   const fileBase = data.slug.charAt(0).toUpperCase() + data.slug.slice(1);
 
+  // Generate setup instructions
+  const instructions = generateSetupInstructions(data, fileBase);
+
   const zip = new JSZip();
   zip.file(fileBase + '.html', enHtml);
   zip.file(fileBase + '-es.html', esHtml);
+  zip.file('SETUP-INSTRUCTIONS.txt', instructions);
 
   zip.generateAsync({ type: 'blob' }).then(blob => {
     const url = URL.createObjectURL(blob);
