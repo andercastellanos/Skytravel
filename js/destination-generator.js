@@ -475,19 +475,32 @@ function collectFormData() {
 
 // --------------- Validation ---------------
 
+function switchToLang(lang) {
+  document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(b) { b.classList.remove('active'); });
+  var target = document.querySelector('.lang-toggle .lang-btn[data-lang="' + lang + '"]');
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.lang-field').forEach(function(el) {
+    el.style.display = el.classList.contains('lang-' + lang) ? '' : 'none';
+  });
+}
+
 function validate(data) {
   const checks = [
-    [data.destinationNameEN, 'destination-name-en', 'Destination Name EN is required'],
-    [data.slug,              'url-slug',            'URL Slug is required'],
-    [data.eventTypeEN,       'event-type-en',       'Event Type EN is required'],
-    [data.startDate,         'start-date',          'Start Date is required'],
-    [data.durationEN,        'duration-en',         'Duration Label EN is required'],
-    [data.h1EN,              'h1-en',               'H1 Heading EN is required'],
-    [data.h1ES,              'h1-es',               'H1 Heading ES is required'],
+    [data.destinationNameEN, 'destination-name-en', 'en', 'Destination Name is required (EN)'],
+    [data.destinationNameES, 'destination-name-es', 'es', 'Nombre del Destino es requerido (ES)'],
+    [data.slug,              'url-slug',            null,  'URL Slug is required'],
+    [data.eventTypeEN,       'event-type-en',       'en', 'Event Type is required (EN)'],
+    [data.eventTypeES,       'event-type-es',       'es', 'Tipo de Evento es requerido (ES)'],
+    [data.startDate,         'start-date',          null,  'Start Date is required'],
+    [data.durationEN,        'duration-en',         'en', 'Duration Label is required (EN)'],
+    [data.durationES,        'duration-es',         'es', 'Etiqueta de Duración es requerida (ES)'],
+    [data.h1EN,              'h1-en',               'en', 'H1 Heading is required (EN)'],
+    [data.h1ES,              'h1-es',               'es', 'Encabezado H1 es requerido (ES)'],
   ];
 
-  for (const [value, id, msg] of checks) {
+  for (const [value, id, lang, msg] of checks) {
     if (!value) {
+      if (lang) switchToLang(lang);
       showToast(msg);
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
