@@ -68,6 +68,12 @@
       margin-bottom: 28px;
     }
 
+    /* Language toggle */
+    .lang-toggle { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .lang-btn { padding: 6px 18px; border: 2px solid #c8a97e; border-radius: 20px; background: transparent; color: #c8a97e; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: #c8a97e; color: #ffffff; }
+    .lang-btn:hover { background: #c8a97e; color: #ffffff; }
+
     /* Form layout */
     .form-row {
       display: grid;
@@ -257,18 +263,24 @@
     <div class="receipt-card">
       <h1 class="receipt-title">Crear Destino</h1>
 
+      <!-- Language toggle -->
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn active" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="es">ES</button>
+      </div>
+
       <form id="destination-form">
 
         <!-- 1. Basic Info -->
         <h3 class="section-title">Informaci&oacute;n B&aacute;sica</h3>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="destination-name-en">Destination Name EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="destination-name-en">Destination Name</label>
             <input type="text" id="destination-name-en" class="form-input" placeholder="Medjugorje">
           </div>
-          <div class="form-group">
-            <label for="destination-name-es">Destination Name ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="destination-name-es">Nombre del Destino</label>
             <input type="text" id="destination-name-es" class="form-input" placeholder="Medjugorje">
           </div>
         </div>
@@ -278,31 +290,28 @@
             <label for="url-slug">URL Slug</label>
             <input type="text" id="url-slug" class="form-input" placeholder="medjugorje2026">
           </div>
-          <div class="form-group">
-            <label for="event-type-en">Event Type EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="event-type-en">Event Type</label>
             <input type="text" id="event-type-en" class="form-input" placeholder="Pilgrimage">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="event-type-es">Tipo de Evento</label>
+            <input type="text" id="event-type-es" class="form-input" placeholder="Peregrinaci&oacute;n">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="event-type-es">Event Type ES</label>
-            <input type="text" id="event-type-es" class="form-input" placeholder="Peregrinaci&oacute;n">
-          </div>
           <div class="form-group">
             <label for="image-folder">Image Folder Name</label>
             <input type="text" id="image-folder" class="form-input" placeholder="Medjugorje">
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="trip-theme-en">Trip Theme EN (SEO keyword)</label>
+          <div class="form-group lang-field lang-en">
+            <label for="trip-theme-en">Trip Theme (SEO keyword)</label>
             <input type="text" id="trip-theme-en" class="form-input" placeholder="Holy Week">
             <span class="field-hint">Keyword used in page title and meta tags</span>
           </div>
-          <div class="form-group">
-            <label for="trip-theme-es">Trip Theme ES (SEO keyword)</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="trip-theme-es">Tema del Viaje (SEO keyword)</label>
             <input type="text" id="trip-theme-es" class="form-input" placeholder="Semana Santa">
           </div>
         </div>
@@ -319,12 +328,12 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="duration-en">Duration Label EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="duration-en">Duration Label</label>
             <input type="text" id="duration-en" class="form-input" placeholder="8 days / 7 nights">
           </div>
-          <div class="form-group">
-            <label for="duration-es">Duration Label ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="duration-es">Etiqueta de Duraci&oacute;n</label>
             <input type="text" id="duration-es" class="form-input" placeholder="8 d&iacute;as / 7 noches">
           </div>
         </div>
@@ -348,23 +357,23 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="h1-en">H1 Heading EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="h1-en">H1 Heading</label>
             <input type="text" id="h1-en" class="form-input">
           </div>
-          <div class="form-group">
-            <label for="h1-es">H1 Heading ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="h1-es">Encabezado H1</label>
             <input type="text" id="h1-es" class="form-input">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="subheading-en">Subheading EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="subheading-en">Subheading</label>
             <input type="text" id="subheading-en" class="form-input">
           </div>
-          <div class="form-group">
-            <label for="subheading-es">Subheading ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="subheading-es">Subt&iacute;tulo</label>
             <input type="text" id="subheading-es" class="form-input">
           </div>
         </div>
@@ -380,40 +389,34 @@
         <h3 class="section-title">Detalles del Viaje</h3>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="overview-heading-en">Overview Heading EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="overview-heading-en">Overview Heading</label>
             <input type="text" id="overview-heading-en" class="form-input">
           </div>
-          <div class="form-group">
-            <label for="overview-heading-es">Overview Heading ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="overview-heading-es">T&iacute;tulo General</label>
             <input type="text" id="overview-heading-es" class="form-input">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group full-width">
-            <label for="overview-p1-en">Overview Paragraph 1 EN</label>
+          <div class="form-group full-width lang-field lang-en">
+            <label for="overview-p1-en">Overview Paragraph 1</label>
             <textarea id="overview-p1-en" class="form-input" rows="3"></textarea>
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group full-width">
-            <label for="overview-p1-es">Overview Paragraph 1 ES</label>
+          <div class="form-group full-width lang-field lang-es" style="display:none">
+            <label for="overview-p1-es">P&aacute;rrafo General 1</label>
             <textarea id="overview-p1-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group full-width">
-            <label for="overview-p2-en">Overview Paragraph 2 EN</label>
+          <div class="form-group full-width lang-field lang-en">
+            <label for="overview-p2-en">Overview Paragraph 2</label>
             <textarea id="overview-p2-en" class="form-input" rows="3"></textarea>
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group full-width">
-            <label for="overview-p2-es">Overview Paragraph 2 ES</label>
+          <div class="form-group full-width lang-field lang-es" style="display:none">
+            <label for="overview-p2-es">P&aacute;rrafo General 2</label>
             <textarea id="overview-p2-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
@@ -438,26 +441,23 @@
         <h3 class="section-title">Enlaces Internos</h3>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="internal-heading-en">Section Heading EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="internal-heading-en">Section Heading</label>
             <input type="text" id="internal-heading-en" class="form-input">
           </div>
-          <div class="form-group">
-            <label for="internal-heading-es">Section Heading ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="internal-heading-es">T&iacute;tulo de la Secci&oacute;n</label>
             <input type="text" id="internal-heading-es" class="form-input">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group full-width">
-            <label for="internal-intro-en">Intro Text EN</label>
+          <div class="form-group full-width lang-field lang-en">
+            <label for="internal-intro-en">Intro Text</label>
             <textarea id="internal-intro-en" class="form-input" rows="3"></textarea>
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group full-width">
-            <label for="internal-intro-es">Intro Text ES</label>
+          <div class="form-group full-width lang-field lang-es" style="display:none">
+            <label for="internal-intro-es">Texto de Introducci&oacute;n</label>
             <textarea id="internal-intro-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
@@ -471,23 +471,23 @@
         <h3 class="section-title">Plan de Pagos</h3>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="payment-intro-en">Intro Text EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="payment-intro-en">Intro Text</label>
             <textarea id="payment-intro-en" class="form-input" rows="3"></textarea>
           </div>
-          <div class="form-group">
-            <label for="payment-intro-es">Intro Text ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="payment-intro-es">Texto de Introducci&oacute;n</label>
             <textarea id="payment-intro-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="deposit-text-en">Deposit Text EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="deposit-text-en">Deposit Text</label>
             <input type="text" id="deposit-text-en" class="form-input" placeholder="Deposit: €499 today to reserve your spot">
           </div>
-          <div class="form-group">
-            <label for="deposit-text-es">Deposit Text ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="deposit-text-es">Texto del Dep&oacute;sito</label>
             <input type="text" id="deposit-text-es" class="form-input" placeholder="Dep&oacute;sito: €499 hoy para reservar tu cupo">
           </div>
         </div>
@@ -496,34 +496,34 @@
         <h4 class="section-title">Option A</h4>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="option-a-label-en">Label EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="option-a-label-en">Label</label>
             <input type="text" id="option-a-label-en" class="form-input" placeholder="Option A">
           </div>
-          <div class="form-group">
-            <label for="option-a-label-es">Label ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-a-label-es">Etiqueta</label>
             <input type="text" id="option-a-label-es" class="form-input" placeholder="Opci&oacute;n A">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="option-a-price-en">Price EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="option-a-price-en">Price</label>
             <input type="text" id="option-a-price-en" class="form-input" placeholder="6 &times; &euro;250">
           </div>
-          <div class="form-group">
-            <label for="option-a-price-es">Price ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-a-price-es">Precio</label>
             <input type="text" id="option-a-price-es" class="form-input" placeholder="6 &times; &euro;250">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="option-a-desc-en">Description EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="option-a-desc-en">Description</label>
             <textarea id="option-a-desc-en" class="form-input" rows="3"></textarea>
           </div>
-          <div class="form-group">
-            <label for="option-a-desc-es">Description ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-a-desc-es">Descripci&oacute;n</label>
             <textarea id="option-a-desc-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
@@ -532,34 +532,34 @@
         <h4 class="section-title">Option B</h4>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="option-b-label-en">Label EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="option-b-label-en">Label</label>
             <input type="text" id="option-b-label-en" class="form-input" placeholder="Option B">
           </div>
-          <div class="form-group">
-            <label for="option-b-label-es">Label ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-b-label-es">Etiqueta</label>
             <input type="text" id="option-b-label-es" class="form-input" placeholder="Opci&oacute;n B">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="option-b-price-en">Price EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="option-b-price-en">Price</label>
             <input type="text" id="option-b-price-en" class="form-input" placeholder="3 &times; &euro;500">
           </div>
-          <div class="form-group">
-            <label for="option-b-price-es">Price ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-b-price-es">Precio</label>
             <input type="text" id="option-b-price-es" class="form-input" placeholder="3 &times; &euro;500">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="option-b-desc-en">Description EN</label>
+          <div class="form-group lang-field lang-en">
+            <label for="option-b-desc-en">Description</label>
             <textarea id="option-b-desc-en" class="form-input" rows="3"></textarea>
           </div>
-          <div class="form-group">
-            <label for="option-b-desc-es">Description ES</label>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-b-desc-es">Descripci&oacute;n</label>
             <textarea id="option-b-desc-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
@@ -623,6 +623,24 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="js/destination-generator.js"></script>
+
+  <!-- Language toggle logic -->
+  <script>
+  document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+          document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var lang = btn.dataset.lang;
+          document.querySelectorAll('.lang-field').forEach(function(el) {
+              if (el.classList.contains('lang-' + lang)) {
+                  el.style.display = '';
+              } else {
+                  el.style.display = 'none';
+              }
+          });
+      });
+  });
+  </script>
 </body>
 
 </html>

@@ -134,6 +134,13 @@ function generateSEO(data) {
   }
 }
 
+// --------------- Language toggle helper ---------------
+
+function currentLang() {
+  var active = document.querySelector('.lang-toggle .lang-btn.active');
+  return active ? active.dataset.lang : 'en';
+}
+
 // --------------- Dynamic row management ---------------
 
 const LIMITS = {
@@ -163,15 +170,18 @@ function addAlternateDate() {
     showToast('Maximum ' + LIMITS.altDates + ' alternate dates allowed');
     return;
   }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group">
-      <label>Date Label EN</label>
+    <div class="form-group lang-field lang-en" style="${enD}">
+      <label>Date Label</label>
       <input type="text" class="form-input alt-date-en" placeholder="September 17 to 25, 2026">
     </div>
-    <div class="form-group">
-      <label>Date Label ES</label>
+    <div class="form-group lang-field lang-es" style="${esD}">
+      <label>Etiqueta de Fecha</label>
       <input type="text" class="form-input alt-date-es" placeholder="17 al 25 de septiembre de 2026">
     </div>
   </div>
@@ -185,6 +195,9 @@ function addSlide() {
     showToast('Maximum ' + LIMITS.slides + ' slideshow images allowed');
     return;
   }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <p class="field-hint" style="display:none;">Primera imagen: loading="eager", fetchpriority="high"</p>
@@ -193,8 +206,8 @@ function addSlide() {
     <div class="form-group"><label>Filename 1200w</label><input type="text" class="form-input slide-file-1200" placeholder="image-1200.webp"></div>
   </div>
   <div class="form-row">
-    <div class="form-group"><label>Alt EN</label><input type="text" class="form-input slide-alt-en"></div>
-    <div class="form-group"><label>Alt ES</label><input type="text" class="form-input slide-alt-es"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Alt</label><input type="text" class="form-input slide-alt-en"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto Alternativo</label><input type="text" class="form-input slide-alt-es"></div>
   </div>
   <div class="form-row">
     <div class="form-group"><label>Width</label><input type="number" class="form-input slide-width" value="1200"></div>
@@ -211,19 +224,22 @@ function addPricingCard() {
     showToast('Maximum ' + LIMITS.pricing + ' pricing cards allowed');
     return;
   }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group"><label>Card Title EN</label><input type="text" class="form-input price-title-en"></div>
-    <div class="form-group"><label>Card Title ES</label><input type="text" class="form-input price-title-es"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Card Title</label><input type="text" class="form-input price-title-en"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo de la Tarjeta</label><input type="text" class="form-input price-title-es"></div>
   </div>
   <div class="form-row">
-    <div class="form-group"><label>Price Text EN</label><input type="text" class="form-input price-text-en" placeholder="\u20AC1,999 per person"></div>
-    <div class="form-group"><label>Price Text ES</label><input type="text" class="form-input price-text-es" placeholder="\u20AC1,999 por persona"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Price Text</label><input type="text" class="form-input price-text-en" placeholder="\u20AC1,999 per person"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto del Precio</label><input type="text" class="form-input price-text-es" placeholder="\u20AC1,999 por persona"></div>
   </div>
   <div class="form-row">
-    <div class="form-group"><label>Bullets EN (one per line)</label><textarea class="form-input price-bullets-en" rows="3"></textarea></div>
-    <div class="form-group"><label>Bullets ES (one per line)</label><textarea class="form-input price-bullets-es" rows="3"></textarea></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Bullets (one per line)</label><textarea class="form-input price-bullets-en" rows="3"></textarea></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Vi\u00f1etas (una por l\u00ednea)</label><textarea class="form-input price-bullets-es" rows="3"></textarea></div>
   </div>
 </div>`;
   document.getElementById('pricing-cards-list').insertAdjacentHTML('beforeend', html);
@@ -235,30 +251,29 @@ function addJourneyTab() {
     showToast('Maximum ' + LIMITS.journey + ' journey tabs allowed');
     return;
   }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group"><label>Location Name EN</label><input type="text" class="form-input journey-name-en"></div>
-    <div class="form-group"><label>Location Name ES</label><input type="text" class="form-input journey-name-es"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Location Name</label><input type="text" class="form-input journey-name-en"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Nombre de la Ubicaci\u00f3n</label><input type="text" class="form-input journey-name-es"></div>
   </div>
   <h4 style="color:#c8a97e; margin:12px 0 8px;">Experience Tab</h4>
   <div class="form-row">
-    <div class="form-group"><label>Heading EN</label><input type="text" class="form-input journey-exp-heading-en"></div>
-    <div class="form-group"><label>Heading ES</label><input type="text" class="form-input journey-exp-heading-es"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Experience Heading</label><input type="text" class="form-input journey-exp-heading-en"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo Experiencia</label><input type="text" class="form-input journey-exp-heading-es"></div>
   </div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 1 EN</label><textarea class="form-input journey-exp-p1-en" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 1 ES</label><textarea class="form-input journey-exp-p1-es" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 2 EN</label><textarea class="form-input journey-exp-p2-en" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 2 ES</label><textarea class="form-input journey-exp-p2-es" rows="3"></textarea></div></div>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>Experience Paragraph 1</label><textarea class="form-input journey-exp-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Experiencia 1</label><textarea class="form-input journey-exp-p1-es" rows="3"></textarea></div></div>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>Experience Paragraph 2</label><textarea class="form-input journey-exp-p2-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Experiencia 2</label><textarea class="form-input journey-exp-p2-es" rows="3"></textarea></div></div>
   <h4 style="color:#c8a97e; margin:12px 0 8px;">History Tab</h4>
   <div class="form-row">
-    <div class="form-group"><label>Heading EN</label><input type="text" class="form-input journey-hist-heading-en"></div>
-    <div class="form-group"><label>Heading ES</label><input type="text" class="form-input journey-hist-heading-es"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>History Heading</label><input type="text" class="form-input journey-hist-heading-en"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo Historia</label><input type="text" class="form-input journey-hist-heading-es"></div>
   </div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 1 EN</label><textarea class="form-input journey-hist-p1-en" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 1 ES</label><textarea class="form-input journey-hist-p1-es" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 2 EN</label><textarea class="form-input journey-hist-p2-en" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width"><label>Paragraph 2 ES</label><textarea class="form-input journey-hist-p2-es" rows="3"></textarea></div></div>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>History Paragraph 1</label><textarea class="form-input journey-hist-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Historia 1</label><textarea class="form-input journey-hist-p1-es" rows="3"></textarea></div></div>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>History Paragraph 2</label><textarea class="form-input journey-hist-p2-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Historia 2</label><textarea class="form-input journey-hist-p2-es" rows="3"></textarea></div></div>
 </div>`;
   document.getElementById('journey-tabs-list').insertAdjacentHTML('beforeend', html);
 }
@@ -285,15 +300,18 @@ function addFaq() {
     showToast('Maximum ' + LIMITS.faq + ' FAQ items allowed');
     return;
   }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group"><label>Question EN</label><input type="text" class="form-input faq-q-en"></div>
-    <div class="form-group"><label>Question ES</label><input type="text" class="form-input faq-q-es"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Question</label><input type="text" class="form-input faq-q-en"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Pregunta</label><input type="text" class="form-input faq-q-es"></div>
   </div>
   <div class="form-row">
-    <div class="form-group"><label>Answer EN</label><textarea class="form-input faq-a-en" rows="3"></textarea></div>
-    <div class="form-group"><label>Answer ES</label><textarea class="form-input faq-a-es" rows="3"></textarea></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Answer</label><textarea class="form-input faq-a-en" rows="3"></textarea></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Respuesta</label><textarea class="form-input faq-a-es" rows="3"></textarea></div>
   </div>
 </div>`;
   document.getElementById('faq-list').insertAdjacentHTML('beforeend', html);
