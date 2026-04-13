@@ -214,6 +214,30 @@
       transform: none;
     }
 
+    #deploy-btn {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-left: 12px;
+    }
+
+    #deploy-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(39, 174, 96, 0.35);
+    }
+
+    #deploy-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     /* Toast */
     .toast {
       position: fixed;
@@ -612,6 +636,7 @@
         <!-- Submit -->
         <div class="submit-section">
           <button type="button" id="generate-btn">Generar P&aacute;ginas</button>
+          <button type="button" id="deploy-btn">Publicar en el sitio</button>
         </div>
 
       </form>

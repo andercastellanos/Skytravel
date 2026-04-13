@@ -894,15 +894,21 @@ ${bulletsLi}
   const journeyTitle = isEN ? 'Journey Details' : 'Detalles del Recorrido';
   const paymentTitle = isEN ? 'Payment Plan' : 'Plan de Pagos';
 
-  // Payment plan section
-  const paymentIntro  = esc(isEN ? data.paymentIntroEN : data.paymentIntroES);
-  const depositText   = esc(isEN ? data.depositTextEN : data.depositTextES);
-  const optALabel     = esc(isEN ? data.optionALabelEN : data.optionALabelES);
-  const optAPrice     = esc(isEN ? data.optionAPriceEN : data.optionAPriceES);
-  const optADesc      = esc(isEN ? data.optionADescEN : data.optionADescES);
-  const optBLabel     = esc(isEN ? data.optionBLabelEN : data.optionBLabelES);
-  const optBPrice     = esc(isEN ? data.optionBPriceEN : data.optionBPriceES);
-  const optBDesc      = esc(isEN ? data.optionBDescEN : data.optionBDescES);
+  // Payment plan — extract structured data for payment-plan.js component
+  const depositRaw = data.depositTextEN || data.depositTextES || '';
+  const depositMatch = depositRaw.match(/([€$])\s?([\d,]+)/);
+  const paymentCurrency = depositMatch ? depositMatch[1] : '€';
+  const paymentDeposit = depositMatch ? depositMatch[2].replace(/,/g, '') : '499';
+
+  const optARaw = data.optionAPriceEN || data.optionAPriceES || '';
+  const optAMatch = optARaw.match(/(\d+)\s*[×x]\s*[€$]?\s*([\d,]+)/i);
+  const paymentACount = optAMatch ? optAMatch[1] : '6';
+  const paymentAPrice = optAMatch ? optAMatch[2].replace(/,/g, '') : '250';
+
+  const optBRaw = data.optionBPriceEN || data.optionBPriceES || '';
+  const optBMatch = optBRaw.match(/(\d+)\s*[×x]\s*[€$]?\s*([\d,]+)/i);
+  const paymentBCount = optBMatch ? optBMatch[1] : '3';
+  const paymentBPrice = optBMatch ? optBMatch[2].replace(/,/g, '') : '500';
 
   // Overview
   const overviewP1      = esc(isEN ? data.overviewP1EN : data.overviewP1ES);
@@ -1181,25 +1187,17 @@ ${journeyHtml}
 ${internalLinksSection}
 
         <!-- ${paymentTitle} Section -->
-        <section style="padding: 3rem 1rem; max-width: 900px; margin: 0 auto;">
-            <h2 style="text-align: center; margin-bottom: 0.75rem; color: #333;">${paymentTitle}</h2>
-            <p style="text-align: center; color: #555; font-size: 1.05rem; line-height: 1.6; max-width: 600px; margin: 0 auto 1.5rem;">${paymentIntro}</p>
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <span style="display: inline-block; background: linear-gradient(135deg, #c8a97e 0%, #d4b896 100%); color: white; padding: 0.75rem 2rem; border-radius: 25px; font-size: 1.05rem; font-weight: 600; box-shadow: 0 4px 15px rgba(200,169,126,0.3);">${depositText}</span>
-            </div>
-            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 250px; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.5rem; text-align: center; background: #fafafa;">
-                    <h3 style="color: #c8a97e; font-size: 1.2rem; margin-bottom: 0.75rem;">${optALabel}</h3>
-                    <p style="font-size: 1.8rem; font-weight: 700; color: #333; margin: 0.5rem 0;">${optAPrice}</p>
-                    <p style="color: #555; font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.5rem;">${optADesc}</p>
-                </div>
-                <div style="flex: 1; min-width: 250px; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.5rem; text-align: center; background: #fafafa;">
-                    <h3 style="color: #c8a97e; font-size: 1.2rem; margin-bottom: 0.75rem;">${optBLabel}</h3>
-                    <p style="font-size: 1.8rem; font-weight: 700; color: #333; margin: 0.5rem 0;">${optBPrice}</p>
-                    <p style="color: #555; font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.5rem;">${optBDesc}</p>
-                </div>
-            </div>
-        </section>
+        <div id="payment-plan-container"
+            data-trip="${esc(isEN ? data.destinationNameEN : data.destinationNameES)}"
+            data-deposit="${paymentDeposit}"
+            data-option-a-count="${paymentACount}"
+            data-option-a-price="${paymentAPrice}"
+            data-option-b-count="${paymentBCount}"
+            data-option-b-price="${paymentBPrice}"
+            data-currency="${paymentCurrency}"
+            data-lang="${lang}">
+        </div>
+        <script src="js/payment-plan.js"></script>
 
         <!-- FAQ Section -->
         <section class="faq-section" id="faq" aria-labelledby="faq-heading"
@@ -1367,6 +1365,90 @@ function handleGenerate() {
   });
 }
 
+// --------------- Deploy to site ---------------
+
+async function handleDeploy() {
+  var data = collectFormData();
+  if (!validate(data)) return;
+
+  var enHtml = generateHTML(data, 'en');
+  var esHtml = generateHTML(data, 'es');
+  var fileBase = data.slug.charAt(0).toUpperCase() + data.slug.slice(1);
+  var slugLower = data.slug.toLowerCase();
+
+  var cardClass = slugLower.replace(/[^a-z0-9-]/g, '');
+  var nameEN = data.destinationNameEN || fileBase;
+  var nameES = data.destinationNameES || nameEN;
+  var imgFolder = data.imageFolder || 'Medjugorje';
+  var firstSlide = (data.slides && data.slides.length > 0) ? data.slides[0].file1200 : 'hero.webp';
+
+  var priceTag = '';
+  if (data.pricing && data.pricing.length > 0) {
+    var p = data.pricing[0].textEN || data.pricing[0].textES || '';
+    var m = p.match(/[€$]\s?[\d,]+/);
+    priceTag = m ? m[0] : '';
+  }
+
+  var cardEN = '        <div class="destination-card ' + cardClass + '">\n'
+    + '          <div class="card-content">\n'
+    + '            <h3>' + esc(nameEN) + '</h3>\n'
+    + (priceTag ? '            <h4 style="color:#ffd900">From ' + esc(priceTag) + '</h4><br>\n' : '')
+    + '            <p>' + esc(data.subheadingEN || '') + '</p>\n'
+    + '            <a href="' + slugLower + '" class="cta-button" aria-label="Learn more about ' + esc(nameEN) + '">Learn More</a>\n'
+    + '          </div>\n'
+    + '        </div>';
+
+  var cardES = '        <div class="destination-card ' + cardClass + '">\n'
+    + '          <div class="card-content">\n'
+    + '            <h3>' + esc(nameES) + '</h3>\n'
+    + (priceTag ? '            <h4 style="color:#ffd900">Desde ' + esc(priceTag) + '</h4><br>\n' : '')
+    + '            <p>' + esc(data.subheadingES || '') + '</p>\n'
+    + '            <a href="' + slugLower + '-es" class="cta-button" aria-label="Saber m\u00e1s sobre ' + esc(nameES) + '">Saber M\u00e1s</a>\n'
+    + '          </div>\n'
+    + '        </div>';
+
+  var cssRule = '.destination-card.' + cardClass + ' {\n'
+    + '    background-image: url(\'imagesWebp/' + imgFolder + '/' + firstSlide + '\');\n'
+    + '}';
+
+  var btn = document.getElementById('deploy-btn');
+  btn.disabled = true;
+  btn.textContent = 'Publicando...';
+
+  try {
+    var res = await fetch('/.netlify/functions/deploy-destination', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fileBase: fileBase,
+        slug: slugLower,
+        enHtml: enHtml,
+        esHtml: esHtml,
+        cardEN: cardEN,
+        cardES: cardES,
+        cssClass: cardClass,
+        cssRule: cssRule,
+        nameEN: nameEN,
+        nameES: nameES
+      })
+    });
+    var result = await res.json();
+
+    if (res.ok && result.success) {
+      showToast(result.message || 'Destino publicado exitosamente', false);
+    } else if (res.status === 409) {
+      showToast(result.error || 'Este destino ya existe en el sitio');
+    } else {
+      showToast('Error: ' + (result.error || 'Error desconocido'));
+    }
+  } catch (err) {
+    showToast('Error de conexi\u00f3n: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Publicar en el sitio';
+  }
+}
+
 // --------------- Init ---------------
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1386,8 +1468,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('add-link-btn').addEventListener('click', addInternalLink);
   document.getElementById('add-faq-btn').addEventListener('click', addFaq);
 
-  // Generate button
+  // Generate & deploy buttons
   document.getElementById('generate-btn').addEventListener('click', handleGenerate);
+  document.getElementById('deploy-btn').addEventListener('click', handleDeploy);
 
   // Delegate remove buttons
   document.addEventListener('click', (e) => {
