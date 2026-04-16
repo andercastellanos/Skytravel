@@ -49,9 +49,10 @@ function extractDaysNumber(durationLabel) {
 
 function extractFirstPrice(pricingCards) {
   if (!pricingCards || pricingCards.length === 0) return '';
-  // Extract price from first card's EN text, e.g., "€1,999 per person" → "€1,999"
-  const text = pricingCards[0].textEN || '';
-  const m = text.match(/[€$]\s?[\d,]+/);
+  // Extract price from first card's EN text, e.g., "€1,999" or "USD 1200" or "$5,799"
+  const text = pricingCards[0].textEN || pricingCards[0].textES || '';
+  var m = text.match(/[€$]\s?[\d,]+/);
+  if (!m) m = text.match(/[A-Z]{3}\s?[\d,]+/);
   return m ? m[0] : '';
 }
 
@@ -151,6 +152,7 @@ const LIMITS = {
   links:    10,
   faq:      10,
   overviewPara: 6,
+  paymentOptions: 6,
   journeyPara: 6
 };
 
@@ -346,6 +348,37 @@ function addInternalLink() {
   document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
 }
 
+// --- Payment Option ---
+var paymentOptionLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+function addPaymentOption() {
+  var count = countRows('payment-options-list');
+  if (count >= LIMITS.paymentOptions) {
+    showToast('M\u00e1ximo ' + LIMITS.paymentOptions + ' opciones de pago permitidas');
+    return;
+  }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var letter = paymentOptionLetters[count] || (count + 1);
+  const html = `<div class="dynamic-card">
+  <button type="button" class="remove-row-btn">&times;</button>
+  <h4 style="color:#c8a97e; margin:0 0 10px;">Opci\u00f3n ${letter}</h4>
+  <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Etiqueta</label><input type="text" class="form-input pay-opt-label-en" placeholder="Option ${letter}"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Etiqueta</label><input type="text" class="form-input pay-opt-label-es" placeholder="Opci\u00f3n ${letter}"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Precio</label><input type="text" class="form-input pay-opt-price-en" placeholder="6 \u00d7 \u20ac250"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Precio</label><input type="text" class="form-input pay-opt-price-es" placeholder="6 \u00d7 \u20ac250"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Descripci\u00f3n</label><textarea class="form-input pay-opt-desc-en" rows="2"></textarea></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Descripci\u00f3n</label><textarea class="form-input pay-opt-desc-es" rows="2"></textarea></div>
+  </div>
+</div>`;
+  document.getElementById('payment-options-list').insertAdjacentHTML('beforeend', html);
+}
+
 // --- FAQ ---
 function addFaq() {
   if (countRows('faq-list') >= LIMITS.faq) {
@@ -431,24 +464,19 @@ function collectFormData() {
   data.paymentIntroES     = val('payment-intro-es');
   data.depositTextEN      = val('deposit-text-en');
   data.depositTextES      = val('deposit-text-es');
-  data.optionALabelEN     = val('option-a-label-en');
-  data.optionALabelES     = val('option-a-label-es');
-  data.optionAPriceEN     = val('option-a-price-en');
-  data.optionAPriceES     = val('option-a-price-es');
-  data.optionADescEN      = val('option-a-desc-en');
-  data.optionADescES      = val('option-a-desc-es');
-  data.optionBLabelEN     = val('option-b-label-en');
-  data.optionBLabelES     = val('option-b-label-es');
-  data.optionBPriceEN     = val('option-b-price-en');
-  data.optionBPriceES     = val('option-b-price-es');
-  data.optionBDescEN      = val('option-b-desc-en');
-  data.optionBDescES      = val('option-b-desc-es');
-  data.optionCLabelEN     = val('option-c-label-en');
-  data.optionCLabelES     = val('option-c-label-es');
-  data.optionCPriceEN     = val('option-c-price-en');
-  data.optionCPriceES     = val('option-c-price-es');
-  data.optionCDescEN      = val('option-c-desc-en');
-  data.optionCDescES      = val('option-c-desc-es');
+  // Payment options (dynamic)
+  data.paymentOptions = [];
+  document.querySelectorAll('#payment-options-list .dynamic-card').forEach(card => {
+    var labelEN = card.querySelector('.pay-opt-label-en').value.trim();
+    var labelES = card.querySelector('.pay-opt-label-es').value.trim();
+    var priceEN = card.querySelector('.pay-opt-price-en').value.trim();
+    var priceES = card.querySelector('.pay-opt-price-es').value.trim();
+    var descEN  = card.querySelector('.pay-opt-desc-en').value.trim();
+    var descES  = card.querySelector('.pay-opt-desc-es').value.trim();
+    if (labelEN || labelES || priceEN || priceES) {
+      data.paymentOptions.push({ labelEN, labelES, priceEN, priceES, descEN, descES });
+    }
+  });
 
   // Internal links section text
   data.internalHeadingEN  = val('internal-heading-en');
@@ -977,25 +1005,27 @@ ${bulletsLi}
 
   // Payment plan — extract structured data for payment-plan.js component
   const depositRaw = data.depositTextEN || data.depositTextES || '';
-  const depositMatch = depositRaw.match(/([€$])\s?([\d,]+)/);
+  var depositMatch = depositRaw.match(/([€$])\s?([\d,]+)/);
+  if (!depositMatch) depositMatch = depositRaw.match(/([A-Z]{3})\s?([\d,]+)/);
   const paymentCurrency = depositMatch ? depositMatch[1] : '€';
   const paymentDeposit = depositMatch ? depositMatch[2].replace(/,/g, '') : '499';
 
-  const optARaw = data.optionAPriceEN || data.optionAPriceES || '';
-  const optAMatch = optARaw.match(/(\d+)\s*[×x]\s*[€$]?\s*([\d,]+)/i);
-  const paymentACount = optAMatch ? optAMatch[1] : '6';
-  const paymentAPrice = optAMatch ? optAMatch[2].replace(/,/g, '') : '250';
-
-  const optBRaw = data.optionBPriceEN || data.optionBPriceES || '';
-  const optBMatch = optBRaw.match(/(\d+)\s*[×x]\s*[€$]?\s*([\d,]+)/i);
-  const paymentBCount = optBMatch ? optBMatch[1] : '3';
-  const paymentBPrice = optBMatch ? optBMatch[2].replace(/,/g, '') : '500';
-
-  const optCRaw = data.optionCPriceEN || data.optionCPriceES || '';
-  const hasOptionC = !!(optCRaw && (data.optionCLabelEN || data.optionCLabelES));
-  const optCMatch = optCRaw.match(/(\d+)\s*[×x]\s*[€$]?\s*([\d,]+)/i);
-  const paymentCCount = optCMatch ? optCMatch[1] : '';
-  const paymentCPrice = optCMatch ? optCMatch[2].replace(/,/g, '') : '';
+  // Parse payment options into structured data for payment-plan.js
+  const paymentOptionsJson = (data.paymentOptions || []).map(opt => {
+    const rawEN = opt.priceEN || '';
+    const rawES = opt.priceES || '';
+    const m = (rawEN || rawES).match(/(\d+)\s*[×x]\s*[€$]?\s*([\d,]+)/i);
+    return {
+      count: m ? m[1] : '',
+      price: m ? m[2].replace(/,/g, '') : '',
+      priceTextEN: rawEN,
+      priceTextES: rawES,
+      labelEN: opt.labelEN || '',
+      labelES: opt.labelES || '',
+      descEN: opt.descEN || '',
+      descES: opt.descES || ''
+    };
+  }).filter(o => o.priceTextEN || o.priceTextES);
 
   // Overview
   const overviewP1      = esc(isEN ? data.overviewP1EN : data.overviewP1ES);
@@ -1281,12 +1311,8 @@ ${internalLinksSection}
         <div id="payment-plan-container"
             data-trip="${esc(isEN ? data.destinationNameEN : data.destinationNameES)}"
             data-deposit="${paymentDeposit}"
-            data-option-a-count="${paymentACount}"
-            data-option-a-price="${paymentAPrice}"
-            data-option-b-count="${paymentBCount}"
-            data-option-b-price="${paymentBPrice}"${hasOptionC ? `
-            data-option-c-count="${paymentCCount}"
-            data-option-c-price="${paymentCPrice}"` : ''}
+            data-deposit-text="${esc(isEN ? (data.depositTextEN || data.depositTextES || '') : (data.depositTextES || data.depositTextEN || ''))}"
+            data-options='${JSON.stringify(paymentOptionsJson)}'
             data-currency="${paymentCurrency}"
             data-lang="${lang}">
         </div>
@@ -1327,6 +1353,7 @@ function generateSetupInstructions(data, fileBase) {
   if (data.pricing && data.pricing.length > 0) {
     var p = data.pricing[0].textEN || data.pricing[0].textES || '';
     var m = p.match(/[€$]\s?[\d,]+/);
+    if (!m) m = p.match(/[A-Z]{3}\s?[\d,]+/);
     var priceTag = m ? m[0] : '';
   } else {
     var priceTag = '';
@@ -1427,37 +1454,6 @@ git push
 `;
 }
 
-function handleGenerate() {
-  const data = collectFormData();
-  if (!validate(data)) return;
-
-  const enHtml = generateHTML(data, 'en');
-  const esHtml = generateHTML(data, 'es');
-
-  // Derive filename: capitalize first letter of slug
-  const fileBase = data.slug.charAt(0).toUpperCase() + data.slug.slice(1);
-
-  // Generate setup instructions
-  const instructions = generateSetupInstructions(data, fileBase);
-
-  const zip = new JSZip();
-  zip.file(fileBase + '.html', enHtml);
-  zip.file(fileBase + '-es.html', esHtml);
-  zip.file('SETUP-INSTRUCTIONS.txt', instructions);
-
-  zip.generateAsync({ type: 'blob' }).then(blob => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileBase + '-pages.zip';
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('P\u00E1ginas generadas correctamente', false);
-  }).catch(err => {
-    showToast('Error generating ZIP: ' + err.message);
-  });
-}
-
 // --------------- Deploy to site ---------------
 
 async function handleDeploy() {
@@ -1479,6 +1475,7 @@ async function handleDeploy() {
   if (data.pricing && data.pricing.length > 0) {
     var p = data.pricing[0].textEN || data.pricing[0].textES || '';
     var m = p.match(/[€$]\s?[\d,]+/);
+    if (!m) m = p.match(/[A-Z]{3}\s?[\d,]+/);
     priceTag = m ? m[0] : '';
   }
 
@@ -1549,6 +1546,8 @@ document.addEventListener('DOMContentLoaded', () => {
   addAlternateDate();
   addSlide();
   addPricingCard();
+  addPaymentOption();
+  addPaymentOption();
   addJourneyTab();
   addInternalLink();
   addFaq();
@@ -1558,12 +1557,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('add-slide-btn').addEventListener('click', addSlide);
   document.getElementById('add-overview-para-btn').addEventListener('click', addOverviewParagraph);
   document.getElementById('add-pricing-btn').addEventListener('click', addPricingCard);
+  document.getElementById('add-payment-option-btn').addEventListener('click', addPaymentOption);
   document.getElementById('add-journey-btn').addEventListener('click', addJourneyTab);
   document.getElementById('add-link-btn').addEventListener('click', addInternalLink);
   document.getElementById('add-faq-btn').addEventListener('click', addFaq);
 
-  // Generate & deploy buttons
-  document.getElementById('generate-btn').addEventListener('click', handleGenerate);
+  // Deploy button
   document.getElementById('deploy-btn').addEventListener('click', handleDeploy);
 
   // Delegate remove buttons and journey paragraph buttons
