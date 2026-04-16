@@ -149,7 +149,9 @@ const LIMITS = {
   pricing:   4,
   journey:   6,
   links:    10,
-  faq:      10
+  faq:      10,
+  overviewPara: 6,
+  journeyPara: 6
 };
 
 function countRows(containerId) {
@@ -167,7 +169,7 @@ function updateSlideHints() {
 // --- Alternate Date ---
 function addAlternateDate() {
   if (countRows('alternate-dates-list') >= LIMITS.altDates) {
-    showToast('Maximum ' + LIMITS.altDates + ' alternate dates allowed');
+    showToast('M\u00e1ximo ' + LIMITS.altDates + ' fechas alternativas permitidas');
     return;
   }
   var lang = currentLang();
@@ -189,10 +191,36 @@ function addAlternateDate() {
   document.getElementById('alternate-dates-list').insertAdjacentHTML('beforeend', html);
 }
 
+// --- Overview Extra Paragraph ---
+function addOverviewParagraph() {
+  if (countRows('overview-extra-list') >= LIMITS.overviewPara) {
+    showToast('M\u00e1ximo ' + LIMITS.overviewPara + ' p\u00e1rrafos adicionales');
+    return;
+  }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var n = countRows('overview-extra-list') + 3;
+  const html = `<div class="dynamic-card">
+  <button type="button" class="remove-row-btn">&times;</button>
+  <div class="form-row">
+    <div class="form-group full-width lang-field lang-en" style="${enD}">
+      <label>Overview Paragraph ${n}</label>
+      <textarea class="form-input overview-extra-en" rows="3"></textarea>
+    </div>
+    <div class="form-group full-width lang-field lang-es" style="${esD}">
+      <label>P\u00e1rrafo General ${n}</label>
+      <textarea class="form-input overview-extra-es" rows="3"></textarea>
+    </div>
+  </div>
+</div>`;
+  document.getElementById('overview-extra-list').insertAdjacentHTML('beforeend', html);
+}
+
 // --- Slideshow Image ---
 function addSlide() {
   if (countRows('slideshow-images-list') >= LIMITS.slides) {
-    showToast('Maximum ' + LIMITS.slides + ' slideshow images allowed');
+    showToast('M\u00e1ximo ' + LIMITS.slides + ' im\u00e1genes permitidas');
     return;
   }
   var lang = currentLang();
@@ -202,16 +230,16 @@ function addSlide() {
   <button type="button" class="remove-row-btn">&times;</button>
   <p class="field-hint" style="display:none;">Primera imagen: loading="eager", fetchpriority="high"</p>
   <div class="form-row">
-    <div class="form-group"><label>Filename 800w</label><input type="text" class="form-input slide-file-800" placeholder="image-800.webp"></div>
-    <div class="form-group"><label>Filename 1200w</label><input type="text" class="form-input slide-file-1200" placeholder="image-1200.webp"></div>
+    <div class="form-group"><label>Archivo 800w</label><input type="text" class="form-input slide-file-800" placeholder="image-800.webp"></div>
+    <div class="form-group"><label>Archivo 1200w</label><input type="text" class="form-input slide-file-1200" placeholder="image-1200.webp"></div>
   </div>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}"><label>Alt</label><input type="text" class="form-input slide-alt-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Texto Alternativo</label><input type="text" class="form-input slide-alt-es"></div>
   </div>
   <div class="form-row">
-    <div class="form-group"><label>Width</label><input type="number" class="form-input slide-width" value="1200"></div>
-    <div class="form-group"><label>Height</label><input type="number" class="form-input slide-height" value="800"></div>
+    <div class="form-group"><label>Ancho</label><input type="number" class="form-input slide-width" value="1200"></div>
+    <div class="form-group"><label>Alto</label><input type="number" class="form-input slide-height" value="800"></div>
   </div>
 </div>`;
   document.getElementById('slideshow-images-list').insertAdjacentHTML('beforeend', html);
@@ -221,7 +249,7 @@ function addSlide() {
 // --- Pricing Card ---
 function addPricingCard() {
   if (countRows('pricing-cards-list') >= LIMITS.pricing) {
-    showToast('Maximum ' + LIMITS.pricing + ' pricing cards allowed');
+    showToast('M\u00e1ximo ' + LIMITS.pricing + ' tarjetas de precios permitidas');
     return;
   }
   var lang = currentLang();
@@ -248,7 +276,7 @@ function addPricingCard() {
 // --- Journey Tab ---
 function addJourneyTab() {
   if (countRows('journey-tabs-list') >= LIMITS.journey) {
-    showToast('Maximum ' + LIMITS.journey + ' journey tabs allowed');
+    showToast('M\u00e1ximo ' + LIMITS.journey + ' ubicaciones permitidas');
     return;
   }
   var lang = currentLang();
@@ -257,38 +285,62 @@ function addJourneyTab() {
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Location Name</label><input type="text" class="form-input journey-name-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Nombre de la Ubicaci\u00f3n</label><input type="text" class="form-input journey-name-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Nombre de la Ubicaci\u00f3n</label><input type="text" class="form-input journey-name-es"></div>
   </div>
-  <h4 style="color:#c8a97e; margin:12px 0 8px;">Experience Tab</h4>
+  <h4 style="color:#c8a97e; margin:12px 0 8px;">Pesta\u00f1a Experiencia</h4>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Experience Heading</label><input type="text" class="form-input journey-exp-heading-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>T\u00edtulo Experiencia</label><input type="text" class="form-input journey-exp-heading-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo Experiencia</label><input type="text" class="form-input journey-exp-heading-es"></div>
   </div>
-  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>Experience Paragraph 1</label><textarea class="form-input journey-exp-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Experiencia 1</label><textarea class="form-input journey-exp-p1-es" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>Experience Paragraph 2</label><textarea class="form-input journey-exp-p2-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Experiencia 2</label><textarea class="form-input journey-exp-p2-es" rows="3"></textarea></div></div>
-  <h4 style="color:#c8a97e; margin:12px 0 8px;">History Tab</h4>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>P\u00e1rrafo Experiencia 1</label><textarea class="form-input journey-exp-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Experiencia 1</label><textarea class="form-input journey-exp-p1-es" rows="3"></textarea></div></div>
+  <div class="journey-exp-extra-list"></div>
+  <button type="button" class="add-row-btn add-journey-para-btn" data-section="exp" style="margin-bottom:12px;">+ Agregar P\u00e1rrafo Experiencia</button>
+  <h4 style="color:#c8a97e; margin:12px 0 8px;">Pesta\u00f1a Historia</h4>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>History Heading</label><input type="text" class="form-input journey-hist-heading-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>T\u00edtulo Historia</label><input type="text" class="form-input journey-hist-heading-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo Historia</label><input type="text" class="form-input journey-hist-heading-es"></div>
   </div>
-  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>History Paragraph 1</label><textarea class="form-input journey-hist-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Historia 1</label><textarea class="form-input journey-hist-p1-es" rows="3"></textarea></div></div>
-  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>History Paragraph 2</label><textarea class="form-input journey-hist-p2-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Historia 2</label><textarea class="form-input journey-hist-p2-es" rows="3"></textarea></div></div>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>P\u00e1rrafo Historia 1</label><textarea class="form-input journey-hist-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Historia 1</label><textarea class="form-input journey-hist-p1-es" rows="3"></textarea></div></div>
+  <div class="journey-hist-extra-list"></div>
+  <button type="button" class="add-row-btn add-journey-para-btn" data-section="hist" style="margin-bottom:8px;">+ Agregar P\u00e1rrafo Historia</button>
 </div>`;
   document.getElementById('journey-tabs-list').insertAdjacentHTML('beforeend', html);
+}
+
+// --- Journey Extra Paragraph ---
+function addJourneyParagraph(btn) {
+  var section = btn.getAttribute('data-section');
+  var card = btn.closest('.dynamic-card');
+  var list = card.querySelector('.journey-' + section + '-extra-list');
+  if (list.querySelectorAll('.journey-extra-row').length >= LIMITS.journeyPara) {
+    showToast('M\u00e1ximo ' + LIMITS.journeyPara + ' p\u00e1rrafos adicionales');
+    return;
+  }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var sectionLabel = section === 'exp' ? 'Experience' : 'History';
+  var sectionLabelEs = section === 'exp' ? 'Experiencia' : 'Historia';
+  var n = list.querySelectorAll('.journey-extra-row').length + 2;
+  var html = `<div class="journey-extra-row" style="position:relative;">
+  <button type="button" class="remove-row-btn" style="position:absolute;right:0;top:0;">&times;</button>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>${sectionLabel} Paragraph ${n}</label><textarea class="form-input journey-${section}-extra-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo ${sectionLabelEs} ${n}</label><textarea class="form-input journey-${section}-extra-es" rows="3"></textarea></div></div>
+</div>`;
+  list.insertAdjacentHTML('beforeend', html);
 }
 
 // --- Internal Link ---
 function addInternalLink() {
   if (countRows('internal-links-list') >= LIMITS.links) {
-    showToast('Maximum ' + LIMITS.links + ' internal links allowed');
+    showToast('M\u00e1ximo ' + LIMITS.links + ' enlaces internos permitidos');
     return;
   }
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group"><label>Label</label><input type="text" class="form-input link-label" placeholder="2024"></div>
+    <div class="form-group"><label>Etiqueta</label><input type="text" class="form-input link-label" placeholder="2024"></div>
   </div>
 </div>`;
   document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
@@ -297,7 +349,7 @@ function addInternalLink() {
 // --- FAQ ---
 function addFaq() {
   if (countRows('faq-list') >= LIMITS.faq) {
-    showToast('Maximum ' + LIMITS.faq + ' FAQ items allowed');
+    showToast('M\u00e1ximo ' + LIMITS.faq + ' preguntas frecuentes permitidas');
     return;
   }
   var lang = currentLang();
@@ -348,6 +400,14 @@ function collectFormData() {
   data.overviewP2EN       = val('overview-p2-en');
   data.overviewP2ES       = val('overview-p2-es');
 
+  // Extra overview paragraphs
+  data.overviewExtra = [];
+  document.querySelectorAll('#overview-extra-list .dynamic-card').forEach(card => {
+    const en = card.querySelector('.overview-extra-en').value.trim();
+    const es = card.querySelector('.overview-extra-es').value.trim();
+    if (en || es) data.overviewExtra.push({ en, es });
+  });
+
   // Dates
   data.startDate      = val('start-date');
   data.endDate        = val('end-date');
@@ -383,6 +443,12 @@ function collectFormData() {
   data.optionBPriceES     = val('option-b-price-es');
   data.optionBDescEN      = val('option-b-desc-en');
   data.optionBDescES      = val('option-b-desc-es');
+  data.optionCLabelEN     = val('option-c-label-en');
+  data.optionCLabelES     = val('option-c-label-es');
+  data.optionCPriceEN     = val('option-c-price-en');
+  data.optionCPriceES     = val('option-c-price-es');
+  data.optionCDescEN      = val('option-c-desc-en');
+  data.optionCDescES      = val('option-c-desc-es');
 
   // Internal links section text
   data.internalHeadingEN  = val('internal-heading-en');
@@ -434,19 +500,29 @@ function collectFormData() {
     const expHeadingES   = card.querySelector('.journey-exp-heading-es').value.trim();
     const expP1EN        = card.querySelector('.journey-exp-p1-en').value.trim();
     const expP1ES        = card.querySelector('.journey-exp-p1-es').value.trim();
-    const expP2EN        = card.querySelector('.journey-exp-p2-en').value.trim();
-    const expP2ES        = card.querySelector('.journey-exp-p2-es').value.trim();
     const histHeadingEN  = card.querySelector('.journey-hist-heading-en').value.trim();
     const histHeadingES  = card.querySelector('.journey-hist-heading-es').value.trim();
     const histP1EN       = card.querySelector('.journey-hist-p1-en').value.trim();
     const histP1ES       = card.querySelector('.journey-hist-p1-es').value.trim();
-    const histP2EN       = card.querySelector('.journey-hist-p2-en').value.trim();
-    const histP2ES       = card.querySelector('.journey-hist-p2-es').value.trim();
+    // Collect extra paragraphs
+    const expExtra = [];
+    card.querySelectorAll('.journey-exp-extra-list .journey-extra-row').forEach(row => {
+      const en = row.querySelector('.journey-exp-extra-en').value.trim();
+      const es = row.querySelector('.journey-exp-extra-es').value.trim();
+      if (en || es) expExtra.push({ en, es });
+    });
+    const histExtra = [];
+    card.querySelectorAll('.journey-hist-extra-list .journey-extra-row').forEach(row => {
+      const en = row.querySelector('.journey-hist-extra-en').value.trim();
+      const es = row.querySelector('.journey-hist-extra-es').value.trim();
+      if (en || es) histExtra.push({ en, es });
+    });
     if (nameEN || nameES) {
       data.journey.push({
         nameEN, nameES,
-        expHeadingEN, expHeadingES, expP1EN, expP1ES, expP2EN, expP2ES,
-        histHeadingEN, histHeadingES, histP1EN, histP1ES, histP2EN, histP2ES
+        expHeadingEN, expHeadingES, expP1EN, expP1ES,
+        histHeadingEN, histHeadingES, histP1EN, histP1ES,
+        expExtra, histExtra
       });
     }
   });
@@ -771,10 +847,17 @@ ${bulletsLi}
     const histLabel  = isEN ? 'History' : 'Historia';
     const expHead    = esc(isEN ? j.expHeadingEN : j.expHeadingES);
     const expP1      = esc(isEN ? j.expP1EN : j.expP1ES);
-    const expP2      = esc(isEN ? j.expP2EN : j.expP2ES);
+
     const histHead   = esc(isEN ? j.histHeadingEN : j.histHeadingES);
     const histP1     = esc(isEN ? j.histP1EN : j.histP1ES);
-    const histP2     = esc(isEN ? j.histP2EN : j.histP2ES);
+    const expExtraHtml = (j.expExtra || []).map(p => {
+      const t = esc(isEN ? p.en : p.es);
+      return t ? '\n                                <p>' + t + '</p>' : '';
+    }).join('');
+    const histExtraHtml = (j.histExtra || []).map(p => {
+      const t = esc(isEN ? p.en : p.es);
+      return t ? '\n                                <p>' + t + '</p>' : '';
+    }).join('');
 
     return `                <div class="info-section">
                     <h3 style="color: #1f1f1f;">${name}</h3>
@@ -786,13 +869,11 @@ ${bulletsLi}
                         <div class="tab-content">
                             <div class="tab-pane active" id="${tabId}-experience">
                                 <h3 style="color: #1f1f1f;">${expHead}</h3>
-                                <p>${expP1}</p>
-                                <p>${expP2}</p>
+                                <p>${expP1}</p>${expExtraHtml}
                             </div>
                             <div class="tab-pane" id="${tabId}-history">
                                 <h3 style="color: #1f1f1f;">${histHead}</h3>
-                                <p>${histP1}</p>
-                                <p>${histP2}</p>
+                                <p>${histP1}</p>${histExtraHtml}
                             </div>
                         </div>
                     </div>
@@ -910,10 +991,20 @@ ${bulletsLi}
   const paymentBCount = optBMatch ? optBMatch[1] : '3';
   const paymentBPrice = optBMatch ? optBMatch[2].replace(/,/g, '') : '500';
 
+  const optCRaw = data.optionCPriceEN || data.optionCPriceES || '';
+  const hasOptionC = !!(optCRaw && (data.optionCLabelEN || data.optionCLabelES));
+  const optCMatch = optCRaw.match(/(\d+)\s*[×x]\s*[€$]?\s*([\d,]+)/i);
+  const paymentCCount = optCMatch ? optCMatch[1] : '';
+  const paymentCPrice = optCMatch ? optCMatch[2].replace(/,/g, '') : '';
+
   // Overview
   const overviewP1      = esc(isEN ? data.overviewP1EN : data.overviewP1ES);
   const overviewHeading = esc(isEN ? data.overviewHeadingEN : data.overviewHeadingES);
   const overviewP2      = esc(isEN ? data.overviewP2EN : data.overviewP2ES);
+  const overviewExtraHtml = (data.overviewExtra || []).map(p => {
+    const text = esc(isEN ? p.en : p.es);
+    return text ? `\n            <p>${text}</p>` : '';
+  }).join('');
 
   // H1 / subheading
   const h1         = esc(isEN ? data.h1EN : data.h1ES);
@@ -1167,7 +1258,7 @@ ${slidesHtml}
             <p>${overviewP1}</p>
 
             <h2>${overviewHeading}</h2>
-            <p>${overviewP2}</p>
+            <p>${overviewP2}</p>${overviewExtraHtml}
             <div class="trip-dates">
                 <h3>${dateLabelLine}</h3>
                 <h3>${esc(dateRange)}</h3>${altDatesHtml}
@@ -1193,7 +1284,9 @@ ${internalLinksSection}
             data-option-a-count="${paymentACount}"
             data-option-a-price="${paymentAPrice}"
             data-option-b-count="${paymentBCount}"
-            data-option-b-price="${paymentBPrice}"
+            data-option-b-price="${paymentBPrice}"${hasOptionC ? `
+            data-option-c-count="${paymentCCount}"
+            data-option-c-price="${paymentCPrice}"` : ''}
             data-currency="${paymentCurrency}"
             data-lang="${lang}">
         </div>
@@ -1463,6 +1556,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Button listeners
   document.getElementById('add-alt-date-btn').addEventListener('click', addAlternateDate);
   document.getElementById('add-slide-btn').addEventListener('click', addSlide);
+  document.getElementById('add-overview-para-btn').addEventListener('click', addOverviewParagraph);
   document.getElementById('add-pricing-btn').addEventListener('click', addPricingCard);
   document.getElementById('add-journey-btn').addEventListener('click', addJourneyTab);
   document.getElementById('add-link-btn').addEventListener('click', addInternalLink);
@@ -1472,11 +1566,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('generate-btn').addEventListener('click', handleGenerate);
   document.getElementById('deploy-btn').addEventListener('click', handleDeploy);
 
-  // Delegate remove buttons
+  // Delegate remove buttons and journey paragraph buttons
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-row-btn')) {
+      var extraRow = e.target.closest('.journey-extra-row');
+      if (extraRow) { extraRow.remove(); return; }
       e.target.closest('.dynamic-card').remove();
       updateSlideHints();
+    }
+    if (e.target.classList.contains('add-journey-para-btn')) {
+      addJourneyParagraph(e.target);
     }
   });
 });

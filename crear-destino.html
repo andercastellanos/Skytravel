@@ -311,7 +311,7 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="url-slug">URL Slug</label>
+            <label for="url-slug">Slug de URL</label>
             <input type="text" id="url-slug" class="form-input" placeholder="medjugorje2026">
           </div>
           <div class="form-group lang-field lang-en">
@@ -326,13 +326,13 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="image-folder">Image Folder Name</label>
+            <label for="image-folder">Nombre de Carpeta de Im&aacute;genes</label>
             <input type="text" id="image-folder" class="form-input" placeholder="Medjugorje">
           </div>
           <div class="form-group lang-field lang-en">
             <label for="trip-theme-en">Trip Theme (SEO keyword)</label>
             <input type="text" id="trip-theme-en" class="form-input" placeholder="Holy Week">
-            <span class="field-hint">Keyword used in page title and meta tags</span>
+            <span class="field-hint">Palabra clave usada en el t&iacute;tulo de la p&aacute;gina y etiquetas meta</span>
           </div>
           <div class="form-group lang-field lang-es" style="display:none">
             <label for="trip-theme-es">Tema del Viaje (SEO keyword)</label>
@@ -342,11 +342,11 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="start-date">Start Date</label>
+            <label for="start-date">Fecha de Inicio</label>
             <input type="date" id="start-date" class="form-input">
           </div>
           <div class="form-group">
-            <label for="end-date">End Date</label>
+            <label for="end-date">Fecha de Finalizaci&oacute;n</label>
             <input type="date" id="end-date" class="form-input">
           </div>
         </div>
@@ -374,7 +374,7 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="og-image-filename">OG Image Filename (social media)</label>
+            <label for="og-image-filename">Nombre de Imagen OG (redes sociales)</label>
             <input type="text" id="og-image-filename" class="form-input" placeholder="virgin-1200.webp">
             <span class="field-hint">Imagen optimizada para redes sociales (1200x630). Si se deja vac&iacute;o, se usa la primera imagen del slideshow.</span>
           </div>
@@ -444,6 +444,9 @@
             <textarea id="overview-p2-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
+
+        <div id="overview-extra-list"></div>
+        <button type="button" id="add-overview-para-btn" class="add-row-btn">+ Agregar P&aacute;rrafo</button>
 
         <hr class="section-divider">
 
@@ -517,7 +520,7 @@
         </div>
 
         <!-- Option A -->
-        <h4 class="section-title">Option A</h4>
+        <h4 class="section-title">Opci&oacute;n A</h4>
 
         <div class="form-row">
           <div class="form-group lang-field lang-en">
@@ -553,7 +556,7 @@
         </div>
 
         <!-- Option B -->
-        <h4 class="section-title">Option B</h4>
+        <h4 class="section-title">Opci&oacute;n B</h4>
 
         <div class="form-row">
           <div class="form-group lang-field lang-en">
@@ -588,6 +591,42 @@
           </div>
         </div>
 
+        <!-- Option C (optional) -->
+        <h4 class="section-title">Opci&oacute;n C <span style="font-weight:400;color:#888;font-size:0.85rem;">(opcional)</span></h4>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="option-c-label-en">Label</label>
+            <input type="text" id="option-c-label-en" class="form-input" placeholder="Option C">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-c-label-es">Etiqueta</label>
+            <input type="text" id="option-c-label-es" class="form-input" placeholder="Opci&oacute;n C">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="option-c-price-en">Price</label>
+            <input type="text" id="option-c-price-en" class="form-input" placeholder="12 &times; &euro;125">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-c-price-es">Precio</label>
+            <input type="text" id="option-c-price-es" class="form-input" placeholder="12 &times; &euro;125">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="option-c-desc-en">Description</label>
+            <textarea id="option-c-desc-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="option-c-desc-es">Descripci&oacute;n</label>
+            <textarea id="option-c-desc-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
         <hr class="section-divider">
 
         <!-- 9. FAQ -->
@@ -602,29 +641,29 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="location-name">Event Location Name</label>
+            <label for="location-name">Nombre de la Ubicaci&oacute;n</label>
             <input type="text" id="location-name" class="form-input" placeholder="Medjugorje">
           </div>
           <div class="form-group">
-            <label for="location-country">Country Code</label>
+            <label for="location-country">C&oacute;digo de Pa&iacute;s</label>
             <input type="text" id="location-country" class="form-input" placeholder="BA">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="valid-from">Offer Valid From</label>
+            <label for="valid-from">Oferta V&aacute;lida Desde</label>
             <input type="date" id="valid-from" class="form-input">
           </div>
           <div class="form-group">
-            <label for="valid-through">Offer Valid Through</label>
+            <label for="valid-through">Oferta V&aacute;lida Hasta</label>
             <input type="date" id="valid-through" class="form-input">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group full-width">
-            <label for="same-as">sameAs URL (optional)</label>
+            <label for="same-as">URL sameAs (opcional)</label>
             <input type="text" id="same-as" class="form-input" placeholder="https://en.wikipedia.org/wiki/Medjugorje">
           </div>
         </div>
