@@ -8,6 +8,34 @@
 
 // --------------- Utility helpers ---------------
 
+// Auto-populate empty EN fields from ES and vice versa (called before submit)
+function autoPopulateAllFields() {
+  [['en', 'es'], ['es', 'en']].forEach(function(pair) {
+    var srcSuffix = '-' + pair[0];
+    var dstSuffix = '-' + pair[1];
+    document.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+      var srcId = srcEl.id || '';
+      if (!srcId.endsWith(srcSuffix)) return;
+      var dstId = srcId.slice(0, -srcSuffix.length) + dstSuffix;
+      var dstEl = document.getElementById(dstId);
+      if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
+        dstEl.value = srcEl.value;
+      }
+    });
+    document.querySelectorAll('.dynamic-card').forEach(function(card) {
+      card.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+        var cls = Array.from(srcEl.classList).find(function(c) { return c.endsWith(srcSuffix); });
+        if (!cls) return;
+        var dstCls = cls.slice(0, -srcSuffix.length) + dstSuffix;
+        var dstEl = card.querySelector('.' + dstCls);
+        if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
+          dstEl.value = srcEl.value;
+        }
+      });
+    });
+  });
+}
+
 function esc(s) {
   return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -181,7 +209,7 @@ function addAlternateDate() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Date Label</label>
+      <label>Etiqueta de Fecha (EN)</label>
       <input type="text" class="form-input alt-date-en" placeholder="September 17 to 25, 2026">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -260,15 +288,18 @@ function addPricingCard() {
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Card Title</label><input type="text" class="form-input price-title-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>T\u00edtulo de la Tarjeta</label><input type="text" class="form-input price-title-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo de la Tarjeta</label><input type="text" class="form-input price-title-es"></div>
   </div>
-  <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Price Text</label><input type="text" class="form-input price-text-en" placeholder="\u20AC1,999 per person"></div>
-    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto del Precio</label><input type="text" class="form-input price-text-es" placeholder="\u20AC1,999 por persona"></div>
+  <div class="price-lines-list">
+    <div class="form-row price-line-row">
+      <div class="form-group lang-field lang-en" style="${enD}"><label>Texto del Precio</label><input type="text" class="form-input price-text-en" placeholder="\u20AC1,999 per person"></div>
+      <div class="form-group lang-field lang-es" style="${esD}"><label>Texto del Precio</label><input type="text" class="form-input price-text-es" placeholder="\u20AC1,999 por persona"></div>
+    </div>
   </div>
+  <button type="button" class="add-row-btn add-price-line-btn" style="margin-bottom:10px;font-size:0.85rem;padding:6px 16px;">+ Agregar Precio</button>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Bullets (one per line)</label><textarea class="form-input price-bullets-en" rows="3"></textarea></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Vi\u00f1etas (una por l\u00ednea)</label><textarea class="form-input price-bullets-en" rows="3"></textarea></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Vi\u00f1etas (una por l\u00ednea)</label><textarea class="form-input price-bullets-es" rows="3"></textarea></div>
   </div>
 </div>`;
@@ -338,11 +369,15 @@ function addInternalLink() {
     showToast('M\u00e1ximo ' + LIMITS.links + ' enlaces internos permitidos');
     return;
   }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group"><label>Etiqueta</label><input type="text" class="form-input link-label" placeholder="2024"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Etiqueta</label><input type="text" class="form-input link-label-en" placeholder="2024"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Etiqueta</label><input type="text" class="form-input link-label-es" placeholder="2024"></div>
   </div>
 </div>`;
   document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
@@ -507,13 +542,21 @@ function collectFormData() {
   document.querySelectorAll('#pricing-cards-list .dynamic-card').forEach(card => {
     const titleEN   = card.querySelector('.price-title-en').value.trim();
     const titleES   = card.querySelector('.price-title-es').value.trim();
-    const textEN    = card.querySelector('.price-text-en').value.trim();
-    const textES    = card.querySelector('.price-text-es').value.trim();
     const bulletsEN = card.querySelector('.price-bullets-en').value.trim();
     const bulletsES = card.querySelector('.price-bullets-es').value.trim();
+    // Collect all price lines
+    const prices = [];
+    card.querySelectorAll('.price-line-row').forEach(row => {
+      const en = row.querySelector('.price-text-en').value.trim();
+      const es = row.querySelector('.price-text-es').value.trim();
+      if (en || es) prices.push({ textEN: en, textES: es });
+    });
+    // For backward compatibility, set textEN/textES to the first price
+    const textEN = prices.length > 0 ? prices[0].textEN : '';
+    const textES = prices.length > 0 ? prices[0].textES : '';
     if (titleEN || titleES) {
       data.pricing.push({
-        titleEN, titleES, textEN, textES,
+        titleEN, titleES, textEN, textES, prices,
         bulletsEN: bulletsEN ? bulletsEN.split('\n').filter(b => b.trim()) : [],
         bulletsES: bulletsES ? bulletsES.split('\n').filter(b => b.trim()) : []
       });
@@ -557,9 +600,10 @@ function collectFormData() {
 
   data.links = [];
   document.querySelectorAll('#internal-links-list .dynamic-card').forEach(card => {
-    const url   = card.querySelector('.link-url').value.trim();
-    const label = card.querySelector('.link-label').value.trim();
-    if (url && label) data.links.push({ url, label });
+    const url     = card.querySelector('.link-url').value.trim();
+    const labelEN = card.querySelector('.link-label-en').value.trim();
+    const labelES = card.querySelector('.link-label-es').value.trim();
+    if (url && (labelEN || labelES)) data.links.push({ url, labelEN, labelES });
   });
 
   data.faqs = [];
@@ -855,12 +899,16 @@ function generateHTML(data, lang) {
   // --- Pricing cards ---
   const pricingHtml = data.pricing.map(p => {
     const title   = esc(isEN ? p.titleEN : p.titleES);
-    const text    = esc(isEN ? p.textEN : p.textES);
+    const prices  = (p.prices && p.prices.length > 0) ? p.prices : [{ textEN: p.textEN, textES: p.textES }];
+    const priceLines = prices.map(pr => {
+      const t = esc(isEN ? (pr.textEN || pr.textES) : (pr.textES || pr.textEN));
+      return t ? `                    <p>${t}</p>` : '';
+    }).filter(l => l).join('\n');
     const bullets = isEN ? p.bulletsEN : p.bulletsES;
     const bulletsLi = bullets.map(b => `                        <li>${esc(b)}</li>`).join('\n');
     return `                <div class="highlight-card">
                     <h3>${title}</h3>
-                    <p>${text}</p>
+${priceLines}
                     <ul class="highlight-list">
 ${bulletsLi}
                     </ul>
@@ -914,7 +962,7 @@ ${bulletsLi}
     const heading  = esc(isEN ? data.internalHeadingEN : data.internalHeadingES);
     const intro    = isEN ? data.internalIntroEN : data.internalIntroES;
     const linkTags = data.links.map(l =>
-      `<a href="${esc(l.url)}" class="internal-link">${esc(l.label)}</a>`
+      `<a href="${esc(l.url)}" class="internal-link">${esc(isEN ? (l.labelEN || l.labelES) : (l.labelES || l.labelEN))}</a>`
     ).join(', ');
 
     let linksParaHtml = '';
@@ -1457,6 +1505,7 @@ git push
 // --------------- Deploy to site ---------------
 
 async function handleDeploy() {
+  autoPopulateAllFields();
   var data = collectFormData();
   if (!validate(data)) return;
 
@@ -1568,6 +1617,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delegate remove buttons and journey paragraph buttons
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-row-btn')) {
+      var priceLineRow = e.target.closest('.price-line-row');
+      if (priceLineRow) { priceLineRow.remove(); return; }
       var extraRow = e.target.closest('.journey-extra-row');
       if (extraRow) { extraRow.remove(); return; }
       e.target.closest('.dynamic-card').remove();
@@ -1575,6 +1626,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (e.target.classList.contains('add-journey-para-btn')) {
       addJourneyParagraph(e.target);
+    }
+    if (e.target.classList.contains('add-price-line-btn')) {
+      var card = e.target.closest('.dynamic-card');
+      var list = card.querySelector('.price-lines-list');
+      var lang = currentLang();
+      var enD = lang === 'en' ? '' : 'display:none';
+      var esD = lang === 'es' ? '' : 'display:none';
+      var row = '<div class="form-row price-line-row" style="position:relative;">'
+        + '<button type="button" class="remove-row-btn" style="position:absolute;right:-8px;top:-8px;z-index:1;">&times;</button>'
+        + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Texto del Precio</label><input type="text" class="form-input price-text-en" placeholder="\u20AC2,299 desde Bogot\u00e1"></div>'
+        + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto del Precio</label><input type="text" class="form-input price-text-es" placeholder="\u20AC2,299 desde Bogot\u00e1"></div>'
+        + '</div>';
+      list.insertAdjacentHTML('beforeend', row);
     }
   });
 });

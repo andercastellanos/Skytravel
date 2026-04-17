@@ -8,6 +8,33 @@
 
 // --------------- Utility helpers ---------------
 
+function autoPopulateAllFields() {
+  [['en', 'es'], ['es', 'en']].forEach(function(pair) {
+    var srcSuffix = '-' + pair[0];
+    var dstSuffix = '-' + pair[1];
+    document.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+      var srcId = srcEl.id || '';
+      if (!srcId.endsWith(srcSuffix)) return;
+      var dstId = srcId.slice(0, -srcSuffix.length) + dstSuffix;
+      var dstEl = document.getElementById(dstId);
+      if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
+        dstEl.value = srcEl.value;
+      }
+    });
+    document.querySelectorAll('.dynamic-card').forEach(function(card) {
+      card.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+        var cls = Array.from(srcEl.classList).find(function(c) { return c.endsWith(srcSuffix); });
+        if (!cls) return;
+        var dstCls = cls.slice(0, -srcSuffix.length) + dstSuffix;
+        var dstEl = card.querySelector('.' + dstCls);
+        if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
+          dstEl.value = srcEl.value;
+        }
+      });
+    });
+  });
+}
+
 function esc(s) {
   return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -45,33 +72,97 @@ function switchToLang(lang) {
 
 // --------------- LIMITS ---------------
 
-const LIMITS = { descriptionPara: 6, itinerary: 10, galleryImages: 50 };
+const LIMITS = { descriptionBlocks: 10, itinerary: 10, galleryImages: 50, links: 10, faq: 10 };
 
 // --------------- Dynamic row management ---------------
 
-function addDescriptionParagraph() {
-  if (countRows('description-extra-list') >= LIMITS.descriptionPara) {
-    showToast('M\u00e1ximo ' + LIMITS.descriptionPara + ' p\u00e1rrafos adicionales permitidos');
+function addDescriptionBlock() {
+  if (countRows('description-blocks-list') >= LIMITS.descriptionBlocks) {
+    showToast('M\u00e1ximo ' + LIMITS.descriptionBlocks + ' bloques de descripci\u00f3n permitidos');
     return;
   }
   var lang = currentLang();
   var enD = lang === 'en' ? '' : 'display:none';
   var esD = lang === 'es' ? '' : 'display:none';
-  var n = countRows('description-extra-list') + 2;
+  var n = countRows('description-blocks-list') + 1;
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}">
+      <label>Encabezado h2 ${n} (EN) <small>(opcional)</small></label>
+      <input type="text" class="form-input desc-heading-en" placeholder="Section heading">
+    </div>
+    <div class="form-group lang-field lang-es" style="${esD}">
+      <label>Encabezado h2 ${n} (ES) <small>(opcional)</small></label>
+      <input type="text" class="form-input desc-heading-es" placeholder="Encabezado de secci\u00f3n">
+    </div>
+  </div>
+  <div class="form-row">
     <div class="form-group full-width lang-field lang-en" style="${enD}">
-      <label>P\u00e1rrafo Descripci\u00f3n ${n} (EN)</label>
-      <textarea class="form-input desc-extra-en" rows="3"></textarea>
+      <label>P\u00e1rrafo ${n} (EN)</label>
+      <textarea class="form-input desc-text-en" rows="3"></textarea>
     </div>
     <div class="form-group full-width lang-field lang-es" style="${esD}">
-      <label>P\u00e1rrafo Descripci\u00f3n ${n} (ES)</label>
-      <textarea class="form-input desc-extra-es" rows="3"></textarea>
+      <label>P\u00e1rrafo ${n} (ES)</label>
+      <textarea class="form-input desc-text-es" rows="3"></textarea>
     </div>
   </div>
 </div>`;
-  document.getElementById('description-extra-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('description-blocks-list').insertAdjacentHTML('beforeend', html);
+}
+
+function addInternalLink() {
+  if (countRows('internal-links-list') >= LIMITS.links) {
+    showToast('M\u00e1ximo ' + LIMITS.links + ' enlaces internos permitidos');
+    return;
+  }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  const html = `<div class="dynamic-card">
+  <button type="button" class="remove-row-btn">&times;</button>
+  <div class="form-row">
+    <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Etiqueta (EN)</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Etiqueta (ES)</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
+  </div>
+</div>`;
+  document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
+}
+
+function addFaq() {
+  if (countRows('faq-list') >= LIMITS.faq) {
+    showToast('M\u00e1ximo ' + LIMITS.faq + ' preguntas frecuentes permitidas');
+    return;
+  }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var n = countRows('faq-list') + 1;
+  const html = `<div class="dynamic-card">
+  <button type="button" class="remove-row-btn">&times;</button>
+  <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}">
+      <label>Pregunta ${n} (EN)</label>
+      <input type="text" class="form-input faq-question-en" placeholder="When did this pilgrimage take place?">
+    </div>
+    <div class="form-group lang-field lang-es" style="${esD}">
+      <label>Pregunta ${n} (ES)</label>
+      <input type="text" class="form-input faq-question-es" placeholder="\u00bfCu\u00e1ndo se realiz\u00f3 esta peregrinaci\u00f3n?">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group full-width lang-field lang-en" style="${enD}">
+      <label>Respuesta ${n} (EN)</label>
+      <textarea class="form-input faq-answer-en" rows="3"></textarea>
+    </div>
+    <div class="form-group full-width lang-field lang-es" style="${esD}">
+      <label>Respuesta ${n} (ES)</label>
+      <textarea class="form-input faq-answer-es" rows="3"></textarea>
+    </div>
+  </div>
+</div>`;
+  document.getElementById('faq-list').insertAdjacentHTML('beforeend', html);
 }
 
 function addItineraryItem() {
@@ -173,16 +264,22 @@ function collectFormData() {
   data.keywordsES       = val('keywords-es');
   data.ogImageFilename  = val('og-image-filename');
 
-  // Description
-  data.descriptionP1EN  = val('description-p1-en');
-  data.descriptionP1ES  = val('description-p1-es');
-
-  data.descriptionExtra = [];
-  document.querySelectorAll('#description-extra-list .dynamic-card').forEach(card => {
-    const en = card.querySelector('.desc-extra-en').value.trim();
-    const es = card.querySelector('.desc-extra-es').value.trim();
-    if (en || es) data.descriptionExtra.push({ en, es });
+  // Description blocks (h2 heading + paragraph)
+  data.descriptionBlocks = [];
+  document.querySelectorAll('#description-blocks-list .dynamic-card').forEach(card => {
+    const headingEN = card.querySelector('.desc-heading-en').value.trim();
+    const headingES = card.querySelector('.desc-heading-es').value.trim();
+    const textEN = card.querySelector('.desc-text-en').value.trim();
+    const textES = card.querySelector('.desc-text-es').value.trim();
+    if (textEN || textES) data.descriptionBlocks.push({ headingEN, headingES, textEN, textES });
   });
+
+  // CTA section
+  data.includeCta = document.getElementById('include-cta') ? document.getElementById('include-cta').checked : false;
+  data.ctaHeadingEN = val('cta-heading-en');
+  data.ctaHeadingES = val('cta-heading-es');
+  data.ctaTextEN = val('cta-text-en');
+  data.ctaTextES = val('cta-text-es');
 
   // JSON-LD
   data.touristType = val('tourist-type');
@@ -220,6 +317,25 @@ function collectFormData() {
     const captionEN = card.querySelector('.gallery-caption-en').value.trim();
     const captionES = card.querySelector('.gallery-caption-es').value.trim();
     if (filename) data.galleryImages.push({ filename, altEN, altES, captionEN, captionES });
+  });
+
+  // Internal links
+  data.links = [];
+  document.querySelectorAll('#internal-links-list .dynamic-card').forEach(card => {
+    const url     = card.querySelector('.link-url').value.trim();
+    const labelEN = card.querySelector('.link-label-en').value.trim();
+    const labelES = card.querySelector('.link-label-es').value.trim();
+    if (url && (labelEN || labelES)) data.links.push({ url, labelEN, labelES });
+  });
+
+  // FAQs
+  data.faqs = [];
+  document.querySelectorAll('#faq-list .dynamic-card').forEach(card => {
+    const questionEN = card.querySelector('.faq-question-en').value.trim();
+    const questionES = card.querySelector('.faq-question-es').value.trim();
+    const answerEN   = card.querySelector('.faq-answer-en').value.trim();
+    const answerES   = card.querySelector('.faq-answer-es').value.trim();
+    if ((questionEN || questionES) && (answerEN || answerES)) data.faqs.push({ questionEN, questionES, answerEN, answerES });
   });
 
   // Card info
@@ -276,6 +392,15 @@ function validate(data) {
     }
   }
 
+  // Check at least 1 description block has text
+  const hasDescText = (data.descriptionBlocks || []).some(b => b.textEN || b.textES);
+  if (!hasDescText) {
+    showToast('Se requiere al menos un bloque de descripci\u00f3n con texto');
+    const descList = document.getElementById('description-blocks-list');
+    if (descList) descList.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+
   // Check at least 1 image
   const images = resolveGalleryImages(data);
   if (!images || images.length === 0) {
@@ -304,137 +429,161 @@ function buildJsonLd(data, lang) {
 
   const nameEN = data.experienceNameEN || '';
   const nameES = data.experienceNameES || nameEN;
+  const name   = isEN ? nameEN : nameES;
+  const folder = data.imageFolder || '';
 
-  // 1. WebPage with breadcrumbs
-  const webPage = {
-    '@type': 'WebPage',
-    '@id': pageUrl,
-    'url': pageUrl,
-    'name': isEN
-      ? (data.metaDescEN ? nameEN + ' ' + data.year + ' Photo Gallery' : nameEN + ' ' + data.year)
-      : (data.metaDescES ? 'Galer\u00eda Fotos ' + nameES + ' ' + data.year : nameES + ' ' + data.year),
-    'description': isEN ? (data.metaDescEN || '') : (data.metaDescES || ''),
-    'inLanguage': lang,
-    'isPartOf': {
-      '@type': 'WebSite',
-      '@id': baseUrl,
-      'name': 'Sky Travel',
-      'url': baseUrl
-    },
-    'about': {
-      '@type': 'TravelAgency',
-      '@id': baseUrl + '#organization'
-    },
-    'breadcrumb': {
-      '@type': 'BreadcrumbList',
-      'itemListElement': [
-        {
-          '@type': 'ListItem',
-          'position': 1,
-          'name': isEN ? 'Home' : 'Inicio',
-          'item': isEN ? baseUrl : baseUrl + '/index-es'
-        },
-        {
-          '@type': 'ListItem',
-          'position': 2,
-          'name': isEN ? 'Experiences' : 'Experiencias',
-          'item': isEN ? baseUrl + '/experiences' : baseUrl + '/experiences-es'
-        },
-        {
-          '@type': 'ListItem',
-          'position': 3,
-          'name': nameEN + ' ' + data.year,
-          'item': pageUrl
-        }
-      ]
-    }
-  };
+  const blocks = [];
 
-  // 2. TouristTrip with itinerary
-  const tripId = isEN ? pageUrl + '#trip' : pageUrl + '#viaje';
+  // 1. TouristTrip
   const touristTrip = {
+    '@context': 'https://schema.org',
     '@type': 'TouristTrip',
-    '@id': tripId,
+    '@id': pageUrl,
     'name': isEN
       ? nameEN + ' ' + data.year
       : nameES + ' ' + data.year,
+    'image': images.slice(0, 5).map(img => baseUrl + '/experiences/images/' + folder + '/' + img.filename),
     'description': isEN ? (data.metaDescEN || '') : (data.metaDescES || ''),
     'provider': {
       '@type': 'TravelAgency',
-      '@id': baseUrl + '#organization'
+      'name': 'Sky Travel',
+      'url': baseUrl,
+      'telephone': '+1-786-290-9114',
+      'email': 'info@skytraveljm.com',
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': 'Miami',
+        'addressRegion': 'FL',
+        'addressCountry': 'US'
+      },
+      'aggregateRating': {
+        '@type': 'AggregateRating',
+        'ratingValue': '4.9',
+        'reviewCount': '127',
+        'bestRating': '5',
+        'worstRating': '1'
+      }
     },
-    'touristType': data.touristType || 'Catholic Pilgrims'
+    'url': pageUrl,
+    'inLanguage': lang,
+    'touristType': data.touristType || (isEN ? 'Religious Pilgrims' : 'Peregrinos Religiosos'),
+    'organizer': {
+      '@type': 'TravelAgency',
+      'name': 'Sky Travel',
+      'telephone': '+1-786-290-9114',
+      'email': 'info@skytraveljm.com'
+    }
   };
 
   if (data.itinerary && data.itinerary.length > 0) {
     touristTrip.itinerary = {
       '@type': 'ItemList',
-      'itemListElement': data.itinerary.map(item => ({
-        '@type': 'TouristAttraction',
-        'name': isEN ? item.nameEN : item.nameES,
-        'description': isEN ? item.descEN : item.descES
+      'itemListElement': data.itinerary.map((item, idx) => ({
+        '@type': 'ListItem',
+        'position': idx + 1,
+        'item': {
+          '@type': 'Place',
+          'name': isEN ? item.nameEN : item.nameES,
+          'description': isEN ? item.descEN : item.descES
+        }
       }))
     };
   }
 
-  touristTrip.aggregateRating = {
-    '@type': 'AggregateRating',
-    'ratingValue': '4.9',
-    'reviewCount': '127',
-    'bestRating': '5',
-    'worstRating': '1'
-  };
+  blocks.push(JSON.stringify(touristTrip, null, 4));
 
-  // 3. ImageGallery with first 3 images
-  const galleryId = isEN ? pageUrl + '#gallery' : pageUrl + '#galeria';
-  const first3 = images.slice(0, 3);
+  // 2. BreadcrumbList
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': isEN ? 'Home' : 'Inicio',
+        'item': isEN ? baseUrl : baseUrl + '/index-es'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': isEN ? 'Experiences' : 'Experiencias',
+        'item': isEN ? baseUrl + '/experiences' : baseUrl + '/experiences-es'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 3,
+        'name': name + ' ' + data.year,
+        'item': pageUrl
+      }
+    ]
+  };
+  blocks.push(JSON.stringify(breadcrumb, null, 4));
+
+  // 3. ImageGallery
+  const first4 = images.slice(0, 4);
   const imageGallery = {
+    '@context': 'https://schema.org',
     '@type': 'ImageGallery',
-    '@id': galleryId,
     'name': isEN
       ? nameEN + ' ' + data.year + ' Photo Gallery'
-      : 'Galer\u00eda Fotos ' + nameES + ' ' + data.year,
+      : name + ' ' + data.year + ' Galer\u00eda Fotogr\u00e1fica',
+    'url': pageUrl,
     'description': isEN
-      ? 'Visual documentation of our ' + data.year + ' ' + nameEN + ' experience'
-      : 'Documentaci\u00f3n visual de nuestra experiencia ' + nameES + ' ' + data.year,
-    'image': first3.map(img => ({
+      ? 'Photo gallery of our ' + data.year + ' ' + nameEN + ' experience'
+      : 'Galer\u00eda fotogr\u00e1fica de nuestra experiencia ' + nameES + ' ' + data.year,
+    'mainEntity': first4.map(img => ({
       '@type': 'ImageObject',
-      'url': baseUrl + '/experiences/images/' + data.imageFolder + '/' + img.filename,
-      'caption': isEN ? (img.captionEN || '') : (img.captionES || '')
-    })),
-    'publisher': {
-      '@type': 'TravelAgency',
-      '@id': baseUrl + '#organization'
-    }
+      'contentUrl': baseUrl + '/experiences/images/' + folder + '/' + img.filename,
+      'name': isEN ? (img.captionEN || img.altEN || '') : (img.captionES || img.altES || ''),
+      'description': isEN ? (img.captionEN || '') : (img.captionES || '')
+    }))
   };
+  blocks.push(JSON.stringify(imageGallery, null, 4));
 
-  // 4. Organization (TravelAgency)
-  const organization = {
-    '@type': 'TravelAgency',
-    '@id': baseUrl + '#organization',
-    'name': 'Sky Travel',
-    'url': baseUrl,
-    'telephone': '+1-786-290-9114',
-    'email': 'info@skytraveljm.com',
-    'address': {
-      '@type': 'PostalAddress',
-      'addressLocality': 'Miami',
-      'addressRegion': 'FL',
-      'addressCountry': 'US'
-    },
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': '4.9',
-      'reviewCount': '127',
-      'bestRating': '5',
-      'worstRating': '1'
-    }
-  };
+  // 4. FAQPage (if FAQs exist)
+  if (data.faqs && data.faqs.length > 0) {
+    const faqPage = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': pageUrl + '#faq',
+      'mainEntity': data.faqs.map(faq => ({
+        '@type': 'Question',
+        'name': isEN ? faq.questionEN : faq.questionES,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': isEN ? faq.answerEN : faq.answerES
+        }
+      }))
+    };
+    blocks.push(JSON.stringify(faqPage, null, 4));
+  }
 
-  return JSON.stringify({
+  // 5. WebPage
+  const webPage = {
     '@context': 'https://schema.org',
-    '@graph': [webPage, touristTrip, imageGallery, organization]
-  }, null, 6);
+    '@type': 'WebPage',
+    '@id': pageUrl + '#webpage',
+    'url': pageUrl,
+    'name': isEN
+      ? nameEN + ' ' + data.year + ' Photo Gallery | Sky Travel'
+      : name + ' ' + data.year + ' | Sky Travel',
+    'image': images.length > 0
+      ? baseUrl + '/experiences/images/' + folder + '/' + images[0].filename
+      : '',
+    'inLanguage': lang,
+    'isPartOf': {
+      '@type': 'WebSite',
+      'url': baseUrl
+    },
+    'about': {
+      '@type': 'Event',
+      'name': name + ' ' + data.year,
+      'description': isEN ? (data.metaDescEN || '') : (data.metaDescES || '')
+    }
+  };
+  blocks.push(JSON.stringify(webPage, null, 4));
+
+  return blocks;
 }
 
 // --------------- HTML generation ---------------
@@ -475,10 +624,6 @@ function generateHTML(data, lang) {
   // Hero bg
   const heroBg = data.heroBgPath || '';
 
-  // Description paragraphs
-  const descP1  = isEN ? (data.descriptionP1EN || '') : (data.descriptionP1ES || '');
-  const extraPs = (data.descriptionExtra || []).map(p => isEN ? p.en : p.es).filter(Boolean);
-
   // Subtitle
   const subtitle = isEN ? (data.heroSubtitleEN || '') : (data.heroSubtitleES || '');
 
@@ -494,7 +639,7 @@ function generateHTML(data, lang) {
   const preloadImg = prefix + 'experiences/images/' + folder + '/' + firstImgFile;
 
   // JSON-LD
-  const jsonLd = buildJsonLd(data, lang);
+  const jsonLdBlocks = buildJsonLd(data, lang);
 
   // --------------- Build HTML string ---------------
 
@@ -587,12 +732,17 @@ function generateHTML(data, lang) {
   html += '  <link rel="preload" href="' + preloadImg + '" as="image">\n';
   html += '\n';
 
-  // JSON-LD
-  html += '  <!-- Structured Data -->\n';
-  html += '  <script type="application/ld+json">\n';
-  html += '  ' + jsonLd + '\n';
-  html += '  </script>\n';
-  html += '\n';
+  // JSON-LD (separate script blocks)
+  jsonLdBlocks.forEach((block, i) => {
+    const labels = ['TouristTrip', 'Breadcrumb', 'ImageGallery', 'FAQPage', 'WebPage'];
+    const label = labels[i] || 'Structured Data';
+    html += '  <!-- ' + label + ' Structured Data -->\n';
+    html += '  <script type="application/ld+json">\n';
+    html += '  ' + block + '\n';
+    html += '  </script>\n';
+    html += '\n';
+  });
+
 
   // Google Analytics
   html += '  <!-- Google Analytics -->\n';
@@ -704,6 +854,14 @@ function generateHTML(data, lang) {
   html += '        line-height: 1.6;\n';
   html += '    }\n';
   html += '\n';
+  html += '    .description h2 {\n';
+  html += '        font-size: 1.8rem;\n';
+  html += '        font-weight: 400;\n';
+  html += '        color: #333;\n';
+  html += '        margin-top: 2rem;\n';
+  html += '        margin-bottom: 1rem;\n';
+  html += '    }\n';
+  html += '\n';
   html += '    .page-header {\n';
   html += '        margin-top: 90px;\n';
   html += '        padding: 4rem 2rem;\n';
@@ -779,6 +937,19 @@ function generateHTML(data, lang) {
     html += '  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>\n';
   }
 
+  // SEO Hero Image (hidden visually, accessible to crawlers)
+  const ogImage = data.ogImageFilename || (images.length > 0 ? images[0].filename : '');
+  const imageFolder = data.imageFolder || '';
+  if (ogImage) {
+    html += '  <!-- SEO Hero Image (hidden visually, accessible to crawlers) -->\n';
+    html += '  <img\n';
+    html += '    src="' + prefix + 'experiences/images/' + esc(imageFolder) + '/' + esc(ogImage) + '"\n';
+    html += '    alt="' + esc(isEN ? data.experienceNameEN : data.experienceNameES) + '"\n';
+    html += '    width="1200" height="630" decoding="async"\n';
+    html += '    style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"\n';
+    html += '  >\n';
+  }
+
   // Navigation
   html += '  <!-- Navigation -->\n';
   html += '  <div class="nav-container">\n';
@@ -852,16 +1023,59 @@ function generateHTML(data, lang) {
 
   html += '    \n';
 
-  // Description
+  // Description blocks (optional h2 + paragraph)
   html += '    <div class="description">\n';
-  if (descP1) {
-    html += '      <p>' + esc(descP1) + '</p>\n';
-  }
-  extraPs.forEach(p => {
-    html += '      <p>' + esc(p) + '</p>\n';
+  (data.descriptionBlocks || []).forEach(block => {
+    const heading = esc(isEN ? block.headingEN : block.headingES);
+    const text = esc(isEN ? block.textEN : block.textES);
+    if (heading) html += '      <h2>' + heading + '</h2>\n';
+    if (text) html += '      <p>' + text + '</p>\n';
   });
   html += '    </div>\n';
   html += '\n';
+
+  // CTA section (optional)
+  if (data.includeCta) {
+    const ctaHeading = esc(isEN ? (data.ctaHeadingEN || 'Want to Know the Next Dates?') : (data.ctaHeadingES || '\u00bfDesea Saber las Pr\u00f3ximas Fechas?'));
+    const ctaText = esc(isEN ? (data.ctaTextEN || 'Contact us directly via WhatsApp to learn about new destinations and departures.') : (data.ctaTextES || 'Cont\u00e1ctenos directamente por WhatsApp para conocer los nuevos destinos y salidas.'));
+    html += '    <div class="cta-section" style="background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); padding: 40px 30px; margin: 40px 0; text-align: center; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">\n';
+    html += '      <h2 style="color:#333; margin-bottom:15px;">' + ctaHeading + '</h2>\n';
+    html += '      <p style="font-size:1.1rem; color:#666; margin-bottom:25px;">' + ctaText + '</p>\n';
+    html += '\n';
+    html += '      <!-- WhatsApp -->\n';
+    html += '      <a href="https://wa.me/17862909114"\n';
+    html += '         target="_blank" rel="noopener noreferrer"\n';
+    html += '         class="whatsapp-contact-link"\n';
+    html += '         style="text-decoration: none;"\n';
+    html += '         onmouseover="this.querySelector(\'.elegant-contact-item\').style.transform=\'translateY(-5px)\'; this.querySelector(\'.elegant-contact-item\').style.boxShadow=\'0 8px 25px rgba(200, 169, 126, 0.3)\';"\n';
+    html += '         onmouseout="this.querySelector(\'.elegant-contact-item\').style.transform=\'translateY(0)\'; this.querySelector(\'.elegant-contact-item\').style.boxShadow=\'0 4px 15px rgba(200, 169, 126, 0.2)\';"\n';
+    html += '      >\n';
+    html += '        <div class="elegant-contact-item" style="max-width: 320px; margin: 0 auto; padding: 30px 25px; background: linear-gradient(135deg, #ffffff 0%, #fefdfb 100%); border: 2px solid #c8a97e; border-radius: 12px; box-shadow: 0 4px 15px rgba(200, 169, 126, 0.2); transition: all 0.4s ease; cursor: pointer;">\n';
+    html += '          <div class="elegant-contact-icon whatsapp-icon" style="width: 70px; height: 70px; margin: 0 auto 20px; background: linear-gradient(135deg, #c8a97e 0%, #d4b896 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(200, 169, 126, 0.3);">\n';
+    html += '            <!-- WhatsApp icon -->\n';
+    html += '            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"\n';
+    html += '                 fill="none" stroke="white" stroke-width="2.5"\n';
+    html += '                 stroke-linecap="round" stroke-linejoin="round"\n';
+    html += '                 style="width: 36px; height: 36px;">\n';
+    html += '              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8\n';
+    html += '                       8.5 8.5 0 0 1-7.6 4.7\n';
+    html += '                       8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7\n';
+    html += '                       a8.38 8.38 0 0 1-.9-3.8\n';
+    html += '                       8.5 8.5 0 0 1 4.7-7.6\n';
+    html += '                       8.38 8.38 0 0 1 3.8-.9h.5\n';
+    html += '                       a8.48 8.48 0 0 1 8 8v.5z"/>\n';
+    html += '            </svg>\n';
+    html += '          </div>\n';
+    html += '          <div class="elegant-contact-info">\n';
+    html += '            <h3 style="color:#c8a97e; font-size:1.4rem; margin-bottom:8px; font-weight: 600; letter-spacing: 0.5px;">WhatsApp</h3>\n';
+    html += '            <p style="color:#666; font-size:1.05rem; margin:0; font-weight: 400;">' + (isEN ? 'Send us a message' : 'Env\u00edenos un mensaje') + '</p>\n';
+    html += '          </div>\n';
+    html += '        </div>\n';
+    html += '      </a>\n';
+    html += '    </div>\n';
+    html += '\n';
+  }
+
 
   // Slideshow
   html += '    <!-- Slideshow with Slick Carousel -->\n';
@@ -897,6 +1111,43 @@ function generateHTML(data, lang) {
   html += '  </div>\n';
   html += '\n';
 
+  // Internal links section (optional)
+  if (data.links && data.links.length > 0) {
+    const linkTags = data.links.map(link => {
+      const label = esc(isEN ? link.labelEN : link.labelES);
+      const url = esc(link.url);
+      return '<a href="' + url + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + label + '</a>';
+    }).join(', ');
+    const linksIntro = isEN ? 'Interested in more spiritual journeys? Explore our ' : '\u00bfInteresado en m\u00e1s viajes espirituales? Explora nuestra ';
+    html += '  <!-- Internal Linking Section -->\n';
+    html += '  <div class="internal-links" style="padding: 2rem 0; background-color: #f8f9fa; text-align: center;">\n';
+    html += '    <div class="internal-links-container" style="max-width: 800px; margin: 0 auto; padding: 0 1rem;">\n';
+    html += '      <p class="internal-links-paragraph" style="font-size: 1.1rem; line-height: 1.6; color: #555;">' + linksIntro + linkTags + '.</p>\n';
+    html += '    </div>\n';
+    html += '  </div>\n';
+    html += '\n';
+  }
+
+  // FAQ section (optional)
+  if (data.faqs && data.faqs.length > 0) {
+    const faqHeading = isEN ? 'Frequently Asked Questions' : 'Preguntas Frecuentes';
+    html += '  <!-- FAQ Section -->\n';
+    html += '  <section class="faq-section" id="faq" aria-labelledby="faq-heading" style="padding: 3rem 1rem; max-width: 900px; margin: 0 auto;">\n';
+    html += '    <h2 id="faq-heading" style="text-align: center; margin-bottom: 2rem; color: #333;">' + esc(faqHeading) + '</h2>\n';
+    data.faqs.forEach((faq, i) => {
+      const question = esc(isEN ? faq.questionEN : faq.questionES);
+      const answer = esc(isEN ? faq.answerEN : faq.answerES);
+      const openAttr = i === 0 ? ' open' : '';
+      const faqId = 'faq-' + lang + '-' + (i + 1);
+      html += '    <details' + openAttr + ' class="faq-item" style="margin-bottom: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1rem;">\n';
+      html += '      <summary aria-controls="' + faqId + '" style="cursor: pointer; font-weight: 600; color: #333; font-size: 1.1rem;">' + question + '</summary>\n';
+      html += '      <div id="' + faqId + '" class="faq-content" style="margin-top: 1rem; color: #555; line-height: 1.6;">' + answer + '</div>\n';
+      html += '    </details>\n';
+    });
+    html += '  </section>\n';
+    html += '\n';
+  }
+
   // Contact section container
   html += '  <div id="contact-section-container"></div>\n';
   html += '  </main>\n';
@@ -928,6 +1179,7 @@ function generateHTML(data, lang) {
 // --------------- handleDeploy ---------------
 
 async function handleDeploy() {
+  autoPopulateAllFields();
   const data = collectFormData();
   if (!validate(data)) return;
 
@@ -1001,13 +1253,16 @@ async function handleDeploy() {
 
 document.addEventListener('DOMContentLoaded', () => {
   // Add initial rows
+  addDescriptionBlock();
   addItineraryItem();
   addGalleryImage();
 
   // Button listeners
-  document.getElementById('add-desc-para-btn').addEventListener('click', addDescriptionParagraph);
+  document.getElementById('add-desc-block-btn').addEventListener('click', addDescriptionBlock);
   document.getElementById('add-itinerary-btn').addEventListener('click', addItineraryItem);
   document.getElementById('add-gallery-image-btn').addEventListener('click', addGalleryImage);
+  document.getElementById('add-link-btn').addEventListener('click', addInternalLink);
+  document.getElementById('add-faq-btn').addEventListener('click', addFaq);
 
   // Generate & deploy buttons
   document.getElementById('deploy-btn').addEventListener('click', handleDeploy);
