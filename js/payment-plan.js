@@ -31,6 +31,7 @@
     var trip = container.getAttribute('data-trip') || '';
     var deposit = container.getAttribute('data-deposit') || '499';
     var depositText = container.getAttribute('data-deposit-text') || '';
+    var customIntro = container.getAttribute('data-intro') || '';
     var currency = container.getAttribute('data-currency') || '\u20ac';
     var lang = container.getAttribute('data-lang') || 'en';
     var isEs = lang === 'es';
@@ -60,9 +61,9 @@
 
     var t = {
         heading: isEs ? 'Plan de Pagos' : 'Payment Plan',
-        intro: isEs
+        intro: customIntro || (isEs
             ? 'Sabemos que una peregrinaci\u00f3n es una inversi\u00f3n importante. Por eso ofrecemos un plan de pagos claro y c\u00f3modo. Haz clic en cualquier opci\u00f3n para elegir tu m\u00e9todo de pago.'
-            : 'We know that a pilgrimage is an important investment. That\u2019s why we offer a clear and flexible payment plan. Click any option below to choose your payment method.',
+            : 'We know that a pilgrimage is an important investment. That\u2019s why we offer a clear and flexible payment plan. Click any option below to choose your payment method.'),
         deposit: depositText || (isEs ? 'Dep\u00f3sito: ' + currency + deposit + ' hoy para reservar' : 'Deposit: ' + currency + deposit + ' today to reserve your spot'),
         dates: isEs
             ? 'Fechas: De acuerdo con el cronograma de pagos correspondiente a cada salida.'

@@ -320,6 +320,10 @@ function collectFormData() {
   });
 
   // Internal links
+  data.internalHeadingEN = val('internal-heading-en');
+  data.internalHeadingES = val('internal-heading-es');
+  data.internalIntroEN   = val('internal-intro-en');
+  data.internalIntroES   = val('internal-intro-es');
   data.links = [];
   document.querySelectorAll('#internal-links-list .dynamic-card').forEach(card => {
     const url     = card.querySelector('.link-url').value.trim();
@@ -1112,17 +1116,23 @@ function generateHTML(data, lang) {
   html += '\n';
 
   // Internal links section (optional)
-  if (data.links && data.links.length > 0) {
-    const linkTags = data.links.map(link => {
-      const label = esc(isEN ? link.labelEN : link.labelES);
-      const url = esc(link.url);
-      return '<a href="' + url + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + label + '</a>';
-    }).join(', ');
-    const linksIntro = isEN ? 'Interested in more spiritual journeys? Explore our ' : '\u00bfInteresado en m\u00e1s viajes espirituales? Explora nuestra ';
+  var introText = isEN ? (data.internalIntroEN || data.internalIntroES || '') : (data.internalIntroES || data.internalIntroEN || '');
+  if (introText || (data.links && data.links.length > 0)) {
+    var linkTags = '';
+    if (data.links && data.links.length > 0) {
+      linkTags = data.links.map(function(link) {
+        var label = esc(isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN));
+        var url = esc(link.url);
+        return '<a href="' + url + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + label + '</a>';
+      }).join(', ');
+    }
+    var heading = esc(isEN ? (data.internalHeadingEN || data.internalHeadingES || '') : (data.internalHeadingES || data.internalHeadingEN || ''));
     html += '  <!-- Internal Linking Section -->\n';
     html += '  <div class="internal-links" style="padding: 2rem 0; background-color: #f8f9fa; text-align: center;">\n';
     html += '    <div class="internal-links-container" style="max-width: 800px; margin: 0 auto; padding: 0 1rem;">\n';
-    html += '      <p class="internal-links-paragraph" style="font-size: 1.1rem; line-height: 1.6; color: #555;">' + linksIntro + linkTags + '.</p>\n';
+    if (heading) html += '      <h2 style="color:#333; margin-bottom:1rem;">' + heading + '</h2>\n';
+    if (introText) html += '      <p class="internal-links-paragraph" style="font-size: 1.1rem; line-height: 1.6; color: #555;">' + introText + '</p>\n';
+    if (linkTags) html += '      <p class="internal-links-paragraph" style="font-size: 1.1rem; line-height: 1.6; color: #555;">' + linkTags + '</p>\n';
     html += '    </div>\n';
     html += '  </div>\n';
     html += '\n';

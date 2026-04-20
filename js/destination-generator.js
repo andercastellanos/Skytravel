@@ -975,7 +975,7 @@ ${bulletsLi}
         <section class="internal-links">
             <div class="internal-links-container">
                 <h2 class="internal-links-heading">${heading}</h2>
-                <p class="internal-links-paragraph">${esc(intro)}</p>${linksParaHtml}
+                <p class="internal-links-paragraph">${intro}</p>${linksParaHtml}
             </div>
         </section>`;
   }
@@ -1360,6 +1360,7 @@ ${internalLinksSection}
             data-trip="${esc(isEN ? data.destinationNameEN : data.destinationNameES)}"
             data-deposit="${paymentDeposit}"
             data-deposit-text="${esc(isEN ? (data.depositTextEN || data.depositTextES || '') : (data.depositTextES || data.depositTextEN || ''))}"
+            data-intro="${esc(isEN ? (data.paymentIntroEN || data.paymentIntroES || '') : (data.paymentIntroES || data.paymentIntroEN || ''))}"
             data-options='${JSON.stringify(paymentOptionsJson)}'
             data-currency="${paymentCurrency}"
             data-lang="${lang}">
