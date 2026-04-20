@@ -21,8 +21,18 @@ function injectCard(html, cardHtml) {
 
   var before = html.substring(0, contactIdx);
   // Find the closing </div> of destinations-grid + </section> just before the contact comment
-  var marker = '      </div>\n    </section>';
-  var markerIdx = before.lastIndexOf(marker);
+  // Try multiple whitespace patterns for resilience
+  var markers = [
+    '      </div>\n    </section>',
+    '      </div>\r\n    </section>',
+    '</div>\n    </section>',
+    '</div>\r\n    </section>'
+  ];
+  var markerIdx = -1;
+  for (var i = 0; i < markers.length; i++) {
+    markerIdx = before.lastIndexOf(markers[i]);
+    if (markerIdx !== -1) break;
+  }
   if (markerIdx === -1) return null;
 
   return before.substring(0, markerIdx) + cardHtml + '\n\n' + html.substring(markerIdx);
