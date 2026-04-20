@@ -9,31 +9,53 @@
 // --------------- Utility helpers ---------------
 
 // Auto-populate empty EN fields from ES and vice versa (called before submit)
-function autoPopulateAllFields() {
-  [['en', 'es'], ['es', 'en']].forEach(function(pair) {
-    var srcSuffix = '-' + pair[0];
-    var dstSuffix = '-' + pair[1];
-    document.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+// Translation via MyMemory API (free, no key needed)
+function translateText(text, from, to) {
+  if (!text.trim()) return Promise.resolve('');
+  var langPair = from + '|' + to;
+  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
+        return data.responseData.translatedText;
+      }
+      return text; // fallback: copy as-is
+    })
+    .catch(function() { return text; }); // fallback on error
+}
+
+async function autoPopulateAllFields() {
+  var pairs = [['en', 'es'], ['es', 'en']];
+  var promises = [];
+  for (var p = 0; p < pairs.length; p++) {
+    var srcLang = pairs[p][0];
+    var dstLang = pairs[p][1];
+    var srcSuffix = '-' + srcLang;
+    var dstSuffix = '-' + dstLang;
+    // Static fields
+    document.querySelectorAll('.lang-field.lang-' + srcLang + ' input, .lang-field.lang-' + srcLang + ' textarea').forEach(function(srcEl) {
       var srcId = srcEl.id || '';
       if (!srcId.endsWith(srcSuffix)) return;
       var dstId = srcId.slice(0, -srcSuffix.length) + dstSuffix;
       var dstEl = document.getElementById(dstId);
       if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
-        dstEl.value = srcEl.value;
+        promises.push(translateText(srcEl.value, srcLang, dstLang).then(function(translated) { dstEl.value = translated; }));
       }
     });
+    // Dynamic fields
     document.querySelectorAll('.dynamic-card').forEach(function(card) {
-      card.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+      card.querySelectorAll('.lang-field.lang-' + srcLang + ' input, .lang-field.lang-' + srcLang + ' textarea').forEach(function(srcEl) {
         var cls = Array.from(srcEl.classList).find(function(c) { return c.endsWith(srcSuffix); });
         if (!cls) return;
         var dstCls = cls.slice(0, -srcSuffix.length) + dstSuffix;
         var dstEl = card.querySelector('.' + dstCls);
         if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
-          dstEl.value = srcEl.value;
+          promises.push(translateText(srcEl.value, srcLang, dstLang).then(function(translated) { dstEl.value = translated; }));
         }
       });
     });
-  });
+  }
+  await Promise.all(promises);
 }
 
 function esc(s) {
@@ -48,14 +70,20 @@ function showToast(msg, isError = true) {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-function formatDateEN(dateStr) {
+function formatDateEN(dateStr, includeYear) {
   const d = new Date(dateStr + 'T12:00:00');
-  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  var opts = includeYear ? { month: 'long', day: 'numeric', year: 'numeric' } : { month: 'long', day: 'numeric' };
+  return d.toLocaleDateString('en-US', opts);
 }
 
-function formatDateES(dateStr) {
+function formatDateES(dateStr, includeYear) {
   const d = new Date(dateStr + 'T12:00:00');
-  return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  var opts = includeYear ? { day: 'numeric', month: 'long', year: 'numeric' } : { day: 'numeric', month: 'long' };
+  return d.toLocaleDateString('es-ES', opts);
+}
+
+function sameYear(dateStr1, dateStr2) {
+  return dateStr1 && dateStr2 && dateStr1.split('-')[0] === dateStr2.split('-')[0];
 }
 
 function slugify(text) {
@@ -407,6 +435,10 @@ function addPaymentOption() {
     <div class="form-group lang-field lang-es" style="${esD}"><label>Precio</label><input type="text" class="form-input pay-opt-price-es" placeholder="6 \u00d7 \u20ac250"></div>
   </div>
   <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Leyenda</label><input type="text" class="form-input pay-opt-schedule-en" placeholder="Monthly payments"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Leyenda</label><input type="text" class="form-input pay-opt-schedule-es" placeholder="Pagos mensuales"></div>
+  </div>
+  <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}"><label>Descripci\u00f3n</label><textarea class="form-input pay-opt-desc-en" rows="2"></textarea></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Descripci\u00f3n</label><textarea class="form-input pay-opt-desc-es" rows="2"></textarea></div>
   </div>
@@ -504,12 +536,14 @@ function collectFormData() {
   document.querySelectorAll('#payment-options-list .dynamic-card').forEach(card => {
     var labelEN = card.querySelector('.pay-opt-label-en').value.trim();
     var labelES = card.querySelector('.pay-opt-label-es').value.trim();
-    var priceEN = card.querySelector('.pay-opt-price-en').value.trim();
-    var priceES = card.querySelector('.pay-opt-price-es').value.trim();
-    var descEN  = card.querySelector('.pay-opt-desc-en').value.trim();
-    var descES  = card.querySelector('.pay-opt-desc-es').value.trim();
+    var priceEN    = card.querySelector('.pay-opt-price-en').value.trim();
+    var priceES    = card.querySelector('.pay-opt-price-es').value.trim();
+    var scheduleEN = card.querySelector('.pay-opt-schedule-en').value.trim();
+    var scheduleES = card.querySelector('.pay-opt-schedule-es').value.trim();
+    var descEN     = card.querySelector('.pay-opt-desc-en').value.trim();
+    var descES     = card.querySelector('.pay-opt-desc-es').value.trim();
     if (labelEN || labelES || priceEN || priceES) {
-      data.paymentOptions.push({ labelEN, labelES, priceEN, priceES, descEN, descES });
+      data.paymentOptions.push({ labelEN, labelES, priceEN, priceES, scheduleEN, scheduleES, descEN, descES });
     }
   });
 
@@ -875,8 +909,9 @@ function generateHTML(data, lang) {
   let dateRangeEN = '';
   let dateRangeES = '';
   if (data.startDate && data.endDate) {
-    dateRangeEN = formatDateEN(data.startDate) + ' to ' + formatDateEN(data.endDate);
-    dateRangeES = formatDateES(data.startDate) + ' al ' + formatDateES(data.endDate);
+    var same = sameYear(data.startDate, data.endDate);
+    dateRangeEN = formatDateEN(data.startDate, !same) + ' to ' + formatDateEN(data.endDate, true);
+    dateRangeES = formatDateES(data.startDate, !same) + ' al ' + formatDateES(data.endDate, true);
   }
   const dateRange = isEN ? dateRangeEN : dateRangeES;
 
@@ -1070,6 +1105,8 @@ ${bulletsLi}
       priceTextES: rawES,
       labelEN: opt.labelEN || '',
       labelES: opt.labelES || '',
+      scheduleEN: opt.scheduleEN || '',
+      scheduleES: opt.scheduleES || '',
       descEN: opt.descEN || '',
       descES: opt.descES || ''
     };
@@ -1506,9 +1543,13 @@ git push
 // --------------- Deploy to site ---------------
 
 async function handleDeploy() {
-  autoPopulateAllFields();
+  var btn = document.getElementById('deploy-btn');
+  btn.disabled = true;
+  btn.textContent = 'Traduciendo...';
+  await autoPopulateAllFields();
+  btn.textContent = 'Publicando...';
   var data = collectFormData();
-  if (!validate(data)) return;
+  if (!validate(data)) { btn.disabled = false; btn.textContent = 'Publicar en el sitio'; return; }
 
   var enHtml = generateHTML(data, 'en');
   var esHtml = generateHTML(data, 'es');
@@ -1550,10 +1591,6 @@ async function handleDeploy() {
   var cssRule = '.destination-card.' + cardClass + ' {\n'
     + '    background-image: url(\'imagesWebp/' + imgFolder + '/' + firstSlide + '\');\n'
     + '}';
-
-  var btn = document.getElementById('deploy-btn');
-  btn.disabled = true;
-  btn.textContent = 'Publicando...';
 
   try {
     var res = await fetch('/.netlify/functions/deploy-destination', {

@@ -8,31 +8,50 @@
 
 // --------------- Utility helpers ---------------
 
-function autoPopulateAllFields() {
-  [['en', 'es'], ['es', 'en']].forEach(function(pair) {
-    var srcSuffix = '-' + pair[0];
-    var dstSuffix = '-' + pair[1];
-    document.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+function translateText(text, from, to) {
+  if (!text.trim()) return Promise.resolve('');
+  var langPair = from + '|' + to;
+  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
+        return data.responseData.translatedText;
+      }
+      return text;
+    })
+    .catch(function() { return text; });
+}
+
+async function autoPopulateAllFields() {
+  var pairs = [['en', 'es'], ['es', 'en']];
+  var promises = [];
+  for (var p = 0; p < pairs.length; p++) {
+    var srcLang = pairs[p][0];
+    var dstLang = pairs[p][1];
+    var srcSuffix = '-' + srcLang;
+    var dstSuffix = '-' + dstLang;
+    document.querySelectorAll('.lang-field.lang-' + srcLang + ' input, .lang-field.lang-' + srcLang + ' textarea').forEach(function(srcEl) {
       var srcId = srcEl.id || '';
       if (!srcId.endsWith(srcSuffix)) return;
       var dstId = srcId.slice(0, -srcSuffix.length) + dstSuffix;
       var dstEl = document.getElementById(dstId);
       if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
-        dstEl.value = srcEl.value;
+        promises.push(translateText(srcEl.value, srcLang, dstLang).then(function(translated) { dstEl.value = translated; }));
       }
     });
     document.querySelectorAll('.dynamic-card').forEach(function(card) {
-      card.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
+      card.querySelectorAll('.lang-field.lang-' + srcLang + ' input, .lang-field.lang-' + srcLang + ' textarea').forEach(function(srcEl) {
         var cls = Array.from(srcEl.classList).find(function(c) { return c.endsWith(srcSuffix); });
         if (!cls) return;
         var dstCls = cls.slice(0, -srcSuffix.length) + dstSuffix;
         var dstEl = card.querySelector('.' + dstCls);
         if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
-          dstEl.value = srcEl.value;
+          promises.push(translateText(srcEl.value, srcLang, dstLang).then(function(translated) { dstEl.value = translated; }));
         }
       });
     });
-  });
+  }
+  await Promise.all(promises);
 }
 
 function esc(s) {
@@ -1189,9 +1208,13 @@ function generateHTML(data, lang) {
 // --------------- handleDeploy ---------------
 
 async function handleDeploy() {
-  autoPopulateAllFields();
+  var btn = document.getElementById('deploy-btn');
+  btn.disabled = true;
+  btn.textContent = 'Traduciendo...';
+  await autoPopulateAllFields();
+  btn.textContent = 'Publicando...';
   const data = collectFormData();
-  if (!validate(data)) return;
+  if (!validate(data)) { btn.disabled = false; btn.textContent = 'Publicar en el sitio'; return; }
 
   const enHtml = generateHTML(data, 'en');
   const esHtml = generateHTML(data, 'es');
@@ -1222,10 +1245,6 @@ async function handleDeploy() {
     + '                </div>\n'
     + '            </a>\n'
     + '        </div>';
-
-  const btn = document.getElementById('deploy-btn');
-  btn.disabled = true;
-  btn.textContent = 'Publicando...';
 
   try {
     const res = await fetch('/.netlify/functions/deploy-experience', {

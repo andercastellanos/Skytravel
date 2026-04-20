@@ -82,6 +82,7 @@
         if (!label) label = (isEs ? 'Opci\u00f3n ' : 'Option ') + letters[index];
         var desc = (isEs ? (opt.descES || '') : (opt.descEN || ''));
         if (!desc) desc = t.dates;
+        var schedule = (isEs ? (opt.scheduleES || '') : (opt.scheduleEN || ''));
         // Use structured count×price if available, otherwise show raw price text
         var priceDisplay;
         if (opt.count && opt.price) {
@@ -89,11 +90,13 @@
         } else {
             priceDisplay = (isEs ? (opt.priceTextES || opt.priceTextEN || '') : (opt.priceTextEN || opt.priceTextES || ''));
         }
+        var scheduleHtml = schedule ? '      <p style="color: #888; font-size: 0.9rem; font-style: italic; margin-bottom: 0.75rem;">' + schedule + '</p>' : '';
         return ''
             + '    <a href="' + payUrl + '" style="' + cardStyle + '" onmouseover="' + hoverIn + '" onmouseout="' + hoverOut + '">'
             + '      <h3 style="color: #c8a97e; font-size: 1.2rem; margin-bottom: 0.75rem;">' + label + '</h3>'
             + '      <p style="font-size: 1.8rem; font-weight: 700; color: #333; margin: 0.5rem 0;">' + priceDisplay + '</p>'
             + '      <p style="color: #555; font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.5rem;">' + desc + '</p>'
+            + scheduleHtml
             + '      <p style="color: #c8a97e; font-size: 0.85rem; font-weight: 600;">' + t.cta + '</p>'
             + '    </a>';
     }

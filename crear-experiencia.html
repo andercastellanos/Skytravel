@@ -817,34 +817,9 @@
           document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(b) { b.classList.remove('active'); });
           btn.classList.add('active');
 
-          // Auto-populate empty fields in both directions
-          if (fromLang !== toLang) {
-              [['en', 'es'], ['es', 'en']].forEach(function(pair) {
-                  var srcSuffix = '-' + pair[0];
-                  var dstSuffix = '-' + pair[1];
-                  // Static fields (inputs and textareas with IDs ending in -en/-es)
-                  document.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
-                      var srcId = srcEl.id || '';
-                      if (!srcId.endsWith(srcSuffix)) return;
-                      var dstId = srcId.slice(0, -srcSuffix.length) + dstSuffix;
-                      var dstEl = document.getElementById(dstId);
-                      if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
-                          dstEl.value = srcEl.value;
-                      }
-                  });
-                  // Dynamic fields (inputs and textareas with classes ending in -en/-es)
-                  document.querySelectorAll('.dynamic-card').forEach(function(card) {
-                      card.querySelectorAll('.lang-field.lang-' + pair[0] + ' input, .lang-field.lang-' + pair[0] + ' textarea').forEach(function(srcEl) {
-                          var cls = Array.from(srcEl.classList).find(function(c) { return c.endsWith(srcSuffix); });
-                          if (!cls) return;
-                          var dstCls = cls.slice(0, -srcSuffix.length) + dstSuffix;
-                          var dstEl = card.querySelector('.' + dstCls);
-                          if (dstEl && !dstEl.value.trim() && srcEl.value.trim()) {
-                              dstEl.value = srcEl.value;
-                          }
-                      });
-                  });
-              });
+          // Auto-translate empty fields when switching languages
+          if (fromLang !== toLang && typeof autoPopulateAllFields === 'function') {
+              autoPopulateAllFields();
           }
 
           // Toggle visibility
