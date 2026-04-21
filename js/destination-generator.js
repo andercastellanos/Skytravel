@@ -971,7 +971,7 @@ ${bulletsLi}
     }).join('');
 
     return `                <div class="info-section">
-                    <h3 style="color: #1f1f1f;">${name}</h3>
+                    <h3>${name}</h3>
                     <div class="tab-container">
                         <div class="tab-buttons">
                             <button class="tab-button active" data-tab="${tabId}-experience">${expLabel}</button>
@@ -979,11 +979,11 @@ ${bulletsLi}
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane active" id="${tabId}-experience">
-                                <h3 style="color: #1f1f1f;">${expHead}</h3>
+                                <h3 style="color: #333;">${expHead}</h3>
                                 <p>${expP1}</p>${expExtraHtml}
                             </div>
                             <div class="tab-pane" id="${tabId}-history">
-                                <h3 style="color: #1f1f1f;">${histHead}</h3>
+                                <h3 style="color: #333;">${histHead}</h3>
                                 <p>${histP1}</p>${histExtraHtml}
                             </div>
                         </div>
@@ -1259,7 +1259,7 @@ ${ogAlternateHtml}
             padding: 0.8rem 1.5rem;
             cursor: pointer;
             font-size: 1rem;
-            color: #4a4a4a;
+            color: #666;
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
             font-weight: 500;
@@ -1271,8 +1271,8 @@ ${ogAlternateHtml}
         }
 
         .tab-button.active {
-            color: #6b4a1f;
-            border-bottom-color: #6b4a1f;
+            color: #c8a97e;
+            border-bottom-color: #c8a97e;
             font-weight: 600;
         }
 
