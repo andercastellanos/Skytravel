@@ -1001,8 +1001,12 @@ ${bulletsLi}
     if (data.links && data.links.length > 0) {
       data.links.forEach(function(l) {
         var label = isEN ? (l.labelEN || l.labelES) : (l.labelES || l.labelEN);
-        if (label && introText.indexOf(esc(label)) !== -1) {
-          introText = introText.replace(esc(label), '<a href="' + esc(l.url) + '" class="internal-link">' + esc(label) + '</a>');
+        if (label) {
+          var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+          var match = introText.match(re);
+          if (match) {
+            introText = introText.replace(match[0], '<a href="' + esc(l.url) + '" class="internal-link">' + match[0] + '</a>');
+          }
         }
       });
     }

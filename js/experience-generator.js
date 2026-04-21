@@ -1141,8 +1141,12 @@ function generateHTML(data, lang) {
     if (data.links && data.links.length > 0) {
       data.links.forEach(function(link) {
         var label = isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN);
-        if (label && introText.indexOf(esc(label)) !== -1) {
-          introText = introText.replace(esc(label), '<a href="' + esc(link.url) + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + esc(label) + '</a>');
+        if (label) {
+          var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+          var match = introText.match(re);
+          if (match) {
+            introText = introText.replace(match[0], '<a href="' + esc(link.url) + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + match[0] + '</a>');
+          }
         }
       });
     }
