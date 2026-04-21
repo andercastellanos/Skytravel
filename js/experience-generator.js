@@ -142,8 +142,8 @@ function addInternalLink() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Etiqueta (EN)</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
-    <div class="form-group lang-field lang-es" style="${esD}"><label>Etiqueta (ES)</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
   </div>
 </div>`;
   document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
@@ -1135,15 +1135,16 @@ function generateHTML(data, lang) {
   html += '\n';
 
   // Internal links section (optional)
-  var introText = isEN ? (data.internalIntroEN || data.internalIntroES || '') : (data.internalIntroES || data.internalIntroEN || '');
+  var introText = esc(isEN ? (data.internalIntroEN || data.internalIntroES || '') : (data.internalIntroES || data.internalIntroEN || ''));
   if (introText || (data.links && data.links.length > 0)) {
-    var linkTags = '';
+    // Replace matching text with links automatically
     if (data.links && data.links.length > 0) {
-      linkTags = data.links.map(function(link) {
-        var label = esc(isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN));
-        var url = esc(link.url);
-        return '<a href="' + url + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + label + '</a>';
-      }).join(', ');
+      data.links.forEach(function(link) {
+        var label = isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN);
+        if (label && introText.indexOf(esc(label)) !== -1) {
+          introText = introText.replace(esc(label), '<a href="' + esc(link.url) + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + esc(label) + '</a>');
+        }
+      });
     }
     var heading = esc(isEN ? (data.internalHeadingEN || data.internalHeadingES || '') : (data.internalHeadingES || data.internalHeadingEN || ''));
     html += '  <!-- Internal Linking Section -->\n';
@@ -1151,7 +1152,6 @@ function generateHTML(data, lang) {
     html += '    <div class="internal-links-container" style="max-width: 800px; margin: 0 auto; padding: 0 1rem;">\n';
     if (heading) html += '      <h2 style="color:#333; margin-bottom:1rem;">' + heading + '</h2>\n';
     if (introText) html += '      <p class="internal-links-paragraph" style="font-size: 1.1rem; line-height: 1.6; color: #555;">' + introText + '</p>\n';
-    if (linkTags) html += '      <p class="internal-links-paragraph" style="font-size: 1.1rem; line-height: 1.6; color: #555;">' + linkTags + '</p>\n';
     html += '    </div>\n';
     html += '  </div>\n';
     html += '\n';

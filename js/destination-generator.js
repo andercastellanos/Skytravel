@@ -404,8 +404,8 @@ function addInternalLink() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Etiqueta</label><input type="text" class="form-input link-label-en" placeholder="2024"></div>
-    <div class="form-group lang-field lang-es" style="${esD}"><label>Etiqueta</label><input type="text" class="form-input link-label-es" placeholder="2024"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
   </div>
 </div>`;
   document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
@@ -995,14 +995,16 @@ ${bulletsLi}
   let internalLinksSection = '';
   if (data.links.length > 0 || (isEN ? data.internalIntroEN : data.internalIntroES)) {
     const heading  = esc(isEN ? data.internalHeadingEN : data.internalHeadingES);
-    const intro    = isEN ? data.internalIntroEN : data.internalIntroES;
-    const linkTags = data.links.map(l =>
-      `<a href="${esc(l.url)}" class="internal-link">${esc(isEN ? (l.labelEN || l.labelES) : (l.labelES || l.labelEN))}</a>`
-    ).join(', ');
+    let introText  = esc(isEN ? (data.internalIntroEN || data.internalIntroES || '') : (data.internalIntroES || data.internalIntroEN || ''));
 
-    let linksParaHtml = '';
-    if (data.links.length > 0) {
-      linksParaHtml = `\n                <p class="internal-links-paragraph">${linkTags}</p>`;
+    // Replace matching text with links automatically
+    if (data.links && data.links.length > 0) {
+      data.links.forEach(function(l) {
+        var label = isEN ? (l.labelEN || l.labelES) : (l.labelES || l.labelEN);
+        if (label && introText.indexOf(esc(label)) !== -1) {
+          introText = introText.replace(esc(label), '<a href="' + esc(l.url) + '" class="internal-link">' + esc(label) + '</a>');
+        }
+      });
     }
 
     internalLinksSection = `
@@ -1010,7 +1012,7 @@ ${bulletsLi}
         <section class="internal-links">
             <div class="internal-links-container">
                 <h2 class="internal-links-heading">${heading}</h2>
-                <p class="internal-links-paragraph">${intro}</p>${linksParaHtml}
+                <p class="internal-links-paragraph">${introText}</p>
             </div>
         </section>`;
   }
