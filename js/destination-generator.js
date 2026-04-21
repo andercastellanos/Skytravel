@@ -105,10 +105,10 @@ function extractDaysNumber(durationLabel) {
 
 function extractFirstPrice(pricingCards) {
   if (!pricingCards || pricingCards.length === 0) return '';
-  // Extract price from first card's EN text, e.g., "€1,999" or "USD 1200" or "$5,799"
+  // Extract price from first card's EN text, e.g., "€1,999" or "USD 1200" or "$4.199" or "$4,199 por persona"
   const text = pricingCards[0].textEN || pricingCards[0].textES || '';
-  var m = text.match(/[€$]\s?[\d,]+/);
-  if (!m) m = text.match(/[A-Z]{3}\s?[\d,]+/);
+  var m = text.match(/[€$]\s?[\d.,]+\d/);
+  if (!m) m = text.match(/[A-Z]{3}\s?[\d.,]+\d/);
   return m ? m[0] : '';
 }
 
@@ -1089,7 +1089,7 @@ ${bulletsLi}
   // Payment plan — extract structured data for payment-plan.js component
   const depositRaw = data.depositTextEN || data.depositTextES || '';
   var depositMatch = depositRaw.match(/([€$])\s?([\d,]+)/);
-  if (!depositMatch) depositMatch = depositRaw.match(/([A-Z]{3})\s?([\d,]+)/);
+  if (!depositMatch) depositMatch = depositRaw.match(/([A-Z]{3})\s?([\d.,]+\d)/);
   const paymentCurrency = depositMatch ? depositMatch[1] : '€';
   const paymentDeposit = depositMatch ? depositMatch[2].replace(/,/g, '') : '499';
 
@@ -1438,8 +1438,8 @@ function generateSetupInstructions(data, fileBase) {
   const price = '';
   if (data.pricing && data.pricing.length > 0) {
     var p = data.pricing[0].textEN || data.pricing[0].textES || '';
-    var m = p.match(/[€$]\s?[\d,]+/);
-    if (!m) m = p.match(/[A-Z]{3}\s?[\d,]+/);
+    var m = p.match(/[€$]\s?[\d.,]+\d/);
+    if (!m) m = p.match(/[A-Z]{3}\s?[\d.,]+\d/);
     var priceTag = m ? m[0] : '';
   } else {
     var priceTag = '';
@@ -1565,8 +1565,8 @@ async function handleDeploy() {
   var priceTag = '';
   if (data.pricing && data.pricing.length > 0) {
     var p = data.pricing[0].textEN || data.pricing[0].textES || '';
-    var m = p.match(/[€$]\s?[\d,]+/);
-    if (!m) m = p.match(/[A-Z]{3}\s?[\d,]+/);
+    var m = p.match(/[€$]\s?[\d.,]+\d/);
+    if (!m) m = p.match(/[A-Z]{3}\s?[\d.,]+\d/);
     priceTag = m ? m[0] : '';
   }
 
