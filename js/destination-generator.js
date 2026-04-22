@@ -12,9 +12,10 @@
 // Translation via MyMemory API (free, no key needed)
 function translateText(text, from, to) {
   if (!text.trim()) return Promise.resolve('');
-  // Protect prices, numbers with currency symbols, and URLs from being mangled
+  // Protect prices, payment plans, and number patterns from being mangled
+  // Matches: "10 × €420", "$4,199 por persona", "€199", "USD 1200", "3 x €500", standalone numbers like "2026"
   var placeholders = [];
-  var protected = text.replace(/(?:[€$]\s?[\d.,]+\d|[A-Z]{3}\s?[\d.,]+\d|\d[\d.,]*\d)/g, function(match) {
+  var protected = text.replace(/\d+\s*[×x]\s*[€$]?\s*[\d.,]+|[€$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
     placeholders.push(match);
     return '{{P' + (placeholders.length - 1) + '}}';
   });

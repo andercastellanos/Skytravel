@@ -11,7 +11,7 @@
 function translateText(text, from, to) {
   if (!text.trim()) return Promise.resolve('');
   var placeholders = [];
-  var protected_ = text.replace(/(?:[€$]\s?[\d.,]+\d|[A-Z]{3}\s?[\d.,]+\d|\d[\d.,]*\d)/g, function(match) {
+  var protected_ = text.replace(/\d+\s*[×x]\s*[€$]?\s*[\d.,]+|[€$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
     placeholders.push(match);
     return '{{P' + (placeholders.length - 1) + '}}';
   });
