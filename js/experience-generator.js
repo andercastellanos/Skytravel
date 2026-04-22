@@ -10,14 +10,25 @@
 
 function translateText(text, from, to) {
   if (!text.trim()) return Promise.resolve('');
+  var placeholders = [];
+  var protected_ = text.replace(/(?:[€$]\s?[\d.,]+\d|[A-Z]{3}\s?[\d.,]+\d|\d[\d.,]*\d)/g, function(match) {
+    placeholders.push(match);
+    return '{{P' + (placeholders.length - 1) + '}}';
+  });
   var langPair = from + '|' + to;
-  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
+  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(protected_) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
     .then(function(r) { return r.json(); })
     .then(function(data) {
+      var result = protected_;
       if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
-        return data.responseData.translatedText;
+        result = data.responseData.translatedText;
       }
-      return text;
+      for (var i = 0; i < placeholders.length; i++) {
+        result = result.replace('{{P' + i + '}}', placeholders[i]);
+        result = result.replace('{{p' + i + '}}', placeholders[i]);
+        result = result.replace('{{ P' + i + ' }}', placeholders[i]);
+      }
+      return result;
     })
     .catch(function() { return text; });
 }

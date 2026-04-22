@@ -12,14 +12,27 @@
 // Translation via MyMemory API (free, no key needed)
 function translateText(text, from, to) {
   if (!text.trim()) return Promise.resolve('');
+  // Protect prices, numbers with currency symbols, and URLs from being mangled
+  var placeholders = [];
+  var protected = text.replace(/(?:[€$]\s?[\d.,]+\d|[A-Z]{3}\s?[\d.,]+\d|\d[\d.,]*\d)/g, function(match) {
+    placeholders.push(match);
+    return '{{P' + (placeholders.length - 1) + '}}';
+  });
   var langPair = from + '|' + to;
-  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
+  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(protected) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
     .then(function(r) { return r.json(); })
     .then(function(data) {
+      var result = protected;
       if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
-        return data.responseData.translatedText;
+        result = data.responseData.translatedText;
       }
-      return text; // fallback: copy as-is
+      // Restore protected values
+      for (var i = 0; i < placeholders.length; i++) {
+        result = result.replace('{{P' + i + '}}', placeholders[i]);
+        result = result.replace('{{p' + i + '}}', placeholders[i]); // API may lowercase
+        result = result.replace('{{ P' + i + ' }}', placeholders[i]); // API may add spaces
+      }
+      return result;
     })
     .catch(function() { return text; }); // fallback on error
 }
