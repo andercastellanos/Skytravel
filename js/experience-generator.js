@@ -1282,6 +1282,7 @@ async function handleDeploy() {
       body: JSON.stringify({
         slugEN: slugEN,
         slugES: slugES,
+        year: data.year,
         enHtml: enHtml,
         esHtml: esHtml,
         cardEN: cardEN,
