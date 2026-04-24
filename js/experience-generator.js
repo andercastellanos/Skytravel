@@ -131,10 +131,12 @@ function addDescriptionBlock() {
     <div class="form-group full-width lang-field lang-en" style="${enD}">
       <label>P\u00e1rrafo ${n} (EN)</label>
       <textarea class="form-input desc-text-en" rows="3"></textarea>
+      <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los Enlaces Internos se convertir\u00e1n en links autom\u00e1ticamente.</span>
     </div>
     <div class="form-group full-width lang-field lang-es" style="${esD}">
       <label>P\u00e1rrafo ${n} (ES)</label>
       <textarea class="form-input desc-text-es" rows="3"></textarea>
+      <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los Enlaces Internos se convertir\u00e1n en links autom\u00e1ticamente.</span>
     </div>
   </div>
 </div>`;
@@ -1061,7 +1063,19 @@ function generateHTML(data, lang) {
   html += '    <div class="description">\n';
   (data.descriptionBlocks || []).forEach(block => {
     const heading = esc(isEN ? block.headingEN : block.headingES);
-    const text = esc(isEN ? block.textEN : block.textES);
+    let text = esc(isEN ? block.textEN : block.textES);
+    if (text && data.links && data.links.length > 0) {
+      data.links.forEach(function(link) {
+        var label = isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN);
+        if (label) {
+          var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+          var match = text.match(re);
+          if (match) {
+            text = text.replace(match[0], '<a href="' + esc(link.url) + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + match[0] + '</a>');
+          }
+        }
+      });
+    }
     if (heading) html += '      <h2>' + heading + '</h2>\n';
     if (text) html += '      <p>' + text + '</p>\n';
   });
