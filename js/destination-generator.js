@@ -15,15 +15,15 @@ function translateText(text, from, to) {
   // Protect prices, payment plans, and number patterns from being mangled
   // Matches: "10 × €420", "$4,199 por persona", "€199", "USD 1200", "3 x €500", standalone numbers like "2026"
   var placeholders = [];
-  var protected = text.replace(/\d+\s*[×x]\s*[€$]?\s*[\d.,]+|[€$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
+  var protected_= text.replace(/\d+\s*[×x]\s*[€$]?\s*[\d.,]+|[€$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
     placeholders.push(match);
     return '{{P' + (placeholders.length - 1) + '}}';
   });
   var langPair = from + '|' + to;
-  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(protected) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
+  return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(protected_) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      var result = protected;
+      var result = protected_;
       if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
         result = data.responseData.translatedText;
       }
