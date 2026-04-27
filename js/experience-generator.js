@@ -272,12 +272,12 @@ function addGalleryImage() {
   </div>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Alt Text (EN)</label>
-      <input type="text" class="form-input gallery-alt-en" placeholder="Pilgrimage Image">
+      <label>Title (EN)</label>
+      <input type="text" class="form-input gallery-title-en" placeholder="Holy Door at Vatican">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
-      <label>Texto Alternativo (ES)</label>
-      <input type="text" class="form-input gallery-alt-es" placeholder="Imagen de la Peregrinaci\u00f3n">
+      <label>T\u00edtulo (ES)</label>
+      <input type="text" class="form-input gallery-title-es" placeholder="Puerta Santa del Vaticano">
     </div>
   </div>
   <div class="form-row">
@@ -288,6 +288,16 @@ function addGalleryImage() {
     <div class="form-group lang-field lang-es" style="${esD}">
       <label>Pie de Foto (ES)</label>
       <input type="text" class="form-input gallery-caption-es" placeholder="Camino espiritual de fe">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}">
+      <label>Alt Text (EN)</label>
+      <input type="text" class="form-input gallery-alt-en" placeholder="Pilgrimage Image">
+    </div>
+    <div class="form-group lang-field lang-es" style="${esD}">
+      <label>Texto Alternativo (ES)</label>
+      <input type="text" class="form-input gallery-alt-es" placeholder="Imagen de la Peregrinaci\u00f3n">
     </div>
   </div>
 </div>`;
@@ -356,29 +366,17 @@ function collectFormData() {
   });
 
   // Gallery mode
-  data.galleryMode = document.querySelector('input[name="gallery-mode"]:checked')
-    ? document.querySelector('input[name="gallery-mode"]:checked').value
-    : 'sequential';
-
-  // Sequential fields
-  data.seqPrefix       = val('seq-prefix');
-  data.seqExtension    = val('seq-extension');
-  data.seqStart        = parseInt(val('seq-start'), 10) || 1;
-  data.seqEnd          = parseInt(val('seq-end'), 10) || 1;
-  data.defaultCaptionEN = val('default-caption-en');
-  data.defaultCaptionES = val('default-caption-es');
-  data.defaultAltEN    = val('default-alt-en');
-  data.defaultAltES    = val('default-alt-es');
-
   // Manual gallery images
   data.galleryImages = [];
   document.querySelectorAll('#gallery-images-list .dynamic-card').forEach(card => {
     const filename  = card.querySelector('.gallery-filename').value.trim();
+    const titleEN   = card.querySelector('.gallery-title-en') ? card.querySelector('.gallery-title-en').value.trim() : '';
+    const titleES   = card.querySelector('.gallery-title-es') ? card.querySelector('.gallery-title-es').value.trim() : '';
     const altEN     = card.querySelector('.gallery-alt-en').value.trim();
     const altES     = card.querySelector('.gallery-alt-es').value.trim();
     const captionEN = card.querySelector('.gallery-caption-en').value.trim();
     const captionES = card.querySelector('.gallery-caption-es').value.trim();
-    if (filename) data.galleryImages.push({ filename, altEN, altES, captionEN, captionES });
+    if (filename) data.galleryImages.push({ filename, titleEN, titleES, altEN, altES, captionEN, captionES });
   });
 
   // Internal links
@@ -421,21 +419,7 @@ function collectFormData() {
 // --------------- resolveGalleryImages ---------------
 
 function resolveGalleryImages(data) {
-  if (data.galleryMode === 'sequential') {
-    const images = [];
-    for (let i = data.seqStart; i <= data.seqEnd; i++) {
-      images.push({
-        filename:  data.seqPrefix + i + data.seqExtension,
-        altEN:     data.defaultAltEN || (data.experienceNameEN + ' Image ' + i),
-        altES:     data.defaultAltES || ('Imagen ' + i + ' de ' + (data.experienceNameES || data.experienceNameEN)),
-        captionEN: data.defaultCaptionEN || '',
-        captionES: data.defaultCaptionES || ''
-      });
-    }
-    return images;
-  }
-  // manual
-  return data.galleryImages;
+  return data.galleryImages || [];
 }
 
 // --------------- validate ---------------
@@ -471,9 +455,7 @@ function validate(data) {
   const images = resolveGalleryImages(data);
   if (!images || images.length === 0) {
     showToast('Se requiere al menos 1 imagen de galer\u00eda');
-    const target = data.galleryMode === 'sequential'
-      ? document.getElementById('gallery-seq-fields')
-      : document.getElementById('gallery-images-list');
+    const target = document.getElementById('gallery-images-list');
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return false;
   }
@@ -688,8 +670,9 @@ function generateHTML(data, lang) {
   const ogLocaleAlt = isEN ? 'es_ES' : 'en_US';
 
   // Hero bg — normalize so any input format works for both EN (1 level deep)
-  // and ES (2 levels deep) pages. Strip leading ./ or ../, then prepend prefix.
-  let heroBg = data.heroBgPath || '';
+  // and ES (2 levels deep) pages. Convert Windows backslashes, strip leading
+  // ./ or ../, then prepend prefix.
+  let heroBg = (data.heroBgPath || '').replace(/\\/g, '/');
   if (heroBg && !/^(https?:)?\//.test(heroBg)) {
     heroBg = prefix + heroBg.replace(/^(\.\.?\/)+/, '');
   }
@@ -1168,10 +1151,12 @@ function generateHTML(data, lang) {
   images.forEach(img => {
     const alt     = isEN ? (img.altEN || '') : (img.altES || '');
     const caption = isEN ? (img.captionEN || '') : (img.captionES || '');
+    const perImageTitle = isEN ? (img.titleEN || '') : (img.titleES || '');
+    const slideTitle = perImageTitle || (name + ' ' + data.year);
     html += '        <div class="slide">\n';
     html += '          <img src="' + prefix + 'experiences/images/' + folder + '/' + esc(img.filename) + '" alt="' + esc(alt) + '">\n';
     html += '          <div class="slide-caption">\n';
-    html += '            <h3>' + esc(name) + ' ' + esc(data.year) + '</h3>\n';
+    html += '            <h3>' + esc(slideTitle) + '</h3>\n';
     html += '            <p>' + esc(caption) + '</p>\n';
     html += '          </div>\n';
     html += '        </div>\n';
@@ -1360,26 +1345,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Generate & deploy buttons
   document.getElementById('deploy-btn').addEventListener('click', handleDeploy);
-
-  // Gallery mode radio toggle
-  const radioSeq = document.getElementById('gallery-mode-seq');
-  const radioManual = document.getElementById('gallery-mode-manual');
-  const seqFields = document.getElementById('gallery-seq-fields');
-  const manualFields = document.getElementById('gallery-manual-fields');
-
-  function updateGalleryMode() {
-    if (radioSeq && radioSeq.checked) {
-      if (seqFields) seqFields.style.display = '';
-      if (manualFields) manualFields.style.display = 'none';
-    } else {
-      if (seqFields) seqFields.style.display = 'none';
-      if (manualFields) manualFields.style.display = '';
-    }
-  }
-
-  if (radioSeq) radioSeq.addEventListener('change', updateGalleryMode);
-  if (radioManual) radioManual.addEventListener('change', updateGalleryMode);
-  updateGalleryMode();
 
   // Delegate remove buttons + per-block "Agregar Enlace" buttons
   document.addEventListener('click', (e) => {

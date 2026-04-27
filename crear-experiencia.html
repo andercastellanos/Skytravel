@@ -453,70 +453,8 @@
         <!-- 7. Im&aacute;genes de la Galer&iacute;a -->
         <h3 class="section-title" data-en="Gallery Images" data-es="Imágenes de la Galería">Gallery Images</h3>
 
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="gallery-mode" id="gallery-mode-seq" value="sequential" checked>
-            <span data-en="Sequential naming" data-es="Nombrado secuencial">Sequential naming</span>
-          </label>
-          <label>
-            <input type="radio" name="gallery-mode" id="gallery-mode-manual" value="manual">
-            <span data-en="Manual entry" data-es="Entrada manual">Manual entry</span>
-          </label>
-        </div>
-
-        <!-- Sequential mode fields -->
-        <p class="field-hint" id="seq-caption-note" data-en="For individual per-image titles, use Manual mode." data-es="Para títulos individuales por imagen, use el modo Manual.">For individual per-image titles, use Manual mode.</p>
-        <div id="gallery-seq-fields">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="seq-prefix" data-en="Prefix" data-es="Prefijo">Prefix</label>
-              <input type="text" id="seq-prefix" class="form-input" value="image">
-            </div>
-            <div class="form-group">
-              <label for="seq-extension" data-en="Extension" data-es="Extensión">Extension</label>
-              <input type="text" id="seq-extension" class="form-input" value=".JPG">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="seq-start" data-en="Start" data-es="Inicio">Start</label>
-              <input type="number" id="seq-start" class="form-input" value="1">
-            </div>
-            <div class="form-group">
-              <label for="seq-end" data-en="End" data-es="Fin">End</label>
-              <input type="number" id="seq-end" class="form-input" value="20">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group lang-field lang-en">
-              <label for="default-caption-en">Slide Title (EN)</label>
-              <input type="text" id="default-caption-en" class="form-input">
-            </div>
-            <div class="form-group lang-field lang-es" style="display:none">
-              <label for="default-caption-es">Título de la Diapositiva (ES)</label>
-              <input type="text" id="default-caption-es" class="form-input">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group lang-field lang-en">
-              <label for="default-alt-en">Alt Text (EN)</label>
-              <input type="text" id="default-alt-en" class="form-input">
-            </div>
-            <div class="form-group lang-field lang-es" style="display:none">
-              <label for="default-alt-es">Texto Alternativo (ES)</label>
-              <input type="text" id="default-alt-es" class="form-input">
-            </div>
-          </div>
-        </div>
-
-        <!-- Manual mode fields -->
-        <div id="gallery-manual-fields" style="display:none">
-          <div id="gallery-images-list"></div>
-          <button type="button" id="add-gallery-image-btn" class="add-row-btn" data-en="+ Add Image" data-es="+ Agregar Imagen">+ Add Image</button>
-        </div>
+        <div id="gallery-images-list"></div>
+        <button type="button" id="add-gallery-image-btn" class="add-row-btn" data-en="+ Add Image" data-es="+ Agregar Imagen">+ Add Image</button>
 
         <hr class="section-divider">
 
@@ -626,40 +564,11 @@
 
   <script src="js/experience-generator.js"></script>
 
-  <!-- Gallery mode toggle -->
-  <script>
-  document.querySelectorAll('input[name="gallery-mode"]').forEach(function(radio) {
-      radio.addEventListener('change', function() {
-          var seqFields = document.getElementById('gallery-seq-fields');
-          var manualFields = document.getElementById('gallery-manual-fields');
-          if (this.value === 'sequential') {
-              seqFields.style.display = '';
-              manualFields.style.display = 'none';
-          } else {
-              seqFields.style.display = 'none';
-              manualFields.style.display = '';
-          }
-      });
-  });
-  </script>
-
   <!-- CTA toggle -->
   <script>
   document.getElementById('include-cta').addEventListener('change', function() {
       document.getElementById('cta-fields').style.display = this.checked ? '' : 'none';
   });
-  </script>
-
-  <!-- Sequential gallery note visibility -->
-  <script>
-  (function() {
-      var note = document.getElementById('seq-caption-note');
-      document.querySelectorAll('input[name="gallery-mode"]').forEach(function(radio) {
-          radio.addEventListener('change', function() {
-              note.style.display = this.value === 'sequential' ? '' : 'none';
-          });
-      });
-  })();
   </script>
 
   <!-- Language toggle logic -->
