@@ -223,7 +223,8 @@ const LIMITS = {
   faq:      10,
   overviewPara: 6,
   paymentOptions: 6,
-  journeyPara: 6
+  journeyPara: 6,
+  internalBlocks: 5
 };
 
 function countRows(containerId) {
@@ -405,24 +406,49 @@ function addJourneyParagraph(btn) {
   list.insertAdjacentHTML('beforeend', html);
 }
 
-// --- Internal Link ---
-function addInternalLink() {
-  if (countRows('internal-links-list') >= LIMITS.links) {
-    showToast('M\u00e1ximo ' + LIMITS.links + ' enlaces internos permitidos');
+// --- Internal Block (heading + paragraph + nested links) ---
+function addInternalBlockLink(blockCard) {
+  var list = blockCard.querySelector('.internal-block-links');
+  if (list.querySelectorAll('.internal-link-row').length >= LIMITS.links) {
+    showToast('M\u00e1ximo ' + LIMITS.links + ' enlaces por bloque');
     return;
   }
   var lang = currentLang();
   var enD = lang === 'en' ? '' : 'display:none';
   var esD = lang === 'es' ? '' : 'display:none';
-  const html = `<div class="dynamic-card">
-  <button type="button" class="remove-row-btn">&times;</button>
-  <div class="form-row">
-    <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Text in paragraph</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
-    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
-  </div>
-</div>`;
-  document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
+  var html = '<div class="internal-link-row" style="position:relative;border:1px dashed #d6c4a4;border-radius:8px;padding:10px;margin-top:8px;">'
+    + '<button type="button" class="remove-row-btn" style="position:absolute;right:6px;top:6px;">&times;</button>'
+    + '<div class="form-row">'
+    + '<div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>'
+    + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Text in paragraph</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>'
+    + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>'
+    + '</div>'
+    + '</div>';
+  list.insertAdjacentHTML('beforeend', html);
+}
+
+function addInternalBlock() {
+  if (countRows('internal-blocks-list') >= LIMITS.internalBlocks) {
+    showToast('M\u00e1ximo ' + LIMITS.internalBlocks + ' bloques de enlaces permitidos');
+    return;
+  }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var html = '<div class="dynamic-card internal-block">'
+    + '<button type="button" class="remove-row-btn">&times;</button>'
+    + '<div class="form-row">'
+    + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Section Heading</label><input type="text" class="form-input internal-block-heading-en"></div>'
+    + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>T\u00edtulo de la Secci\u00f3n</label><input type="text" class="form-input internal-block-heading-es"></div>'
+    + '</div>'
+    + '<div class="form-row">'
+    + '<div class="form-group full-width lang-field lang-en" style="' + enD + '"><label>Paragraph</label><textarea class="form-input internal-block-intro-en" rows="3" placeholder="Explore our Medjugorje 2024 experience and Holy Land pilgrimage."></textarea><span class="field-hint">Words matching the link labels below will be auto-linked.</span></div>'
+    + '<div class="form-group full-width lang-field lang-es" style="' + esD + '"><label>P\u00e1rrafo</label><textarea class="form-input internal-block-intro-es" rows="3" placeholder="Descubre nuestra experiencia Medjugorje 2024 y peregrinaci\u00f3n a Tierra Santa."></textarea><span class="field-hint">Las palabras que coincidan con las etiquetas de los enlaces se convertir\u00e1n en links autom\u00e1ticamente.</span></div>'
+    + '</div>'
+    + '<div class="internal-block-links" style="margin-top:8px;"></div>'
+    + '<button type="button" class="add-row-btn add-internal-link-btn" style="margin-top:8px;">+ Agregar Enlace</button>'
+    + '</div>';
+  document.getElementById('internal-blocks-list').insertAdjacentHTML('beforeend', html);
 }
 
 // --- Payment Option ---
@@ -562,10 +588,7 @@ function collectFormData() {
   });
 
   // Internal links section text
-  data.internalHeadingEN  = val('internal-heading-en');
-  data.internalHeadingES  = val('internal-heading-es');
-  data.internalIntroEN    = val('internal-intro-en');
-  data.internalIntroES    = val('internal-intro-es');
+
 
   // Dynamic sections
   data.altDates = [];
@@ -646,12 +669,23 @@ function collectFormData() {
     }
   });
 
-  data.links = [];
-  document.querySelectorAll('#internal-links-list .dynamic-card').forEach(card => {
-    const url     = card.querySelector('.link-url').value.trim();
-    const labelEN = card.querySelector('.link-label-en').value.trim();
-    const labelES = card.querySelector('.link-label-es').value.trim();
-    if (url && (labelEN || labelES)) data.links.push({ url, labelEN, labelES });
+  // Internal link blocks (each block = heading + paragraph + own links)
+  data.internalBlocks = [];
+  document.querySelectorAll('#internal-blocks-list .internal-block').forEach(card => {
+    const headingEN   = card.querySelector('.internal-block-heading-en').value.trim();
+    const headingES   = card.querySelector('.internal-block-heading-es').value.trim();
+    const paragraphEN = card.querySelector('.internal-block-intro-en').value.trim();
+    const paragraphES = card.querySelector('.internal-block-intro-es').value.trim();
+    const links = [];
+    card.querySelectorAll('.internal-link-row').forEach(row => {
+      const url     = row.querySelector('.link-url').value.trim();
+      const labelEN = row.querySelector('.link-label-en').value.trim();
+      const labelES = row.querySelector('.link-label-es').value.trim();
+      if (url && (labelEN || labelES)) links.push({ url, labelEN, labelES });
+    });
+    if (headingEN || headingES || paragraphEN || paragraphES || links.length > 0) {
+      data.internalBlocks.push({ headingEN, headingES, paragraphEN, paragraphES, links });
+    }
   });
 
   data.faqs = [];
@@ -1005,27 +1039,22 @@ ${bulletsLi}
                 </div>`;
   }).join('\n\n');
 
-  // --- Internal links section ---
-  let internalLinksSection = '';
-  if (data.links.length > 0 || (isEN ? data.internalIntroEN : data.internalIntroES)) {
-    const heading  = esc(isEN ? data.internalHeadingEN : data.internalHeadingES);
-    let introText  = esc(isEN ? (data.internalIntroEN || data.internalIntroES || '') : (data.internalIntroES || data.internalIntroEN || ''));
-
-    // Replace matching text with links automatically
-    if (data.links && data.links.length > 0) {
-      data.links.forEach(function(l) {
-        var label = isEN ? (l.labelEN || l.labelES) : (l.labelES || l.labelEN);
-        if (label) {
-          var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-          var match = introText.match(re);
-          if (match) {
-            introText = introText.replace(match[0], '<a href="' + esc(l.url) + '" class="internal-link">' + match[0] + '</a>');
-          }
-        }
-      });
-    }
-
-    internalLinksSection = `
+  // --- Internal link blocks (one section per block) ---
+  let internalLinksSection = (data.internalBlocks || []).map(function(block) {
+    let introText = esc(isEN ? (block.paragraphEN || block.paragraphES || '') : (block.paragraphES || block.paragraphEN || ''));
+    var blockLinks = block.links || [];
+    if (!introText && blockLinks.length === 0) return '';
+    blockLinks.forEach(function(l) {
+      var label = isEN ? (l.labelEN || l.labelES) : (l.labelES || l.labelEN);
+      if (!label) return;
+      var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      var match = introText.match(re);
+      if (match) {
+        introText = introText.replace(match[0], '<a href="' + esc(l.url) + '" class="internal-link">' + match[0] + '</a>');
+      }
+    });
+    var heading = esc(isEN ? (block.headingEN || block.headingES || '') : (block.headingES || block.headingEN || ''));
+    return `
         <!-- Internal Linking Section -->
         <section class="internal-links">
             <div class="internal-links-container">
@@ -1033,7 +1062,7 @@ ${bulletsLi}
                 <p class="internal-links-paragraph">${introText}</p>
             </div>
         </section>`;
-  }
+  }).join('');
 
   // --- FAQ ---
   const faqLang = isEN ? 'en' : 'es';
@@ -1656,7 +1685,7 @@ document.addEventListener('DOMContentLoaded', () => {
   addPaymentOption();
   addPaymentOption();
   addJourneyTab();
-  addInternalLink();
+  addInternalBlock();
   addFaq();
 
   // Button listeners
@@ -1666,7 +1695,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('add-pricing-btn').addEventListener('click', addPricingCard);
   document.getElementById('add-payment-option-btn').addEventListener('click', addPaymentOption);
   document.getElementById('add-journey-btn').addEventListener('click', addJourneyTab);
-  document.getElementById('add-link-btn').addEventListener('click', addInternalLink);
+  document.getElementById('add-internal-block-btn').addEventListener('click', addInternalBlock);
   document.getElementById('add-faq-btn').addEventListener('click', addFaq);
 
   // Deploy button
@@ -1679,8 +1708,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (priceLineRow) { priceLineRow.remove(); return; }
       var extraRow = e.target.closest('.journey-extra-row');
       if (extraRow) { extraRow.remove(); return; }
+      var linkRow = e.target.closest('.internal-link-row');
+      if (linkRow) { linkRow.remove(); return; }
       e.target.closest('.dynamic-card').remove();
       updateSlideHints();
+    }
+    if (e.target.classList.contains('add-internal-link-btn')) {
+      var blockCard = e.target.closest('.dynamic-card');
+      if (blockCard) addInternalBlockLink(blockCard);
     }
     if (e.target.classList.contains('add-journey-para-btn')) {
       addJourneyParagraph(e.target);
