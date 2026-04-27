@@ -139,8 +139,21 @@ function addDescriptionBlock() {
       <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los Enlaces Internos se convertir\u00e1n en links autom\u00e1ticamente.</span>
     </div>
   </div>
+  <div style="text-align: right; margin-top: 6px;">
+    <button type="button" onclick="addLinkFromDescription()" style="background: transparent; border: 1px dashed #c8a97e; color: #c8a97e; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(200,169,126,0.08)'" onmouseout="this.style.background='transparent'">+ Agregar Enlace para este texto</button>
+  </div>
 </div>`;
   document.getElementById('description-blocks-list').insertAdjacentHTML('beforeend', html);
+}
+
+function addLinkFromDescription() {
+  addInternalLink();
+  var list = document.getElementById('internal-links-list');
+  var lastCard = list.lastElementChild;
+  if (!lastCard) return;
+  lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  var urlInput = lastCard.querySelector('.link-url');
+  if (urlInput) setTimeout(function() { urlInput.focus(); }, 350);
 }
 
 function addInternalLink() {
@@ -657,8 +670,12 @@ function generateHTML(data, lang) {
   const ogLocale    = isEN ? 'en_US' : 'es_ES';
   const ogLocaleAlt = isEN ? 'es_ES' : 'en_US';
 
-  // Hero bg
-  const heroBg = data.heroBgPath || '';
+  // Hero bg — normalize so any input format works for both EN (1 level deep)
+  // and ES (2 levels deep) pages. Strip leading ./ or ../, then prepend prefix.
+  let heroBg = data.heroBgPath || '';
+  if (heroBg && !/^(https?:)?\//.test(heroBg)) {
+    heroBg = prefix + heroBg.replace(/^(\.\.?\/)+/, '');
+  }
 
   // Subtitle
   const subtitle = isEN ? (data.heroSubtitleEN || '') : (data.heroSubtitleES || '');
