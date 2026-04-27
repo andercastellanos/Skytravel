@@ -251,7 +251,7 @@ function addAlternateDate() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Etiqueta de Fecha (EN)</label>
+      <label>Date Label</label>
       <input type="text" class="form-input alt-date-en" placeholder="September 17 to 25, 2026">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -330,18 +330,18 @@ function addPricingCard() {
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>T\u00edtulo de la Tarjeta</label><input type="text" class="form-input price-title-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Card Title</label><input type="text" class="form-input price-title-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo de la Tarjeta</label><input type="text" class="form-input price-title-es"></div>
   </div>
   <div class="price-lines-list">
     <div class="form-row price-line-row">
-      <div class="form-group lang-field lang-en" style="${enD}"><label>Texto del Precio</label><input type="text" class="form-input price-text-en" placeholder="\u20AC1,999 per person"></div>
+      <div class="form-group lang-field lang-en" style="${enD}"><label>Price Text</label><input type="text" class="form-input price-text-en" placeholder="\u20AC1,999 per person"></div>
       <div class="form-group lang-field lang-es" style="${esD}"><label>Texto del Precio</label><input type="text" class="form-input price-text-es" placeholder="\u20AC1,999 por persona"></div>
     </div>
   </div>
   <button type="button" class="add-row-btn add-price-line-btn" style="margin-bottom:10px;font-size:0.85rem;padding:6px 16px;">+ Agregar Precio</button>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Vi\u00f1etas (una por l\u00ednea)</label><textarea class="form-input price-bullets-en" rows="3"></textarea></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Bullets (one per line)</label><textarea class="form-input price-bullets-en" rows="3"></textarea></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Vi\u00f1etas (una por l\u00ednea)</label><textarea class="form-input price-bullets-es" rows="3"></textarea></div>
   </div>
 </div>`;
@@ -360,23 +360,23 @@ function addJourneyTab() {
   const html = `<div class="dynamic-card">
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Nombre de la Ubicaci\u00f3n</label><input type="text" class="form-input journey-name-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Location Name</label><input type="text" class="form-input journey-name-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Nombre de la Ubicaci\u00f3n</label><input type="text" class="form-input journey-name-es"></div>
   </div>
   <h4 style="color:#c8a97e; margin:12px 0 8px;">Pesta\u00f1a Experiencia</h4>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>T\u00edtulo Experiencia</label><input type="text" class="form-input journey-exp-heading-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Experience Title</label><input type="text" class="form-input journey-exp-heading-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo Experiencia</label><input type="text" class="form-input journey-exp-heading-es"></div>
   </div>
-  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>P\u00e1rrafo Experiencia 1</label><textarea class="form-input journey-exp-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Experiencia 1</label><textarea class="form-input journey-exp-p1-es" rows="3"></textarea></div></div>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>Experience Paragraph 1</label><textarea class="form-input journey-exp-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Experiencia 1</label><textarea class="form-input journey-exp-p1-es" rows="3"></textarea></div></div>
   <div class="journey-exp-extra-list"></div>
   <button type="button" class="add-row-btn add-journey-para-btn" data-section="exp" style="margin-bottom:12px;">+ Agregar P\u00e1rrafo Experiencia</button>
   <h4 style="color:#c8a97e; margin:12px 0 8px;">Pesta\u00f1a Historia</h4>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>T\u00edtulo Historia</label><input type="text" class="form-input journey-hist-heading-en"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>History Title</label><input type="text" class="form-input journey-hist-heading-en"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>T\u00edtulo Historia</label><input type="text" class="form-input journey-hist-heading-es"></div>
   </div>
-  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>P\u00e1rrafo Historia 1</label><textarea class="form-input journey-hist-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Historia 1</label><textarea class="form-input journey-hist-p1-es" rows="3"></textarea></div></div>
+  <div class="form-row"><div class="form-group full-width lang-field lang-en" style="${enD}"><label>History Paragraph 1</label><textarea class="form-input journey-hist-p1-en" rows="3"></textarea></div><div class="form-group full-width lang-field lang-es" style="${esD}"><label>P\u00e1rrafo Historia 1</label><textarea class="form-input journey-hist-p1-es" rows="3"></textarea></div></div>
   <div class="journey-hist-extra-list"></div>
   <button type="button" class="add-row-btn add-journey-para-btn" data-section="hist" style="margin-bottom:8px;">+ Agregar P\u00e1rrafo Historia</button>
 </div>`;
@@ -418,7 +418,7 @@ function addInternalLink() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Text in paragraph</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
   </div>
 </div>`;
@@ -441,19 +441,19 @@ function addPaymentOption() {
   <button type="button" class="remove-row-btn">&times;</button>
   <h4 style="color:#c8a97e; margin:0 0 10px;">Opci\u00f3n ${letter}</h4>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Etiqueta</label><input type="text" class="form-input pay-opt-label-en" placeholder="Option ${letter}"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Label</label><input type="text" class="form-input pay-opt-label-en" placeholder="Option ${letter}"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Etiqueta</label><input type="text" class="form-input pay-opt-label-es" placeholder="Opci\u00f3n ${letter}"></div>
   </div>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Precio</label><input type="text" class="form-input pay-opt-price-en" placeholder="6 \u00d7 \u20ac250"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Price</label><input type="text" class="form-input pay-opt-price-en" placeholder="6 \u00d7 \u20ac250"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Precio</label><input type="text" class="form-input pay-opt-price-es" placeholder="6 \u00d7 \u20ac250"></div>
   </div>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Leyenda</label><input type="text" class="form-input pay-opt-schedule-en" placeholder="Monthly payments"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Schedule</label><input type="text" class="form-input pay-opt-schedule-en" placeholder="Monthly payments"></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Leyenda</label><input type="text" class="form-input pay-opt-schedule-es" placeholder="Pagos mensuales"></div>
   </div>
   <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Descripci\u00f3n</label><textarea class="form-input pay-opt-desc-en" rows="2"></textarea></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Description</label><textarea class="form-input pay-opt-desc-en" rows="2"></textarea></div>
     <div class="form-group lang-field lang-es" style="${esD}"><label>Descripci\u00f3n</label><textarea class="form-input pay-opt-desc-es" rows="2"></textarea></div>
   </div>
 </div>`;
@@ -1693,8 +1693,8 @@ document.addEventListener('DOMContentLoaded', () => {
       var esD = lang === 'es' ? '' : 'display:none';
       var row = '<div class="form-row price-line-row" style="position:relative;">'
         + '<button type="button" class="remove-row-btn" style="position:absolute;right:-8px;top:-8px;z-index:1;">&times;</button>'
-        + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Texto del Precio</label><input type="text" class="form-input price-text-en" placeholder="\u20AC2,299 desde Bogot\u00e1"></div>'
-        + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto del Precio</label><input type="text" class="form-input price-text-es" placeholder="\u20AC2,299 desde Bogot\u00e1"></div>'
+        + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Price Text</label><input type="text" class="form-input price-text-en" placeholder="\u20AC2,299 from Bogot\u00e1"></div>'
+        + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto del Precio</label><input type="text" class="form-input price-text-es" placeholder="\u20AC2,299 from Bogot\u00e1"></div>'
         + '</div>';
       list.insertAdjacentHTML('beforeend', row);
     }
