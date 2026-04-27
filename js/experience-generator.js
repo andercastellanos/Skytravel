@@ -131,29 +131,38 @@ function addDescriptionBlock() {
     <div class="form-group full-width lang-field lang-en" style="${enD}">
       <label>P\u00e1rrafo ${n} (EN)</label>
       <textarea class="form-input desc-text-en" rows="3"></textarea>
-      <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los Enlaces Internos se convertir\u00e1n en links autom\u00e1ticamente.</span>
+      <span class="field-hint">Escriba el texto normalmente. Si quiere convertir alguna frase en enlace, agr\u00e9guela abajo.</span>
     </div>
     <div class="form-group full-width lang-field lang-es" style="${esD}">
       <label>P\u00e1rrafo ${n} (ES)</label>
       <textarea class="form-input desc-text-es" rows="3"></textarea>
-      <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los Enlaces Internos se convertir\u00e1n en links autom\u00e1ticamente.</span>
+      <span class="field-hint">Escriba el texto normalmente. Si quiere convertir alguna frase en enlace, agr\u00e9guela abajo.</span>
     </div>
   </div>
+  <div class="desc-links-list" style="margin-top: 8px;"></div>
   <div style="text-align: right; margin-top: 6px;">
-    <button type="button" onclick="addLinkFromDescription()" style="background: transparent; border: 1px dashed #c8a97e; color: #c8a97e; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(200,169,126,0.08)'" onmouseout="this.style.background='transparent'">+ Agregar Enlace para este texto</button>
+    <button type="button" class="add-desc-link-btn" style="background: transparent; border: 1px dashed #c8a97e; color: #c8a97e; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(200,169,126,0.08)'" onmouseout="this.style.background='transparent'">+ Agregar Enlace para este texto</button>
   </div>
 </div>`;
   document.getElementById('description-blocks-list').insertAdjacentHTML('beforeend', html);
 }
 
-function addLinkFromDescription() {
-  addInternalLink();
-  var list = document.getElementById('internal-links-list');
-  var lastCard = list.lastElementChild;
-  if (!lastCard) return;
-  lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  var urlInput = lastCard.querySelector('.link-url');
-  if (urlInput) setTimeout(function() { urlInput.focus(); }, 350);
+function addDescriptionLinkRow(card) {
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var html = '<div class="desc-link-row" style="background: #fafaf7; border: 1px solid #ece7dd; border-radius: 6px; padding: 10px 12px; margin-top: 6px; position: relative;">'
+    + '<button type="button" class="remove-row-btn" style="position: absolute; right: 6px; top: 6px;">&times;</button>'
+    + '<div class="form-row" style="margin-bottom: 6px;">'
+    + '<div class="form-group full-width"><label>URL</label><input type="text" class="form-input desc-link-url" placeholder="/italy-es"></div>'
+    + '</div>'
+    + '<div class="form-row">'
+    + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Texto en el p\u00e1rrafo (EN)</label><input type="text" class="form-input desc-link-label-en" placeholder="pilgrimage to Italy"></div>'
+    + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto en el p\u00e1rrafo (ES)</label><input type="text" class="form-input desc-link-label-es" placeholder="peregrinaci\u00f3n a Italia"></div>'
+    + '</div>'
+    + '</div>';
+  var list = card.querySelector('.desc-links-list');
+  list.insertAdjacentHTML('beforeend', html);
 }
 
 function addInternalLink() {
@@ -309,14 +318,21 @@ function collectFormData() {
   data.keywordsES       = val('keywords-es');
   data.ogImageFilename  = val('og-image-filename');
 
-  // Description blocks (h2 heading + paragraph)
+  // Description blocks (h2 heading + paragraph + per-block links)
   data.descriptionBlocks = [];
   document.querySelectorAll('#description-blocks-list .dynamic-card').forEach(card => {
     const headingEN = card.querySelector('.desc-heading-en').value.trim();
     const headingES = card.querySelector('.desc-heading-es').value.trim();
     const textEN = card.querySelector('.desc-text-en').value.trim();
     const textES = card.querySelector('.desc-text-es').value.trim();
-    if (textEN || textES) data.descriptionBlocks.push({ headingEN, headingES, textEN, textES });
+    const links = [];
+    card.querySelectorAll('.desc-link-row').forEach(row => {
+      const url = row.querySelector('.desc-link-url').value.trim();
+      const labelEN = row.querySelector('.desc-link-label-en').value.trim();
+      const labelES = row.querySelector('.desc-link-label-es').value.trim();
+      if (url && (labelEN || labelES)) links.push({ url, labelEN, labelES });
+    });
+    if (textEN || textES) data.descriptionBlocks.push({ headingEN, headingES, textEN, textES, links });
   });
 
   // CTA section
@@ -1081,8 +1097,9 @@ function generateHTML(data, lang) {
   (data.descriptionBlocks || []).forEach(block => {
     const heading = esc(isEN ? block.headingEN : block.headingES);
     let text = esc(isEN ? block.textEN : block.textES);
-    if (text && data.links && data.links.length > 0) {
-      data.links.forEach(function(link) {
+    const blockLinks = block.links || [];
+    if (text && blockLinks.length > 0) {
+      blockLinks.forEach(function(link) {
         var label = isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN);
         if (label) {
           var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
@@ -1363,10 +1380,17 @@ document.addEventListener('DOMContentLoaded', () => {
   if (radioManual) radioManual.addEventListener('change', updateGalleryMode);
   updateGalleryMode();
 
-  // Delegate remove buttons for dynamic cards
+  // Delegate remove buttons + per-block "Agregar Enlace" buttons
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-row-btn')) {
+      var linkRow = e.target.closest('.desc-link-row');
+      if (linkRow) { linkRow.remove(); return; }
       e.target.closest('.dynamic-card').remove();
+      return;
+    }
+    if (e.target.classList.contains('add-desc-link-btn')) {
+      var card = e.target.closest('.dynamic-card');
+      if (card) addDescriptionLinkRow(card);
     }
   });
 });
