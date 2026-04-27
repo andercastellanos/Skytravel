@@ -119,7 +119,7 @@ function addDescriptionBlock() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Encabezado h2 ${n} (EN) <small>(opcional)</small></label>
+      <label>Heading h2 ${n} (EN) <small>(optional)</small></label>
       <input type="text" class="form-input desc-heading-en" placeholder="Section heading">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -129,9 +129,9 @@ function addDescriptionBlock() {
   </div>
   <div class="form-row">
     <div class="form-group full-width lang-field lang-en" style="${enD}">
-      <label>P\u00e1rrafo ${n} (EN)</label>
+      <label>Paragraph ${n} (EN)</label>
       <textarea class="form-input desc-text-en" rows="3"></textarea>
-      <span class="field-hint">Escriba el texto normalmente. Si quiere convertir alguna frase en enlace, agr\u00e9guela abajo.</span>
+      <span class="field-hint">Write the text normally. To turn a phrase into a link, add it below.</span>
     </div>
     <div class="form-group full-width lang-field lang-es" style="${esD}">
       <label>P\u00e1rrafo ${n} (ES)</label>
@@ -141,10 +141,10 @@ function addDescriptionBlock() {
   </div>
   <div class="desc-links-list" style="margin-top: 8px;"></div>
   <div style="text-align: right; margin-top: 6px;">
-    <button type="button" class="add-desc-link-btn" style="background: transparent; border: 1px dashed #c8a97e; color: #c8a97e; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(200,169,126,0.08)'" onmouseout="this.style.background='transparent'">+ Agregar Enlace para este texto</button>
+    <button type="button" class="add-desc-link-btn" data-en="+ Add Link for this text" data-es="+ Agregar Enlace para este texto" style="background: transparent; border: 1px dashed #c8a97e; color: #c8a97e; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(200,169,126,0.08)'" onmouseout="this.style.background='transparent'">+ Add Link for this text</button>
   </div>
 </div>`;
-  document.getElementById('description-blocks-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('description-blocks-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addDescriptionLinkRow(card) {
@@ -157,12 +157,13 @@ function addDescriptionLinkRow(card) {
     + '<div class="form-group full-width"><label>URL</label><input type="text" class="form-input desc-link-url" placeholder="/italy-es"></div>'
     + '</div>'
     + '<div class="form-row">'
-    + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Texto en el p\u00e1rrafo (EN)</label><input type="text" class="form-input desc-link-label-en" placeholder="pilgrimage to Italy"></div>'
-    + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto en el p\u00e1rrafo (ES)</label><input type="text" class="form-input desc-link-label-es" placeholder="peregrinaci\u00f3n a Italia"></div>'
+    + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Text in paragraph (EN)</label><input type="text" class="form-input desc-link-label-en" placeholder="pilgrimage to Italy"></div>'
+    + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto en el párrafo (ES)</label><input type="text" class="form-input desc-link-label-es" placeholder="peregrinaci\u00f3n a Italia"></div>'
     + '</div>'
     + '</div>';
   var list = card.querySelector('.desc-links-list');
   list.insertAdjacentHTML('beforeend', html);
+  if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addInternalLink() {
@@ -177,11 +178,11 @@ function addInternalLink() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
-    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
+    <div class="form-group lang-field lang-en" style="${enD}"><label>Text in paragraph</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
+    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto en el párrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
   </div>
 </div>`;
-  document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addFaq() {
@@ -197,7 +198,7 @@ function addFaq() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Pregunta ${n} (EN)</label>
+      <label>Question ${n} (EN)</label>
       <input type="text" class="form-input faq-question-en" placeholder="When did this pilgrimage take place?">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -207,7 +208,7 @@ function addFaq() {
   </div>
   <div class="form-row">
     <div class="form-group full-width lang-field lang-en" style="${enD}">
-      <label>Respuesta ${n} (EN)</label>
+      <label>Answer ${n} (EN)</label>
       <textarea class="form-input faq-answer-en" rows="3"></textarea>
     </div>
     <div class="form-group full-width lang-field lang-es" style="${esD}">
@@ -216,7 +217,7 @@ function addFaq() {
     </div>
   </div>
 </div>`;
-  document.getElementById('faq-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('faq-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addItineraryItem() {
@@ -231,7 +232,7 @@ function addItineraryItem() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Nombre (EN)</label>
+      <label>Name (EN)</label>
       <input type="text" class="form-input itin-name-en" placeholder="Apparition Hill">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -241,16 +242,16 @@ function addItineraryItem() {
   </div>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Descripci\u00f3n (EN)</label>
+      <label>Description (EN)</label>
       <input type="text" class="form-input itin-desc-en" placeholder="Sacred site where...">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
-      <label>Descripci\u00f3n (ES)</label>
+      <label>Descripción (ES)</label>
       <input type="text" class="form-input itin-desc-es" placeholder="Sitio sagrado donde...">
     </div>
   </div>
 </div>`;
-  document.getElementById('itinerary-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('itinerary-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addGalleryImage() {
@@ -265,7 +266,7 @@ function addGalleryImage() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group">
-      <label>Nombre de Archivo</label>
+      <label data-en="Filename" data-es="Nombre de Archivo">Filename</label>
       <input type="text" class="form-input gallery-filename" placeholder="image2.JPG">
     </div>
   </div>
@@ -275,13 +276,13 @@ function addGalleryImage() {
       <input type="text" class="form-input gallery-alt-en" placeholder="Pilgrimage Image">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
-      <label>Alt Text (ES)</label>
+      <label>Texto Alternativo (ES)</label>
       <input type="text" class="form-input gallery-alt-es" placeholder="Imagen de la Peregrinaci\u00f3n">
     </div>
   </div>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Pie de Foto (EN)</label>
+      <label>Caption (EN)</label>
       <input type="text" class="form-input gallery-caption-en" placeholder="Spiritual journey of faith">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -290,7 +291,7 @@ function addGalleryImage() {
     </div>
   </div>
 </div>`;
-  document.getElementById('gallery-images-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('gallery-images-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 // --------------- collectFormData ---------------
