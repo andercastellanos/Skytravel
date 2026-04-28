@@ -10,11 +10,22 @@
 
 function translateText(text, from, to) {
   if (!text.trim()) return Promise.resolve('');
+  // Protect prices, payment plans, and number patterns from being mangled.
+  // Marker chosen to survive translation APIs: pure ASCII, no braces, no real-word meaning.
   var placeholders = [];
-  var protected_ = text.replace(/\d+\s*[×x]\s*[€$]?\s*[\d.,]+|[€$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
+  var protected_ = text.replace(/\d+\s*[\u00d7x]\s*[\u20ac$]?\s*[\d.,]+|[\u20ac$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
     placeholders.push(match);
-    return '{{P' + (placeholders.length - 1) + '}}';
+    return 'ZXKEEPX' + (placeholders.length - 1) + 'XKEEPXZ';
   });
+
+  // If the text after protection is only placeholders and whitespace/punctuation,
+  // there is nothing to translate. Returning the original avoids the API mangling
+  // the marker into junk like "P0".
+  var stripped = protected_.replace(/ZXKEEPX\d+XKEEPXZ/gi, '').replace(/[\s\W]/g, '');
+  if (!stripped) {
+    return Promise.resolve(text);
+  }
+
   var langPair = from + '|' + to;
   return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(protected_) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
     .then(function(r) { return r.json(); })
@@ -23,10 +34,10 @@ function translateText(text, from, to) {
       if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
         result = data.responseData.translatedText;
       }
+      // Restore protected values, tolerating case changes and added whitespace.
       for (var i = 0; i < placeholders.length; i++) {
-        result = result.replace('{{P' + i + '}}', placeholders[i]);
-        result = result.replace('{{p' + i + '}}', placeholders[i]);
-        result = result.replace('{{ P' + i + ' }}', placeholders[i]);
+        var pattern = new RegExp('Z\\s*X\\s*K\\s*E\\s*E\\s*P\\s*X\\s*' + i + '\\s*X\\s*K\\s*E\\s*E\\s*P\\s*X\\s*Z', 'gi');
+        result = result.replace(pattern, placeholders[i]);
       }
       return result;
     })
