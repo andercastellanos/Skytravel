@@ -217,7 +217,7 @@ exports.handler = async (event) => {
     return respond(200, {
       success: true,
       files: ['experiences/' + slugEN + '.html', 'es/experiences/' + slugES + '.html'],
-      message: 'Experience published successfully. Pages and cards were added to the site.'
+      message: 'Experiencia publicada exitosamente. Las páginas y tarjetas fueron agregadas al sitio.'
     });
 
   } catch (err) {
