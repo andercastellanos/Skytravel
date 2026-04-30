@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#c8a97e">
+    <title>Trip Gallery — Sky Travel J&M</title>
+
+    <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/gallery.css">
+
+    <style>
+      .back-to-portal {
+        display: inline-block;
+        margin-bottom: 16px;
+        color: #c8a97e;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .back-to-portal:hover { color: #b69268; }
+      .access-admin-lock { position: absolute; top: 18px; right: 18px; background: transparent; border: none; font-size: 1.1rem; color: #bbb; cursor: pointer; padding: 6px 10px; border-radius: 8px; transition: color 0.2s, background 0.2s; }
+      .access-admin-lock:hover { color: #c8a97e; background: #faf6f0; }
+      #access-screen { position: relative; }
+      .admin-folder-list { margin: 24px auto 0; max-width: 480px; text-align: left; background: #faf6f0; border: 1px solid #ead8b8; border-radius: 12px; padding: 16px; }
+      .admin-folder-list h3 { margin: 0 0 10px; font-size: 0.95rem; color: #2c3e50; }
+      .admin-folder-list ul { list-style: none; padding: 0; margin: 0; max-height: 280px; overflow-y: auto; }
+      .admin-folder-list li { margin: 0; }
+      .admin-folder-list button { width: 100%; text-align: left; padding: 8px 12px; background: transparent; border: none; border-radius: 6px; color: #2c3e50; font-size: 0.92rem; cursor: pointer; transition: background 0.15s; }
+      .admin-folder-list button:hover { background: #fff; color: #b69268; }
+      .admin-folder-list .empty { color: #888; font-size: 0.88rem; margin: 4px 0 0; }
+    </style>
+</head>
+
+<body data-lang="en">
+    <header>
+        <div class="nav-container">
+            <nav aria-label="Main navigation">
+                <a href="/" class="logo">
+                    <img src="imagesWebp/Logo.webp" alt="Sky Travel - Spiritual Pilgrimage Travel Agency Logo"
+                        class="logo-image" width="200" height="200" style="width: 100px; height: auto;" loading="eager" decoding="async">
+                </a>
+                <div class="nav-links" id="nav-links">
+                    <a href="/#featured" class="nav-item">Destinations</a>
+                    <a href="experiences" class="nav-item">Experiences</a>
+                    <a href="blog" class="nav-item">Blog</a>
+                    <a href="about" class="nav-item">About</a>
+                    <a href="testimony/testimonials" class="nav-item">Testimonials</a>
+                    <a href="contact" class="nav-item">Contact</a>
+                    <div class="language-switcher">
+                        <a href="/trip-gallery" class="lang-option active-lang">EN</a>
+                        <span class="lang-separator">|</span>
+                        <a href="/galeria-viaje" class="lang-option">ES</a>
+                    </div>
+                </div>
+                <button type="button" class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="gallery-page-container">
+            <a href="/empleados" class="back-to-portal">&larr; Volver</a>
+
+            <!-- State 1: Access Code Screen -->
+            <div id="access-screen" class="gallery-access">
+                <button type="button" id="access-admin-lock" class="access-admin-lock" title="Admin mode" aria-label="Admin mode">🔒</button>
+                <div class="gallery-access-icon">📸</div>
+                <h1>Private Pilgrim Gallery</h1>
+                <p>Enter the code you received via WhatsApp:</p>
+                <div class="gallery-access-form">
+                    <input type="text" id="trip-code" class="gallery-access-input" placeholder="medjugorje-march-2026" autocomplete="off">
+                    <button type="button" id="access-btn" class="gallery-access-btn">Enter</button>
+                </div>
+                <div id="admin-folder-list" class="admin-folder-list" style="display:none;">
+                    <h3>Existing galleries</h3>
+                    <ul id="admin-folder-items"></ul>
+                </div>
+            </div>
+
+            <!-- State 2: Gallery View (hidden initially) -->
+            <div id="gallery-screen" class="gallery-view" style="display:none;">
+                <div class="gallery-header">
+                    <div>
+                        <h1 id="trip-title"></h1>
+                        <p id="photo-count" class="gallery-count"></p>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button type="button" id="upload-toggle-btn" class="gallery-upload-btn">+ Upload Photos &amp; Videos</button>
+                        <button type="button" id="select-toggle-btn" class="gallery-upload-btn">☑ Select</button>
+                        <button type="button" id="copy-link-btn" class="gallery-upload-btn" style="display:none;">🔗 Copy Link</button>
+                        <button type="button" id="admin-toggle-btn" class="gallery-admin-btn" title="Admin mode">🔒</button>
+                    </div>
+                </div>
+
+                <!-- Upload Panel (hidden, toggles open) -->
+                <div id="upload-panel" class="gallery-upload-panel" style="display:none;">
+                    <div class="upload-dropzone" id="dropzone">
+                        <div class="upload-dropzone-content">
+                            <span class="upload-icon">📁</span>
+                            <p>Drag your photos and videos here or click to select</p>
+                            <p class="upload-hint">Photos: JPG, PNG, WebP (max 10MB) — Videos: MP4, MOV (max 100MB)</p>
+                        </div>
+                        <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm" style="display:none;">
+                    </div>
+                    <!-- Preview grid for selected files before upload -->
+                    <div id="upload-preview" class="upload-preview-grid"></div>
+                    <div id="upload-actions" class="upload-actions" style="display:none;">
+                        <span id="selected-count"></span>
+                        <button type="button" id="upload-btn" class="gallery-submit-btn">Upload</button>
+                    </div>
+                    <!-- Progress bar -->
+                    <div id="upload-progress" class="upload-progress" style="display:none;">
+                        <div class="upload-progress-bar" id="progress-bar"></div>
+                        <span id="progress-text"></span>
+                    </div>
+                </div>
+
+                <!-- Photo Grid -->
+                <div id="gallery-grid" class="gallery-photo-grid"></div>
+
+                <!-- Empty state -->
+                <div id="empty-state" class="gallery-empty" style="display:none;">
+                    <p>No photos yet. Be the first to share!</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="gallery-lightbox" style="display:none;">
+            <div class="lightbox-overlay"></div>
+            <div class="lightbox-content">
+                <button type="button" class="lightbox-close">&times;</button>
+                <button type="button" class="lightbox-prev">&#10094;</button>
+                <button type="button" class="lightbox-next">&#10095;</button>
+                <img id="lightbox-img" class="lightbox-image" src="" alt="">
+                <video id="lightbox-video" class="lightbox-image" controls playsinline style="display:none;"></video>
+                <div class="lightbox-footer">
+                    <a id="lightbox-download" href="" download class="lightbox-download-btn">⬇ Download</a>
+                    <button type="button" id="lightbox-delete" class="lightbox-delete-btn" style="display:none;">🗑 Delete</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <!-- Selection Bar -->
+    <div id="selection-bar" class="gallery-selection-bar" style="display:none;">
+        <span id="selection-count">0 selected</span>
+        <button type="button" id="cancel-selection-btn" class="gallery-selection-cancel">Cancel</button>
+        <button type="button" id="delete-selected-btn" class="gallery-selection-delete" style="display:none;">🗑 Delete</button>
+        <button type="button" id="download-selected-btn" class="gallery-selection-download">⬇ Download</button>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/navigation.min.js" defer></script>
+    <script src="js/elegant-language-switcher.min.js" defer></script>
+    <script src="js/page-init.min.js?v=20260204c" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+    <script src="js/trip-gallery.js" defer></script>
+</body>
+
+</html>

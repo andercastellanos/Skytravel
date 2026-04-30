@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#c8a97e">
+  <title>Create Experience &mdash; Sky Travel</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Page-specific styles */
+    .receipt-header {
+      text-align: center;
+      padding: 20px 0;
+      background: #ffffff;
+      border-bottom: 2px solid #f0ebe3;
+      position: relative;
+    }
+
+    .receipt-header img {
+      max-width: 140px;
+      height: auto;
+    }
+
+    .back-to-portal {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c8a97e;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .back-to-portal:hover {
+      color: #b69268;
+    }
+
+    .receipt-container {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .receipt-card {
+      background: #ffffff;
+      border: 2px solid #c8a97e;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .receipt-title {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+    }
+
+    /* Language toggle */
+    .lang-toggle { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .lang-btn { padding: 6px 18px; border: 2px solid #c8a97e; border-radius: 20px; background: transparent; color: #c8a97e; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: #c8a97e; color: #ffffff; }
+    .lang-btn:hover { background: #c8a97e; color: #ffffff; }
+
+    /* Form layout */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: Arial, sans-serif;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #c8a97e;
+      box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.15);
+    }
+
+    .section-title {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .add-row-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1.5px dashed #c8a97e;
+      border-radius: 8px;
+      color: #c8a97e;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .add-row-btn:hover {
+      background: #faf6f0;
+    }
+
+    .remove-row-btn {
+      background: none;
+      border: none;
+      color: #c41e3a;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .remove-row-btn:hover {
+      background: #fff5f5;
+    }
+
+    /* Dynamic row card styling */
+    .dynamic-card {
+      border: 1.5px solid #e0d6c8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .dynamic-card .remove-row-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 2px solid #f0ebe3;
+      margin: 32px 0;
+    }
+
+    .field-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    /* Submit section */
+    .submit-section {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    #deploy-btn {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-left: 12px;
+    }
+
+    #deploy-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(39, 174, 96, 0.35);
+    }
+
+    #deploy-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #c41e3a;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Radio group styling */
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .receipt-card {
+        padding: 24px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Minimal header: logo only, no navigation -->
+  <div class="receipt-header">
+    <a href="/empleados" class="back-to-portal">&larr; Volver</a>
+    <a href="/">
+      <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
+    </a>
+  </div>
+
+  <div class="receipt-container">
+    <div class="receipt-card">
+      <h1 class="receipt-title" data-en="Create Experience" data-es="Crear Experiencia">Create Experience</h1>
+
+      <!-- Language toggle -->
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn active" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="es">ES</button>
+      </div>
+
+      <form id="experience-form">
+
+        <!-- 1. Informaci&oacute;n B&aacute;sica -->
+        <h3 class="section-title" data-en="Basic Information" data-es="Información Básica">Basic Information</h3>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="experience-name-en">Experience Name (EN)</label>
+            <input type="text" id="experience-name-en" class="form-input" placeholder="Medjugorje 2024">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="experience-name-es">Nombre de la Experiencia (ES)</label>
+            <input type="text" id="experience-name-es" class="form-input" placeholder="Medjugorje 2024">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="experience-year" data-en="Year" data-es="Año">Year</label>
+            <input type="number" id="experience-year" class="form-input" placeholder="2025">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="slug-en" data-en="Slug URL (EN)" data-es="Slug URL (EN)">Slug URL (EN)</label>
+            <input type="text" id="slug-en" class="form-input" placeholder="medjugorje2024">
+          </div>
+          <div class="form-group">
+            <label for="slug-es" data-en="Slug URL (ES)" data-es="Slug URL (ES)">Slug URL (ES)</label>
+            <input type="text" id="slug-es" class="form-input" placeholder="medjugorje-2024-es">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="image-folder" data-en="Image Folder Name" data-es="Nombre de Carpeta de Imágenes">Image Folder Name</label>
+            <input type="text" id="image-folder" class="form-input" placeholder="medjugorje2024">
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 2. Hero / Encabezado -->
+        <h3 class="section-title" data-en="Hero / Heading" data-es="Hero / Encabezado">Hero / Heading</h3>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="hero-bg-path" data-en="Hero Background Image" data-es="Imagen de Fondo del Hero">Hero Background Image</label>
+            <input type="text" id="hero-bg-path" class="form-input" placeholder="images/Medjugorje/MedjugorjeVirgin.jpg">
+            <span class="field-hint" data-en-html="Path to the image from the site root (without ../). Example: &lt;code&gt;images/Italy/Rome.jpg&lt;/code&gt; or &lt;code&gt;imagesWebp/Italy/Rome.webp&lt;/code&gt;." data-es-html="Ruta a la imagen desde la ra&iacute;z del sitio (sin ../). Ejemplo: &lt;code&gt;images/Italy/Rome.jpg&lt;/code&gt; o &lt;code&gt;imagesWebp/Italy/Rome.webp&lt;/code&gt;.">Path to the image from the site root (without ../). Example: <code>images/Italy/Rome.jpg</code> or <code>imagesWebp/Italy/Rome.webp</code>.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="hero-subtitle-en">Subtitle (EN)</label>
+            <input type="text" id="hero-subtitle-en" class="form-input">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="hero-subtitle-es">Subtítulo (ES)</label>
+            <input type="text" id="hero-subtitle-es" class="form-input">
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 3. SEO -->
+        <h3 class="section-title" data-en="SEO" data-es="SEO">SEO</h3>
+
+        <div class="form-row">
+          <div class="form-group full-width lang-field lang-en">
+            <label for="meta-desc-en">Meta Description (EN)</label>
+            <textarea id="meta-desc-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group full-width lang-field lang-es" style="display:none">
+            <label for="meta-desc-es">Descripción Meta (ES)</label>
+            <textarea id="meta-desc-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="keywords-en">Keywords (EN)</label>
+            <input type="text" id="keywords-en" class="form-input">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="keywords-es">Palabras Clave (ES)</label>
+            <input type="text" id="keywords-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="og-image-filename" data-en="OG Image Filename" data-es="Nombre de Imagen OG">OG Image Filename</label>
+            <input type="text" id="og-image-filename" class="form-input" placeholder="image2.JPG">
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 4. Descripci&oacute;n -->
+        <h3 class="section-title" data-en="Description" data-es="Descripción">Description</h3>
+
+        <div id="description-blocks-list"></div>
+        <button type="button" id="add-desc-block-btn" class="add-row-btn" data-en="+ Add Description Block" data-es="+ Agregar Bloque de Descripción">+ Add Description Block</button>
+
+        <hr class="section-divider">
+
+        <!-- 5. CTA / WhatsApp -->
+        <h3 class="section-title" data-en="CTA / WhatsApp" data-es="CTA / WhatsApp">CTA / WhatsApp</h3>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label>
+              <input type="checkbox" id="include-cta" checked>
+              <span data-en="Include WhatsApp contact section" data-es="Incluir sección de contacto WhatsApp">Include WhatsApp contact section</span>
+            </label>
+          </div>
+        </div>
+
+        <div id="cta-fields">
+          <div class="form-row">
+            <div class="form-group lang-field lang-en">
+              <label for="cta-heading-en">CTA Heading (EN)</label>
+              <input type="text" id="cta-heading-en" class="form-input" placeholder="Want to Know the Upcoming Dates?">
+            </div>
+            <div class="form-group lang-field lang-es" style="display:none">
+              <label for="cta-heading-es">Título del CTA (ES)</label>
+              <input type="text" id="cta-heading-es" class="form-input" placeholder="&iquest;Desea Saber las Pr&oacute;ximas Fechas?">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full-width lang-field lang-en">
+              <label for="cta-text-en">CTA Text (EN)</label>
+              <textarea id="cta-text-en" class="form-input" rows="2"></textarea>
+            </div>
+            <div class="form-group full-width lang-field lang-es" style="display:none">
+              <label for="cta-text-es">Texto del CTA (ES)</label>
+              <textarea id="cta-text-es" class="form-input" rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 6. Datos Estructurados -->
+        <h3 class="section-title" data-en="Structured Data" data-es="Datos Estructurados">Structured Data</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tourist-type" data-en="Tourist Type" data-es="Tipo de Turista">Tourist Type</label>
+            <input type="text" id="tourist-type" class="form-input" placeholder="Catholic Pilgrims">
+          </div>
+        </div>
+
+        <div id="itinerary-list"></div>
+        <button type="button" id="add-itinerary-btn" class="add-row-btn" data-en="+ Add Itinerary Item" data-es="+ Agregar Punto del Itinerario">+ Add Itinerary Item</button>
+
+        <hr class="section-divider">
+
+        <!-- 7. Im&aacute;genes de la Galer&iacute;a -->
+        <h3 class="section-title" data-en="Gallery Images" data-es="Imágenes de la Galería">Gallery Images</h3>
+
+        <div id="gallery-images-list"></div>
+        <button type="button" id="add-gallery-image-btn" class="add-row-btn" data-en="+ Add Image" data-es="+ Agregar Imagen">+ Add Image</button>
+
+        <hr class="section-divider">
+
+        <!-- 8. Tarjeta del Landing Page -->
+        <h3 class="section-title" data-en="Landing Page Card" data-es="Tarjeta del Landing Page">Landing Page Card</h3>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="card-title-en">Card Title (EN)</label>
+            <input type="text" id="card-title-en" class="form-input">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="card-title-es">Título de la Tarjeta (ES)</label>
+            <input type="text" id="card-title-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="card-desc-en">Card Description (EN)</label>
+            <input type="text" id="card-desc-en" class="form-input">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="card-desc-es">Descripción de la Tarjeta (ES)</label>
+            <input type="text" id="card-desc-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="card-thumbnail" data-en="Card Image" data-es="Imagen de la Tarjeta">Card Image</label>
+            <input type="text" id="card-thumbnail" class="form-input" placeholder="image2.JPG">
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 9. Thumbnails -->
+        <h3 class="section-title" data-en="Thumbnails" data-es="Thumbnails">Thumbnails</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="auto-thumbnails" checked>
+              <span data-en="Auto-generate thumbnails" data-es="Generar thumbnails automáticamente">Auto-generate thumbnails</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="thumbnail-count" data-en="Thumbnail Count" data-es="Cantidad de Thumbnails">Thumbnail Count</label>
+            <input type="number" id="thumbnail-count" class="form-input" value="20">
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 10. Enlaces Internos -->
+        <h3 class="section-title" data-en="Internal Links" data-es="Enlaces Internos">Internal Links</h3>
+        <p class="field-hint" data-en="Each block has its own heading, paragraph, and links. Add as many blocks as you need." data-es="Cada bloque tiene su propio encabezado, párrafo y enlaces. Agrega tantos bloques como necesites.">Each block has its own heading, paragraph, and links. Add as many blocks as you need.</p>
+
+        <div id="internal-blocks-list"></div>
+        <button type="button" id="add-internal-block-btn" class="add-row-btn" data-en="+ Add Internal Block" data-es="+ Agregar Bloque de Enlaces">+ Add Internal Block</button>
+
+        <hr class="section-divider">
+
+        <!-- 11. Preguntas Frecuentes -->
+        <h3 class="section-title" data-en="FAQ" data-es="Preguntas Frecuentes">FAQ</h3>
+
+        <div id="faq-list"></div>
+        <button type="button" id="add-faq-btn" class="add-row-btn" data-en="+ Add Question" data-es="+ Agregar Pregunta">+ Add Question</button>
+
+        <hr class="section-divider">
+
+        <!-- Submit -->
+        <div class="submit-section">
+          <button type="button" id="deploy-btn" data-en="Publish to site" data-es="Publicar en el sitio">Publish to site</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/experience-generator.js"></script>
+
+  <!-- CTA toggle -->
+  <script>
+  document.getElementById('include-cta').addEventListener('change', function() {
+      document.getElementById('cta-fields').style.display = this.checked ? '' : 'none';
+  });
+  </script>
+
+  <!-- Language toggle logic -->
+  <script>
+  function applyChromeLang(lang) {
+      var key = lang === 'es' ? 'es' : 'en';
+      document.querySelectorAll('[data-en-html][data-es-html]').forEach(function(el) {
+          el.innerHTML = el.dataset[key + 'Html'];
+      });
+      document.querySelectorAll('[data-en][data-es]').forEach(function(el) {
+          el.textContent = el.dataset[key];
+      });
+  }
+  document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+          var prevLang = document.querySelector('.lang-toggle .lang-btn.active');
+          var fromLang = prevLang ? prevLang.dataset.lang : 'en';
+          var toLang = btn.dataset.lang;
+
+          document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          // Auto-translate empty fields when switching languages
+          if (fromLang !== toLang && typeof autoPopulateAllFields === 'function') {
+              autoPopulateAllFields();
+          }
+
+          // Toggle visibility
+          document.querySelectorAll('.lang-field').forEach(function(el) {
+              el.style.display = el.classList.contains('lang-' + toLang) ? '' : 'none';
+          });
+
+          // Swap chrome text
+          applyChromeLang(toLang);
+      });
+  });
+  // Apply once on load (default is EN)
+  applyChromeLang('en');
+  </script>
+</body>
+
+</html>

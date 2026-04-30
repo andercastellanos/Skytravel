@@ -63,6 +63,39 @@
   status = 301
   force = true
 
+# Payment page redirects
+[[redirects]]
+  from = "/pay.html"
+  to = "/pay"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pagar.html"
+  to = "/pagar"
+  status = 301
+  force = true
+
+# Trip gallery page redirects
+[[redirects]]
+  from = "/galeria-viaje.html"
+  to = "/galeria-viaje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/trip-gallery.html"
+  to = "/trip-gallery"
+  status = 301
+  force = true
+
+# Hidden destination creator page redirect
+[[redirects]]
+  from = "/crear-destino.html"
+  to = "/crear-destino"
+  status = 301
+  force = true
+
 # Employee portal page redirect
 [[redirects]]
   from = "/empleados.html"
@@ -502,3 +535,4 @@
   to = "/peregrinacion-tierrasanta-2027-es"
   status = 301
   force = true
+

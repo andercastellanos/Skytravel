@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#c8a97e">
+  <title>Crear Destino — Sky Travel J&M</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Page-specific styles */
+    .receipt-header {
+      text-align: center;
+      padding: 20px 0;
+      background: #ffffff;
+      border-bottom: 2px solid #f0ebe3;
+      position: relative;
+    }
+
+    .receipt-header img {
+      max-width: 140px;
+      height: auto;
+    }
+
+    .back-to-portal {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c8a97e;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .back-to-portal:hover {
+      color: #b69268;
+    }
+
+    .receipt-container {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .receipt-card {
+      background: #ffffff;
+      border: 2px solid #c8a97e;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .receipt-title {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+    }
+
+    /* Language toggle */
+    .lang-toggle { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .lang-btn { padding: 6px 18px; border: 2px solid #c8a97e; border-radius: 20px; background: transparent; color: #c8a97e; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: #c8a97e; color: #ffffff; }
+    .lang-btn:hover { background: #c8a97e; color: #ffffff; }
+
+    /* Form layout */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: Arial, sans-serif;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #c8a97e;
+      box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.15);
+    }
+
+    .section-title {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .add-row-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1.5px dashed #c8a97e;
+      border-radius: 8px;
+      color: #c8a97e;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .add-row-btn:hover {
+      background: #faf6f0;
+    }
+
+    .remove-row-btn {
+      background: none;
+      border: none;
+      color: #c41e3a;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .remove-row-btn:hover {
+      background: #fff5f5;
+    }
+
+    /* Dynamic row card styling */
+    .dynamic-card {
+      border: 1.5px solid #e0d6c8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .dynamic-card .remove-row-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 2px solid #f0ebe3;
+      margin: 32px 0;
+    }
+
+    .field-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    /* Submit section */
+    .submit-section {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    #deploy-btn {
+      padding: 14px 48px;
+      background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-left: 12px;
+    }
+
+    #deploy-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(39, 174, 96, 0.35);
+    }
+
+    #deploy-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #c41e3a;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .receipt-card {
+        padding: 24px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Minimal header: logo only, no navigation -->
+  <div class="receipt-header">
+    <a href="/empleados" class="back-to-portal">&larr; Volver</a>
+    <a href="/">
+      <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
+    </a>
+  </div>
+
+  <div class="receipt-container">
+    <div class="receipt-card">
+      <h1 class="receipt-title">Crear Destino</h1>
+
+      <!-- Language toggle -->
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn active" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="es">ES</button>
+      </div>
+
+      <form id="destination-form">
+
+        <!-- 1. Basic Info -->
+        <h3 class="section-title" data-en-html="Basic Information" data-es-html="Informaci&oacute;n B&aacute;sica">Basic Information</h3>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="destination-name-en">Destination Name</label>
+            <input type="text" id="destination-name-en" class="form-input" placeholder="Medjugorje">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="destination-name-es">Nombre del Destino</label>
+            <input type="text" id="destination-name-es" class="form-input" placeholder="Medjugorje">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="url-slug" data-en-html="URL Slug" data-es-html="Slug de URL">URL Slug</label>
+            <input type="text" id="url-slug" class="form-input" placeholder="medjugorje2026">
+          </div>
+          <div class="form-group lang-field lang-en">
+            <label for="event-type-en">Event Type</label>
+            <input type="text" id="event-type-en" class="form-input" placeholder="Pilgrimage">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="event-type-es">Tipo de Evento</label>
+            <input type="text" id="event-type-es" class="form-input" placeholder="Peregrinaci&oacute;n">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="image-folder" data-en-html="Image Folder Name" data-es-html="Nombre de Carpeta de Im&aacute;genes">Image Folder Name</label>
+            <input type="text" id="image-folder" class="form-input" placeholder="Medjugorje">
+          </div>
+          <div class="form-group lang-field lang-en">
+            <label for="trip-theme-en">Trip Theme (SEO keyword)</label>
+            <input type="text" id="trip-theme-en" class="form-input" placeholder="Holy Week">
+            <span class="field-hint">Keyword used in the page title and meta tags</span>
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="trip-theme-es">Tema del Viaje (SEO keyword)</label>
+            <input type="text" id="trip-theme-es" class="form-input" placeholder="Semana Santa">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="start-date" data-en-html="Start Date" data-es-html="Fecha de Inicio">Start Date</label>
+            <input type="date" id="start-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="end-date" data-en-html="End Date" data-es-html="Fecha de Finalizaci&oacute;n">End Date</label>
+            <input type="date" id="end-date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="duration-en">Duration Label</label>
+            <input type="text" id="duration-en" class="form-input" placeholder="8 days / 7 nights">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="duration-es">Etiqueta de Duraci&oacute;n</label>
+            <input type="text" id="duration-es" class="form-input" placeholder="8 d&iacute;as / 7 noches">
+          </div>
+        </div>
+
+        <!-- Alternate Dates -->
+        <h3 class="section-title" data-en-html="Alternate Dates" data-es-html="Fechas Alternativas">Alternate Dates</h3>
+        <div id="alternate-dates-list"></div>
+        <button type="button" id="add-alt-date-btn" class="add-row-btn" data-en-html="+ Add Date" data-es-html="+ Agregar Fecha">+ Add Date</button>
+
+        <hr class="section-divider">
+
+        <!-- 2. Hero -->
+        <h3 class="section-title" data-en-html="Hero / Header" data-es-html="Hero / Encabezado">Hero / Header</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="og-image-filename" data-en-html="OG Image Name (social media)" data-es-html="Nombre de Imagen OG (redes sociales)">OG Image Name (social media)</label>
+            <input type="text" id="og-image-filename" class="form-input" placeholder="virgin-1200.webp">
+            <span class="field-hint" data-en-html="Image optimized for social media (1200x630). If left empty, the first slideshow image is used." data-es-html="Imagen optimizada para redes sociales (1200x630). Si se deja vac&iacute;o, se usa la primera imagen del slideshow.">Image optimized for social media (1200x630). If left empty, the first slideshow image is used.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="h1-en">H1 Heading</label>
+            <input type="text" id="h1-en" class="form-input">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="h1-es">Encabezado H1</label>
+            <input type="text" id="h1-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="subheading-en">Subheading</label>
+            <input type="text" id="subheading-en" class="form-input">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="subheading-es">Subt&iacute;tulo</label>
+            <input type="text" id="subheading-es" class="form-input">
+          </div>
+        </div>
+
+        <!-- Slideshow Images -->
+        <h3 class="section-title" data-en-html="Slideshow Images" data-es-html="Im&aacute;genes del Slideshow">Slideshow Images</h3>
+        <div id="slideshow-images-list"></div>
+        <button type="button" id="add-slide-btn" class="add-row-btn" data-en-html="+ Add Image" data-es-html="+ Agregar Imagen">+ Add Image</button>
+
+        <hr class="section-divider">
+
+        <!-- 4. Trip Details -->
+        <h3 class="section-title" data-en-html="Trip Details" data-es-html="Detalles del Viaje">Trip Details</h3>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="overview-heading-en">Overview Heading</label>
+            <input type="text" id="overview-heading-en" class="form-input">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="overview-heading-es">T&iacute;tulo General</label>
+            <input type="text" id="overview-heading-es" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width lang-field lang-en">
+            <label for="overview-p1-en">Overview Paragraph 1</label>
+            <textarea id="overview-p1-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group full-width lang-field lang-es" style="display:none">
+            <label for="overview-p1-es">P&aacute;rrafo General 1</label>
+            <textarea id="overview-p1-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width lang-field lang-en">
+            <label for="overview-p2-en">Overview Paragraph 2</label>
+            <textarea id="overview-p2-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group full-width lang-field lang-es" style="display:none">
+            <label for="overview-p2-es">P&aacute;rrafo General 2</label>
+            <textarea id="overview-p2-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div id="overview-extra-list"></div>
+        <button type="button" id="add-overview-para-btn" class="add-row-btn" data-en-html="+ Add Paragraph" data-es-html="+ Agregar P&aacute;rrafo">+ Add Paragraph</button>
+
+        <hr class="section-divider">
+
+        <!-- 5. Pricing Cards -->
+        <h3 class="section-title" data-en-html="Pricing Cards" data-es-html="Tarjetas de Precios">Pricing Cards</h3>
+        <div id="pricing-cards-list"></div>
+        <button type="button" id="add-pricing-btn" class="add-row-btn" data-en-html="+ Add Card" data-es-html="+ Agregar Tarjeta">+ Add Card</button>
+
+        <hr class="section-divider">
+
+        <!-- 6. Journey Tabs -->
+        <h3 class="section-title" data-en-html="Journey Sections" data-es-html="Secciones del Recorrido">Journey Sections</h3>
+        <div id="journey-tabs-list"></div>
+        <button type="button" id="add-journey-btn" class="add-row-btn" data-en-html="+ Add Location" data-es-html="+ Agregar Ubicaci&oacute;n">+ Add Location</button>
+
+        <hr class="section-divider">
+
+        <!-- 7. Internal Links -->
+        <h3 class="section-title" data-en-html="Internal Links" data-es-html="Enlaces Internos">Internal Links</h3>
+        <p class="field-hint" data-en-html="Each block has its own heading, paragraph and links. Add as many blocks as you need." data-es-html="Cada bloque tiene su propio encabezado, p&aacute;rrafo y enlaces. Agrega tantos bloques como necesites.">Each block has its own heading, paragraph and links. Add as many blocks as you need.</p>
+
+        <div id="internal-blocks-list"></div>
+        <button type="button" id="add-internal-block-btn" class="add-row-btn" data-en-html="+ Add Internal Block" data-es-html="+ Agregar Bloque de Enlaces">+ Add Internal Block</button>
+
+        <hr class="section-divider">
+
+        <!-- 8. Payment Plan -->
+        <h3 class="section-title" data-en-html="Payment Plan" data-es-html="Plan de Pagos">Payment Plan</h3>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="payment-intro-en">Intro Text</label>
+            <textarea id="payment-intro-en" class="form-input" rows="3"></textarea>
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="payment-intro-es">Texto de Introducci&oacute;n</label>
+            <textarea id="payment-intro-es" class="form-input" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group lang-field lang-en">
+            <label for="deposit-text-en">Deposit Text</label>
+            <input type="text" id="deposit-text-en" class="form-input" placeholder="Deposit: €499 today to reserve your spot">
+          </div>
+          <div class="form-group lang-field lang-es" style="display:none">
+            <label for="deposit-text-es">Texto del Dep&oacute;sito</label>
+            <input type="text" id="deposit-text-es" class="form-input" placeholder="Dep&oacute;sito: €499 hoy para reservar tu cupo">
+          </div>
+        </div>
+
+        <div id="payment-options-list"></div>
+        <button type="button" id="add-payment-option-btn" class="add-row-btn" data-en-html="+ Add Payment Option" data-es-html="+ Agregar Opci&oacute;n de Pago">+ Add Payment Option</button>
+
+        <hr class="section-divider">
+
+        <!-- 9. FAQ -->
+        <h3 class="section-title" data-en-html="FAQ" data-es-html="Preguntas Frecuentes">FAQ</h3>
+        <div id="faq-list"></div>
+        <button type="button" id="add-faq-btn" class="add-row-btn" data-en-html="+ Add Question" data-es-html="+ Agregar Pregunta">+ Add Question</button>
+
+        <hr class="section-divider">
+
+        <!-- 10. JSON-LD Extras -->
+        <h3 class="section-title" data-en-html="JSON-LD / Structured Data" data-es-html="JSON-LD / Datos Estructurados">JSON-LD / Structured Data</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="location-name" data-en-html="Location Name" data-es-html="Nombre de la Ubicaci&oacute;n">Location Name</label>
+            <input type="text" id="location-name" class="form-input" placeholder="Medjugorje">
+          </div>
+          <div class="form-group">
+            <label for="location-country" data-en-html="Country Code" data-es-html="C&oacute;digo de Pa&iacute;s">Country Code</label>
+            <input type="text" id="location-country" class="form-input" placeholder="BA">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="valid-from" data-en-html="Offer Valid From" data-es-html="Oferta V&aacute;lida Desde">Offer Valid From</label>
+            <input type="date" id="valid-from" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="valid-through" data-en-html="Offer Valid Through" data-es-html="Oferta V&aacute;lida Hasta">Offer Valid Through</label>
+            <input type="date" id="valid-through" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="same-as" data-en-html="sameAs URL (optional)" data-es-html="URL sameAs (opcional)">sameAs URL (optional)</label>
+            <input type="text" id="same-as" class="form-input" placeholder="https://en.wikipedia.org/wiki/Medjugorje">
+          </div>
+        </div>
+
+        <p class="field-hint" data-en-html="Prices come from the Pricing Cards. Make sure the first price is numeric (e.g. 1999)." data-es-html="Los precios se toman de las Tarjetas de Precios. Aseg&uacute;rese de que el primer precio sea num&eacute;rico (ej: 1999).">Prices come from the Pricing Cards. Make sure the first price is numeric (e.g. 1999).</p>
+
+        <hr class="section-divider">
+
+        <!-- Submit -->
+        <div class="submit-section">
+          <button type="button" id="deploy-btn" data-en="Publish to site" data-es="Publicar en el sitio">Publish to site</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/destination-generator.js"></script>
+
+  <!-- Language toggle logic -->
+  <script>
+  function applyChromeLang(lang) {
+      var key = lang === 'es' ? 'es' : 'en';
+      document.querySelectorAll('[data-en-html][data-es-html]').forEach(function(el) {
+          el.innerHTML = el.dataset[key + 'Html'];
+      });
+      document.querySelectorAll('[data-en][data-es]').forEach(function(el) {
+          el.textContent = el.dataset[key];
+      });
+  }
+  // Apply on load (default EN active)
+  document.addEventListener('DOMContentLoaded', function() { applyChromeLang('en'); });
+
+  document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+          var prevLang = document.querySelector('.lang-toggle .lang-btn.active');
+          var fromLang = prevLang ? prevLang.dataset.lang : 'en';
+          var toLang = btn.dataset.lang;
+
+          document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          // Auto-translate empty fields when switching languages
+          if (fromLang !== toLang && typeof autoPopulateAllFields === 'function') {
+              autoPopulateAllFields();
+          }
+
+          // Toggle visibility
+          document.querySelectorAll('.lang-field').forEach(function(el) {
+              el.style.display = el.classList.contains('lang-' + toLang) ? '' : 'none';
+          });
+
+          // Swap chrome (section titles, universal labels, buttons)
+          applyChromeLang(toLang);
+      });
+  });
+  </script>
+</body>
+
+</html>
