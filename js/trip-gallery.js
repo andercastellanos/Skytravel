@@ -38,6 +38,7 @@ const T = {
     selectExit: isEN ? '✕ Exit' : '✕ Salir',
     foldersPrompt: isEN ? 'Enter employee code to view all galleries:' : 'Ingresa el código de empleado para ver todas las galerías:',
     foldersError: isEN ? 'Could not load galleries' : 'No se pudieron cargar las galerías',
+    serverError: isEN ? 'Server error — gallery service unavailable' : 'Error del servidor — servicio de galería no disponible',
     foldersEmpty: isEN ? 'No galleries created yet.' : 'Aún no hay galerías creadas.',
 };
 
@@ -81,7 +82,7 @@ async function showAdminFolders() {
             body: JSON.stringify({ code: code })
         });
         if (!res.ok) {
-            showToast(T.adminWrong);
+            showToast(res.status === 401 ? T.adminWrong : T.serverError);
             return;
         }
         const data = await res.json();
