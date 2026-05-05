@@ -2,7 +2,7 @@
   publish = "."
 
 [build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "NOTIFICATION_EMAIL"
+  SECRETS_SCAN_OMIT_KEYS = "NOTIFICATION_EMAIL,CLOUDINARY_CLOUD_NAME_GALLERY"
 [functions]
   directory = "testimony/netlify/functions"
   node_bundler = "esbuild"
