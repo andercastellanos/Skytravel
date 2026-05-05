@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#c8a97e">
-  <title>Crear Experiencia &mdash; Sky Travel</title>
+  <title>Create Experience &mdash; Sky Travel</title>
 
   <!-- Favicon -->
   <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon">
@@ -272,7 +272,7 @@
 <body>
   <!-- Minimal header: logo only, no navigation -->
   <div class="receipt-header">
-    <a href="/empleados" class="back-to-portal">&larr; Volver al Portal</a>
+    <a href="/empleados" class="back-to-portal">&larr; Volver</a>
     <a href="/">
       <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M" />
     </a>
@@ -280,7 +280,7 @@
 
   <div class="receipt-container">
     <div class="receipt-card">
-      <h1 class="receipt-title">Crear Experiencia</h1>
+      <h1 class="receipt-title" data-en="Create Experience" data-es="Crear Experiencia">Create Experience</h1>
 
       <!-- Language toggle -->
       <div class="lang-toggle">
@@ -291,11 +291,11 @@
       <form id="experience-form">
 
         <!-- 1. Informaci&oacute;n B&aacute;sica -->
-        <h3 class="section-title">Informaci&oacute;n B&aacute;sica</h3>
+        <h3 class="section-title" data-en="Basic Information" data-es="Información Básica">Basic Information</h3>
 
         <div class="form-row">
           <div class="form-group lang-field lang-en">
-            <label for="experience-name-en">Nombre de la Experiencia (EN)</label>
+            <label for="experience-name-en">Experience Name (EN)</label>
             <input type="text" id="experience-name-en" class="form-input" placeholder="Medjugorje 2024">
           </div>
           <div class="form-group lang-field lang-es" style="display:none">
@@ -306,25 +306,25 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="year">A&ntilde;o</label>
-            <input type="number" id="year" class="form-input" placeholder="2025">
+            <label for="experience-year" data-en="Year" data-es="Año">Year</label>
+            <input type="number" id="experience-year" class="form-input" placeholder="2025">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="url-slug-en">Slug URL (EN)</label>
-            <input type="text" id="url-slug-en" class="form-input" placeholder="medjugorje2024">
+            <label for="slug-en" data-en="Slug URL (EN)" data-es="Slug URL (EN)">Slug URL (EN)</label>
+            <input type="text" id="slug-en" class="form-input" placeholder="medjugorje2024">
           </div>
           <div class="form-group">
-            <label for="url-slug-es">Slug URL (ES)</label>
-            <input type="text" id="url-slug-es" class="form-input" placeholder="medjugorje-2024-es">
+            <label for="slug-es" data-en="Slug URL (ES)" data-es="Slug URL (ES)">Slug URL (ES)</label>
+            <input type="text" id="slug-es" class="form-input" placeholder="medjugorje-2024-es">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="image-folder">Nombre de Carpeta de Im&aacute;genes</label>
+            <label for="image-folder" data-en="Image Folder Name" data-es="Nombre de Carpeta de Imágenes">Image Folder Name</label>
             <input type="text" id="image-folder" class="form-input" placeholder="medjugorje2024">
           </div>
         </div>
@@ -332,22 +332,23 @@
         <hr class="section-divider">
 
         <!-- 2. Hero / Encabezado -->
-        <h3 class="section-title">Hero / Encabezado</h3>
+        <h3 class="section-title" data-en="Hero / Heading" data-es="Hero / Encabezado">Hero / Heading</h3>
 
         <div class="form-row">
           <div class="form-group full-width">
-            <label for="hero-bg-path">Imagen de Fondo del Hero</label>
-            <input type="text" id="hero-bg-path" class="form-input" placeholder="../images/Medjugorje/MedjugorjeVirgin.jpg">
+            <label for="hero-bg-path" data-en="Hero Background Image" data-es="Imagen de Fondo del Hero">Hero Background Image</label>
+            <input type="text" id="hero-bg-path" class="form-input" placeholder="images/Medjugorje/MedjugorjeVirgin.jpg">
+            <span class="field-hint" data-en-html="Path to the image from the site root (without ../). Example: &lt;code&gt;images/Italy/Rome.jpg&lt;/code&gt; or &lt;code&gt;imagesWebp/Italy/Rome.webp&lt;/code&gt;." data-es-html="Ruta a la imagen desde la ra&iacute;z del sitio (sin ../). Ejemplo: &lt;code&gt;images/Italy/Rome.jpg&lt;/code&gt; o &lt;code&gt;imagesWebp/Italy/Rome.webp&lt;/code&gt;.">Path to the image from the site root (without ../). Example: <code>images/Italy/Rome.jpg</code> or <code>imagesWebp/Italy/Rome.webp</code>.</span>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group lang-field lang-en">
-            <label for="hero-subtitle-en">Subt&iacute;tulo (EN)</label>
+            <label for="hero-subtitle-en">Subtitle (EN)</label>
             <input type="text" id="hero-subtitle-en" class="form-input">
           </div>
           <div class="form-group lang-field lang-es" style="display:none">
-            <label for="hero-subtitle-es">Subt&iacute;tulo (ES)</label>
+            <label for="hero-subtitle-es">Subtítulo (ES)</label>
             <input type="text" id="hero-subtitle-es" class="form-input">
           </div>
         </div>
@@ -355,22 +356,22 @@
         <hr class="section-divider">
 
         <!-- 3. SEO -->
-        <h3 class="section-title">SEO</h3>
+        <h3 class="section-title" data-en="SEO" data-es="SEO">SEO</h3>
 
         <div class="form-row">
           <div class="form-group full-width lang-field lang-en">
-            <label for="meta-desc-en">Descripci&oacute;n Meta (EN)</label>
+            <label for="meta-desc-en">Meta Description (EN)</label>
             <textarea id="meta-desc-en" class="form-input" rows="3"></textarea>
           </div>
           <div class="form-group full-width lang-field lang-es" style="display:none">
-            <label for="meta-desc-es">Descripci&oacute;n Meta (ES)</label>
+            <label for="meta-desc-es">Descripción Meta (ES)</label>
             <textarea id="meta-desc-es" class="form-input" rows="3"></textarea>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group lang-field lang-en">
-            <label for="keywords-en">Palabras Clave (EN)</label>
+            <label for="keywords-en">Keywords (EN)</label>
             <input type="text" id="keywords-en" class="form-input">
           </div>
           <div class="form-group lang-field lang-es" style="display:none">
@@ -381,7 +382,7 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="og-image-filename">Nombre de Imagen OG</label>
+            <label for="og-image-filename" data-en="OG Image Filename" data-es="Nombre de Imagen OG">OG Image Filename</label>
             <input type="text" id="og-image-filename" class="form-input" placeholder="image2.JPG">
           </div>
         </div>
@@ -389,21 +390,21 @@
         <hr class="section-divider">
 
         <!-- 4. Descripci&oacute;n -->
-        <h3 class="section-title">Descripci&oacute;n</h3>
+        <h3 class="section-title" data-en="Description" data-es="Descripción">Description</h3>
 
         <div id="description-blocks-list"></div>
-        <button type="button" id="add-desc-block-btn" class="add-row-btn">+ Agregar Bloque de Descripci&oacute;n</button>
+        <button type="button" id="add-desc-block-btn" class="add-row-btn" data-en="+ Add Description Block" data-es="+ Agregar Bloque de Descripción">+ Add Description Block</button>
 
         <hr class="section-divider">
 
         <!-- 5. CTA / WhatsApp -->
-        <h3 class="section-title">CTA / WhatsApp</h3>
+        <h3 class="section-title" data-en="CTA / WhatsApp" data-es="CTA / WhatsApp">CTA / WhatsApp</h3>
 
         <div class="form-row">
           <div class="form-group full-width">
             <label>
               <input type="checkbox" id="include-cta" checked>
-              Incluir secci&oacute;n de contacto WhatsApp
+              <span data-en="Include WhatsApp contact section" data-es="Incluir sección de contacto WhatsApp">Include WhatsApp contact section</span>
             </label>
           </div>
         </div>
@@ -411,18 +412,18 @@
         <div id="cta-fields">
           <div class="form-row">
             <div class="form-group lang-field lang-en">
-              <label for="cta-heading-en">T&iacute;tulo del CTA (EN)</label>
+              <label for="cta-heading-en">CTA Heading (EN)</label>
               <input type="text" id="cta-heading-en" class="form-input" placeholder="Want to Know the Upcoming Dates?">
             </div>
             <div class="form-group lang-field lang-es" style="display:none">
-              <label for="cta-heading-es">T&iacute;tulo del CTA (ES)</label>
+              <label for="cta-heading-es">Título del CTA (ES)</label>
               <input type="text" id="cta-heading-es" class="form-input" placeholder="&iquest;Desea Saber las Pr&oacute;ximas Fechas?">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group full-width lang-field lang-en">
-              <label for="cta-text-en">Texto del CTA (EN)</label>
+              <label for="cta-text-en">CTA Text (EN)</label>
               <textarea id="cta-text-en" class="form-input" rows="2"></textarea>
             </div>
             <div class="form-group full-width lang-field lang-es" style="display:none">
@@ -435,118 +436,56 @@
         <hr class="section-divider">
 
         <!-- 6. Datos Estructurados -->
-        <h3 class="section-title">Datos Estructurados</h3>
+        <h3 class="section-title" data-en="Structured Data" data-es="Datos Estructurados">Structured Data</h3>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="tourist-type">Tipo de Turista</label>
+            <label for="tourist-type" data-en="Tourist Type" data-es="Tipo de Turista">Tourist Type</label>
             <input type="text" id="tourist-type" class="form-input" placeholder="Catholic Pilgrims">
           </div>
         </div>
 
         <div id="itinerary-list"></div>
-        <button type="button" id="add-itinerary-btn" class="add-row-btn">+ Agregar Punto del Itinerario</button>
+        <button type="button" id="add-itinerary-btn" class="add-row-btn" data-en="+ Add Itinerary Item" data-es="+ Agregar Punto del Itinerario">+ Add Itinerary Item</button>
 
         <hr class="section-divider">
 
         <!-- 7. Im&aacute;genes de la Galer&iacute;a -->
-        <h3 class="section-title">Im&aacute;genes de la Galer&iacute;a</h3>
+        <h3 class="section-title" data-en="Gallery Images" data-es="Imágenes de la Galería">Gallery Images</h3>
 
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="gallery-mode" id="gallery-mode-seq" value="sequential" checked>
-            Nombrado secuencial
-          </label>
-          <label>
-            <input type="radio" name="gallery-mode" id="gallery-mode-manual" value="manual">
-            Entrada manual
-          </label>
-        </div>
-
-        <!-- Sequential mode fields -->
-        <p class="field-hint" id="seq-caption-note">Para t&iacute;tulos individuales por imagen, use el modo Manual.</p>
-        <div id="gallery-seq-fields">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="image-prefix">Prefijo</label>
-              <input type="text" id="image-prefix" class="form-input" value="image">
-            </div>
-            <div class="form-group">
-              <label for="image-extension">Extensi&oacute;n</label>
-              <input type="text" id="image-extension" class="form-input" value=".JPG">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="image-start">Inicio</label>
-              <input type="number" id="image-start" class="form-input" value="1">
-            </div>
-            <div class="form-group">
-              <label for="image-end">Fin</label>
-              <input type="number" id="image-end" class="form-input" value="20">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group lang-field lang-en">
-              <label for="default-caption-en">T&iacute;tulo de la Diapositiva (EN)</label>
-              <input type="text" id="default-caption-en" class="form-input">
-            </div>
-            <div class="form-group lang-field lang-es" style="display:none">
-              <label for="default-caption-es">T&iacute;tulo de la Diapositiva (ES)</label>
-              <input type="text" id="default-caption-es" class="form-input">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group lang-field lang-en">
-              <label for="default-alt-en">Texto Alternativo (EN)</label>
-              <input type="text" id="default-alt-en" class="form-input">
-            </div>
-            <div class="form-group lang-field lang-es" style="display:none">
-              <label for="default-alt-es">Texto Alternativo (ES)</label>
-              <input type="text" id="default-alt-es" class="form-input">
-            </div>
-          </div>
-        </div>
-
-        <!-- Manual mode fields -->
-        <div id="gallery-manual-fields" style="display:none">
-          <div id="gallery-images-list"></div>
-          <button type="button" id="add-gallery-image-btn" class="add-row-btn">+ Agregar Imagen</button>
-        </div>
+        <div id="gallery-images-list"></div>
+        <button type="button" id="add-gallery-image-btn" class="add-row-btn" data-en="+ Add Image" data-es="+ Agregar Imagen">+ Add Image</button>
 
         <hr class="section-divider">
 
         <!-- 8. Tarjeta del Landing Page -->
-        <h3 class="section-title">Tarjeta del Landing Page</h3>
+        <h3 class="section-title" data-en="Landing Page Card" data-es="Tarjeta del Landing Page">Landing Page Card</h3>
 
         <div class="form-row">
           <div class="form-group lang-field lang-en">
-            <label for="card-title-en">T&iacute;tulo de la Tarjeta (EN)</label>
+            <label for="card-title-en">Card Title (EN)</label>
             <input type="text" id="card-title-en" class="form-input">
           </div>
           <div class="form-group lang-field lang-es" style="display:none">
-            <label for="card-title-es">T&iacute;tulo de la Tarjeta (ES)</label>
+            <label for="card-title-es">Título de la Tarjeta (ES)</label>
             <input type="text" id="card-title-es" class="form-input">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group lang-field lang-en">
-            <label for="card-desc-en">Descripci&oacute;n de la Tarjeta (EN)</label>
+            <label for="card-desc-en">Card Description (EN)</label>
             <input type="text" id="card-desc-en" class="form-input">
           </div>
           <div class="form-group lang-field lang-es" style="display:none">
-            <label for="card-desc-es">Descripci&oacute;n de la Tarjeta (ES)</label>
+            <label for="card-desc-es">Descripción de la Tarjeta (ES)</label>
             <input type="text" id="card-desc-es" class="form-input">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="card-thumbnail">Imagen de la Tarjeta</label>
+            <label for="card-thumbnail" data-en="Card Image" data-es="Imagen de la Tarjeta">Card Image</label>
             <input type="text" id="card-thumbnail" class="form-input" placeholder="image2.JPG">
           </div>
         </div>
@@ -554,17 +493,17 @@
         <hr class="section-divider">
 
         <!-- 9. Thumbnails -->
-        <h3 class="section-title">Thumbnails</h3>
+        <h3 class="section-title" data-en="Thumbnails" data-es="Thumbnails">Thumbnails</h3>
 
         <div class="form-row">
           <div class="form-group">
             <label>
               <input type="checkbox" id="auto-thumbnails" checked>
-              Generar thumbnails autom&aacute;ticamente
+              <span data-en="Auto-generate thumbnails" data-es="Generar thumbnails automáticamente">Auto-generate thumbnails</span>
             </label>
           </div>
           <div class="form-group">
-            <label for="thumbnail-count">Cantidad de Thumbnails</label>
+            <label for="thumbnail-count" data-en="Thumbnail Count" data-es="Cantidad de Thumbnails">Thumbnail Count</label>
             <input type="number" id="thumbnail-count" class="form-input" value="20">
           </div>
         </div>
@@ -572,48 +511,25 @@
         <hr class="section-divider">
 
         <!-- 10. Enlaces Internos -->
-        <h3 class="section-title">Enlaces Internos</h3>
+        <h3 class="section-title" data-en="Internal Links" data-es="Enlaces Internos">Internal Links</h3>
+        <p class="field-hint" data-en="Each block has its own heading, paragraph, and links. Add as many blocks as you need." data-es="Cada bloque tiene su propio encabezado, párrafo y enlaces. Agrega tantos bloques como necesites.">Each block has its own heading, paragraph, and links. Add as many blocks as you need.</p>
 
-        <div class="form-row">
-          <div class="form-group full-width lang-field lang-en">
-            <label for="internal-heading-en">Encabezado (EN)</label>
-            <input type="text" id="internal-heading-en" class="form-input" placeholder="Puede dejarse vac&iacute;o">
-          </div>
-          <div class="form-group full-width lang-field lang-es" style="display:none">
-            <label for="internal-heading-es">Encabezado (ES)</label>
-            <input type="text" id="internal-heading-es" class="form-input" placeholder="Puede dejarse vac&iacute;o">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group full-width lang-field lang-en">
-            <label for="internal-intro-en">P&aacute;rrafo</label>
-            <textarea id="internal-intro-en" class="form-input" rows="4" placeholder="Explore our Medjugorje 2024 experience and Holy Land pilgrimage."></textarea>
-            <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los enlaces de abajo se convertir&aacute;n en links autom&aacute;ticamente.</span>
-          </div>
-          <div class="form-group full-width lang-field lang-es" style="display:none">
-            <label for="internal-intro-es">P&aacute;rrafo</label>
-            <textarea id="internal-intro-es" class="form-input" rows="4" placeholder="Descubre nuestra experiencia Medjugorje 2024 y peregrinaci&oacute;n a Tierra Santa."></textarea>
-            <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los enlaces de abajo se convertir&aacute;n en links autom&aacute;ticamente.</span>
-          </div>
-        </div>
-
-        <div id="internal-links-list"></div>
-        <button type="button" id="add-link-btn" class="add-row-btn">+ Agregar Enlace</button>
+        <div id="internal-blocks-list"></div>
+        <button type="button" id="add-internal-block-btn" class="add-row-btn" data-en="+ Add Internal Block" data-es="+ Agregar Bloque de Enlaces">+ Add Internal Block</button>
 
         <hr class="section-divider">
 
         <!-- 11. Preguntas Frecuentes -->
-        <h3 class="section-title">Preguntas Frecuentes</h3>
+        <h3 class="section-title" data-en="FAQ" data-es="Preguntas Frecuentes">FAQ</h3>
 
         <div id="faq-list"></div>
-        <button type="button" id="add-faq-btn" class="add-row-btn">+ Agregar Pregunta</button>
+        <button type="button" id="add-faq-btn" class="add-row-btn" data-en="+ Add Question" data-es="+ Agregar Pregunta">+ Add Question</button>
 
         <hr class="section-divider">
 
         <!-- Submit -->
         <div class="submit-section">
-          <button type="button" id="deploy-btn">Publicar en el sitio</button>
+          <button type="button" id="deploy-btn" data-en="Publish to site" data-es="Publicar en el sitio">Publish to site</button>
         </div>
 
       </form>
@@ -625,23 +541,6 @@
 
   <script src="js/experience-generator.js"></script>
 
-  <!-- Gallery mode toggle -->
-  <script>
-  document.querySelectorAll('input[name="gallery-mode"]').forEach(function(radio) {
-      radio.addEventListener('change', function() {
-          var seqFields = document.getElementById('gallery-seq-fields');
-          var manualFields = document.getElementById('gallery-manual-fields');
-          if (this.value === 'sequential') {
-              seqFields.style.display = '';
-              manualFields.style.display = 'none';
-          } else {
-              seqFields.style.display = 'none';
-              manualFields.style.display = '';
-          }
-      });
-  });
-  </script>
-
   <!-- CTA toggle -->
   <script>
   document.getElementById('include-cta').addEventListener('change', function() {
@@ -649,20 +548,17 @@
   });
   </script>
 
-  <!-- Sequential gallery note visibility -->
-  <script>
-  (function() {
-      var note = document.getElementById('seq-caption-note');
-      document.querySelectorAll('input[name="gallery-mode"]').forEach(function(radio) {
-          radio.addEventListener('change', function() {
-              note.style.display = this.value === 'sequential' ? '' : 'none';
-          });
-      });
-  })();
-  </script>
-
   <!-- Language toggle logic -->
   <script>
+  function applyChromeLang(lang) {
+      var key = lang === 'es' ? 'es' : 'en';
+      document.querySelectorAll('[data-en-html][data-es-html]').forEach(function(el) {
+          el.innerHTML = el.dataset[key + 'Html'];
+      });
+      document.querySelectorAll('[data-en][data-es]').forEach(function(el) {
+          el.textContent = el.dataset[key];
+      });
+  }
   document.querySelectorAll('.lang-toggle .lang-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
           var prevLang = document.querySelector('.lang-toggle .lang-btn.active');
@@ -681,8 +577,13 @@
           document.querySelectorAll('.lang-field').forEach(function(el) {
               el.style.display = el.classList.contains('lang-' + toLang) ? '' : 'none';
           });
+
+          // Swap chrome text
+          applyChromeLang(toLang);
       });
   });
+  // Apply once on load (default is EN)
+  applyChromeLang('en');
   </script>
 </body>
 

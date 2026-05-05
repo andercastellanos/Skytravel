@@ -80,7 +80,7 @@ exports.handler = async (event) => {
         return {
             statusCode: 200,
             headers: {
-                'Cache-Control': 'public, max-age=30'
+                'Cache-Control': 'no-store'
             },
             body: JSON.stringify({
                 success: true,

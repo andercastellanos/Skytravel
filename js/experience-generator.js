@@ -10,11 +10,22 @@
 
 function translateText(text, from, to) {
   if (!text.trim()) return Promise.resolve('');
+  // Protect prices, payment plans, and number patterns from being mangled.
+  // Marker chosen to survive translation APIs: pure ASCII, no braces, no real-word meaning.
   var placeholders = [];
-  var protected_ = text.replace(/\d+\s*[×x]\s*[€$]?\s*[\d.,]+|[€$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
+  var protected_ = text.replace(/\d+\s*[\u00d7x]\s*[\u20ac$]?\s*[\d.,]+|[\u20ac$]\s?[\d.,]+[\d]|[A-Z]{3}\s?[\d.,]+[\d]|\d[\d.,]+\d/gi, function(match) {
     placeholders.push(match);
-    return '{{P' + (placeholders.length - 1) + '}}';
+    return 'ZXKEEPX' + (placeholders.length - 1) + 'XKEEPXZ';
   });
+
+  // If the text after protection is only placeholders and whitespace/punctuation,
+  // there is nothing to translate. Returning the original avoids the API mangling
+  // the marker into junk like "P0".
+  var stripped = protected_.replace(/ZXKEEPX\d+XKEEPXZ/gi, '').replace(/[\s\W]/g, '');
+  if (!stripped) {
+    return Promise.resolve(text);
+  }
+
   var langPair = from + '|' + to;
   return fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(protected_) + '&langpair=' + langPair + '&de=info@skytraveljm.com')
     .then(function(r) { return r.json(); })
@@ -23,10 +34,10 @@ function translateText(text, from, to) {
       if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
         result = data.responseData.translatedText;
       }
+      // Restore protected values, tolerating case changes and added whitespace.
       for (var i = 0; i < placeholders.length; i++) {
-        result = result.replace('{{P' + i + '}}', placeholders[i]);
-        result = result.replace('{{p' + i + '}}', placeholders[i]);
-        result = result.replace('{{ P' + i + ' }}', placeholders[i]);
+        var pattern = new RegExp('Z\\s*X\\s*K\\s*E\\s*E\\s*P\\s*X\\s*' + i + '\\s*X\\s*K\\s*E\\s*E\\s*P\\s*X\\s*Z', 'gi');
+        result = result.replace(pattern, placeholders[i]);
       }
       return result;
     })
@@ -102,7 +113,7 @@ function switchToLang(lang) {
 
 // --------------- LIMITS ---------------
 
-const LIMITS = { descriptionBlocks: 10, itinerary: 10, galleryImages: 50, links: 10, faq: 10 };
+const LIMITS = { descriptionBlocks: 10, itinerary: 10, galleryImages: 50, links: 10, faq: 10, internalBlocks: 5 };
 
 // --------------- Dynamic row management ---------------
 
@@ -119,7 +130,7 @@ function addDescriptionBlock() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Encabezado h2 ${n} (EN) <small>(opcional)</small></label>
+      <label>Heading h2 ${n} (EN) <small>(optional)</small></label>
       <input type="text" class="form-input desc-heading-en" placeholder="Section heading">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -129,37 +140,87 @@ function addDescriptionBlock() {
   </div>
   <div class="form-row">
     <div class="form-group full-width lang-field lang-en" style="${enD}">
-      <label>P\u00e1rrafo ${n} (EN)</label>
+      <label>Paragraph ${n} (EN)</label>
       <textarea class="form-input desc-text-en" rows="3"></textarea>
-      <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los Enlaces Internos se convertir\u00e1n en links autom\u00e1ticamente.</span>
+      <span class="field-hint">Write the text normally. To turn a phrase into a link, add it below.</span>
     </div>
     <div class="form-group full-width lang-field lang-es" style="${esD}">
       <label>P\u00e1rrafo ${n} (ES)</label>
       <textarea class="form-input desc-text-es" rows="3"></textarea>
-      <span class="field-hint">Escriba el texto normalmente. Las palabras que coincidan con los Enlaces Internos se convertir\u00e1n en links autom\u00e1ticamente.</span>
+      <span class="field-hint">Escriba el texto normalmente. Si quiere convertir alguna frase en enlace, agr\u00e9guela abajo.</span>
     </div>
   </div>
+  <div class="desc-links-list" style="margin-top: 8px;"></div>
+  <div style="text-align: right; margin-top: 6px;">
+    <button type="button" class="add-desc-link-btn" data-en="+ Add Link for this text" data-es="+ Agregar Enlace para este texto" style="background: transparent; border: 1px dashed #c8a97e; color: #c8a97e; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(200,169,126,0.08)'" onmouseout="this.style.background='transparent'">+ Add Link for this text</button>
+  </div>
 </div>`;
-  document.getElementById('description-blocks-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('description-blocks-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
-function addInternalLink() {
-  if (countRows('internal-links-list') >= LIMITS.links) {
-    showToast('M\u00e1ximo ' + LIMITS.links + ' enlaces internos permitidos');
+function addDescriptionLinkRow(card) {
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var html = '<div class="desc-link-row" style="background: #fafaf7; border: 1px solid #ece7dd; border-radius: 6px; padding: 10px 12px; margin-top: 6px; position: relative;">'
+    + '<button type="button" class="remove-row-btn" style="position: absolute; right: 6px; top: 6px;">&times;</button>'
+    + '<div class="form-row" style="margin-bottom: 6px;">'
+    + '<div class="form-group full-width"><label>URL</label><input type="text" class="form-input desc-link-url" placeholder="/italy-es"></div>'
+    + '</div>'
+    + '<div class="form-row">'
+    + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Text in paragraph (EN)</label><input type="text" class="form-input desc-link-label-en" placeholder="pilgrimage to Italy"></div>'
+    + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto en el párrafo (ES)</label><input type="text" class="form-input desc-link-label-es" placeholder="peregrinaci\u00f3n a Italia"></div>'
+    + '</div>'
+    + '</div>';
+  var list = card.querySelector('.desc-links-list');
+  list.insertAdjacentHTML('beforeend', html);
+  if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
+}
+
+function addInternalBlockLink(blockCard) {
+  var list = blockCard.querySelector('.internal-block-links');
+  if (list.querySelectorAll('.internal-link-row').length >= LIMITS.links) {
+    showToast('M\u00e1ximo ' + LIMITS.links + ' enlaces por bloque');
     return;
   }
   var lang = currentLang();
   var enD = lang === 'en' ? '' : 'display:none';
   var esD = lang === 'es' ? '' : 'display:none';
-  const html = `<div class="dynamic-card">
-  <button type="button" class="remove-row-btn">&times;</button>
-  <div class="form-row">
-    <div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>
-    <div class="form-group lang-field lang-en" style="${enD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>
-    <div class="form-group lang-field lang-es" style="${esD}"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>
-  </div>
-</div>`;
-  document.getElementById('internal-links-list').insertAdjacentHTML('beforeend', html);
+  var html = '<div class="internal-link-row" style="position:relative;border:1px dashed #d6c4a4;border-radius:8px;padding:10px;margin-top:8px;">'
+    + '<button type="button" class="remove-row-btn" style="position:absolute;right:6px;top:6px;">&times;</button>'
+    + '<div class="form-row">'
+    + '<div class="form-group"><label>URL</label><input type="text" class="form-input link-url" placeholder="/experiences/medjugorje2024"></div>'
+    + '<div class="form-group lang-field lang-en" style="' + enD + '"><label>Text in paragraph</label><input type="text" class="form-input link-label-en" placeholder="Medjugorje 2024"></div>'
+    + '<div class="form-group lang-field lang-es" style="' + esD + '"><label>Texto en el p\u00e1rrafo</label><input type="text" class="form-input link-label-es" placeholder="Medjugorje 2024"></div>'
+    + '</div>'
+    + '</div>';
+  list.insertAdjacentHTML('beforeend', html);
+  if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
+}
+
+function addInternalBlock() {
+  if (countRows('internal-blocks-list') >= LIMITS.internalBlocks) {
+    showToast('M\u00e1ximo ' + LIMITS.internalBlocks + ' bloques de enlaces permitidos');
+    return;
+  }
+  var lang = currentLang();
+  var enD = lang === 'en' ? '' : 'display:none';
+  var esD = lang === 'es' ? '' : 'display:none';
+  var html = '<div class="dynamic-card internal-block">'
+    + '<button type="button" class="remove-row-btn">&times;</button>'
+    + '<div class="form-row">'
+    + '<div class="form-group full-width lang-field lang-en" style="' + enD + '"><label>Heading (EN)</label><input type="text" class="form-input internal-block-heading-en" placeholder="Can be left empty"></div>'
+    + '<div class="form-group full-width lang-field lang-es" style="' + esD + '"><label>Encabezado (ES)</label><input type="text" class="form-input internal-block-heading-es" placeholder="Puede dejarse vac\u00edo"></div>'
+    + '</div>'
+    + '<div class="form-row">'
+    + '<div class="form-group full-width lang-field lang-en" style="' + enD + '"><label>Paragraph (EN)</label><textarea class="form-input internal-block-intro-en" rows="3" placeholder="Explore our Medjugorje 2024 experience and Holy Land pilgrimage."></textarea><span class="field-hint">Words matching the link labels below will be auto-linked.</span></div>'
+    + '<div class="form-group full-width lang-field lang-es" style="' + esD + '"><label>P\u00e1rrafo (ES)</label><textarea class="form-input internal-block-intro-es" rows="3" placeholder="Descubre nuestra experiencia Medjugorje 2024 y peregrinaci\u00f3n a Tierra Santa."></textarea><span class="field-hint">Las palabras que coincidan con las etiquetas de los enlaces se convertir\u00e1n en links autom\u00e1ticamente.</span></div>'
+    + '</div>'
+    + '<div class="internal-block-links" style="margin-top:8px;"></div>'
+    + '<button type="button" class="add-row-btn add-internal-link-btn" style="margin-top:8px;" data-en="+ Add Link" data-es="+ Agregar Enlace">+ Agregar Enlace</button>'
+    + '</div>';
+  document.getElementById('internal-blocks-list').insertAdjacentHTML('beforeend', html);
+  if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addFaq() {
@@ -175,7 +236,7 @@ function addFaq() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Pregunta ${n} (EN)</label>
+      <label>Question ${n} (EN)</label>
       <input type="text" class="form-input faq-question-en" placeholder="When did this pilgrimage take place?">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -185,7 +246,7 @@ function addFaq() {
   </div>
   <div class="form-row">
     <div class="form-group full-width lang-field lang-en" style="${enD}">
-      <label>Respuesta ${n} (EN)</label>
+      <label>Answer ${n} (EN)</label>
       <textarea class="form-input faq-answer-en" rows="3"></textarea>
     </div>
     <div class="form-group full-width lang-field lang-es" style="${esD}">
@@ -194,7 +255,7 @@ function addFaq() {
     </div>
   </div>
 </div>`;
-  document.getElementById('faq-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('faq-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addItineraryItem() {
@@ -209,7 +270,7 @@ function addItineraryItem() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Nombre (EN)</label>
+      <label>Name (EN)</label>
       <input type="text" class="form-input itin-name-en" placeholder="Apparition Hill">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
@@ -219,16 +280,16 @@ function addItineraryItem() {
   </div>
   <div class="form-row">
     <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Descripci\u00f3n (EN)</label>
+      <label>Description (EN)</label>
       <input type="text" class="form-input itin-desc-en" placeholder="Sacred site where...">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
-      <label>Descripci\u00f3n (ES)</label>
+      <label>Descripción (ES)</label>
       <input type="text" class="form-input itin-desc-es" placeholder="Sitio sagrado donde...">
     </div>
   </div>
 </div>`;
-  document.getElementById('itinerary-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('itinerary-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 function addGalleryImage() {
@@ -243,8 +304,28 @@ function addGalleryImage() {
   <button type="button" class="remove-row-btn">&times;</button>
   <div class="form-row">
     <div class="form-group">
-      <label>Nombre de Archivo</label>
+      <label data-en="Filename" data-es="Nombre de Archivo">Filename</label>
       <input type="text" class="form-input gallery-filename" placeholder="image2.JPG">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}">
+      <label>Title (EN)</label>
+      <input type="text" class="form-input gallery-title-en" placeholder="Holy Door at Vatican">
+    </div>
+    <div class="form-group lang-field lang-es" style="${esD}">
+      <label>T\u00edtulo (ES)</label>
+      <input type="text" class="form-input gallery-title-es" placeholder="Puerta Santa del Vaticano">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group lang-field lang-en" style="${enD}">
+      <label>Caption (EN)</label>
+      <input type="text" class="form-input gallery-caption-en" placeholder="Spiritual journey of faith">
+    </div>
+    <div class="form-group lang-field lang-es" style="${esD}">
+      <label>Pie de Foto (ES)</label>
+      <input type="text" class="form-input gallery-caption-es" placeholder="Camino espiritual de fe">
     </div>
   </div>
   <div class="form-row">
@@ -253,22 +334,12 @@ function addGalleryImage() {
       <input type="text" class="form-input gallery-alt-en" placeholder="Pilgrimage Image">
     </div>
     <div class="form-group lang-field lang-es" style="${esD}">
-      <label>Alt Text (ES)</label>
+      <label>Texto Alternativo (ES)</label>
       <input type="text" class="form-input gallery-alt-es" placeholder="Imagen de la Peregrinaci\u00f3n">
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-group lang-field lang-en" style="${enD}">
-      <label>Pie de Foto (EN)</label>
-      <input type="text" class="form-input gallery-caption-en" placeholder="Spiritual journey of faith">
-    </div>
-    <div class="form-group lang-field lang-es" style="${esD}">
-      <label>Pie de Foto (ES)</label>
-      <input type="text" class="form-input gallery-caption-es" placeholder="Camino espiritual de fe">
-    </div>
-  </div>
 </div>`;
-  document.getElementById('gallery-images-list').insertAdjacentHTML('beforeend', html);
+  document.getElementById('gallery-images-list').insertAdjacentHTML('beforeend', html); if (typeof applyChromeLang === 'function') applyChromeLang(currentLang());
 }
 
 // --------------- collectFormData ---------------
@@ -296,14 +367,21 @@ function collectFormData() {
   data.keywordsES       = val('keywords-es');
   data.ogImageFilename  = val('og-image-filename');
 
-  // Description blocks (h2 heading + paragraph)
+  // Description blocks (h2 heading + paragraph + per-block links)
   data.descriptionBlocks = [];
   document.querySelectorAll('#description-blocks-list .dynamic-card').forEach(card => {
     const headingEN = card.querySelector('.desc-heading-en').value.trim();
     const headingES = card.querySelector('.desc-heading-es').value.trim();
     const textEN = card.querySelector('.desc-text-en').value.trim();
     const textES = card.querySelector('.desc-text-es').value.trim();
-    if (textEN || textES) data.descriptionBlocks.push({ headingEN, headingES, textEN, textES });
+    const links = [];
+    card.querySelectorAll('.desc-link-row').forEach(row => {
+      const url = row.querySelector('.desc-link-url').value.trim();
+      const labelEN = row.querySelector('.desc-link-label-en').value.trim();
+      const labelES = row.querySelector('.desc-link-label-es').value.trim();
+      if (url && (labelEN || labelES)) links.push({ url, labelEN, labelES });
+    });
+    if (textEN || textES) data.descriptionBlocks.push({ headingEN, headingES, textEN, textES, links });
   });
 
   // CTA section
@@ -326,42 +404,36 @@ function collectFormData() {
   });
 
   // Gallery mode
-  data.galleryMode = document.querySelector('input[name="gallery-mode"]:checked')
-    ? document.querySelector('input[name="gallery-mode"]:checked').value
-    : 'sequential';
-
-  // Sequential fields
-  data.seqPrefix       = val('seq-prefix');
-  data.seqExtension    = val('seq-extension');
-  data.seqStart        = parseInt(val('seq-start'), 10) || 1;
-  data.seqEnd          = parseInt(val('seq-end'), 10) || 1;
-  data.defaultCaptionEN = val('default-caption-en');
-  data.defaultCaptionES = val('default-caption-es');
-  data.defaultAltEN    = val('default-alt-en');
-  data.defaultAltES    = val('default-alt-es');
-
   // Manual gallery images
   data.galleryImages = [];
   document.querySelectorAll('#gallery-images-list .dynamic-card').forEach(card => {
     const filename  = card.querySelector('.gallery-filename').value.trim();
+    const titleEN   = card.querySelector('.gallery-title-en') ? card.querySelector('.gallery-title-en').value.trim() : '';
+    const titleES   = card.querySelector('.gallery-title-es') ? card.querySelector('.gallery-title-es').value.trim() : '';
     const altEN     = card.querySelector('.gallery-alt-en').value.trim();
     const altES     = card.querySelector('.gallery-alt-es').value.trim();
     const captionEN = card.querySelector('.gallery-caption-en').value.trim();
     const captionES = card.querySelector('.gallery-caption-es').value.trim();
-    if (filename) data.galleryImages.push({ filename, altEN, altES, captionEN, captionES });
+    if (filename) data.galleryImages.push({ filename, titleEN, titleES, altEN, altES, captionEN, captionES });
   });
 
-  // Internal links
-  data.internalHeadingEN = val('internal-heading-en');
-  data.internalHeadingES = val('internal-heading-es');
-  data.internalIntroEN   = val('internal-intro-en');
-  data.internalIntroES   = val('internal-intro-es');
-  data.links = [];
-  document.querySelectorAll('#internal-links-list .dynamic-card').forEach(card => {
-    const url     = card.querySelector('.link-url').value.trim();
-    const labelEN = card.querySelector('.link-label-en').value.trim();
-    const labelES = card.querySelector('.link-label-es').value.trim();
-    if (url && (labelEN || labelES)) data.links.push({ url, labelEN, labelES });
+  // Internal link blocks (each block = heading + paragraph + own links)
+  data.internalBlocks = [];
+  document.querySelectorAll('#internal-blocks-list .internal-block').forEach(card => {
+    const headingEN   = card.querySelector('.internal-block-heading-en').value.trim();
+    const headingES   = card.querySelector('.internal-block-heading-es').value.trim();
+    const paragraphEN = card.querySelector('.internal-block-intro-en').value.trim();
+    const paragraphES = card.querySelector('.internal-block-intro-es').value.trim();
+    const links = [];
+    card.querySelectorAll('.internal-link-row').forEach(row => {
+      const url     = row.querySelector('.link-url').value.trim();
+      const labelEN = row.querySelector('.link-label-en').value.trim();
+      const labelES = row.querySelector('.link-label-es').value.trim();
+      if (url && (labelEN || labelES)) links.push({ url, labelEN, labelES });
+    });
+    if (headingEN || headingES || paragraphEN || paragraphES || links.length > 0) {
+      data.internalBlocks.push({ headingEN, headingES, paragraphEN, paragraphES, links });
+    }
   });
 
   // FAQs
@@ -391,21 +463,7 @@ function collectFormData() {
 // --------------- resolveGalleryImages ---------------
 
 function resolveGalleryImages(data) {
-  if (data.galleryMode === 'sequential') {
-    const images = [];
-    for (let i = data.seqStart; i <= data.seqEnd; i++) {
-      images.push({
-        filename:  data.seqPrefix + i + data.seqExtension,
-        altEN:     data.defaultAltEN || (data.experienceNameEN + ' Image ' + i),
-        altES:     data.defaultAltES || ('Imagen ' + i + ' de ' + (data.experienceNameES || data.experienceNameEN)),
-        captionEN: data.defaultCaptionEN || '',
-        captionES: data.defaultCaptionES || ''
-      });
-    }
-    return images;
-  }
-  // manual
-  return data.galleryImages;
+  return data.galleryImages || [];
 }
 
 // --------------- validate ---------------
@@ -441,9 +499,7 @@ function validate(data) {
   const images = resolveGalleryImages(data);
   if (!images || images.length === 0) {
     showToast('Se requiere al menos 1 imagen de galer\u00eda');
-    const target = data.galleryMode === 'sequential'
-      ? document.getElementById('gallery-seq-fields')
-      : document.getElementById('gallery-images-list');
+    const target = document.getElementById('gallery-images-list');
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return false;
   }
@@ -657,8 +713,13 @@ function generateHTML(data, lang) {
   const ogLocale    = isEN ? 'en_US' : 'es_ES';
   const ogLocaleAlt = isEN ? 'es_ES' : 'en_US';
 
-  // Hero bg
-  const heroBg = data.heroBgPath || '';
+  // Hero bg — normalize so any input format works for both EN (1 level deep)
+  // and ES (2 levels deep) pages. Convert Windows backslashes, strip leading
+  // ./ or ../, then prepend prefix.
+  let heroBg = (data.heroBgPath || '').replace(/\\/g, '/');
+  if (heroBg && !/^(https?:)?\//.test(heroBg)) {
+    heroBg = prefix + heroBg.replace(/^(\.\.?\/)+/, '');
+  }
 
   // Subtitle
   const subtitle = isEN ? (data.heroSubtitleEN || '') : (data.heroSubtitleES || '');
@@ -1064,8 +1125,9 @@ function generateHTML(data, lang) {
   (data.descriptionBlocks || []).forEach(block => {
     const heading = esc(isEN ? block.headingEN : block.headingES);
     let text = esc(isEN ? block.textEN : block.textES);
-    if (text && data.links && data.links.length > 0) {
-      data.links.forEach(function(link) {
+    const blockLinks = block.links || [];
+    if (text && blockLinks.length > 0) {
+      blockLinks.forEach(function(link) {
         var label = isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN);
         if (label) {
           var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
@@ -1133,10 +1195,12 @@ function generateHTML(data, lang) {
   images.forEach(img => {
     const alt     = isEN ? (img.altEN || '') : (img.altES || '');
     const caption = isEN ? (img.captionEN || '') : (img.captionES || '');
+    const perImageTitle = isEN ? (img.titleEN || '') : (img.titleES || '');
+    const slideTitle = perImageTitle || (name + ' ' + data.year);
     html += '        <div class="slide">\n';
     html += '          <img src="' + prefix + 'experiences/images/' + folder + '/' + esc(img.filename) + '" alt="' + esc(alt) + '">\n';
     html += '          <div class="slide-caption">\n';
-    html += '            <h3>' + esc(name) + ' ' + esc(data.year) + '</h3>\n';
+    html += '            <h3>' + esc(slideTitle) + '</h3>\n';
     html += '            <p>' + esc(caption) + '</p>\n';
     html += '          </div>\n';
     html += '        </div>\n';
@@ -1159,23 +1223,21 @@ function generateHTML(data, lang) {
   html += '  </div>\n';
   html += '\n';
 
-  // Internal links section (optional)
-  var introText = esc(isEN ? (data.internalIntroEN || data.internalIntroES || '') : (data.internalIntroES || data.internalIntroEN || ''));
-  if (introText || (data.links && data.links.length > 0)) {
-    // Replace matching text with links automatically
-    if (data.links && data.links.length > 0) {
-      data.links.forEach(function(link) {
-        var label = isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN);
-        if (label) {
-          var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-          var match = introText.match(re);
-          if (match) {
-            introText = introText.replace(match[0], '<a href="' + esc(link.url) + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + match[0] + '</a>');
-          }
-        }
-      });
-    }
-    var heading = esc(isEN ? (data.internalHeadingEN || data.internalHeadingES || '') : (data.internalHeadingES || data.internalHeadingEN || ''));
+  // Internal link blocks (each block renders its own section)
+  (data.internalBlocks || []).forEach(function(block) {
+    var introText = esc(isEN ? (block.paragraphEN || block.paragraphES || '') : (block.paragraphES || block.paragraphEN || ''));
+    var blockLinks = block.links || [];
+    if (!introText && blockLinks.length === 0) return;
+    blockLinks.forEach(function(link) {
+      var label = isEN ? (link.labelEN || link.labelES) : (link.labelES || link.labelEN);
+      if (!label) return;
+      var re = new RegExp(esc(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      var match = introText.match(re);
+      if (match) {
+        introText = introText.replace(match[0], '<a href="' + esc(link.url) + '" class="internal-link" style="color: #c8a97e; text-decoration: none; font-weight: 500;">' + match[0] + '</a>');
+      }
+    });
+    var heading = esc(isEN ? (block.headingEN || block.headingES || '') : (block.headingES || block.headingEN || ''));
     html += '  <!-- Internal Linking Section -->\n';
     html += '  <div class="internal-links" style="padding: 2rem 0; background-color: #f8f9fa; text-align: center;">\n';
     html += '    <div class="internal-links-container" style="max-width: 800px; margin: 0 auto; padding: 0 1rem;">\n';
@@ -1184,7 +1246,7 @@ function generateHTML(data, lang) {
     html += '    </div>\n';
     html += '  </div>\n';
     html += '\n';
-  }
+  });
 
   // FAQ section (optional)
   if (data.faqs && data.faqs.length > 0) {
@@ -1282,6 +1344,7 @@ async function handleDeploy() {
       body: JSON.stringify({
         slugEN: slugEN,
         slugES: slugES,
+        year: data.year,
         enHtml: enHtml,
         esHtml: esHtml,
         cardEN: cardEN,
@@ -1314,41 +1377,33 @@ document.addEventListener('DOMContentLoaded', () => {
   addDescriptionBlock();
   addItineraryItem();
   addGalleryImage();
+  addInternalBlock();
 
   // Button listeners
   document.getElementById('add-desc-block-btn').addEventListener('click', addDescriptionBlock);
   document.getElementById('add-itinerary-btn').addEventListener('click', addItineraryItem);
   document.getElementById('add-gallery-image-btn').addEventListener('click', addGalleryImage);
-  document.getElementById('add-link-btn').addEventListener('click', addInternalLink);
+  document.getElementById('add-internal-block-btn').addEventListener('click', addInternalBlock);
   document.getElementById('add-faq-btn').addEventListener('click', addFaq);
 
   // Generate & deploy buttons
   document.getElementById('deploy-btn').addEventListener('click', handleDeploy);
 
-  // Gallery mode radio toggle
-  const radioSeq = document.getElementById('gallery-mode-seq');
-  const radioManual = document.getElementById('gallery-mode-manual');
-  const seqFields = document.getElementById('gallery-seq-fields');
-  const manualFields = document.getElementById('gallery-manual-fields');
-
-  function updateGalleryMode() {
-    if (radioSeq && radioSeq.checked) {
-      if (seqFields) seqFields.style.display = '';
-      if (manualFields) manualFields.style.display = 'none';
-    } else {
-      if (seqFields) seqFields.style.display = 'none';
-      if (manualFields) manualFields.style.display = '';
-    }
-  }
-
-  if (radioSeq) radioSeq.addEventListener('change', updateGalleryMode);
-  if (radioManual) radioManual.addEventListener('change', updateGalleryMode);
-  updateGalleryMode();
-
-  // Delegate remove buttons for dynamic cards
+  // Delegate remove buttons + per-block "Agregar Enlace" buttons
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-row-btn')) {
+      var nestedRow = e.target.closest('.desc-link-row, .internal-link-row');
+      if (nestedRow) { nestedRow.remove(); return; }
       e.target.closest('.dynamic-card').remove();
+      return;
+    }
+    if (e.target.classList.contains('add-desc-link-btn')) {
+      var card = e.target.closest('.dynamic-card');
+      if (card) addDescriptionLinkRow(card);
+    }
+    if (e.target.classList.contains('add-internal-link-btn')) {
+      var blockCard = e.target.closest('.dynamic-card');
+      if (blockCard) addInternalBlockLink(blockCard);
     }
   });
 });

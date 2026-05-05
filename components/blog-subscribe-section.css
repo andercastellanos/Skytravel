@@ -26,8 +26,8 @@
     display: flex;
     justify-content: center;
     margin-bottom: 0.75rem;
-    color: #2c3e50;
-    opacity: 0.7;
+    color: #c8a97e;
+    opacity: 0.85;
 }
 
 /* Header */
@@ -74,7 +74,7 @@
 .blog-subscribe-card-header h3 {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: #333;
     margin-bottom: 0.4rem;
 }
 
@@ -127,8 +127,8 @@
 .bs-form-group input:focus,
 .bs-form-group select:focus {
     outline: none;
-    border-color: #2c3e50;
-    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+    border-color: #c8a97e;
+    box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.2);
     background: #fff;
 }
 
@@ -184,13 +184,13 @@
 
 .bs-phone-group select:focus {
     outline: none;
-    border-color: #2c3e50;
-    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+    border-color: #c8a97e;
+    box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.2);
     background-color: #fff;
 }
 
 .bs-phone-group select:focus-visible {
-    outline: 3px solid #2c3e50;
+    outline: 3px solid #c8a97e;
     outline-offset: 2px;
 }
 
@@ -240,7 +240,7 @@
     min-width: 22px;
     margin-top: 2px;
     cursor: pointer;
-    accent-color: #2c3e50;
+    accent-color: #c8a97e;
 }
 
 .bs-checkbox-group label {
@@ -256,7 +256,7 @@
     left: 32px;
 }
 
-/* Submit button — navy gradient with gold text */
+/* Submit button — gold gradient, matches Submit Inquiry / .submit-btn site-wide */
 .bs-form-submit {
     margin-top: 2rem;
     text-align: center;
@@ -264,17 +264,17 @@
 
 .bs-submit-btn {
     min-width: 200px;
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
     border: none;
-    background: linear-gradient(135deg, #2c3e50 0%, #1b2731 100%);
-    color: #dfc5a0;
+    background: linear-gradient(135deg, #c8a97e, #b69268);
+    color: #fff;
     border-radius: 50px;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.4);
+    box-shadow: 0 4px 15px rgba(200, 169, 126, 0.3);
 }
 
 .bs-submit-btn:disabled {
@@ -284,8 +284,9 @@
 }
 
 .bs-submit-btn:not(:disabled):hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(44, 62, 80, 0.5);
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #b69268, #a88759);
+    box-shadow: 0 8px 25px rgba(200, 169, 126, 0.4);
 }
 
 /* Privacy note */
@@ -300,11 +301,11 @@
     margin-right: auto;
 }
 
-/* Accessibility: Focus states — navy */
+/* Accessibility: Focus states — gold */
 .bs-form-group input:focus-visible,
 .bs-form-group select:focus-visible,
 .bs-checkbox-group input:focus-visible {
-    outline: 3px solid #2c3e50;
+    outline: 3px solid #c8a97e;
     outline-offset: 2px;
 }
 

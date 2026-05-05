@@ -36,6 +36,10 @@ const T = {
     nothingSelected: isEN ? 'Select at least one item' : 'Selecciona al menos un elemento',
     selectMode: isEN ? '☑ Select' : '☑ Seleccionar',
     selectExit: isEN ? '✕ Exit' : '✕ Salir',
+    foldersPrompt: isEN ? 'Enter employee code to view all galleries:' : 'Ingresa el código de empleado para ver todas las galerías:',
+    foldersError: isEN ? 'Could not load galleries' : 'No se pudieron cargar las galerías',
+    serverError: isEN ? 'Server error — gallery service unavailable' : 'Error del servidor — servicio de galería no disponible',
+    foldersEmpty: isEN ? 'No galleries created yet.' : 'Aún no hay galerías creadas.',
 };
 
 // --- Toast helper ---
@@ -55,6 +59,60 @@ let lightboxIndex = 0;
 let adminMode = false;
 let selectionMode = false;
 let selectedSet = new Set();
+
+// --- Admin: list all gallery folders ---
+async function showAdminFolders() {
+    const panel = document.getElementById('admin-folder-list');
+    const list = document.getElementById('admin-folder-items');
+    if (!panel || !list) return;
+
+    // Toggle off if already open
+    if (panel.style.display !== 'none') {
+        panel.style.display = 'none';
+        return;
+    }
+
+    const code = prompt(T.foldersPrompt);
+    if (!code) return;
+
+    try {
+        const res = await fetch('/.netlify/functions/gallery-folders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: code })
+        });
+        if (!res.ok) {
+            showToast(res.status === 401 ? T.adminWrong : T.serverError);
+            return;
+        }
+        const data = await res.json();
+        const folders = data.folders || [];
+        list.innerHTML = '';
+        if (folders.length === 0) {
+            const li = document.createElement('li');
+            li.innerHTML = '<p class="empty">' + T.foldersEmpty + '</p>';
+            list.appendChild(li);
+        } else {
+            folders.forEach(name => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = name;
+                btn.addEventListener('click', () => {
+                    const input = document.getElementById('trip-code');
+                    input.value = name;
+                    handleAccess();
+                });
+                li.appendChild(btn);
+                list.appendChild(li);
+            });
+        }
+        panel.style.display = 'block';
+    } catch (err) {
+        console.error(err);
+        showToast(T.foldersError);
+    }
+}
 
 // --- Access code handling ---
 function handleAccess() {
@@ -638,6 +696,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('trip-code').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') handleAccess();
     });
+
+    // Admin lock — list all gallery folders
+    const adminLock = document.getElementById('access-admin-lock');
+    if (adminLock) adminLock.addEventListener('click', showAdminFolders);
 
     // Upload panel toggle
     document.getElementById('upload-toggle-btn').addEventListener('click', toggleUploadPanel);

@@ -15,6 +15,29 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/gallery.css">
+
+    <style>
+      .back-to-portal {
+        display: inline-block;
+        margin-bottom: 16px;
+        color: #c8a97e;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .back-to-portal:hover { color: #b69268; }
+      .access-admin-lock { position: absolute; top: 18px; right: 18px; background: transparent; border: none; font-size: 1.1rem; color: #bbb; cursor: pointer; padding: 6px 10px; border-radius: 8px; transition: color 0.2s, background 0.2s; }
+      .access-admin-lock:hover { color: #c8a97e; background: #faf6f0; }
+      #access-screen { position: relative; }
+      .admin-folder-list { margin: 24px auto 0; max-width: 480px; text-align: left; background: #faf6f0; border: 1px solid #ead8b8; border-radius: 12px; padding: 16px; }
+      .admin-folder-list h3 { margin: 0 0 10px; font-size: 0.95rem; color: #2c3e50; }
+      .admin-folder-list ul { list-style: none; padding: 0; margin: 0; max-height: 280px; overflow-y: auto; }
+      .admin-folder-list li { margin: 0; }
+      .admin-folder-list button { width: 100%; text-align: left; padding: 8px 12px; background: transparent; border: none; border-radius: 6px; color: #2c3e50; font-size: 0.92rem; cursor: pointer; transition: background 0.15s; }
+      .admin-folder-list button:hover { background: #fff; color: #b69268; }
+      .admin-folder-list .empty { color: #888; font-size: 0.88rem; margin: 4px 0 0; }
+    </style>
 </head>
 
 <body data-lang="en">
@@ -45,15 +68,21 @@
 
     <main id="main-content">
         <div class="gallery-page-container">
+            <a href="/empleados" class="back-to-portal">&larr; Volver</a>
 
             <!-- State 1: Access Code Screen -->
             <div id="access-screen" class="gallery-access">
+                <button type="button" id="access-admin-lock" class="access-admin-lock" title="Admin mode" aria-label="Admin mode">🔒</button>
                 <div class="gallery-access-icon">📸</div>
                 <h1>Private Pilgrim Gallery</h1>
                 <p>Enter the code you received via WhatsApp:</p>
                 <div class="gallery-access-form">
                     <input type="text" id="trip-code" class="gallery-access-input" placeholder="medjugorje-march-2026" autocomplete="off">
                     <button type="button" id="access-btn" class="gallery-access-btn">Enter</button>
+                </div>
+                <div id="admin-folder-list" class="admin-folder-list" style="display:none;">
+                    <h3>Existing galleries</h3>
+                    <ul id="admin-folder-items"></ul>
                 </div>
             </div>
 
