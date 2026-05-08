@@ -88,6 +88,49 @@ function showToast(msg, isError = true) {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
+function showPublishLinks(result) {
+  var existing = document.getElementById('publish-links-card');
+  if (existing) existing.remove();
+
+  var card = document.createElement('div');
+  card.id = 'publish-links-card';
+  card.style.cssText = 'position:fixed;bottom:24px;right:24px;max-width:360px;background:#fff;border:2px solid #27ae60;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.15);padding:18px 20px;z-index:9999;font-family:Arial,sans-serif;';
+
+  var title = document.createElement('div');
+  title.style.cssText = 'font-weight:600;color:#2c3e50;font-size:15px;margin-bottom:10px;';
+  title.textContent = '✓ Enviado para revisión';
+  card.appendChild(title);
+
+  var msg = document.createElement('div');
+  msg.style.cssText = 'font-size:13px;color:#555;line-height:1.4;margin-bottom:12px;';
+  msg.textContent = 'Andrés debe aprobar el Pull Request antes de que aparezca en el sitio.';
+  card.appendChild(msg);
+
+  function addLink(label, url, primary) {
+    if (!url) return;
+    var a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = label;
+    a.style.cssText = 'display:block;padding:8px 12px;margin-bottom:6px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;text-align:center;' +
+      (primary ? 'background:#c8a97e;color:#fff;' : 'background:#faf6f0;color:#2c3e50;border:1px solid #ead8b8;');
+    card.appendChild(a);
+  }
+  addLink('Ver vista previa →', result.previewUrl, true);
+  addLink('Ver Pull Request en GitHub →', result.prUrl, false);
+
+  var close = document.createElement('button');
+  close.type = 'button';
+  close.textContent = 'Cerrar';
+  close.style.cssText = 'margin-top:8px;background:transparent;border:none;color:#888;font-size:12px;cursor:pointer;padding:0;';
+  close.addEventListener('click', function () { card.remove(); });
+  card.appendChild(close);
+
+  document.body.appendChild(card);
+  setTimeout(function () { if (card.parentNode) card.remove(); }, 60000);
+}
+
 function currentLang() {
   var active = document.querySelector('.lang-toggle .lang-btn.active');
   return active ? active.dataset.lang : 'en';
@@ -1356,7 +1399,10 @@ async function handleDeploy() {
     const result = await res.json();
 
     if (res.ok && result.success) {
-      showToast(result.message || 'Experiencia publicada exitosamente', false);
+      showToast(result.message || 'Experiencia enviada para revisión', false);
+      if (result.prUrl || result.previewUrl) {
+        showPublishLinks(result);
+      }
     } else if (res.status === 409) {
       showToast(result.error || 'Esta experiencia ya existe en el sitio');
     } else {

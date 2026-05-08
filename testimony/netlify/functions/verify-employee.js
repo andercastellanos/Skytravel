@@ -15,10 +15,10 @@ exports.handler = async (event) => {
 
   try {
     const { code } = JSON.parse(event.body || '{}');
-    const valid = code === process.env.EMPLOYEE_PORTAL_CODE;
+    const valid = code && code === process.env.EMPLOYEE_PORTAL_CODE;
 
     return {
-      statusCode: 200,
+      statusCode: valid ? 200 : 401,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       body: JSON.stringify({ ok: valid })
     };
