@@ -536,3 +536,15 @@
   status = 301
   force = true
 
+
+[[redirects]]
+  from = "/experiences/testjairo.html"
+  to = "/experiences/testjairo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/testjairo-es.html"
+  to = "/es/experiences/testjairo-es"
+  status = 301
+  force = true
