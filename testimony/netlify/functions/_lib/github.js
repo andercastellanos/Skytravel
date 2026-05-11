@@ -18,8 +18,17 @@ function cfg() {
     const owner = process.env.GITHUB_REPO_OWNER;
     const repo = process.env.GITHUB_REPO_NAME;
     const baseBranch = process.env.GITHUB_BASE_BRANCH || 'main';
-    if (!token || !owner || !repo) {
-        throw new Error('GitHub publisher misconfigured: GITHUB_TOKEN, GITHUB_REPO_OWNER, and GITHUB_REPO_NAME must be set in environment.');
+    const missing = [];
+    if (!token) missing.push('GITHUB_TOKEN');
+    if (!owner) missing.push('GITHUB_REPO_OWNER');
+    if (!repo) missing.push('GITHUB_REPO_NAME');
+    if (missing.length) {
+        // Surface which keys are visible so we can detect typos, scope issues, etc.
+        const githubKeys = Object.keys(process.env).filter(k => k.startsWith('GITHUB')).sort();
+        throw new Error(
+            `GitHub publisher misconfigured. Missing: ${missing.join(', ')}. ` +
+            `GITHUB_* keys visible to this function: [${githubKeys.join(', ') || 'none'}].`
+        );
     }
     return { token, owner, repo, baseBranch };
 }

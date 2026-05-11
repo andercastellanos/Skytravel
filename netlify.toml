@@ -536,3 +536,15 @@
   status = 301
   force = true
 
+
+[[redirects]]
+  from = "/experiences/medjugorje2026.html"
+  to = "/experiences/medjugorje2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/es/experiences/medjugorje2026-es.html"
+  to = "/es/experiences/medjugorje2026-es"
+  status = 301
+  force = true
