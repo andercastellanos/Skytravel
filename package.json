@@ -13,7 +13,7 @@
   "dependencies": {
     "@notionhq/client": "^2.3.0",
     "jspdf": "^4.2.0",
-    "resend": "^6.9.2"
+    "resend": "^6.12.4"
   },
   "description": "",
   "main": "index.js",
