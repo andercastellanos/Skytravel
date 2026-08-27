@@ -267,8 +267,13 @@
     };
 
     function mapMethod(raw) {
-        var lower = (raw || '').toLowerCase().trim();
-        return methodMap[lower] || '';
+        var normalized = (raw || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .trim();
+        return methodMap[normalized] || '';
     }
 
     function convertPdfDate(dateStr) {
@@ -363,23 +368,35 @@
                         // Has $ but no date — append to previous line item as description
                         result.lineItems[result.lineItems.length - 1].description += ' ' + joined.trim();
                     } else {
-                        var methodIdx = amountIdx >= 2 ? amountIdx - 1 : -1;
-                        var method = methodIdx >= 0 ? cells[methodIdx] : '';
-                        // Separate date from description
-                        var descEnd = methodIdx >= 0 ? methodIdx : amountIdx;
                         var paymentDate = '';
+                        var paymentDateIdx = -1;
                         var descParts = [];
+
+                        // Locate the payment date. Everything between the date and
+                        // the amount belongs to the method, even when PDF.js splits
+                        // "Tarjeta de Crédito" into multiple text fragments.
+                        for (var dateIdx = 0; dateIdx < amountIdx; dateIdx++) {
+                            if (cells[dateIdx].match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/) || cells[dateIdx].match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
+                                paymentDate = cells[dateIdx];
+                                paymentDateIdx = dateIdx;
+                                break;
+                            }
+                        }
+
+                        var method = paymentDateIdx >= 0
+                            ? cells.slice(paymentDateIdx + 1, amountIdx).join(' ')
+                            : (amountIdx >= 2 ? cells[amountIdx - 1] : '');
+                        var descEnd = paymentDateIdx >= 0
+                            ? paymentDateIdx
+                            : (amountIdx >= 2 ? amountIdx - 1 : amountIdx);
+
                         // Prepend any pending description from a previous wrapped line
                         if (pendingDesc) {
                             descParts.push(pendingDesc);
                             pendingDesc = '';
                         }
                         for (var j = 0; j < descEnd; j++) {
-                            if (cells[j].match(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/) || cells[j].match(/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/)) {
-                                paymentDate = cells[j];
-                            } else {
-                                descParts.push(cells[j]);
-                            }
+                            descParts.push(cells[j]);
                         }
                         result.lineItems.push({
                             description: descParts.join(' '),
