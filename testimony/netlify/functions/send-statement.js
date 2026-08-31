@@ -696,7 +696,7 @@ exports.handler = async (event, context) => {
             const generatedPdf = generateStatementPdf({ ...body, services: validServices }, logoDataUri);
             const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
             emailOptions.attachments = [{
-                filename: isSpanish ? 'Estado-de-Cuenta-SkyTravel.pdf' : 'Statement-SkyTravel.pdf',
+                filename: isSpanish ? 'Estado-de-Cuenta-SkyTravel J&M.pdf' : 'Statement-SkyTravel J&M.pdf',
                 content: generatedPdf
             }];
         }

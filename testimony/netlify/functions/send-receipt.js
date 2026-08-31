@@ -468,7 +468,7 @@ exports.handler = async (event, context) => {
             const generatedPdf = generateReceiptPdf({ ...body, lineItems: validItems }, logoDataUri);
             const isSpanish = (body.lang || 'es').toLowerCase().startsWith('es');
             emailOptions.attachments = [{
-                filename: isSpanish ? 'Recibo-SkyTravel.pdf' : 'Receipt-SkyTravel.pdf',
+                filename: isSpanish ? 'Recibo-SkyTravel J&M.pdf' : 'Receipt-SkyTravel J&M.pdf',
                 content: generatedPdf
             }];
         }
