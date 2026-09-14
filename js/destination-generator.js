@@ -214,13 +214,13 @@ function generateSEO(data) {
 
   // Meta Description:
   //   EN: "Holy Week Pilgrimage 2026–2027 to Medjugorje. Departures from South America, United States and Europe. Bilingual guide, daily Mass. From €1,999 all inclusive."
-  //   ES: "Peregrinación Semana Santa 2026–2027 a Medjugorje. Salidas desde Sur América, Estados Unidos y Europa. Guía bilingüe, Misa diaria. Desde €1,999 todo incluido."
+  //   ES: "Peregrinación Semana Santa 2026–2027 a Medjugorje. Salidas desde Suramérica, Estados Unidos y Europa. Guía bilingüe, Misa diaria. Desde €1,999 todo incluido."
   const themeDescEN = themeEN ? themeEN + ' ' : '';
   const themeDescES = themeES ? themeES + ' ' : '';
   const priceDesc = price ? ' From ' + price + ' all inclusive.' : '';
   const priceDescES = price ? ' Desde ' + price + ' todo incluido.' : '';
   data.metaDescEN = themeDescEN + typeEN + ' ' + year + ' to ' + nameEN + '. Departures from South America, United States and Europe. Bilingual guide, daily Mass.' + priceDesc;
-  data.metaDescES = typeES + ' ' + themeDescES + year + ' a ' + nameES + '. Salidas desde Sur América, Estados Unidos y Europa. Guía bilingüe, Misa diaria.' + priceDescES;
+  data.metaDescES = typeES + ' ' + themeDescES + year + ' a ' + nameES + '. Salidas desde Suramérica, Estados Unidos y Europa. Guía bilingüe, Misa diaria.' + priceDescES;
 
   // OG Title:
   //   EN: "Holy Week in Medjugorje 2026 | Catholic Pilgrimage"
@@ -232,11 +232,11 @@ function generateSEO(data) {
 
   // OG Description:
   //   EN: "8-day pilgrimage: Apparition Hill, Cross Mountain and St. James Church. Departures from South America, United States, Europe and any part of the world."
-  //   ES: "Peregrinación de 8 días: Colina de las Apariciones, Monte de la Cruz e Iglesia de Santiago. Salidas desde Sur América, Estados Unidos, Europa y cualquier parte del mundo."
+  //   ES: "Peregrinación de 8 días: Colina de las Apariciones, Monte de la Cruz e Iglesia de Santiago. Salidas desde Suramérica, Estados Unidos, Europa y cualquier parte del mundo."
   const locsPartEN = locsJoinEN ? ': ' + locsJoinEN + '.' : '.';
   const locsPartES = locsJoinES ? ': ' + locsJoinES + '.' : '.';
   data.ogDescEN = days + '-day ' + typeEN.toLowerCase() + locsPartEN + ' Departures from South America, United States, Europe and any part of the world.';
-  data.ogDescES = typeES + ' de ' + days + ' días' + locsPartES + ' Salidas desde Sur América, Estados Unidos, Europa y cualquier parte del mundo.';
+  data.ogDescES = typeES + ' de ' + days + ' días' + locsPartES + ' Salidas desde Suramérica, Estados Unidos, Europa y cualquier parte del mundo.';
 
   // Twitter Description:
   //   EN: "Join a week of prayer and spiritual renewal in Medjugorje."
