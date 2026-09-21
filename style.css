@@ -780,6 +780,11 @@ nav {
     font-size: 1.4rem;
 }
 
+.info-section .author-link {
+    color: #c8a97e;
+    font-weight: 700;
+}
+
 /* ===================================
    ABOUT PAGE STYLES
    =================================== */

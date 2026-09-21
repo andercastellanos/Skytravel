@@ -398,6 +398,46 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
   </url>
 
+  <url>
+    <loc>https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/por-que-acompanamiento-sacerdote-peregrinacion</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/por-que-acompanamiento-sacerdote-peregrinacion"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
+  </url>
+
+  <url>
+    <loc>https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/por-que-acompanamiento-sacerdote-peregrinacion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
+  </url>
+
   <!-- ================================= -->
   <!-- CURRENT EXPERIENCE OFFERINGS (2024-2025) -->
   <!-- ================================= -->
