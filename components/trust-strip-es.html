@@ -1,0 +1,32 @@
+<!-- ===================================================================
+     TRUST STRIP (ES) — acreditación y licencias
+     ===================================================================
+     Fuente canónica. COPIE este markup directamente en la página,
+     cerca del precio y del llamado a la acción principal.
+
+     NO lo cargue con JavaScript. Los componentes de contacto/footer se
+     inyectan con fetch() desde js/page-init.js, lo que los deja fuera
+     del HTML renderizado por el servidor; las señales de acreditación
+     deben estar en el HTML original para que los rastreadores y los
+     clientes sin JS las vean.
+
+     Estilos:
+       las reglas .trust-strip, que viven en la hoja de estilos que la pagina
+       ya carga: css/landing-medjugorje-2026-2027-es.css (paginas de anuncios)
+       o style.css (paginas de destino). Sin peticiones extra.
+     =================================================================== -->
+<aside class="trust-strip" aria-label="Acreditación y licencias">
+  <img class="trust-strip__logo" src="/images/LogoIATAN.jpg"
+       alt="Agencia de viajes acreditada por IATAN" width="412" height="418"
+       loading="lazy" decoding="async">
+  <ul class="trust-strip__items">
+    <li class="trust-strip__item">Agencia Acreditada IATAN</li>
+    <li class="trust-strip__item">Código IATA 10564573</li>
+    <li class="trust-strip__item">
+      <a class="trust-strip__link" href="/licencia_vendedor" target="_blank" rel="noopener">
+        Licencia de Vendedor de Viajes de Florida (FDACS) No. ST45413
+      </a>
+    </li>
+  </ul>
+  <p class="trust-strip__legal">El logotipo IATAN es propiedad de IATA y se usa bajo licencia.</p>
+</aside>
