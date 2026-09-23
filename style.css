@@ -480,6 +480,37 @@ nav {
     margin: 0 auto;
 }
 
+.destination-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1.5rem auto 0;
+}
+
+.destination-filter {
+    padding: 0.5rem 1.25rem;
+    border: 1px solid #c8a97e;
+    border-radius: 4px;
+    background: transparent;
+    color: #555;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.destination-filter:hover,
+.destination-filter.active {
+    background-color: #c8a97e;
+    color: white;
+}
+
+.destination-card.hidden {
+    display: none;
+}
+
 .destination-card {
     position: relative;
     height: 300px;

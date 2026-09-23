@@ -438,9 +438,15 @@
     <!-- Featured Destinations Section -->
     <section class="featured-section" id="featured">
       <h2 class="section-title">Destinos Destacados</h2>
+      <div class="destination-filters" role="group" aria-label="Filtrar peregrinaciones por año">
+        <button type="button" class="destination-filter active" data-year="all">Todos</button>
+        <button type="button" class="destination-filter" data-year="2025">2025</button>
+        <button type="button" class="destination-filter" data-year="2026">2026</button>
+        <button type="button" class="destination-filter" data-year="2027">2027</button>
+      </div>
       <div class="destinations-grid">
         <!-- Destination 1 -->
-        <div class="destination-card rome">
+        <div class="destination-card rome" data-year="2025">
           <div class="card-content">
             <h3>Jubileo Roma e Italia 2025</h3>
             <p>Asís, Padre Pío, San Miguel Arcángel y Loreto</p>
@@ -449,7 +455,7 @@
           </div>
         </div>
         <!-- Destination 2 -->
-        <div class="destination-card medjugorje26">
+        <div class="destination-card medjugorje26" data-year="2026">
           <div class="card-content">
             <h3>Medjugorje 2026</h3>
             <h4 style="color:#ffd900">Desde €1,999</h4><br>
@@ -459,7 +465,7 @@
           </div>
         </div>
         <!-- Destination 4 -->
-        <div class="destination-card marianos">
+        <div class="destination-card marianos" data-year="2026">
           <div class="card-content">
             <h3>Santuarios Marianos y Crucero Islas Griegas</h3>
             <h4 style="color:#ffd900">Desde €4,200</h4></br>
@@ -469,7 +475,7 @@
           </div>
         </div>
         <!-- Destination 5 -->
-        <div class="destination-card tierra">
+        <div class="destination-card tierra" data-year="2026">
           <div class="card-content">
             <h3>Tierra Santa y Medjugorje 2026</h3>
             <h4 style="color:#ffd900">Desde $5,799</h4></br>
@@ -479,7 +485,7 @@
           </div>
         </div>
         <!-- Destination 8 -->
-        <div class="destination-card france">
+        <div class="destination-card france" data-year="2026">
           <div class="card-content">
             <h3>Peregrinación Francia - Tierra de Gracia 2026</h3>
             <h4 style="color:#ffd900">Desde €4,880</h4></br>
@@ -489,7 +495,7 @@
           </div>
         </div>
         <!-- Destination 9 -->
-        <div class="destination-card mariana">
+        <div class="destination-card mariana" data-year="2026">
           <div class="card-content">
             <h3>Peregrinación Mariana 2026</h3>
             <h4 style="color:#ffd900">Desde $4,199</h4></br>
@@ -500,7 +506,7 @@
         </div>
 
         <!-- Destination 10 -->
-        <div class="destination-card romemedjugorje">
+        <div class="destination-card romemedjugorje" data-year="2026">
           <div class="card-content">
             <h3>Medjugorje, Roma y Asís 2026</h3>
             <h4 style="color:#ffd900">Desde $4,100</h4></br>
@@ -511,7 +517,7 @@
         </div>
 
         <!-- Destination 11 -->
-        <div class="destination-card tierra-2027">
+        <div class="destination-card tierra-2027" data-year="2027">
           <div class="card-content">
             <h3>Tierra Santa y Medjugorje 2027</h3>
             <h4 style="color:#ffd900">Desde €4,760</h4></br>
@@ -523,6 +529,28 @@
 
       </div>
     </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var filterButtons = document.querySelectorAll(".destination-filter");
+        var destinationCards = document.querySelectorAll(".destination-card[data-year]");
+
+        filterButtons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            var selectedYear = button.getAttribute("data-year");
+
+            filterButtons.forEach(function (filterButton) {
+              filterButton.classList.toggle("active", filterButton === button);
+            });
+
+            destinationCards.forEach(function (card) {
+              var matchesYear = selectedYear === "all" || card.getAttribute("data-year") === selectedYear;
+              card.classList.toggle("hidden", !matchesYear);
+            });
+          });
+        });
+      });
+    </script>
 
     <!-- Contact Section - Loaded from /components/contact-section.html -->
     <div id="contact-section-container"></div>
