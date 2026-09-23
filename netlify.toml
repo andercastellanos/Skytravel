@@ -134,6 +134,114 @@
 # ========================================================================
 
 [[redirects]]
+  from = "/tierrasanta2026"
+  to = "/peregrinaciones-2026/TierraSanta2026.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/tierrasanta2026-es"
+  to = "/peregrinaciones-2026/TierraSanta2026-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/mariana2026"
+  to = "/peregrinaciones-2026/Mariana2026.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/mariana2026-es"
+  to = "/peregrinaciones-2026/Mariana2026-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/santuariosmarianos"
+  to = "/peregrinaciones-2026/SantuariosMarianos.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/santuariosmarianos-es"
+  to = "/peregrinaciones-2026/SantuariosMarianos-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/france"
+  to = "/peregrinaciones-2026/France.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/france-es"
+  to = "/peregrinaciones-2026/France-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/italy"
+  to = "/peregrinaciones-2025/Italy.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/italy-es"
+  to = "/peregrinaciones-2025/Italy-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/medjugorje"
+  to = "/peregrinaciones-2025/Medjugorje.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/medjugorje-es"
+  to = "/peregrinaciones-2025/Medjugorje-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-medjugorje-roma"
+  to = "/peregrinaciones-2026/peregrinacion-medjugorje-roma.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-medjugorje-roma-es"
+  to = "/peregrinaciones-2026/peregrinacion-medjugorje-roma-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-tierrasanta-2027"
+  to = "/peregrinaciones-2027/peregrinacion-tierrasanta-2027.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-tierrasanta-2027-es"
+  to = "/peregrinaciones-2027/peregrinacion-tierrasanta-2027-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/medjugorje2026"
+  to = "/peregrinaciones-2026/Medjugorje2026.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/medjugorje2026-es"
+  to = "/peregrinaciones-2026/Medjugorje2026-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/Medjugorje.html"
   to = "/medjugorje"
   status = 301
@@ -190,6 +298,78 @@
 [[redirects]]
   from = "/SantuariosMarianos-es.html"
   to = "/santuariosmarianos-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/France.html"
+  to = "/france"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/France-es.html"
+  to = "/france-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2025/Italy.html"
+  to = "/italy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2025/Italy-es.html"
+  to = "/italy-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2025/Medjugorje.html"
+  to = "/medjugorje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2025/Medjugorje-es.html"
+  to = "/medjugorje-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/peregrinacion-medjugorje-roma.html"
+  to = "/peregrinacion-medjugorje-roma"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/peregrinacion-medjugorje-roma-es.html"
+  to = "/peregrinacion-medjugorje-roma-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion-tierrasanta-2027.html"
+  to = "/peregrinacion-tierrasanta-2027"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion-tierrasanta-2027-es.html"
+  to = "/peregrinacion-tierrasanta-2027-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/Medjugorje2026.html"
+  to = "/medjugorje2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/Medjugorje2026-es.html"
+  to = "/medjugorje2026-es"
   status = 301
   force = true
 
