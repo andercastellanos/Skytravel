@@ -489,14 +489,22 @@ nav {
 }
 
 .destination-filter {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 78px;
+    min-height: 36px;
     padding: 0.5rem 1.25rem;
     border: 1px solid #c8a97e;
     border-radius: 4px;
     background: transparent;
     color: #555;
     cursor: pointer;
-    font-family: Arial, sans-serif;
+    font: inherit;
     font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
     letter-spacing: 0.5px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -505,6 +513,11 @@ nav {
 .destination-filter.active {
     background-color: #c8a97e;
     color: white;
+}
+
+.destination-filter:focus-visible {
+    outline: 2px solid #80623b;
+    outline-offset: 3px;
 }
 
 .destination-card.hidden {

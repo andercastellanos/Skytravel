@@ -9,6 +9,10 @@ permissions:
   contents: write
   issues: read
 
+concurrency:
+  group: generate-verified-testimonials
+  cancel-in-progress: false
+
 jobs:
   generate:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'issues'
@@ -21,6 +25,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Sync with main
+        run: git pull --rebase origin main
 
       - name: Generate verified testimonial HTML
         env:
