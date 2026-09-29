@@ -2,9 +2,8 @@
  * =============================================================================
  * 📄 TESTIMONIALS DISPLAY LOGIC (Updated - No Inline Styles)
  * 🌐 File: testimony/js/testimonials.js
- * 📝 Purpose: Display testimonials with filtering, pagination, and search
+ * 📝 Purpose: Paginate testimonials generated directly into the HTML
  * 🔗 Used on: testimonials.html and testimonios.html
- * 🔗 Requires: github-api.js (must be loaded first)
  * =============================================================================
  */
 
@@ -13,7 +12,7 @@ class TestimonialsDisplay {
     // Configuration
     this.config = {
       testimonialsPerPage: 9, // Show 9 testimonials per page (3x3 grid)
-      autoLoadMore: true, // Load more on scroll
+      autoLoadMore: false,
       scrollThreshold: 300, // Pixels from bottom to trigger load more
     };
 
@@ -89,7 +88,7 @@ class TestimonialsDisplay {
   /**
    * Initialize the testimonials system
    */
-  async init() {
+  init() {
     try {
       console.log("🚀 Initializing testimonials display...");
 
@@ -99,11 +98,7 @@ class TestimonialsDisplay {
       // Set up event listeners
       this.setupEventListeners();
 
-      // Show loading state
-      this.showLoading();
-
-      // Fetch and display testimonials
-      await this.loadTestimonials();
+      this.loadTestimonials();
 
       console.log("✅ Testimonials system initialized");
     } catch (error) {
@@ -260,25 +255,20 @@ class TestimonialsDisplay {
   }
 
   /**
-   * Load testimonials from GitHub
+   * Use the testimonial cards already rendered in the page.
    */
-  async loadTestimonials() {
-    try {
-      const testimonials = await window.GitHubTestimonials.fetchTestimonials();
+  loadTestimonials() {
+    this.state.allTestimonials = [
+      ...this.elements.container.querySelectorAll(".testimonial-card"),
+    ];
+    this.state.filteredTestimonials = this.state.allTestimonials;
+    this.state.currentPage = 1;
 
-      this.state.allTestimonials = this.filterInlineTestimonials(testimonials);
-
-      await this.setupDestinationFilter();
-      this.applyFilters();
-      this.hideLoading();
-
-      console.log(
-        `📋 Loaded ${this.state.allTestimonials.length} testimonials`,
-      );
-    } catch (error) {
-      console.error("❌ Error loading testimonials:", error);
-      this.showError();
+    if (this.elements.loadingIndicator) {
+      this.elements.loadingIndicator.classList.add("hidden");
     }
+
+    this.displayTestimonials();
   }
 
   /**
@@ -356,47 +346,18 @@ class TestimonialsDisplay {
    * Display testimonials on the page
    * @param {boolean} reset - Whether to reset the display (for new filters)
    */
-  displayTestimonials(reset = false) {
-    if (reset) {
-      this.state.displayedTestimonials = [];
+  displayTestimonials() {
+    const visibleCount =
+      this.state.currentPage * this.config.testimonialsPerPage;
+    const cards = this.state.filteredTestimonials;
 
-      this.elements.container
-        .querySelectorAll(".testimonial-card:not([data-inline-testimonial])")
-        .forEach((card) => card.remove());
-    }
-    const startIndex =
-      (this.state.currentPage - 1) * this.config.testimonialsPerPage;
-    const endIndex = startIndex + this.config.testimonialsPerPage;
-    const testimonialsToShow = this.state.filteredTestimonials.slice(
-      startIndex,
-      endIndex,
-    );
-
-    if (testimonialsToShow.length === 0 && reset) {
-      this.showEmpty();
-      return;
-    }
-
-    this.hideEmpty();
-
-    // Create HTML for new testimonials
-    testimonialsToShow.forEach((testimonial) => {
-      const card = this.createTestimonialCard(testimonial);
-      this.elements.container.appendChild(card);
-      this.state.displayedTestimonials.push(testimonial);
+    cards.forEach((card, index) => {
+      card.classList.toggle("hidden", index >= visibleCount);
     });
 
-    // Update load more button
     this.updateLoadMoreButton();
 
-    // Attach read more/less toggles after DOM is ready
-    setTimeout(() => {
-      this.attachReadMoreToggles(this.elements.container);
-    }, 100);
-
-    console.log(
-      `📺 Displayed ${testimonialsToShow.length} testimonials (page ${this.state.currentPage})`,
-    );
+    requestAnimationFrame(() => this.attachReadMoreToggles(this.elements.container));
   }
 
   /**
@@ -557,7 +518,7 @@ class TestimonialsDisplay {
     }
 
     this.state.currentPage++;
-    this.displayTestimonials(false);
+    this.displayTestimonials();
 
     console.log(`📖 Loaded page ${this.state.currentPage}`);
   }
@@ -579,8 +540,8 @@ class TestimonialsDisplay {
         this.state.currentPage * this.config.testimonialsPerPage;
       const loadMoreText =
         this.state.language === "es"
-          ? `Cargar Más (${remaining} restantes)`
-          : `Load More (${remaining} remaining)`;
+          ? `Ver más testimonios (${remaining} restantes)`
+          : `View more testimonials (${remaining} remaining)`;
       this.elements.loadMoreBtn.textContent = loadMoreText;
     } else {
       this.elements.loadMoreBtn.classList.add("hidden");
@@ -607,28 +568,9 @@ class TestimonialsDisplay {
     this.elements.countDisplay.textContent = countText;
   }
 
-  /**
-   * Refresh testimonials (force reload from GitHub)
-   */
-  async refreshTestimonials() {
-    this.showLoading();
-
-    try {
-        const testimonials =
-            await window.GitHubTestimonials.fetchTestimonials(true);
-
-        this.state.allTestimonials =
-            this.filterInlineTestimonials(testimonials);
-
-        await this.setupDestinationFilter();
-        this.applyFilters();
-        this.hideLoading();
-
-    } catch (error) {
-        console.error('❌ Error refreshing testimonials:', error);
-        this.showError();
-    }
-}
+  refreshTestimonials() {
+    this.loadTestimonials();
+  }
   /**
    * Show loading state
    */
@@ -828,15 +770,6 @@ showEmpty() {
 
 // Initialize when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Make sure GitHub API is available
-  if (typeof window.GitHubTestimonials === "undefined") {
-    console.error(
-      "❌ GitHubTestimonials not available. Make sure github-api.js is loaded first.",
-    );
-    return;
-  }
-
-  // Create global instance
   window.TestimonialsApp = new TestimonialsDisplay();
 });
 

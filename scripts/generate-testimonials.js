@@ -4,9 +4,9 @@ const path = require('path');
 const OWNER = 'andercastellanos';
 const REPO = 'Skytravel';
 const API_URL = `https://api.github.com/repos/${OWNER}/${REPO}/issues`;
-const PAGE_PATHS = [
-  path.join(__dirname, '..', 'testimony', 'testimonios.html'),
-  path.join(__dirname, '..', 'testimony', 'testimonials.html'),
+const PAGES = [
+  { path: path.join(__dirname, '..', 'testimony', 'testimonios.html'), language: 'es' },
+  { path: path.join(__dirname, '..', 'testimony', 'testimonials.html'), language: 'en' },
 ];
 const START_MARKER = '<!-- GENERATED_TESTIMONIALS_START -->';
 const END_MARKER = '<!-- GENERATED_TESTIMONIALS_END -->';
@@ -52,6 +52,7 @@ function cleanContent(content) {
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
     .replace(/<img\b[^>]*>/gi, '')
     .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/^[\t ]*https?:\/\/\S+[\t ]*\r?$/gim, '')
     .replace(/\*\*Email:\*\*.*$/gim, '')
     .replace(/^\s*Email:\s*\S+@\S+\s*$/gim, '')
     .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '')
@@ -113,11 +114,57 @@ function formatContent(content) {
     .join('\n');
 }
 
-function renderCard(testimonial) {
+function getMediaType(mediaUrl) {
+  const mediaUrlObject = new URL(mediaUrl);
+  const pathname = mediaUrlObject.pathname.toLowerCase();
+
+  if (/\.(mp3|wav|ogg|m4a|aac|flac|opus)$/.test(pathname)) {
+    return 'audio';
+  }
+  if (pathname.includes('/video/upload/') || /\.(mp4|webm|ogv|mov|m4v|avi|mkv)$/.test(pathname)) {
+    return 'video';
+  }
+  return 'image';
+}
+
+function getCloudinaryPoster(mediaUrl) {
+  const posterUrl = new URL(mediaUrl);
+  if (!(posterUrl.hostname === 'cloudinary.com' || posterUrl.hostname.endsWith('.cloudinary.com')) || !posterUrl.pathname.includes('/video/upload/')) {
+    return '';
+  }
+
+  posterUrl.pathname = posterUrl.pathname
+    .replace('/video/upload/', '/video/upload/so_0/')
+    .replace(/(?:\.[^/.]+)?$/, '.jpg');
+  return posterUrl.href;
+}
+
+function renderMedia(mediaUrl, language) {
+  const mediaType = getMediaType(mediaUrl);
+  const fallbackText = language === 'es'
+    ? `Tu navegador no soporta la reproducción de ${mediaType === 'video' ? 'video' : 'audio'}.`
+    : `Your browser does not support ${mediaType} playback.`;
+
+  if (mediaType === 'video') {
+    const poster = getCloudinaryPoster(mediaUrl);
+    const posterAttribute = poster ? ` poster="${escapeHtml(poster)}"` : '';
+    return `<video class="testimonial-media-video" src="${escapeHtml(mediaUrl)}" controls playsinline${posterAttribute} preload="metadata" referrerpolicy="no-referrer">${fallbackText}</video>`;
+  }
+
+  if (mediaType === 'audio') {
+    return `<audio class="testimonial-media-audio" src="${escapeHtml(mediaUrl)}" controls preload="metadata" referrerpolicy="no-referrer">${fallbackText}</audio>`;
+  }
+
+  const altText = language === 'es' ? 'Multimedia del testimonio' : 'Testimonial media';
+  return `<img class="testimonial-media-img" src="${escapeHtml(mediaUrl)}" alt="${altText}" loading="lazy" referrerpolicy="no-referrer">`;
+}
+
+function renderCard(testimonial, language) {
   const media = testimonial.media.length
-    ? `\n        <div class="testimonial-media-grid">${testimonial.media.map((url) => `<img class="testimonial-media-img" src="${escapeHtml(url)}" alt="Testimonial media" loading="lazy" referrerpolicy="no-referrer">`).join('')}</div>`
+    ? `\n        <div class="testimonial-media-grid">${testimonial.media.map((url) => renderMedia(url, language)).join('')}</div>`
     : '';
-  const date = new Date(testimonial.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  const locale = language === 'es' ? 'es-ES' : 'en-US';
+  const date = new Date(testimonial.date).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
   return `                <div class="testimonial-card" data-generated-testimonial data-testimonial-id="${testimonial.id}">
                     <div class="testimonial-content">
@@ -148,7 +195,7 @@ async function fetchVerifiedIssues() {
   return (await response.json()).map(parseIssue).filter(Boolean);
 }
 
-function updatePage(filePath, testimonials) {
+function updatePage(filePath, testimonials, language) {
   const html = fs.readFileSync(filePath, 'utf8');
   const start = html.indexOf(START_MARKER);
   const end = html.indexOf(END_MARKER);
@@ -156,7 +203,7 @@ function updatePage(filePath, testimonials) {
     throw new Error(`Missing testimonial generation markers in ${filePath}`);
   }
 
-  const generated = testimonials.map(renderCard).join('\n\n');
+  const generated = testimonials.map((testimonial) => renderCard(testimonial, language)).join('\n\n');
   const replacement = `${START_MARKER}\n${generated}\n                ${END_MARKER}`;
   let updated = `${html.slice(0, start)}${replacement}${html.slice(end + END_MARKER.length)}`;
   const legacyStart = updated.indexOf('\n<!-- <div class="testimonial-card"');
@@ -176,8 +223,8 @@ function updatePage(filePath, testimonials) {
 async function main() {
   const testimonials = await fetchVerifiedIssues();
   if (testimonials.length === 0) throw new Error('No verified testimonials were returned; refusing to erase published content.');
-  for (const pagePath of PAGE_PATHS) updatePage(pagePath, testimonials);
-  console.log(`Generated ${testimonials.length} verified testimonials in ${PAGE_PATHS.length} pages.`);
+  for (const page of PAGES) updatePage(page.path, testimonials, page.language);
+  console.log(`Generated ${testimonials.length} verified testimonials in ${PAGES.length} pages.`);
 }
 
 main().catch((error) => {
