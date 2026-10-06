@@ -1,501 +1,613 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
-  <!-- ================================= -->
-  <!-- HOMEPAGE - HIGHEST PRIORITY -->
-  <!-- ================================= -->
-  
-  <!-- Homepage - English -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.skytraveljm.com/</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/index-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/"/>
-  </url>
-
-  <!-- Homepage - Spanish -->
-  <url>
-    <loc>https://www.skytraveljm.com/index-es</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/index-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/index-es"/>
   </url>
-
-  <!-- ================================= -->
-  <!-- MAIN DESTINATION PAGES - BUSINESS PRIORITY -->
-  <!-- ================================= -->
-
-  <!-- Medjugorje 2025 - MEDIUM PRIORITY (Past offering) -->
-  <url>
-    <loc>https://www.skytraveljm.com/medjugorje</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/medjugorje-es</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje"/>
-  </url>
-
-  <!-- Medjugorje 2026 - HIGHEST BUSINESS PRIORITY (Current offering) -->
-  <url>
-    <loc>https://www.skytraveljm.com/medjugorje2026</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje2026"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje2026-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje2026"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
-    </image:image>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/medjugorje2026-es</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje2026"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje2026-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje2026"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
-    </image:image>
-  </url>
-
-  <!-- Medjugorje 2026–2027 Ads Landing (Spanish) -->
-  <url>
-    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
-    </image:image>
-  </url>
-
-  <!-- Medjugorje 2026–2027 Ads Landing (English) -->
-  <url>
-    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-2026-2027-es"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp</image:loc>
-    </image:image>
-  </url>
-
-  <!-- Holy Land 2026 - HIGHEST BUSINESS PRIORITY (Current offering) -->
-  <url>
-    <loc>https://www.skytraveljm.com/tierrasanta2026</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/tierrasanta2026"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/tierrasanta2026-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/tierrasanta2026"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg</image:loc>
-    </image:image>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/tierrasanta2026-es</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/tierrasanta2026"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/tierrasanta2026-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/tierrasanta2026"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/images/HolyLandMedjugorje/hero.jpg</image:loc>
-    </image:image>
-  </url>
-
-  <!-- Holy Land & Medjugorje 2027 - HIGH PRIORITY (Upcoming offering) -->
-  <url>
-    <loc>https://www.skytraveljm.com/peregrinacion-tierrasanta-2027</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/imagesWebp/HolyLandMedjugorje/hero.webp</image:loc>
-    </image:image>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es</loc>
-    <lastmod>2026-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
-    <image:image>
-      <image:loc>https://www.skytraveljm.com/imagesWebp/HolyLandMedjugorje/hero.webp</image:loc>
-    </image:image>
-  </url>
-
-  <!-- Italy - MEDIUM PRIORITY (Trust signal / destination awareness) -->
-  <url>
-    <loc>https://www.skytraveljm.com/italy</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/italy"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/italy-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/italy"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/italy-es</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/italy"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/italy-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/italy"/>
-  </url>
-
-  <!-- Marian Pilgrimage 2026 -->
-  <url>
-    <loc>https://www.skytraveljm.com/mariana2026</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/mariana2026"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/mariana2026-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/mariana2026"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/mariana2026-es</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/mariana2026"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/mariana2026-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/mariana2026"/>
-  </url>
-
-  <!-- Marian Sanctuaries - MEDIUM-HIGH PRIORITY -->
-  <url>
-    <loc>https://www.skytraveljm.com/santuariosmarianos</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/santuariosmarianos"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/santuariosmarianos-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/santuariosmarianos"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/santuariosmarianos-es</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/santuariosmarianos"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/santuariosmarianos-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/santuariosmarianos"/>
-  </url>
-
-  <!-- ================================= -->
-  <!-- SUPPORTING PAGES - MEDIUM PRIORITY -->
-  <!-- ================================= -->
-
-  <!-- Contact - HIGH CONVERSION PAGE -->
-  <url>
-    <loc>https://www.skytraveljm.com/contact</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/contact"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/contact-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/contact"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/contact-es</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/contact"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/contact-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/contact"/>
-  </url>
-
-  <!-- Experiences - TRUST BUILDING PAGE -->
-  <url>
-    <loc>https://www.skytraveljm.com/experiences</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/experiences-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/experiences-es</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/experiences-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences"/>
-  </url>
-
-
-  <url>
-    <loc>https://www.skytraveljm.com/testimony/testimonials</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/testimony/testimonials"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/testimony/testimonios"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/testimony/testimonials"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/testimony/testimonios</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/testimony/testimonials"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/testimony/testimonios"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/testimony/testimonios"/>
-  </url>
-
-  <!-- About - TRUST BUILDING PAGE -->
   <url>
     <loc>https://www.skytraveljm.com/about</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/about"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/about-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/about-es"/>
   </url>
-
   <url>
     <loc>https://www.skytraveljm.com/about-es</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/about"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/about-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/about-es"/>
   </url>
-
-  <!-- ================================= -->
-  <!-- BLOG PAGES - CONTENT HUB -->
-  <!-- ================================= -->
-
   <url>
     <loc>https://www.skytraveljm.com/blog</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog"/>
+    <lastmod>2026-10-06</lastmod>
   </url>
-
   <url>
     <loc>https://www.skytraveljm.com/blog-es</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog"/>
+    <lastmod>2026-10-06</lastmod>
   </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/blog/god-prepares-two-hearts</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
-  </url>
-
-  <url>
-    <loc>https://www.skytraveljm.com/blog/suitable-help</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
-  </url>
-
   <url>
     <loc>https://www.skytraveljm.com/blog/ayuda-adecuada</loc>
-    <lastmod>2026-02-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.50</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
   </url>
-
   <url>
-    <loc>https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
+    <loc>https://www.skytraveljm.com/blog/ayunar-transforma</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayunar-transforma"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-transforms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/ayunar-transforma"/>
   </url>
-
+  <url>
+    <loc>https://www.skytraveljm.com/blog/best-gift-for-children</loc>
+    <lastmod>2026-05-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/mejor-regalo-para-hijos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/best-gift-for-children"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/best-gift-for-children"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/best-gift-part-two</loc>
+    <lastmod>2026-09-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/mejor-regalo-parte-dos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/best-gift-part-two"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/best-gift-part-two"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/catholic-pilgrimage</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/peregrinacion-catolica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/catholic-pilgrimage"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/catholic-pilgrimage"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/crecer-luchar-por-hijos</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/crecer-luchar-por-hijos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/grow-fight-your-children"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/crecer-luchar-por-hijos"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/cuando-los-hijos-nos-duelen</loc>
+    <lastmod>2026-09-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-los-hijos-nos-duelen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/when-our-children-hurt-us"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/cuando-los-hijos-nos-duelen"/>
+  </url>
   <url>
     <loc>https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
   </url>
-
   <url>
-    <loc>https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+    <loc>https://www.skytraveljm.com/blog/fasting-transforms</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayunar-transforma"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-transforms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/fasting-transforms"/>
   </url>
-
   <url>
     <loc>https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
   </url>
-
+  <url>
+    <loc>https://www.skytraveljm.com/blog/god-prepares-two-hearts</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/cuando-dios-prepara-dos-corazones"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/god-prepares-two-hearts"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/grow-fight-your-children</loc>
+    <lastmod>2026-09-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/crecer-luchar-por-hijos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/grow-fight-your-children"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/grow-fight-your-children"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/guia-primera-peregrinacion-catolica"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/first-catholic-pilgrimage-guide"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/la-fe-padres-que-no-se-rinden</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/la-fe-padres-que-no-se-rinden"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/the-faith-of-parents-who-do-not-give-up"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/mejor-regalo-para-hijos</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/mejor-regalo-para-hijos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/best-gift-for-children"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/mejor-regalo-para-hijos"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/mejor-regalo-parte-dos</loc>
+    <lastmod>2026-09-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/mejor-regalo-parte-dos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/best-gift-part-two"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/mejor-regalo-parte-dos"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/palabras_construyen_o_destruyen</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/palabras_construyen_o_destruyen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/words_build_or_destroy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/palabras_construyen_o_destruyen"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/peregrinacion-catolica</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/peregrinacion-catolica"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/peregrinacion-catolica"/>
+  </url>
   <url>
     <loc>https://www.skytraveljm.com/blog/por-que-acompanamiento-sacerdote-peregrinacion</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/por-que-acompanamiento-sacerdote-peregrinacion"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
   </url>
-
+  <url>
+    <loc>https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/fasting-prayer-retreat-medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/retiro-ayuno-oracion-medjugorje"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/suitable-help</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/ayuda-adecuada"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/suitable-help"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/suitable-help"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/the-faith-of-parents-who-do-not-give-up</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/la-fe-padres-que-no-se-rinden"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/the-faith-of-parents-who-do-not-give-up"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/the-faith-of-parents-who-do-not-give-up"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/when-our-children-hurt-us</loc>
+    <lastmod>2026-09-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/crecer-luchar-por-hijos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/when-our-children-hurt-us"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/when-our-children-hurt-us"/>
+  </url>
   <url>
     <loc>https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/por-que-acompanamiento-sacerdote-peregrinacion"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/why-priest-accompaniment-pilgrimage"/>
   </url>
-
-  <!-- ================================= -->
-  <!-- CURRENT EXPERIENCE OFFERINGS (2024-2025) -->
-  <!-- ================================= -->
-
   <url>
-    <loc>https://www.skytraveljm.com/experiences/peregrinacion-medjugorje-roma-asis-2026</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://www.skytraveljm.com/blog/words_build_or_destroy</loc>
+    <lastmod>2026-09-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/palabras_construyen_o_destruyen"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/words_build_or_destroy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/blog/words_build_or_destroy"/>
   </url>
-
   <url>
-    <loc>https://www.skytraveljm.com/es/experiences/peregrinacion-medjugorje-roma-asis-2026-es</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://www.skytraveljm.com/contact</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/contact-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/contact-es"/>
   </url>
-
-  <!-- Santuarios 2025 - CURRENT OFFERING -->
   <url>
-    <loc>https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/santuarios-catolicos-2025-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
+    <loc>https://www.skytraveljm.com/contact-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/contact-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/contact-es"/>
   </url>
-
   <url>
-    <loc>https://www.skytraveljm.com/es/experiences/santuarios-catolicos-2025-es</loc>
-    <lastmod>2025-07-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/santuarios-catolicos-2025-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
+    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2017-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2017-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
   </url>
-
-  <!-- Medjugorje 2024 - RECENT EXPERIENCE -->
   <url>
-    <loc>https://www.skytraveljm.com/experiences/medjugorje2024</loc>
-    <lastmod>2024-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2024-es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
+    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2019-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2019-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
   </url>
-
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2022-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2022-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2023-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2023-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
+  </url>
   <url>
     <loc>https://www.skytraveljm.com/es/experiences/medjugorje-2024-es</loc>
-    <lastmod>2024-12-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
+    <lastmod>2026-10-06</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2024-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
   </url>
-
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/medjugorje2026-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje2026-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2026"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/peregrinacion-catolica-roma-jubileo-2025</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/peregrinacion-catolica-roma-jubileo-2025"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/catholic-pilgrimage-rome-jubilee-2025"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/catholic-pilgrimage-rome-jubilee-2025"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/peregrinacion-mariana-2026-es</loc>
+    <lastmod>2026-10-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/peregrinacion-medjugorje-roma-asis-2026-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/peregrinacion-medjugorje-roma-asis-2026"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/santuarios-catolicos-2025-es</loc>
+    <lastmod>2026-03-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/santuarios-catolicos-2025-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2016-es</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2016-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2017-es</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2017-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2018-es</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2018-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2018"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2018"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2019-es</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2019-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2019"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2019"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2021-es</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2021-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2021"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2021"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/es/experiences/tierra-santa-2022-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2022-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences</loc>
+    <lastmod>2026-10-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/experiences-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences-es</loc>
+    <lastmod>2026-10-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/experiences-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/catholic-pilgrimage-rome-jubilee-2025</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/peregrinacion-catolica-roma-jubileo-2025"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/catholic-pilgrimage-rome-jubilee-2025"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/catholic-pilgrimage-rome-jubilee-2025"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025</loc>
+    <lastmod>2026-03-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/santuarios-catolicos-2025-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/catholic-sanctuaries-2025"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/medjugorje2017</loc>
+    <lastmod>2026-02-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2017-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2017"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/medjugorje2019</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2019-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2019"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/medjugorje2022</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2022-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2022"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/medjugorje2023</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2023-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2023"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/medjugorje2024</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje-2024-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2024"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/medjugorje2026</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/medjugorje2026-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/medjugorje2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/medjugorje2026"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/peregrinacion-mariana-2026</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/peregrinacion-mariana-2026-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/peregrinacion-mariana-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/peregrinacion-mariana-2026"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/peregrinacion-medjugorje-roma-asis-2026</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/peregrinacion-medjugorje-roma-asis-2026-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/peregrinacion-medjugorje-roma-asis-2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/es/experiences/peregrinacion-medjugorje-roma-asis-2026-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/tierra-santa-2022</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2022-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierra-santa-2022"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/tierrasanta2016</loc>
+    <lastmod>2026-03-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2016-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2016"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/tierrasanta2017</loc>
+    <lastmod>2026-03-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/es/experiences/tierra-santa-2017-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/experiences/tierrasanta2017"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/tierrasanta2018</loc>
+    <lastmod>2026-03-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/tierrasanta2019</loc>
+    <lastmod>2026-03-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/experiences/tierrasanta2021</loc>
+    <lastmod>2026-03-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/france</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/france-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/france"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/france-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/france-es</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/france-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/france"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/france-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/guidelines</loc>
+    <lastmod>2026-09-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/guidelines-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/guidelines"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/guidelines-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/guidelines-es</loc>
+    <lastmod>2026-08-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/guidelines-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/guidelines"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/guidelines-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/index-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/index-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/index-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/italy</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/italy-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/italy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/italy-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/italy-es</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/italy-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/italy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/italy-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/licencia_vendedor</loc>
+    <lastmod>2026-09-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/mariana2026</loc>
+    <lastmod>2026-10-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/mariana2026-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/mariana2026-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/mariana2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/mariana2026-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/medjugorje</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/medjugorje-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/medjugorje-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/medjugorje"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/medjugorje-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-roma</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-medjugorje-roma-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-medjugorje-roma"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-medjugorje-roma-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-medjugorje-roma-es</loc>
+    <lastmod>2026-10-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-tierrasanta-2027</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/peregrinacion-tierrasanta-2027-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/santuariosmarianos</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/santuariosmarianos-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/santuariosmarianos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/santuariosmarianos-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/santuariosmarianos-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/santuariosmarianos-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/santuariosmarianos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/santuariosmarianos-es"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/seller_travel</loc>
+    <lastmod>2026-09-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/testimony/enviar-testimonio</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/testimony/enviar-testimonio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/testimony/submit-testimonial"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/testimony/submit-testimonial"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/testimony/submit-testimonial</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/testimony/enviar-testimonio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/testimony/submit-testimonial"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/testimony/submit-testimonial"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/testimony/testimonials</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/testimony/testimonios"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/testimony/testimonials"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/testimony/testimonials"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/testimony/testimonios</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/testimony/testimonios"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/testimony/testimonials"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/testimony/testimonios"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/tierrasanta2026</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/tierrasanta2026-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/tierrasanta2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/tierrasanta2026"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/tierrasanta2026-es</loc>
+    <lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/tierrasanta2026-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/tierrasanta2026"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.skytraveljm.com/tierrasanta2026-es"/>
+  </url>
 </urlset>
