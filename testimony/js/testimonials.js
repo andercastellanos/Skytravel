@@ -19,15 +19,9 @@ class TestimonialsDisplay {
     // State management
     this.state = {
       allTestimonials: [],
-      filteredTestimonials: [],
-      displayedTestimonials: [],
       currentPage: 1,
       loading: false,
       language: this.detectPageLanguage(),
-      filters: {
-        destination: "all",
-        search: "",
-      },
     };
 
     // DOM elements (will be found during init)
@@ -35,54 +29,6 @@ class TestimonialsDisplay {
 
     // Initialize when DOM is ready
     this.init();
-  }
-
-  /**
-   * Normaliza el nombre de un testimonio para poder compararlo.
-   * Elimina espacios, mayúsculas y acentos.
-   *
-   * Ejemplo:
-   * " María Gómez " se convierte en "maria gomez".
-   */
-  normalizeTestimonialName(name) {
-    return String(name || "")
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
-
-  /**
-   * Obtiene los nombres de los testimonios escritos directamente
-   * en el HTML.
-   */
-  getInlineTestimonialNames() {
-    // Evita errores si el contenedor todavía no existe.
-    if (!this.elements.container) {
-      return new Set();
-    }
-
-    return new Set(
-      [...this.elements.container.querySelectorAll("[data-inline-testimonial]")]
-        .map((card) =>
-          this.normalizeTestimonialName(card.dataset.testimonialName),
-        )
-        .filter(Boolean),
-    );
-  }
-
-  /**
-   * Elimina de los testimonios obtenidos mediante JavaScript
-   * aquellos que ya aparecen directamente en el HTML.
-   */
-  filterInlineTestimonials(testimonials) {
-    const inlineNames = this.getInlineTestimonialNames();
-
-    return testimonials.filter((testimonial) => {
-      const name = testimonial.name || testimonial.author;
-
-      return !inlineNames.has(this.normalizeTestimonialName(name));
-    });
   }
 
   /**
@@ -118,14 +64,6 @@ class TestimonialsDisplay {
       document.querySelector(".testimonials-wrapper") ||
       document.querySelector("#testimonials-container");
 
-    // Filter controls
-    this.elements.destinationFilter =
-      document.querySelector("#destination-filter") ||
-      document.querySelector('[data-filter="destination"]');
-    this.elements.searchInput =
-      document.querySelector("#search-testimonials") ||
-      document.querySelector('[data-search="testimonials"]');
-
     // Load more button
     this.elements.loadMoreBtn =
       document.querySelector("#load-more-btn") ||
@@ -138,10 +76,6 @@ class TestimonialsDisplay {
     this.elements.errorMessage =
       document.querySelector(".testimonials-error") ||
       document.querySelector("#error-testimonials");
-    this.elements.emptyMessage =
-      document.querySelector(".testimonials-empty") ||
-      document.querySelector("#empty-testimonials");
-
     // Count display
     this.elements.countDisplay = document.querySelector(".testimonials-count");
 
@@ -174,27 +108,6 @@ class TestimonialsDisplay {
    * Set up event listeners
    */
   setupEventListeners() {
-    // Destination filter
-    if (this.elements.destinationFilter) {
-      this.elements.destinationFilter.addEventListener("change", (e) => {
-        this.state.filters.destination = e.target.value;
-        this.applyFilters();
-      });
-    }
-
-    // Search input
-    if (this.elements.searchInput) {
-      // Debounced search
-      let searchTimeout;
-      this.elements.searchInput.addEventListener("input", (e) => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          this.state.filters.search = e.target.value.trim();
-          this.applyFilters();
-        }, 300);
-      });
-    }
-
     // Load more button
     if (this.elements.loadMoreBtn) {
       this.elements.loadMoreBtn.addEventListener("click", () => {
@@ -261,7 +174,6 @@ class TestimonialsDisplay {
     this.state.allTestimonials = [
       ...this.elements.container.querySelectorAll(".testimonial-card"),
     ];
-    this.state.filteredTestimonials = this.state.allTestimonials;
     this.state.currentPage = 1;
 
     if (this.elements.loadingIndicator) {
@@ -272,234 +184,21 @@ class TestimonialsDisplay {
   }
 
   /**
-   * Set up destination filter dropdown options
-   */
-  async setupDestinationFilter() {
-    if (!this.elements.destinationFilter) return;
-
-    // Get unique destinations
-    const destinations = [
-      ...new Set(this.state.allTestimonials.map((t) => t.destination)),
-    ]
-      .filter((d) => d && d !== "Unknown")
-      .sort();
-
-    // Create options
-    const allText =
-      this.state.language === "es" ? "Todos los Destinos" : "All Destinations";
-    this.elements.destinationFilter.innerHTML = `
-            <option value="all">${allText}</option>
-            ${destinations.map((dest) => `<option value="${dest}">${dest}</option>`).join("")}
-        `;
-  }
-
-  /**
-   * Apply current filters to testimonials
-   */
-  applyFilters() {
-    let filtered = [...this.state.allTestimonials];
-
-    // Filter by destination
-    if (
-      this.state.filters.destination &&
-      this.state.filters.destination !== "all"
-    ) {
-      filtered = filtered.filter(
-        (t) => t.destination === this.state.filters.destination,
-      );
-    }
-
-    // Filter by search term
-    if (this.state.filters.search) {
-      const searchTerm = this.state.filters.search.toLowerCase();
-      filtered = filtered.filter((t) => {
-        const searchableText = [t.name, t.trip, t.content, t.destination]
-          .join(" ")
-          .toLowerCase();
-
-        return searchableText.includes(searchTerm);
-      });
-    }
-
-    // Sort testimonials (featured first, then by date)
-    filtered.sort((a, b) => {
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return new Date(b.date) - new Date(a.date);
-    });
-
-    this.state.filteredTestimonials = filtered;
-    this.state.currentPage = 1;
-
-    // Reset display and show first page
-    this.displayTestimonials(true);
-
-    // Update count
-    this.updateCount();
-
-    console.log(
-      `🔍 Applied filters: ${filtered.length} testimonials match criteria`,
-    );
-  }
-
-  /**
    * Display testimonials on the page
-   * @param {boolean} reset - Whether to reset the display (for new filters)
    */
   displayTestimonials() {
     const visibleCount =
       this.state.currentPage * this.config.testimonialsPerPage;
-    const cards = this.state.filteredTestimonials;
+    const cards = this.state.allTestimonials;
 
     cards.forEach((card, index) => {
       card.classList.toggle("hidden", index >= visibleCount);
     });
 
     this.updateLoadMoreButton();
+    this.updateCount();
 
     requestAnimationFrame(() => this.attachReadMoreToggles(this.elements.container));
-  }
-
-  /**
-   * Create HTML card for a single testimonial
-   */
-  createTestimonialCard(testimonial) {
-    const card = document.createElement("div");
-    card.className = `testimonial-card${testimonial.featured ? " featured" : ""}`;
-
-    // Format date
-    const dateStr = testimonial.date.toLocaleDateString(
-      this.state.language === "es" ? "es-ES" : "en-US",
-      { year: "numeric", month: "long", day: "numeric" },
-    );
-
-    // Use full content (no truncation)
-    const fullContent = testimonial.content;
-    // Generate media HTML for photos, videos, and audio
-    let mediaHtml = "";
-    const media = testimonial.media || testimonial.photos || [];
-
-    if (Array.isArray(media) && media.length > 0) {
-      const mediaTags = media
-        .map((item) => {
-          let mediaUrl = null;
-          let mediaAlt = "Testimonio multimedia";
-
-          if (typeof item === "string") {
-            // Handle string format: media = ["https://..."]
-            mediaUrl = item;
-          } else if (item && typeof item === "object") {
-            // Handle object format: media = [{ url: "https://...", alt: "..." }]
-            mediaUrl = item.secure_url || item.url || item.src || null;
-            mediaAlt = item.alt || mediaAlt;
-          }
-
-          if (!mediaUrl) return "";
-
-          // Detect media type by file extension or resource_type
-          const mediaType = this.detectMediaType(mediaUrl, item);
-
-          switch (mediaType) {
-            case "video":
-              return `<video class="testimonial-media-video" controls preload="metadata" referrerpolicy="no-referrer">
-                                    <source src="${mediaUrl}" type="video/mp4">
-                                    Tu navegador no soporta el elemento video.
-                                </video>`;
-            case "audio":
-              return `<audio class="testimonial-media-audio" controls preload="metadata" referrerpolicy="no-referrer">
-                                    <source src="${mediaUrl}" type="audio/mpeg">
-                                    Tu navegador no soporta el elemento audio.
-                                </audio>`;
-            case "image":
-            default:
-              return `<img class="testimonial-media-img" src="${mediaUrl}" alt="${this.escapeHtml(mediaAlt)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
-          }
-        })
-        .filter((tag) => tag !== ""); // Remove empty strings
-
-      if (mediaTags.length > 0) {
-        mediaHtml = `<div class="testimonial-media-grid">${mediaTags.join("")}</div>`;
-      }
-    }
-
-    card.innerHTML = `
-            <div class="testimonial-content">
-                <div class="testimonial-header">
-                    <div class="testimonial-author">${this.escapeHtml(testimonial.name)}</div>
-                    <div class="testimonial-trip">${this.escapeHtml(testimonial.trip)}</div>
-                </div>
-                <div class="testimonial-body">
-                    ${this.formatTestimonialContent(fullContent)}
-                </div>
-                ${mediaHtml}
-                <div class="testimonial-footer">
-                    <span class="testimonial-date">${dateStr}</span>
-                    ${testimonial.featured ? '<span class="testimonial-featured">⭐</span>' : ""}
-                </div>
-            </div>
-        `;
-
-    return card;
-  }
-
-  /**
-   * Format testimonial content for display
-   * Ensures clean text without YAML metadata, email addresses, and proper paragraph formatting
-   */
-  formatTestimonialContent(content) {
-    if (!content) return "";
-
-    // Clean the content - remove any remaining YAML frontmatter, metadata, and email addresses
-    let cleanContent = content
-      .replace(/^---[\s\S]*?---\s*/m, "") // Remove YAML frontmatter if any
-      .replace(/^name:\s*".*?"$/gim, "") // Remove individual YAML fields
-      .replace(/^trip:\s*".*?"$/gim, "")
-      .replace(/^language:\s*".*?"$/gim, "")
-      .replace(/^featured:\s*(true|false)$/gim, "")
-      .replace(/^verified:\s*(true|false)$/gim, "")
-      .replace(/^rating:\s*".*?"$/gim, "")
-      .replace(/^tags:\s*".*?"$/gim, "")
-      .replace(/<!--[\s\S]*?-->/g, "") // Remove HTML comments
-      .replace(/!\[.*?\]\(.*?\)/g, "") // Remove markdown images (already handled separately)
-      .replace(/---\s*\*\*Email:\*\*.*$/gim, "") // Remove email lines like "---**Email:** email@example.com"
-      .replace(/\*\*Email:\*\*.*$/gim, "") // Remove email lines like "**Email:** email@example.com"
-      .replace(/^\s*Email:\s*\S+@\S+\.\S+\s*$/gim, "") // Remove standalone email lines
-      .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, "") // Remove any remaining email addresses
-      .replace(/^\s*---\s*$/gm, "") // Remove standalone separator lines
-      .replace(/\n{3,}/g, "\n\n") // Replace multiple consecutive newlines with just two
-      .trim();
-
-    // Split into paragraphs and wrap each in <p> tags
-    const paragraphs = cleanContent
-      .split(/\n\s*\n/) // Split on double newlines (paragraph breaks)
-      .map((paragraph) => paragraph.trim())
-      .filter((paragraph) => paragraph.length > 0);
-
-    // If no paragraphs found, treat the whole content as one paragraph
-    if (paragraphs.length === 0) {
-      return `<p>${this.escapeHtml(cleanContent)}</p>`;
-    }
-
-    // Convert each paragraph to HTML
-    return paragraphs
-      .map((paragraph) => {
-        // Escape HTML first, then handle line breaks
-        const escapedParagraph = this.escapeHtml(paragraph);
-        const formattedParagraph = escapedParagraph.replace(/\n/g, "<br>");
-        return `<p>${formattedParagraph}</p>`;
-      })
-      .join("");
-  }
-
-  /**
-   * Open testimonial in modal (optional feature)
-   */
-  openTestimonialModal(testimonial) {
-    // This is optional - you can implement a modal if desired
-    console.log("📖 Opening testimonial modal for:", testimonial.name);
-
-    // For now, just scroll to top or could open GitHub link
-    // window.open(testimonial.url, '_blank');
   }
 
   /**
@@ -510,7 +209,7 @@ class TestimonialsDisplay {
 
     const hasMorePages =
       this.state.currentPage * this.config.testimonialsPerPage <
-      this.state.filteredTestimonials.length;
+      this.state.allTestimonials.length;
 
     if (!hasMorePages) {
       console.log("📄 No more testimonials to load");
@@ -531,12 +230,12 @@ class TestimonialsDisplay {
 
     const hasMorePages =
       this.state.currentPage * this.config.testimonialsPerPage <
-      this.state.filteredTestimonials.length;
+      this.state.allTestimonials.length;
 
     if (hasMorePages) {
       this.elements.loadMoreBtn.classList.remove("hidden");
       const remaining =
-        this.state.filteredTestimonials.length -
+        this.state.allTestimonials.length -
         this.state.currentPage * this.config.testimonialsPerPage;
       const loadMoreText =
         this.state.language === "es"
@@ -554,7 +253,7 @@ class TestimonialsDisplay {
   updateCount() {
     if (!this.elements.countDisplay) return;
 
-    const total = this.state.filteredTestimonials.length;
+    const total = this.state.allTestimonials.length;
     const shown = Math.min(
       this.state.currentPage * this.config.testimonialsPerPage,
       total,
@@ -648,123 +347,46 @@ class TestimonialsDisplay {
 }
 
   /**
-   * Show empty state (no testimonials match filters)
-   */
- 
-showEmpty() {
-  const emptyText =
-    this.state.language === "es"
-      ? "No se encontraron testimonios que coincidan con los filtros seleccionados."
-      : "No testimonials found matching the selected filters.";
-
-  if (this.elements.emptyMessage) {
-    this.elements.emptyMessage.innerHTML = `<p>📝 ${emptyText}</p>`;
-    this.elements.emptyMessage.classList.remove("hidden");
-    return;
-  }
-
-  let message = this.elements.container.querySelector(
-    ".testimonials-empty",
-  );
-
-  if (!message) {
-    message = document.createElement("div");
-    message.className = "testimonials-empty";
-    this.elements.container.appendChild(message);
-  }
-
-  message.innerHTML = `<p>📝 ${emptyText}</p>`;
-
-  // Importante: permite que hideEmpty() lo oculte después
-  this.elements.emptyMessage = message;
-}
-
-  /**
-   * Hide empty state
-   */
-  hideEmpty() {
-    if (this.elements.emptyMessage) {
-      this.elements.emptyMessage.classList.add("hidden");
-    }
-  }
-
-  /**
-   * Detect media type from URL or item properties
-   */
-  detectMediaType(url, item) {
-    // If item has resource_type from Cloudinary, use it
-    if (item && item.resource_type) {
-      return item.resource_type === "video"
-        ? item.format &&
-          ["mp3", "wav", "ogg"].includes(item.format.toLowerCase())
-          ? "audio"
-          : "video"
-        : item.resource_type;
-    }
-
-    // Fallback to URL extension detection
-    const extension = url.split(".").pop().toLowerCase().split("?")[0]; // Remove query params
-
-    if (["mp4", "webm", "ogg", "avi", "mov"].includes(extension)) {
-      return "video";
-    }
-    if (["mp3", "wav", "ogg", "m4a", "aac"].includes(extension)) {
-      return "audio";
-    }
-    if (["jpg", "jpeg", "png", "gif", "webp", "svg"].includes(extension)) {
-      return "image";
-    }
-
-    // Default to image for unknown types
-    return "image";
-  }
-
-  /**
-   * Escape HTML to prevent XSS
-   */
-  escapeHtml(text) {
-    const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  /**
    * Attach read more/less toggles to testimonial bodies that overflow
    */
   attachReadMoreToggles(root = document) {
     const bodies = root.querySelectorAll(".testimonial-body");
     bodies.forEach((body) => {
-      // Temporarily remove clamp to measure full height
+      // Hidden cards cannot be measured until pagination makes them visible.
+      if (!body.getClientRects().length) return;
+
       const wasExpanded = body.classList.contains("is-expanded");
       body.classList.add("is-expanded");
       const full = body.scrollHeight;
       body.classList.remove("is-expanded");
+      const clamped = body.clientHeight;
+      body.classList.toggle("is-expanded", wasExpanded);
 
-      const clamped = body.clientHeight; // height with clamp
-      const needsToggle = full > clamped + 8; // a bit of tolerance
+      const needsToggle = full > clamped + 8;
+      let btn = body.nextElementSibling?.classList?.contains("read-more-btn")
+        ? body.nextElementSibling
+        : null;
 
-      if (
-        needsToggle &&
-        !body.nextElementSibling?.classList?.contains("read-more-btn")
-      ) {
-        const btn = document.createElement("button");
+      if (needsToggle && !btn) {
+        btn = document.createElement("button");
         btn.type = "button";
         btn.className = "read-more-btn";
-        btn.textContent =
-          this.state.language === "es" ? "Leer más" : "Read more";
         btn.addEventListener("click", () => {
           const expanded = body.classList.toggle("is-expanded");
-          btn.textContent = expanded
-            ? this.state.language === "es"
-              ? "Leer menos"
-              : "Read less"
-            : this.state.language === "es"
-              ? "Leer más"
-              : "Read more";
+          this.updateReadMoreButton(btn, expanded);
         });
         body.insertAdjacentElement("afterend", btn);
       }
+
+      if (btn) this.updateReadMoreButton(btn, wasExpanded);
     });
+  }
+
+  updateReadMoreButton(button, expanded) {
+    button.textContent = expanded
+      ? this.state.language === "es" ? "Leer menos" : "Read less"
+      : this.state.language === "es" ? "Leer m\u00e1s" : "Read more";
+    button.setAttribute("aria-expanded", String(expanded));
   }
 }
 

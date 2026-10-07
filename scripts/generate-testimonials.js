@@ -190,9 +190,24 @@ async function fetchVerifiedIssues() {
   };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
-  const response = await fetch(`${API_URL}?${params}`, { headers });
-  if (!response.ok) throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-  return (await response.json()).map(parseIssue).filter(Boolean);
+  const issues = [];
+  let nextUrl = `${API_URL}?${params}`;
+
+  while (nextUrl) {
+    const response = await fetch(nextUrl, { headers });
+    if (!response.ok) throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+    const pageIssues = await response.json();
+    if (!Array.isArray(pageIssues)) throw new Error('GitHub API returned an invalid issues response.');
+    issues.push(...pageIssues);
+
+    const nextLink = (response.headers.get('link') || '')
+      .split(',')
+      .find((link) => /;\s*rel="next"/.test(link));
+    nextUrl = nextLink ? nextLink.match(/<([^>]+)>/)[1] : null;
+  }
+
+  // Only generate after every page has been fetched successfully.
+  return issues.map(parseIssue).filter(Boolean);
 }
 
 function updatePage(filePath, testimonials, language) {
@@ -203,7 +218,12 @@ function updatePage(filePath, testimonials, language) {
     throw new Error(`Missing testimonial generation markers in ${filePath}`);
   }
 
-  const generated = testimonials.map((testimonial) => renderCard(testimonial, language)).join('\n\n');
+  const emptyText = language === 'es'
+    ? 'A\u00fan no hay testimonios publicados.'
+    : 'No testimonials have been published yet.';
+  const generated = testimonials.length
+    ? testimonials.map((testimonial) => renderCard(testimonial, language)).join('\n\n')
+    : `                <div class="testimonials-empty"><p>${emptyText}</p></div>`;
   const replacement = `${START_MARKER}\n${generated}\n                ${END_MARKER}`;
   let updated = `${html.slice(0, start)}${replacement}${html.slice(end + END_MARKER.length)}`;
   const legacyStart = updated.indexOf('\n<!-- <div class="testimonial-card"');
@@ -222,12 +242,16 @@ function updatePage(filePath, testimonials, language) {
 
 async function main() {
   const testimonials = await fetchVerifiedIssues();
-  if (testimonials.length === 0) throw new Error('No verified testimonials were returned; refusing to erase published content.');
+  // A successful, complete query may be empty when all testimonials are withdrawn.
   for (const page of PAGES) updatePage(page.path, testimonials, page.language);
   console.log(`Generated ${testimonials.length} verified testimonials in ${PAGES.length} pages.`);
 }
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { fetchVerifiedIssues, main };
