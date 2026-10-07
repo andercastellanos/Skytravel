@@ -357,7 +357,9 @@ ${cards}
 
 async function fetchIssues() {
   if (process.env.ISSUES_FILE) {
-    return JSON.parse(fs.readFileSync(process.env.ISSUES_FILE, 'utf8'));
+    const issues = JSON.parse(fs.readFileSync(process.env.ISSUES_FILE, 'utf8'));
+    if (!Array.isArray(issues)) throw new Error('Invalid issues file: expected an array.');
+    return issues;
   }
   const params = new URLSearchParams({ state: 'open', labels: 'testimony', sort: 'created', direction: 'desc', per_page: '100' });
   const headers = {
@@ -366,7 +368,6 @@ async function fetchIssues() {
   };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
-<<<<<<< HEAD
   const issues = [];
   let nextUrl = `${API_URL}?${params}`;
 
@@ -384,12 +385,7 @@ async function fetchIssues() {
   }
 
   // Only generate after every page has been fetched successfully.
-  return issues.map(parseIssue).filter(Boolean);
-=======
-  const response = await fetch(`${API_URL}?${params}`, { headers });
-  if (!response.ok) throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-  return response.json();
->>>>>>> origin/main
+  return issues;
 }
 
 async function fetchVerifiedTestimonials() {
@@ -412,20 +408,14 @@ function replaceBetween(html, start, end, replacement, filePath) {
 
 function updateTestimonialsPage(filePath, testimonials, language) {
   const html = fs.readFileSync(filePath, 'utf8');
-  const generated = renderGroups(testimonials, language);
-  let updated = replaceBetween(html, START_MARKER, END_MARKER, `\n${generated}\n                `, filePath);
-
-<<<<<<< HEAD
   const emptyText = language === 'es'
     ? 'A\u00fan no hay testimonios publicados.'
     : 'No testimonials have been published yet.';
   const generated = testimonials.length
-    ? testimonials.map((testimonial) => renderCard(testimonial, language)).join('\n\n')
+    ? renderGroups(testimonials, language)
     : `                <div class="testimonials-empty"><p>${emptyText}</p></div>`;
-  const replacement = `${START_MARKER}\n${generated}\n                ${END_MARKER}`;
-  let updated = `${html.slice(0, start)}${replacement}${html.slice(end + END_MARKER.length)}`;
-=======
->>>>>>> origin/main
+  let updated = replaceBetween(html, START_MARKER, END_MARKER, `\n${generated}\n                `, filePath);
+
   const legacyStart = updated.indexOf('\n<!-- <div class="testimonial-card"');
   const legacyEnd = updated.indexOf('<!-- ...existing code... -->');
   if (legacyStart !== -1 && legacyEnd > legacyStart) {
@@ -440,15 +430,6 @@ function updateTestimonialsPage(filePath, testimonials, language) {
   if (updated !== html) fs.writeFileSync(filePath, updated);
 }
 
-<<<<<<< HEAD
-async function main() {
-  const testimonials = await fetchVerifiedIssues();
-  // A successful, complete query may be empty when all testimonials are withdrawn.
-  for (const page of PAGES) updatePage(page.path, testimonials, page.language);
-  console.log(`Generated ${testimonials.length} verified testimonials in ${PAGES.length} pages.`);
-}
-
-=======
 function updateTripPage(page, testimonials) {
   const filePath = path.join(ROOT, page.file);
   if (!fs.existsSync(filePath)) {
@@ -466,13 +447,12 @@ function updateTripPage(page, testimonials) {
 
 async function main() {
   const testimonials = await fetchVerifiedTestimonials();
-  if (testimonials.length === 0) throw new Error('No verified testimonials were returned; refusing to erase published content.');
+  // A successful, complete query may be empty when all testimonials are withdrawn.
   for (const page of PAGES) updateTestimonialsPage(page.path, testimonials, page.language);
   for (const page of TRIP_PAGES) updateTripPage(page, testimonials);
   console.log(`Generated ${testimonials.length} verified testimonials in ${PAGES.length} testimonial pages and ${TRIP_PAGES.length} trip pages.`);
 }
 
->>>>>>> origin/main
 if (require.main === module) {
   main().catch((error) => {
     console.error(error.message);
@@ -480,8 +460,4 @@ if (require.main === module) {
   });
 }
 
-<<<<<<< HEAD
-module.exports = { fetchVerifiedIssues, main };
-=======
-module.exports = { parseIssue, tagsFor, renderTripBlock, renderGroups };
->>>>>>> origin/main
+module.exports = { fetchVerifiedTestimonials, main, parseIssue, tagsFor, renderTripBlock, renderGroups };

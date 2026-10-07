@@ -22,6 +22,10 @@ function classList() {
 
 function harness(language, total = 10, fullHeight = 200) {
   const cards = Array.from({ length: total }, () => ({ classList: classList() }));
+  const groups = [cards.slice(0, 9), cards.slice(9)].filter((items) => items.length).map((items) => ({
+    classList: classList(),
+    querySelector: () => items.find((card) => !card.classList.contains('hidden')) || null,
+  }));
   let buttonsCreated = 0;
   const bodies = cards.map((card) => ({
     classList: classList(),
@@ -64,9 +68,14 @@ function harness(language, total = 10, fullHeight = 200) {
   app.config = { testimonialsPerPage: 9 };
   app.state = { language, allTestimonials: cards, currentPage: 1, loading: false };
   app.elements = {
-    container: { querySelectorAll: () => bodies },
+    container: { querySelectorAll: (selector) => {
+      if (selector === '.testimonial-body') return bodies;
+      if (selector === '.testimonial-group') return groups;
+      if (selector === '.testimonial-card') return cards;
+      throw new Error('Unexpected selector: ' + selector);
+    } },
   };
-  return { app, bodies, get buttonsCreated() { return buttonsCreated; } };
+  return { app, bodies, groups, get buttonsCreated() { return buttonsCreated; } };
 }
 
 for (const [language, more, less] of [
@@ -82,6 +91,7 @@ for (const [language, more, less] of [
     assert.equal(button.getAttribute('aria-expanded'), 'false');
     assert.equal(fixture.buttonsCreated, 9);
     assert.equal(bodies[9].nextElementSibling, null);
+    assert.ok(fixture.groups[1].classList.contains('hidden'));
 
     button.click();
     assert.ok(bodies[0].classList.contains('is-expanded'));
@@ -94,6 +104,7 @@ for (const [language, more, less] of [
     assert.equal(button.textContent, less);
     assert.equal(button.getAttribute('aria-expanded'), 'true');
     assert.equal(fixture.buttonsCreated, 10);
+    assert.ok(!fixture.groups[1].classList.contains('hidden'));
     assert.equal(bodies[9].nextElementSibling.textContent, more);
 
     app.displayTestimonials();
