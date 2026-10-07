@@ -156,6 +156,8 @@ function cleanContent(content) {
     .replace(/\*\*Email:\*\*.*$/gim, '')
     .replace(/^\s*Email:\s*\S+@\S+\s*$/gim, '')
     .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '')
+    // Tool attribution footers appended to issue bodies by automated edits
+    .replace(/^\s*_?(?:Generated|Edited|Updated) (?:by|with) \[?Claude(?: Code)?\]?(?:\([^)]*\))?_?\s*$/gim, '')
     .replace(/^\s*---\s*$/gm, '')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
