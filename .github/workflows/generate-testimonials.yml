@@ -36,12 +36,13 @@ jobs:
 
       - name: Publish generated HTML
         run: |
-          if git diff --quiet -- testimony/testimonios.html testimony/testimonials.html; then
+          # Testimonials pages + trip pages that show matching testimonials
+          if git diff --quiet -- testimony/ peregrinaciones-2025/ peregrinaciones-2026/; then
             echo "No testimonial changes to publish."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add testimony/testimonios.html testimony/testimonials.html
+          git add -u -- testimony/ peregrinaciones-2025/ peregrinaciones-2026/
           git commit -m "chore: update verified testimonials"
           git push

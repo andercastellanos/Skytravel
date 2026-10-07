@@ -11,7 +11,7 @@ class TestimonialsDisplay {
   constructor() {
     // Configuration
     this.config = {
-      testimonialsPerPage: 9, // Show 9 testimonials per page (3x3 grid)
+      testimonialsPerPage: 60, // All verified testimonials are pre-rendered in HTML, grouped by destination
       autoLoadMore: false,
       scrollThreshold: 300, // Pixels from bottom to trigger load more
     };
@@ -59,10 +59,10 @@ class TestimonialsDisplay {
   findElements() {
     // Main container for testimonials
     this.elements.container =
+      document.querySelector("#testimonials-container") ||
       document.querySelector(".simple-testimonials-grid") ||
       document.querySelector(".testimonials-grid") ||
-      document.querySelector(".testimonials-wrapper") ||
-      document.querySelector("#testimonials-container");
+      document.querySelector(".testimonials-wrapper");
 
     // Load more button
     this.elements.loadMoreBtn =
@@ -194,6 +194,14 @@ class TestimonialsDisplay {
     cards.forEach((card, index) => {
       card.classList.toggle("hidden", index >= visibleCount);
     });
+
+    // Hide destination groups whose cards are all hidden (no empty headings).
+    this.elements.container
+      .querySelectorAll(".testimonial-group")
+      .forEach((group) => {
+        const hasVisible = group.querySelector(".testimonial-card:not(.hidden)");
+        group.classList.toggle("hidden", !hasVisible);
+      });
 
     this.updateLoadMoreButton();
     this.updateCount();

@@ -1,15 +1,34 @@
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * Generates the verified testimonials into static HTML.
+ *
+ *  1. testimony/testimonios.html (es) and testimony/testimonials.html (en):
+ *     every verified testimonial, grouped by destination (H2 per group,
+ *     link to the destination page, card id="testimonio-<issue number>").
+ *  2. Trip pages (Medjugorje, Medjugorje-Roma, Italy, Mariana, Santuarios):
+ *     the testimonials that match that trip, between
+ *     GENERATED_TRIP_TESTIMONIALS markers.
+ *
+ * Source: open GitHub issues labeled "testimony" + "verified".
+ * Local runs without network access: ISSUES_FILE=/path/issues.json
+ */
+
 const OWNER = 'andercastellanos';
 const REPO = 'Skytravel';
 const API_URL = `https://api.github.com/repos/${OWNER}/${REPO}/issues`;
+const ROOT = path.join(__dirname, '..');
+
 const PAGES = [
-  { path: path.join(__dirname, '..', 'testimony', 'testimonios.html'), language: 'es' },
-  { path: path.join(__dirname, '..', 'testimony', 'testimonials.html'), language: 'en' },
+  { path: path.join(ROOT, 'testimony', 'testimonios.html'), language: 'es' },
+  { path: path.join(ROOT, 'testimony', 'testimonials.html'), language: 'en' },
 ];
 const START_MARKER = '<!-- GENERATED_TESTIMONIALS_START -->';
 const END_MARKER = '<!-- GENERATED_TESTIMONIALS_END -->';
+const TRIP_START = '<!-- GENERATED_TRIP_TESTIMONIALS_START -->';
+const TRIP_END = '<!-- GENERATED_TRIP_TESTIMONIALS_END -->';
+
 const ALLOWED_MEDIA_HOSTS = [
   'imgur.com',
   'i.imgur.com',
@@ -18,6 +37,87 @@ const ALLOWED_MEDIA_HOSTS = [
   'raw.githubusercontent.com',
   'res.cloudinary.com',
   'cloudinary.com',
+];
+
+// Destination groups, in display order. A testimonial belongs to the first
+// group whose pattern matches its trip label (primary group) and is tagged
+// with every group that matches (used to pick testimonials for trip pages).
+const GROUPS = [
+  {
+    key: 'medjugorje',
+    pattern: /medjug/i,
+    es: {
+      title: 'Testimonios de peregrinos a Medjugorje',
+      intro: 'Conozca nuestra <a href="/medjugorje-es">peregrinación a Medjugorje</a>.',
+      href: '/medjugorje-es',
+    },
+    en: {
+      title: 'Medjugorje pilgrim testimonials',
+      intro: 'See our <a href="/medjugorje">Medjugorje pilgrimage</a>.',
+      href: '/medjugorje',
+    },
+  },
+  {
+    key: 'mariana',
+    pattern: /(mariana|f[aá]tima|lourdes|covadonga|garabandal|pilar)/i,
+    es: {
+      title: 'Testimonios de la peregrinación mariana: Fátima, Lourdes y más',
+      intro: 'Vea la <a href="/mariana2026-es">peregrinación mariana</a> y nuestra peregrinación a los <a href="/santuariosmarianos-es">santuarios marianos de Fátima y Lourdes</a>.',
+      href: '/mariana2026-es',
+    },
+    en: {
+      title: 'Marian pilgrimage testimonials: Fatima, Lourdes and more',
+      intro: 'See the <a href="/mariana2026">Marian pilgrimage</a> and our pilgrimage to the <a href="/santuariosmarianos">Marian shrines of Fatima and Lourdes</a>.',
+      href: '/mariana2026',
+    },
+  },
+  {
+    key: 'italia',
+    pattern: /(italia|italy|roma|rome|jubileo|jubilee|as[ií]s|assisi)/i,
+    es: {
+      title: 'Testimonios de peregrinos a Roma e Italia',
+      intro: 'Conozca nuestra <a href="/peregrinacion-medjugorje-roma-es">peregrinación a Medjugorje, Roma y Asís</a> y la <a href="/italy-es">peregrinación a Italia</a>.',
+      href: '/italy-es',
+    },
+    en: {
+      title: 'Rome and Italy pilgrim testimonials',
+      intro: 'See our <a href="/peregrinacion-medjugorje-roma">pilgrimage to Medjugorje, Rome and Assisi</a> and the <a href="/italy">Italy pilgrimage</a>.',
+      href: '/italy',
+    },
+  },
+  {
+    key: 'tierrasanta',
+    pattern: /(tierra santa|holy land)/i,
+    es: {
+      title: 'Testimonios de peregrinos a Tierra Santa',
+      intro: 'Conozca nuestra <a href="/tierrasanta2026-es">peregrinación a Tierra Santa</a>.',
+      href: '/tierrasanta2026-es',
+    },
+    en: {
+      title: 'Holy Land pilgrim testimonials',
+      intro: 'See our <a href="/tierrasanta2026">Holy Land pilgrimage</a>.',
+      href: '/tierrasanta2026',
+    },
+  },
+];
+const OTHER_GROUP = {
+  key: 'otras',
+  es: { title: 'Otras peregrinaciones', intro: 'Vea todas nuestras <a href="/experiences-es">experiencias de peregrinación</a>.', href: '/experiences-es' },
+  en: { title: 'Other pilgrimages', intro: 'See all our <a href="/experiences">pilgrimage experiences</a>.', href: '/experiences' },
+};
+
+// Trip pages that show their matching testimonials.
+const TRIP_PAGES = [
+  { file: 'peregrinaciones-2025/Medjugorje-es.html', language: 'es', tags: ['medjugorje'], limit: 6, title: 'Testimonios de peregrinos a Medjugorje' },
+  { file: 'peregrinaciones-2025/Medjugorje.html', language: 'en', tags: ['medjugorje'], limit: 6, title: 'Medjugorje pilgrim testimonials' },
+  { file: 'peregrinaciones-2026/peregrinacion-medjugorje-roma-es.html', language: 'es', tags: ['medjugorje', 'italia'], limit: 4, title: 'Testimonios de peregrinos a Medjugorje, Roma e Italia' },
+  { file: 'peregrinaciones-2026/peregrinacion-medjugorje-roma.html', language: 'en', tags: ['medjugorje', 'italia'], limit: 4, title: 'Medjugorje, Rome and Italy pilgrim testimonials' },
+  { file: 'peregrinaciones-2025/Italy-es.html', language: 'es', tags: ['italia'], limit: 4, title: 'Testimonios de peregrinos a Roma e Italia' },
+  { file: 'peregrinaciones-2025/Italy.html', language: 'en', tags: ['italia'], limit: 4, title: 'Rome and Italy pilgrim testimonials' },
+  { file: 'peregrinaciones-2026/Mariana2026-es.html', language: 'es', tags: ['mariana'], limit: 4, title: 'Testimonios de la peregrinación mariana' },
+  { file: 'peregrinaciones-2026/Mariana2026.html', language: 'en', tags: ['mariana'], limit: 4, title: 'Marian pilgrimage testimonials' },
+  { file: 'peregrinaciones-2026/SantuariosMarianos-es.html', language: 'es', tags: ['mariana'], limit: 4, title: 'Testimonios de peregrinos a Fátima y Lourdes' },
+  { file: 'peregrinaciones-2026/SantuariosMarianos.html', language: 'en', tags: ['mariana'], limit: 4, title: 'Fatima and Lourdes pilgrim testimonials' },
 ];
 
 function escapeHtml(value) {
@@ -56,14 +156,20 @@ function cleanContent(content) {
     .replace(/\*\*Email:\*\*.*$/gim, '')
     .replace(/^\s*Email:\s*\S+@\S+\s*$/gim, '')
     .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '')
+    // Tool attribution footers appended to issue bodies by automated edits
+    .replace(/^\s*_?(?:Generated|Edited|Updated) (?:by|with) \[?Claude(?: Code)?\]?(?:\([^)]*\))?_?\s*$/gim, '')
     .replace(/^\s*---\s*$/gm, '')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 
+function tagsFor(trip) {
+  return GROUPS.filter((group) => group.pattern.test(trip)).map((group) => group.key);
+}
+
 function parseIssue(issue) {
   if (issue.pull_request) return null;
-  const labels = (issue.labels || []).map((label) => label.name);
+  const labels = (issue.labels || []).map((label) => (typeof label === 'string' ? label : label.name));
   if (!labels.includes('verified')) return null;
 
   const { metadata, content } = parseFrontMatter(issue.body || '');
@@ -75,12 +181,15 @@ function parseIssue(issue) {
   const name = String(metadata.name || (titleName ? titleName[1] : '') || issue.user?.login || 'Anonymous').trim();
   const trip = String(metadata.trip || 'Pilgrimage Experience').trim();
   const destination = (trip.match(/^(.+?)\s*\(/) || [])[1] || trip.split(/[-,]/)[0] || 'Unknown';
+  const tags = tagsFor(trip);
 
   return {
     id: issue.number,
     name,
     trip,
     destination: destination.trim(),
+    tags,
+    group: tags[0] || OTHER_GROUP.key,
     content: testimonial,
     date: issue.created_at,
     url: issue.html_url,
@@ -159,30 +268,97 @@ function renderMedia(mediaUrl, language) {
   return `<img class="testimonial-media-img" src="${escapeHtml(mediaUrl)}" alt="${altText}" loading="lazy" referrerpolicy="no-referrer">`;
 }
 
+function formatDate(date, language) {
+  const locale = language === 'es' ? 'es-ES' : 'en-US';
+  return new Date(date).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+}
+
+function groupConfig(key) {
+  return GROUPS.find((group) => group.key === key) || OTHER_GROUP;
+}
+
 function renderCard(testimonial, language) {
   const media = testimonial.media.length
     ? `\n        <div class="testimonial-media-grid">${testimonial.media.map((url) => renderMedia(url, language)).join('')}</div>`
     : '';
-  const locale = language === 'es' ? 'es-ES' : 'en-US';
-  const date = new Date(testimonial.date).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  const tripHref = groupConfig(testimonial.group)[language].href;
 
-  return `                <div class="testimonial-card" data-generated-testimonial data-testimonial-id="${testimonial.id}">
+  return `                <div class="testimonial-card" id="testimonio-${testimonial.id}" data-generated-testimonial data-testimonial-id="${testimonial.id}">
                     <div class="testimonial-content">
                         <div class="testimonial-header">
                             <div class="testimonial-author">${escapeHtml(testimonial.name)}</div>
-                            <div class="testimonial-trip">${escapeHtml(testimonial.trip)}</div>
+                            <div class="testimonial-trip"><a href="${tripHref}">${escapeHtml(testimonial.trip)}</a></div>
                         </div>
                         <div class="testimonial-body">
                             ${formatContent(testimonial.content)}
                         </div>${media}
                         <div class="testimonial-footer">
-                            <span class="testimonial-date">${date}</span>
+                            <span class="testimonial-date">${formatDate(testimonial.date, language)}</span>
                         </div>
                     </div>
                 </div>`;
 }
 
-async function fetchVerifiedIssues() {
+function renderGroups(testimonials, language) {
+  const order = [...GROUPS.map((group) => group.key), OTHER_GROUP.key];
+  const sections = [];
+  if (language === 'en') {
+    sections.push('                <p class="testimonial-language-note">Most testimonials are shown in their original language (Spanish).</p>');
+  }
+  for (const key of order) {
+    const items = testimonials.filter((testimonial) => testimonial.group === key);
+    if (!items.length) continue;
+    const config = groupConfig(key)[language];
+    sections.push(`                <section class="testimonial-group" id="grupo-${key}" aria-labelledby="grupo-${key}-titulo">
+                <h2 class="testimonial-group-title" id="grupo-${key}-titulo">${config.title}</h2>
+                <p class="testimonial-group-intro">${config.intro}</p>
+                <div class="simple-testimonials-grid">
+${items.map((testimonial) => renderCard(testimonial, language)).join('\n\n')}
+                </div>
+                </section>`);
+  }
+  return sections.join('\n\n');
+}
+
+function renderTripBlock(testimonials, page) {
+  const es = page.language === 'es';
+  const listPath = es ? '/testimony/testimonios' : '/testimony/testimonials';
+  const items = testimonials
+    .map((testimonial) => ({ testimonial, score: testimonial.tags.filter((tag) => page.tags.includes(tag)).length }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score || new Date(b.testimonial.date) - new Date(a.testimonial.date))
+    .slice(0, page.limit)
+    .map((item) => item.testimonial);
+  if (!items.length) return '';
+
+  const readFull = es ? 'Leer testimonio completo' : 'Read full testimonial';
+  const cards = items.map((testimonial) => `            <figure class="trip-testimonial">
+              <blockquote class="trip-testimonial-text">
+                ${formatContent(testimonial.content)}
+              </blockquote>
+              <figcaption class="trip-testimonial-author"><strong>${escapeHtml(testimonial.name)}</strong> · ${escapeHtml(testimonial.trip)}</figcaption>
+              <a class="trip-testimonial-link" href="${listPath}#testimonio-${testimonial.id}">${readFull}</a>
+            </figure>`).join('\n');
+  const note = es ? '' : '\n          <p class="trip-testimonials-note">Testimonials are shown in their original language (Spanish).</p>';
+  const more = es ? 'Ver todos los testimonios de nuestros peregrinos' : 'See all testimonials from our pilgrims';
+
+  return `
+      <section class="trip-testimonials" aria-labelledby="trip-testimonials-title">
+        <div class="trip-testimonials-container">
+          <h2 id="trip-testimonials-title">${escapeHtml(page.title)}</h2>${note}
+          <div class="trip-testimonials-grid">
+${cards}
+          </div>
+          <p class="trip-testimonials-more"><a href="${listPath}">${more}</a></p>
+        </div>
+      </section>
+      `;
+}
+
+async function fetchIssues() {
+  if (process.env.ISSUES_FILE) {
+    return JSON.parse(fs.readFileSync(process.env.ISSUES_FILE, 'utf8'));
+  }
   const params = new URLSearchParams({ state: 'open', labels: 'testimony', sort: 'created', direction: 'desc', per_page: '100' });
   const headers = {
     Accept: 'application/vnd.github+json',
@@ -190,6 +366,7 @@ async function fetchVerifiedIssues() {
   };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
+<<<<<<< HEAD
   const issues = [];
   let nextUrl = `${API_URL}?${params}`;
 
@@ -208,16 +385,37 @@ async function fetchVerifiedIssues() {
 
   // Only generate after every page has been fetched successfully.
   return issues.map(parseIssue).filter(Boolean);
+=======
+  const response = await fetch(`${API_URL}?${params}`, { headers });
+  if (!response.ok) throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+  return response.json();
+>>>>>>> origin/main
 }
 
-function updatePage(filePath, testimonials, language) {
-  const html = fs.readFileSync(filePath, 'utf8');
-  const start = html.indexOf(START_MARKER);
-  const end = html.indexOf(END_MARKER);
-  if (start === -1 || end === -1 || end < start) {
-    throw new Error(`Missing testimonial generation markers in ${filePath}`);
-  }
+async function fetchVerifiedTestimonials() {
+  const issues = await fetchIssues();
+  return issues
+    .filter((issue) => issue.state === undefined || issue.state === 'open')
+    .map(parseIssue)
+    .filter(Boolean)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+}
 
+function replaceBetween(html, start, end, replacement, filePath) {
+  const startIndex = html.indexOf(start);
+  const endIndex = html.indexOf(end);
+  if (startIndex === -1 || endIndex === -1 || endIndex < startIndex) {
+    throw new Error(`Missing markers ${start} / ${end} in ${filePath}`);
+  }
+  return `${html.slice(0, startIndex)}${start}${replacement}${html.slice(endIndex)}`;
+}
+
+function updateTestimonialsPage(filePath, testimonials, language) {
+  const html = fs.readFileSync(filePath, 'utf8');
+  const generated = renderGroups(testimonials, language);
+  let updated = replaceBetween(html, START_MARKER, END_MARKER, `\n${generated}\n                `, filePath);
+
+<<<<<<< HEAD
   const emptyText = language === 'es'
     ? 'A\u00fan no hay testimonios publicados.'
     : 'No testimonials have been published yet.';
@@ -226,6 +424,8 @@ function updatePage(filePath, testimonials, language) {
     : `                <div class="testimonials-empty"><p>${emptyText}</p></div>`;
   const replacement = `${START_MARKER}\n${generated}\n                ${END_MARKER}`;
   let updated = `${html.slice(0, start)}${replacement}${html.slice(end + END_MARKER.length)}`;
+=======
+>>>>>>> origin/main
   const legacyStart = updated.indexOf('\n<!-- <div class="testimonial-card"');
   const legacyEnd = updated.indexOf('<!-- ...existing code... -->');
   if (legacyStart !== -1 && legacyEnd > legacyStart) {
@@ -240,6 +440,7 @@ function updatePage(filePath, testimonials, language) {
   if (updated !== html) fs.writeFileSync(filePath, updated);
 }
 
+<<<<<<< HEAD
 async function main() {
   const testimonials = await fetchVerifiedIssues();
   // A successful, complete query may be empty when all testimonials are withdrawn.
@@ -247,6 +448,31 @@ async function main() {
   console.log(`Generated ${testimonials.length} verified testimonials in ${PAGES.length} pages.`);
 }
 
+=======
+function updateTripPage(page, testimonials) {
+  const filePath = path.join(ROOT, page.file);
+  if (!fs.existsSync(filePath)) {
+    console.warn(`Skipping missing trip page ${page.file}`);
+    return;
+  }
+  const html = fs.readFileSync(filePath, 'utf8');
+  if (!html.includes(TRIP_START)) {
+    console.warn(`Skipping ${page.file}: no trip testimonial markers`);
+    return;
+  }
+  const updated = replaceBetween(html, TRIP_START, TRIP_END, renderTripBlock(testimonials, page), filePath);
+  if (updated !== html) fs.writeFileSync(filePath, updated);
+}
+
+async function main() {
+  const testimonials = await fetchVerifiedTestimonials();
+  if (testimonials.length === 0) throw new Error('No verified testimonials were returned; refusing to erase published content.');
+  for (const page of PAGES) updateTestimonialsPage(page.path, testimonials, page.language);
+  for (const page of TRIP_PAGES) updateTripPage(page, testimonials);
+  console.log(`Generated ${testimonials.length} verified testimonials in ${PAGES.length} testimonial pages and ${TRIP_PAGES.length} trip pages.`);
+}
+
+>>>>>>> origin/main
 if (require.main === module) {
   main().catch((error) => {
     console.error(error.message);
@@ -254,4 +480,8 @@ if (require.main === module) {
   });
 }
 
+<<<<<<< HEAD
 module.exports = { fetchVerifiedIssues, main };
+=======
+module.exports = { parseIssue, tagsFor, renderTripBlock, renderGroups };
+>>>>>>> origin/main

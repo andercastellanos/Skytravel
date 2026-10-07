@@ -42,6 +42,12 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Component fragments are fetched by JS; never index them.
+[[headers]]
+  for = "/components/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
 # Hidden receipt page redirect
 [[redirects]]
   from = "/recibo.html"
@@ -231,14 +237,14 @@
 
 [[redirects]]
   from = "/medjugorje2026"
-  to = "/peregrinaciones-2026/Medjugorje2026.html"
-  status = 200
+  to = "/medjugorje"
+  status = 301
   force = true
 
 [[redirects]]
   from = "/medjugorje2026-es"
-  to = "/peregrinaciones-2026/Medjugorje2026-es.html"
-  status = 200
+  to = "/medjugorje-es"
+  status = 301
   force = true
 
 [[redirects]]
@@ -255,13 +261,13 @@
 
 [[redirects]]
   from = "/Medjugorje2026.html"
-  to = "/medjugorje2026"
+  to = "/medjugorje"
   status = 301
   force = true
 
 [[redirects]]
   from = "/Medjugorje2026-es.html"
-  to = "/medjugorje2026-es"
+  to = "/medjugorje-es"
   status = 301
   force = true
 
@@ -363,13 +369,13 @@
 
 [[redirects]]
   from = "/peregrinaciones-2026/Medjugorje2026.html"
-  to = "/medjugorje2026"
+  to = "/medjugorje"
   status = 301
   force = true
 
 [[redirects]]
   from = "/peregrinaciones-2026/Medjugorje2026-es.html"
-  to = "/medjugorje2026-es"
+  to = "/medjugorje-es"
   status = 301
   force = true
 
@@ -379,13 +385,13 @@
 
 [[redirects]]
   from = "/peregrinacion-medjugorje-2026-2027.html"
-  to = "/peregrinacion-medjugorje-2026-2027"
+  to = "/medjugorje"
   status = 301
   force = true
 
 [[redirects]]
   from = "/peregrinacion-medjugorje-2026-2027-es.html"
-  to = "/peregrinacion-medjugorje-2026-2027-es"
+  to = "/medjugorje-es"
   status = 301
   force = true
 
@@ -459,13 +465,13 @@
 
 [[redirects]]
   from = "/medjugorje2026.html"
-  to = "/medjugorje2026"
+  to = "/medjugorje"
   status = 301
   force = true
 
 [[redirects]]
   from = "/medjugorje2026-es.html"
-  to = "/medjugorje2026-es"
+  to = "/medjugorje-es"
   status = 301
   force = true
 
@@ -688,7 +694,7 @@
 
 [[redirects]]
   from = "/Medjugorje2026-ads-es.html"
-  to = "/peregrinacion-medjugorje-2026-2027-es"
+  to = "/medjugorje-es"
   status = 301
   force = true
 
@@ -726,5 +732,21 @@
 [[redirects]]
   from = "/es/experiences/medjugorje2026-es.html"
   to = "/es/experiences/medjugorje2026-es"
+  status = 301
+  force = true
+
+# ========================================================================
+# RETIRED GOOGLE ADS LANDING PAGES (consolidated into /medjugorje, Sep 2026)
+# ========================================================================
+
+[[redirects]]
+  from = "/peregrinacion-medjugorje-2026-2027"
+  to = "/medjugorje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-medjugorje-2026-2027-es"
+  to = "/medjugorje-es"
   status = 301
   force = true
