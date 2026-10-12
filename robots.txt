@@ -1,4 +1,4 @@
-# Sky Travel – robots.txt
+# Sky Travel J&M – robots.txt
 User-agent: *
 Disallow: /recibo
 Disallow: /estado

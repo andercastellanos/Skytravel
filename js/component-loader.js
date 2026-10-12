@@ -1,5 +1,5 @@
 /**
- * Component Loader for Sky Travel
+ * Component Loader for Sky Travel J&M
  *
  * Loads reusable HTML components via fetch and injects them into the page.
  * CSS is automatically moved to <head> to ensure proper styling.

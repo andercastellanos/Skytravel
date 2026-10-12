@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Image Optimization Script for Sky Travel JM
+ * Image Optimization Script for Sky Travel J&M
  *
  * Converts images to WebP format with responsive sizes.
  * Accepts: JPG, JPEG, PNG, WebP, AVIF as input
@@ -155,7 +155,7 @@ async function processImage(inputPath, filename) {
  */
 async function main() {
   console.log(`\n${colors.bright}${colors.cyan}╔════════════════════════════════════════════════════════════╗${colors.reset}`);
-  console.log(`${colors.bright}${colors.cyan}║     Sky Travel JM - Image Optimization Script              ║${colors.reset}`);
+  console.log(`${colors.bright}${colors.cyan}║     Sky Travel J&M - Image Optimization Script              ║${colors.reset}`);
   console.log(`${colors.bright}${colors.cyan}║     WebP with Responsive Sizes                             ║${colors.reset}`);
   console.log(`${colors.bright}${colors.cyan}╚════════════════════════════════════════════════════════════╝${colors.reset}\n`);
 

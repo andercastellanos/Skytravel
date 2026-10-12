@@ -1,5 +1,5 @@
 /**
- * Sky Travel JM — Site-wide GA4 conversion tracking
+ * Sky Travel J&M — Site-wide GA4 conversion tracking
  * Handles whatsapp_click and contact_form_success via event delegation.
  * Loaded normally (not injected) so listeners are always active.
  */

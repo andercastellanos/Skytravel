@@ -86,9 +86,9 @@ for f in files:
 # ---------------------------------------------------------------- 3. missing H1s
 print("3. missing H1s")
 ABOUT = {
-    "about-es.html": ("<h1>Sobre Sky Travel J&amp;M: peregrinaciones católicas desde Miami</h1>",
+    "about-es.html": ("<h1>Sobre Sky Travel J&M: peregrinaciones católicas desde Miami</h1>",
                       "<p>Agencia de viajes católica en Miami desde 2015, acreditada por IATA e IATAN.</p>"),
-    "about.html": ("<h1>About Sky Travel J&amp;M: Catholic Pilgrimages from Miami</h1>",
+    "about.html": ("<h1>About Sky Travel J&M: Catholic Pilgrimages from Miami</h1>",
                    "<p>A Catholic travel agency in Miami since 2015, accredited by IATA and IATAN.</p>"),
 }
 for f, (h1, p) in ABOUT.items():
@@ -124,7 +124,7 @@ for f in files:
 # ---------------------------------------------------------------- 4. /index-es Spanish-first
 print("4. /index-es title, meta, H1")
 f = "index-es.html"; s = read(f)
-T = "Peregrinaciones Católicas desde Miami y Bogotá | Sky Travel J&amp;M"
+T = "Peregrinaciones Católicas desde Miami y Bogotá | Sky Travel J&M"
 D = ("Agencia de peregrinaciones católicas en Miami. Peregrinaciones a Medjugorje, Tierra Santa, "
      "Fátima y Lourdes con Misa diaria y acompañamiento espiritual. Salidas desde Miami y Bogotá.")
 for pat, rep, label in [

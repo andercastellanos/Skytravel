@@ -826,7 +826,7 @@ function buildJsonLd(data, lang) {
   const travelAgency = {
     '@type': 'TravelAgency',
     '@id': baseUrl + '#organization',
-    'name': 'Sky Travel JM',
+    'name': 'Sky Travel J&M',
     'url': baseUrl,
     ...(sameAsArr.length > 0 ? { 'sameAs': sameAsArr } : {}),
     'address': {
@@ -1137,7 +1137,7 @@ ${bulletsLi}
   let navHtml;
   if (isEN) {
     navHtml = `                <a href="/" class="logo">
-                    <img src="imagesWebp/Logo.webp" alt="Sky Travel - Luxury Spiritual Pilgrimage Travel Agency Logo"
+                    <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M - Luxury Spiritual Pilgrimage Travel Agency Logo"
                         class="logo-image" width="200" height="200" style="width: 100px; height: auto;" loading="eager"
                         decoding="async">
                 </a>
@@ -1160,7 +1160,7 @@ ${bulletsLi}
                 </button>`;
   } else {
     navHtml = `                <a href="/index-es" class="logo">
-                    <img src="imagesWebp/Logo.webp" alt="Sky Travel - Logo de Agencia de Peregrinaciones Espirituales"
+                    <img src="imagesWebp/Logo.webp" alt="Sky Travel J&M - Logo de Agencia de Peregrinaciones Espirituales"
                         class="logo-image" width="200" height="200" style="width: 100px; height: auto;" loading="eager"
                         decoding="async">
                 </a>
@@ -1256,7 +1256,7 @@ ${hreflangHtml}
     <meta property="og:title" content="${esc(ogTitle)}">
     <meta property="og:description" content="${esc(ogDesc)}">
     <meta property="og:url" content="${pageUrl}">
-    <meta property="og:site_name" content="Sky Travel">
+    <meta property="og:site_name" content="Sky Travel J&M">
     <meta property="og:locale" content="${ogLocale}">
 ${ogAlternateHtml}
     <meta property="og:image" content="${baseUrl}/imagesWebp/${esc(data.imageFolder)}/${esc(data.ogImageFilename)}">

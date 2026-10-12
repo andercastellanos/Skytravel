@@ -141,7 +141,7 @@ for f in html_files():
 log("4. Medjugorje pillar pages")
 ES, EN = "peregrinaciones-2025/Medjugorje-es.html", "peregrinaciones-2025/Medjugorje.html"
 s = read(ES)
-s = sub_re(s, r"<title>.*?</title>", "<title>Peregrinación a Medjugorje desde Miami y Bogotá | Sky Travel J&amp;M</title>", ES, "title")
+s = sub_re(s, r"<title>.*?</title>", "<title>Peregrinación a Medjugorje desde Miami y Bogotá | Sky Travel J&M</title>", ES, "title")
 s = sub_re(s, r'(<meta name="description"\s+content=")[^"]*(")',
            r"\1Peregrinación católica a Medjugorje con Misa diaria, guía bilingüe y acompañamiento espiritual. Salidas cada año desde Miami (Estados Unidos) y Bogotá (Colombia).\2", ES, "meta description")
 s = sub_re(s, r'(<meta property="og:title" content=")[^"]*(")', r"\1Peregrinación a Medjugorje desde Miami y Bogotá\2", ES, "og:title")
@@ -164,7 +164,7 @@ s = sub_re(s, r"Este es el lugar exacto donde la Virgen María se apareció por 
 write(ES, s)
 
 s = read(EN)
-s = sub_re(s, r"<title>.*?</title>", "<title>Medjugorje Pilgrimage from Miami &amp; Bogotá | Sky Travel J&amp;M</title>", EN, "title")
+s = sub_re(s, r"<title>.*?</title>", "<title>Medjugorje Pilgrimage from Miami &amp; Bogotá | Sky Travel J&M</title>", EN, "title")
 s = sub_re(s, r'(<meta name="description" content=")[^"]*(")',
            r"\1Catholic pilgrimage to Medjugorje with daily Mass, a bilingual guide and spiritual accompaniment. Departures every year from Miami (United States) and Bogotá (Colombia).\2", EN, "meta description")
 s = sub_re(s, r'(<meta property="og:title" content=")[^"]*(")', r"\1Medjugorje Pilgrimage from Miami &amp; Bogotá\2", EN, "og:title")
@@ -256,7 +256,7 @@ for f in ["peregrinaciones-2026/peregrinacion-medjugorje-roma-es.html", "peregri
 f = "blog/crecer-luchar-por-hijos.html"; write(f, sub_exact(read(f), '"/blog/grow-fight-for-children"', '"/blog/grow-fight-your-children"', f, "broken link"))
 f = "blog/catholic-pilgrimage.html"; write(f, sub_re(read(f), r'href="([^"]*)/testimony/testimonies"', r'href="\1/testimony/testimonials"', f, "broken link"))
 f = "blog/the-faith-of-parents-who-do-not-give-up.html"
-write(f, sub_exact(read(f), "<title>The Best Gift We Can Give Our Children: Freedom</title>", "<title>The Faith of Parents Who Never Give Up | Sky Travel Blog</title>", f, "duplicate title"))
+write(f, sub_exact(read(f), "<title>The Best Gift We Can Give Our Children: Freedom</title>", "<title>The Faith of Parents Who Never Give Up | Sky Travel J&M Blog</title>", f, "duplicate title"))
 f = "experiences/medjugorje2026.html"; write(f, sub_exact(read(f), "Holy Week 2026 2026", "Holy Week 2026", f, "duplicated year"))
 f = "peregrinaciones-2026/SantuariosMarianos-es.html"
 write(f, sub_exact(read(f), "<h2>Peregrinación Mariana y Pasos de San Pablo: Fátima - Lourdes - Atenas y Crucero Islas Griegas</h2>",

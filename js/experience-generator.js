@@ -581,7 +581,7 @@ function buildJsonLd(data, lang) {
     'description': isEN ? (data.metaDescEN || '') : (data.metaDescES || ''),
     'provider': {
       '@type': 'TravelAgency',
-      'name': 'Sky Travel',
+      'name': 'Sky Travel J&M',
       'url': baseUrl,
       'telephone': '+1-786-290-9114',
       'email': 'info@skytraveljm.com',
@@ -604,7 +604,7 @@ function buildJsonLd(data, lang) {
     'touristType': data.touristType || (isEN ? 'Religious Pilgrims' : 'Peregrinos Religiosos'),
     'organizer': {
       '@type': 'TravelAgency',
-      'name': 'Sky Travel',
+      'name': 'Sky Travel J&M',
       'telephone': '+1-786-290-9114',
       'email': 'info@skytraveljm.com'
     }
@@ -700,8 +700,8 @@ function buildJsonLd(data, lang) {
     '@id': pageUrl + '#webpage',
     'url': pageUrl,
     'name': isEN
-      ? nameEN + ' ' + data.year + ' Photo Gallery | Sky Travel'
-      : name + ' ' + data.year + ' | Sky Travel',
+      ? nameEN + ' ' + data.year + ' Photo Gallery | Sky Travel J&M'
+      : name + ' ' + data.year + ' | Sky Travel J&M',
     'image': images.length > 0
       ? baseUrl + '/experiences/images/' + folder + '/' + images[0].filename
       : '',
@@ -743,8 +743,8 @@ function generateHTML(data, lang) {
 
   // Title
   const title = isEN
-    ? esc(nameEN) + ' ' + esc(data.year) + ' Photo Gallery | Sky Travel'
-    : 'Galer\u00eda Fotos ' + esc(nameES) + ' ' + esc(data.year) + ' | Sky Travel';
+    ? esc(nameEN) + ' ' + esc(data.year) + ' Photo Gallery | Sky Travel J&M'
+    : 'Galer\u00eda Fotos ' + esc(nameES) + ' ' + esc(data.year) + ' | Sky Travel J&M';
 
   // Meta description
   const metaDesc = isEN ? esc(data.metaDescEN || '') : esc(data.metaDescES || '');
@@ -802,7 +802,7 @@ function generateHTML(data, lang) {
   html += '  <title>' + title + '</title>\n';
   html += '  <meta name="description" content="' + metaDesc + '">\n';
   html += '  <meta name="keywords" content="' + keywords + '">\n';
-  html += '  <meta name="author" content="Sky Travel">\n';
+  html += '  <meta name="author" content="Sky Travel J&M">\n';
   html += '  <meta name="robots" content="index, follow">\n';
   html += '\n';
 
@@ -824,13 +824,13 @@ function generateHTML(data, lang) {
   html += '  <meta property="og:title" content="' + title + '">\n';
   html += '  <meta property="og:description" content="' + metaDesc + '">\n';
   html += '  <meta property="og:url" content="' + pageUrl + '">\n';
-  html += '  <meta property="og:site_name" content="Sky Travel">\n';
+  html += '  <meta property="og:site_name" content="Sky Travel J&M">\n';
   html += '  <meta property="og:locale" content="' + ogLocale + '">\n';
   html += '  <meta property="og:locale:alternate" content="' + ogLocaleAlt + '">\n';
   html += '  <meta property="og:image" content="' + ogImageUrl + '">\n';
   html += '  <meta property="og:image:width" content="1200">\n';
   html += '  <meta property="og:image:height" content="630">\n';
-  html += '  <meta property="og:image:alt" content="' + esc(name) + ' ' + esc(data.year) + ' Experience with Sky Travel">\n';
+  html += '  <meta property="og:image:alt" content="' + esc(name) + ' ' + esc(data.year) + ' Experience with Sky Travel J&M">\n';
   html += '\n';
 
   // Twitter
@@ -1095,7 +1095,7 @@ function generateHTML(data, lang) {
   html += '  <div class="nav-container">\n';
   html += '    <nav>\n';
   html += '      <a href="/" class="logo">\n';
-  html += '        <img src="' + prefix + 'images/Logo.jpg" alt="Sky Travel" class="logo-image">\n';
+  html += '        <img src="' + prefix + 'imagesWebp/Logo.webp" alt="Sky Travel J&M" class="logo-image">\n';
   html += '      </a>\n';
   html += '      <div class="nav-links">\n';
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================
-# Sky Travel JM — SEO & Structure Validation Script
+# Sky Travel J&M — SEO & Structure Validation Script
 # ============================================
 # Validates city/destination pages against the Medjugorje2026.html reference:
 #   HTML structure, meta tags, canonical, hreflang (20+ variants),
@@ -16,7 +16,7 @@
 # Show help
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
   cat <<'EOF'
-Sky Travel JM — SEO & Structure Validation Script
+Sky Travel J&M — SEO & Structure Validation Script
 
 USAGE:
   bash scripts/verify-experience-seo.sh [MODE] [FILE]
@@ -117,7 +117,7 @@ ALL_PAIRS=("${CITY_PAIRS[@]}" "${EXPERIENCE_PAIRS[@]}")
 HREFLANG_VARIANTS=(es es-US es-CO es-MX es-ES es-AR es-PE es-VE es-CL es-EC es-GT es-CR es-PA es-BO es-PY es-UY es-HN es-SV es-NI es-DO es-PR en x-default)
 
 echo "=============================================="
-echo " Sky Travel JM — SEO & Structure Report"
+echo " Sky Travel J&M — SEO & Structure Report"
 echo " Mode: $(echo "$MODE" | tr '[:lower:]' '[:upper:]')"
 echo " Generated: $(date '+%Y-%m-%d %H:%M')"
 echo "=============================================="

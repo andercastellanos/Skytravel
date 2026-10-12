@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "netlify dev",
+    "check:links": "node scripts/check-internal-links.js",
     "optimize-images": "node scripts/optimize-images.js"
   },
   "devDependencies": {

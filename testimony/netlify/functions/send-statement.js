@@ -169,7 +169,7 @@ function buildStatementEmail(body) {
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#faf8f5;">
         <!-- Header with logo -->
         <div style="padding:30px;text-align:center;">
-            <img src="https://www.skytraveljm.com/images/Logo.jpg" alt="Sky Travel J&amp;M" style="max-width:160px;height:auto;" />
+            <img src="https://www.skytraveljm.com/imagesWebp/Logo.webp" alt="Sky Travel J&M" style="max-width:160px;height:auto;" />
         </div>
 
         <!-- Body -->
@@ -278,7 +278,7 @@ function buildStatementEmail(body) {
  */
 async function fetchLogoBase64() {
     try {
-        const response = await fetch('https://www.skytraveljm.com/images/Logo.jpg');
+        const response = await fetch('https://www.skytraveljm.com/imagesWebp/Logo.webp');
         if (!response.ok) return null;
         const buffer = Buffer.from(await response.arrayBuffer());
         return 'data:image/jpeg;base64,' + buffer.toString('base64');

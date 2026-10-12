@@ -1,5 +1,5 @@
 /**
- * Payment Plan Component for Sky Travel
+ * Payment Plan Component for Sky Travel J&M
  *
  * Generates a payment plan section with clickable links to /pay or /pagar.
  * Supports any number of payment options via data-options JSON attribute,

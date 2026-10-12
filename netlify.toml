@@ -398,6 +398,31 @@
 # SUPPORTING PAGES - Add missing redirects for about, contact, blog, guidelines
 # ========================================================================
 
+# Legacy root-level links used by blog articles and pilgrimage experiences.
+[[redirects]]
+  from = "/peregrinacion-medjugorje-roma.html"
+  to = "/peregrinacion-medjugorje-roma"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-medjugorje-roma-es.html"
+  to = "/peregrinacion-medjugorje-roma-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Mariana2026.html"
+  to = "/mariana2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Mariana2026-es.html"
+  to = "/mariana2026-es"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/about.html"
   to = "/about"

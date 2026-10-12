@@ -10,7 +10,7 @@
  * 1. CREATE NOTION INTEGRATION:
  *    - Go to https://www.notion.so/my-integrations
  *    - Click "New integration"
- *    - Name it "Sky Travel Lead Capture"
+ *    - Name it "Sky Travel J&M Lead Capture"
  *    - Select your workspace
  *    - Copy the "Internal Integration Token" (starts with "secret_")
  *
