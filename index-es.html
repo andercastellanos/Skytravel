@@ -59,11 +59,11 @@
   <link rel="preconnect" href="https://www.youtube.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="style.css?v=20260924" as="style">
+  <link rel="preload" href="style.css?v=20261014" as="style">
   <link rel="preload" href="imagesWebp/Logo.webp" as="image">
   <link rel="preload" href="imagesWebp/holyland/Jerusalem_1-1600.webp" as="image">
 
-  <link rel="stylesheet" href="style.css?v=20260924">
+  <link rel="stylesheet" href="style.css?v=20261014">
 
   <!-- Enhanced Structured Data for Travel Agency (Spanish) -->
   <script type="application/ld+json">
@@ -77,20 +77,22 @@
       "name": "Sky Travel J&M",
       "inLanguage": "es",
       "publisher": {
-        "@id": "https://www.skytraveljm.com/#org"
+        "@id": "https://www.skytraveljm.com/#organization"
       }
     },
     {
       "@type": "TravelAgency",
-      "@id": "https://www.skytraveljm.com/#org",
+      "@id": "https://www.skytraveljm.com/#organization",
       "name": "Sky Travel J&M",
       "url": "https://www.skytraveljm.com",
       "telephone": "+1-305-645-2625",
-      "email": "contact@skytraveljm.com",
+      "email": "info@skytraveljm.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "1000 Brickell Ave Ste 715",
         "addressLocality": "Miami",
         "addressRegion": "FL",
+        "postalCode": "33131",
         "addressCountry": "US"
       },
       "description": "Catholic pilgrimage specialist offering spiritual journeys to Medjugorje, Holy Land, Rome and Marian sanctuaries.",
@@ -106,7 +108,51 @@
       ],
       "slogan": "Creating extraordinary spiritual journeys",
       "foundingDate": "2015",
-      "logo": "https://www.skytraveljm.com/imagesWebp/Logo.webp"
+      "logo": "https://www.skytraveljm.com/imagesWebp/Logo.webp",
+      "alternateName": [
+        "Sky Travel J y M",
+        "SkyTravel"
+      ],
+      "founder": {
+        "@type": "Person",
+        "name": "Doris Pérez"
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "license",
+          "name": "Vendedor de Viajes registrado en Florida No. ST45413",
+          "identifier": "ST45413",
+          "recognizedBy": {
+            "@type": "GovernmentOrganization",
+            "name": "Departamento de Agricultura y Servicios al Consumidor de Florida (FDACS)"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "accreditation",
+          "name": "Agencia acreditada IATA, código 10564573",
+          "identifier": "10564573",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "International Air Transport Association (IATA)"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "accreditation",
+          "name": "Agencia acreditada IATAN",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "International Airlines Travel Agent Network (IATAN)"
+          }
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/skytraveljm/",
+        "https://www.instagram.com/skytraveljm/",
+        "https://www.tiktok.com/@skytraveljm"
+      ]
     },
     {
       "@type": "ItemList",
@@ -462,15 +508,6 @@
         <button type="button" class="destination-filter" data-year="2027">2027</button>
       </div>
       <div class="destinations-grid">
-        <!-- Destination 1 -->
-        <div class="destination-card rome" data-year="2025">
-          <div class="card-content">
-            <h3>Jubileo Roma e Italia 2025</h3>
-            <p>Asís, Padre Pío, San Miguel Arcángel y Loreto</p>
-            <a href="italy-es" class="cta-button" aria-label="Aprende más sobre la peregrinación a Roma e Italia">Saber
-              Más</a>
-          </div>
-        </div>
         <!-- Destination 2 -->
         <div class="destination-card medjugorje26" data-year="2026">
           <div class="card-content">
@@ -481,6 +518,7 @@
               aria-label="Aprende más sobre la peregrinación a Medjugorje">Saber Más</a>
           </div>
         </div>
+
         <!-- Destination 4 -->
         <div class="destination-card marianos" data-year="2026">
           <div class="card-content">
@@ -491,6 +529,18 @@
               aria-label="Aprende más sobre Santuarios Marianos y Crucero por las Islas Griegas">Saber Más</a>
           </div>
         </div>
+
+        <!-- Destination 11 -->
+        <div class="destination-card tierra-2027" data-year="2027">
+          <div class="card-content">
+            <h3>Tierra Santa y Medjugorje 2027</h3>
+            <h4 style="color:#ffd900">Desde €4,760</h4></br>
+            <p>Belén, Nazareth, Carfanaúm, Magdala, Caná de Galilea, Jerusalén, Jericó, entre otros</p>
+            <a href="peregrinacion-tierrasanta-2027-es" class="cta-button"
+              aria-label="Aprende más sobre Tierra Santa y Medjugorje">Saber Más</a>
+          </div>
+        </div>
+
         <!-- Destination 5 -->
         <div class="destination-card tierra" data-year="2026">
           <div class="card-content">
@@ -501,6 +551,7 @@
               aria-label="Aprende más sobre Tierra Santa y Medjugorje">Saber Más</a>
           </div>
         </div>
+
         <!-- Destination 8 -->
         <div class="destination-card france" data-year="2026">
           <div class="card-content">
@@ -511,6 +562,7 @@
               aria-label="Aprende más sobre Peregrinación Francia - Tierra de Gracia">Saber Más</a>
           </div>
         </div>
+
         <!-- Destination 9 -->
         <div class="destination-card mariana" data-year="2026">
           <div class="card-content">
@@ -533,14 +585,13 @@
           </div>
         </div>
 
-        <!-- Destination 11 -->
-        <div class="destination-card tierra-2027" data-year="2027">
+        <!-- Destination 1 -->
+        <div class="destination-card rome" data-year="2025">
           <div class="card-content">
-            <h3>Tierra Santa y Medjugorje 2027</h3>
-            <h4 style="color:#ffd900">Desde €4,760</h4></br>
-            <p>Belén, Nazareth, Carfanaúm, Magdala, Caná de Galilea, Jerusalén, Jericó, entre otros</p>
-            <a href="peregrinacion-tierrasanta-2027-es" class="cta-button"
-              aria-label="Aprende más sobre Tierra Santa y Medjugorje">Saber Más</a>
+            <h3>Jubileo Roma e Italia 2025</h3>
+            <p>Asís, Padre Pío, San Miguel Arcángel y Loreto</p>
+            <a href="italy-es" class="cta-button" aria-label="Aprende más sobre la peregrinación a Roma e Italia">Saber
+              Más</a>
           </div>
         </div>
 
@@ -573,7 +624,11 @@
     <div id="contact-section-container"></div>
   </main>
 
-  <div id="footer-container"></div>
+  <div id="footer-container"><footer class="footer-static" aria-label="Sky Travel J&amp;M">
+    <p><strong>Sky Travel J&amp;M</strong> · Agencia de peregrinaciones católicas en Miami desde 2015</p>
+    <p>1000 Brickell Ave Ste 715, Miami, FL 33131 · <a href="tel:+13056452625">+1 (305) 645-2625</a> · <a href="https://wa.me/13056452625">WhatsApp</a></p>
+    <p>Agencia acreditada IATAN · Código IATA 10564573 · Vendedor de Viajes de Florida (FDACS) No. ST45413</p>
+  </footer></div>
 
   <!-- Load the unified navigation system first -->
   <script src="js/navigation.min.js" defer></script>
