@@ -583,7 +583,7 @@ function buildJsonLd(data, lang) {
       '@type': 'TravelAgency',
       'name': 'Sky Travel J&M',
       'url': baseUrl,
-      'telephone': '+1-786-290-9114',
+      'telephone': '+1-305-645-2625',
       'email': 'info@skytraveljm.com',
       'address': {
         '@type': 'PostalAddress',
@@ -605,7 +605,7 @@ function buildJsonLd(data, lang) {
     'organizer': {
       '@type': 'TravelAgency',
       'name': 'Sky Travel J&M',
-      'telephone': '+1-786-290-9114',
+      'telephone': '+1-305-645-2625',
       'email': 'info@skytraveljm.com'
     }
   };
@@ -1196,7 +1196,7 @@ function generateHTML(data, lang) {
     html += '      <p style="font-size:1.1rem; color:#666; margin-bottom:25px;">' + ctaText + '</p>\n';
     html += '\n';
     html += '      <!-- WhatsApp -->\n';
-    html += '      <a href="https://wa.me/17862909114"\n';
+    html += '      <a href="https://wa.me/13056452625"\n';
     html += '         target="_blank" rel="noopener noreferrer"\n';
     html += '         class="whatsapp-contact-link"\n';
     html += '         style="text-decoration: none;"\n';

@@ -1,0 +1,30 @@
+name: IndexNow
+
+# Daily, so it also catches the testimonial bot's commits (pushes made with GITHUB_TOKEN don't trigger other workflows).
+on:
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Send every URL in sitemap.xml (run once after setup)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Tell Bing which pages changed
+        env:
+          ALL: ${{ inputs.all || 'false' }}
+        run: node scripts/indexnow.js

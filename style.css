@@ -542,28 +542,28 @@ nav {
 }
 
 .destination-card.rome {
-    background-image: url('images/Italy/Rome.png');
+    background-image: url('imagesWebp/Italy/Rome-800.webp');
 }
 
 .destination-card.medjugorje {
-    background-image: url('images/Medjugorje/MedjugorjeVirgin.jpg');
+    background-image: url('imagesWebp/Medjugorje/MedjugorjeVirgin-800.webp');
 }
 .destination-card.medjugorje26 {
-    background-image: url('images/Medjugorje/MedjugorjeVirgin26.jpg');
+    background-image: url('imagesWebp/Medjugorje/MedjugorjeVirgin26-800.webp');
 }
 
 .destination-card.marianos {
-    background-image: url('images/SantuariosMarianos/SantuarioFatima.jpg');
+    background-image: url('imagesWebp/SantuariosMarianos/SantuarioFatima-800.webp');
 }
 
 .destination-card.tierra {
-    background-image: url('images/holyland/Jerusalem_1.jpg');
+    background-image: url('imagesWebp/holyland/Jerusalem_1-1600.webp');
 }
 .destination-card.france {
-    background-image: url('images/France/paris.jpg');
+    background-image: url('imagesWebp/France/paris-800.webp');
 }
 .destination-card.mariana {
-    background-image: url('images/SantuariosMarianos/lourdesvirgin.jpg');
+    background-image: url('imagesWebp/SantuariosMarianos/lourdesvirgin-800.webp');
 }
 .destination-card.romemedjugorje {
     background-image: url('images/Italy/Rome1.jpg');
@@ -573,7 +573,7 @@ nav {
 /* Holy Land destination card styling */
 .destination-card.holyland {
     background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
-                url('images/holyland/Jerusalem_1.jpg') center/cover;
+                url('imagesWebp/holyland/Jerusalem_1-1600.webp') center/cover;
 }
 
 .destination-card.holyland:hover {
@@ -834,7 +834,7 @@ nav {
    ABOUT PAGE STYLES
    =================================== */
 .about-hero {
-    background: url("images/SantuariosMarianos/virgin11.jpeg") center / cover no-repeat;
+    background: url("imagesWebp/SantuariosMarianos/virgin11-1200.webp") center / cover no-repeat;
     min-height: 120vh;
     display: flex;
     align-items: center;
@@ -4035,3 +4035,8 @@ textarea:focus-visible {
 .page-medjugorje .dates-cta-link:hover {
     color: #b69870;
 }
+
+/* Static footer: the facts crawlers see; js/page-init.js swaps in components/footer*.html */
+.footer-static { max-width: 1100px; margin: 2.5rem auto 0; padding: 1.5rem 1rem 2rem; border-top: 1px solid rgba(200, 169, 126, 0.45); text-align: center; font-size: 0.9rem; line-height: 1.6; color: #555; }
+.footer-static p { margin: 0.25rem 0; }
+.footer-static a { color: #8a6d3b; }
