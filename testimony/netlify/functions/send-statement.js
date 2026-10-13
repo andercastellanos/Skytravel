@@ -169,7 +169,7 @@ function buildStatementEmail(body) {
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#faf8f5;">
         <!-- Header with logo -->
         <div style="padding:30px;text-align:center;">
-            <img src="https://www.skytraveljm.com/imagesWebp/Logo.webp" alt="Sky Travel J&M" style="max-width:160px;height:auto;" />
+            <img src="https://www.skytraveljm.com/images/logo-email.png" alt="Sky Travel J&M" style="max-width:160px;height:auto;" />
         </div>
 
         <!-- Body -->
@@ -278,10 +278,10 @@ function buildStatementEmail(body) {
  */
 async function fetchLogoBase64() {
     try {
-        const response = await fetch('https://www.skytraveljm.com/imagesWebp/Logo.webp');
+        const response = await fetch('https://www.skytraveljm.com/images/logo-email.png');
         if (!response.ok) return null;
         const buffer = Buffer.from(await response.arrayBuffer());
-        return 'data:image/jpeg;base64,' + buffer.toString('base64');
+        return 'data:image/png;base64,' + buffer.toString('base64');
     } catch (e) {
         console.error('Failed to fetch logo for PDF:', e.message);
         return null;
@@ -370,7 +370,7 @@ function generateStatementPdf(body, logoDataUri) {
 
     // --- Logo ---
     if (logoDataUri) {
-        doc.addImage(logoDataUri, 'JPEG', (pageWidth - 80) / 2, y, 80, 80);
+        doc.addImage(logoDataUri, 'PNG', (pageWidth - 80) / 2, y, 80, 80);
         y += 95;
     }
 
