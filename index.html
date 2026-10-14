@@ -200,6 +200,27 @@
 
 
   <style>
+    .destinations-grid {
+      grid-auto-rows: 1fr;
+    }
+
+    .destinations-grid .destination-card:not(.hidden) {
+      height: auto;
+      min-height: 300px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .destinations-grid .card-content {
+      position: static;
+      min-width: 0;
+    }
+
+    .destinations-grid .card-content h3 {
+      overflow-wrap: anywhere;
+      line-height: 1.2;
+    }
+
     /* Hero Section */
     .hero {
       position: relative;
@@ -528,21 +549,21 @@
           </div>
         </div>
 
-        <!-- Destination 4 -->
-        <div class="destination-card marianos" data-year="2026">
+        <!-- Destination 5 - FIXED: Now inside destinations-grid -->
+        <div class="destination-card holyland" data-year="2027">
           <div class="card-content">
-            <h3>Marian Sanctuaries & Greek Islands Cruise</h3>
-            <h4 style="color:#ffd900">From €4,200</h4><br>
-            <p>Fátima, Lourdes and Greek Islands Cruise: Ancient Corinth, Acropolis & Aegean ports</p>
-            <a href="santuariosmarianos" class="cta-button"
-              aria-label="Learn more about Marian Sanctuaries pilgrimage">Learn More</a>
+            <h3>Holy Land & Medjugorje 2027 - September</h3>
+            <h4 style="color:#ffd900">From $5,799</h4><br>
+            <p>Spiritual guidance by Fr. Fabián and Fr. Marcelo. Bethlehem, Nazareth, Jerusalem, Capernaum, Magdala, Medjugorje</p>
+            <a href="tierrasanta2026" class="cta-button"
+              aria-label="Learn more about Holy Land and Medjugorje pilgrimage">Learn More</a>
           </div>
         </div>
 
         <!-- Destination 11 -->
         <div class="destination-card holyland-2027" data-year="2027">
           <div class="card-content">
-            <h3>Holy Land & Medjugorje 2027</h3>
+            <h3>Holy Land & Medjugorje 2027 - Holy Week</h3>
             <h4 style="color:#ffd900">From €4,760</h4><br>
             <p>Bethlehem, Nazareth, Jerusalem, Capernaum, Magdala, Medjugorje</p>
             <a href="peregrinacion-tierrasanta-2027" class="cta-button"
@@ -550,14 +571,14 @@
           </div>
         </div>
 
-        <!-- Destination 5 - FIXED: Now inside destinations-grid -->
-        <div class="destination-card holyland" data-year="2026">
+        <!-- Destination 4 -->
+        <div class="destination-card marianos" data-year="2026">
           <div class="card-content">
-            <h3>Holy Land & Medjugorje 2026</h3>
-            <h4 style="color:#ffd900">From $5,799</h4><br>
-            <p>Bethlehem, Nazareth, Jerusalem, Capernaum, Magdala, Medjugorje</p>
-            <a href="tierrasanta2026" class="cta-button"
-              aria-label="Learn more about Holy Land and Medjugorje pilgrimage">Learn More</a>
+            <h3>Marian Sanctuaries &amp; Greek Islands Cruise 2026</h3>
+            <h4 style="color:#ffd900">From €4,200</h4><br>
+            <p>Fátima, Lourdes and Greek Islands Cruise: Ancient Corinth, Acropolis & Aegean ports</p>
+            <a href="santuariosmarianos" class="cta-button"
+              aria-label="Learn more about Marian Sanctuaries pilgrimage">Learn More</a>
           </div>
         </div>
 

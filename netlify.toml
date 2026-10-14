@@ -141,13 +141,13 @@
 
 [[redirects]]
   from = "/tierrasanta2026"
-  to = "/peregrinaciones-2026/TierraSanta2026.html"
+  to = "/peregrinaciones-2027/TierraSanta2026.html"
   status = 200
   force = true
 
 [[redirects]]
   from = "/tierrasanta2026-es"
-  to = "/peregrinaciones-2026/TierraSanta2026-es.html"
+  to = "/peregrinaciones-2027/TierraSanta2026-es.html"
   status = 200
   force = true
 
@@ -811,5 +811,55 @@
 [[redirects]]
   from = "/peregrinacion-medjugorje-2026-2027-es"
   to = "/medjugorje-es"
+  status = 301
+  force = true
+
+# Preserve Tierra Santa URLs after moving the source files to the 2027 folder.
+
+[[redirects]]
+  from = "/peregrinaciones-2026/TierraSanta2026.html"
+  to = "/tierrasanta2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/TierraSanta2026"
+  to = "/tierrasanta2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/TierraSanta2026-es.html"
+  to = "/tierrasanta2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/TierraSanta2026-es"
+  to = "/tierrasanta2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/TierraSanta2026.html"
+  to = "/tierrasanta2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/TierraSanta2026"
+  to = "/tierrasanta2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/TierraSanta2026-es.html"
+  to = "/tierrasanta2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/TierraSanta2026-es"
+  to = "/tierrasanta2026-es"
   status = 301
   force = true
