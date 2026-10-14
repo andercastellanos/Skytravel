@@ -108,8 +108,8 @@ const OTHER_GROUP = {
 
 // Trip pages that show their matching testimonials.
 const TRIP_PAGES = [
-  { file: 'peregrinaciones-2025/Medjugorje-es.html', language: 'es', tags: ['medjugorje'], limit: 6, title: 'Testimonios de peregrinos a Medjugorje' },
-  { file: 'peregrinaciones-2025/Medjugorje.html', language: 'en', tags: ['medjugorje'], limit: 6, title: 'Medjugorje pilgrim testimonials' },
+  { file: 'peregrinaciones-2027/Medjugorje-es.html', language: 'es', tags: ['medjugorje'], limit: 6, title: 'Testimonios de peregrinos a Medjugorje' },
+  { file: 'peregrinaciones-2027/Medjugorje.html', language: 'en', tags: ['medjugorje'], limit: 6, title: 'Medjugorje pilgrim testimonials' },
   { file: 'peregrinaciones-2026/peregrinacion-medjugorje-roma-es.html', language: 'es', tags: ['medjugorje', 'italia'], limit: 4, title: 'Testimonios de peregrinos a Medjugorje, Roma e Italia' },
   { file: 'peregrinaciones-2026/peregrinacion-medjugorje-roma.html', language: 'en', tags: ['medjugorje', 'italia'], limit: 4, title: 'Medjugorje, Rome and Italy pilgrim testimonials' },
   { file: 'peregrinaciones-2025/Italy-es.html', language: 'es', tags: ['italia'], limit: 4, title: 'Testimonios de peregrinos a Roma e Italia' },

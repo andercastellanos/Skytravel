@@ -201,13 +201,13 @@
 
 [[redirects]]
   from = "/medjugorje"
-  to = "/peregrinaciones-2025/Medjugorje.html"
+  to = "/peregrinaciones-2027/Medjugorje.html"
   status = 200
   force = true
 
 [[redirects]]
   from = "/medjugorje-es"
-  to = "/peregrinaciones-2025/Medjugorje-es.html"
+  to = "/peregrinaciones-2027/Medjugorje-es.html"
   status = 200
   force = true
 
@@ -339,6 +339,44 @@
 
 [[redirects]]
   from = "/peregrinaciones-2025/Medjugorje-es.html"
+  to = "/medjugorje-es"
+  status = 301
+  force = true
+
+# Keep old extensionless URLs working after moving the source files to 2027.
+[[redirects]]
+  from = "/peregrinaciones-2025/Medjugorje"
+  to = "/medjugorje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2025/Medjugorje-es"
+  to = "/medjugorje-es"
+  status = 301
+  force = true
+
+# Serve the moved pages through their established canonical URLs.
+[[redirects]]
+  from = "/peregrinaciones-2027/Medjugorje.html"
+  to = "/medjugorje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/Medjugorje-es.html"
+  to = "/medjugorje-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/Medjugorje"
+  to = "/medjugorje"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/Medjugorje-es"
   to = "/medjugorje-es"
   status = 301
   force = true

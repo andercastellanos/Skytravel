@@ -139,7 +139,7 @@ for f in html_files():
 
 # ---------------------------------------------------------------- 4. Medjugorje pillar pages
 log("4. Medjugorje pillar pages")
-ES, EN = "peregrinaciones-2025/Medjugorje-es.html", "peregrinaciones-2025/Medjugorje.html"
+ES, EN = "peregrinaciones-2027/Medjugorje-es.html", "peregrinaciones-2027/Medjugorje.html"
 s = read(ES)
 s = sub_re(s, r"<title>.*?</title>", "<title>Peregrinación a Medjugorje desde Miami y Bogotá | Sky Travel J&M</title>", ES, "title")
 s = sub_re(s, r'(<meta name="description"\s+content=")[^"]*(")',
