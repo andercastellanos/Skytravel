@@ -44,7 +44,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="style.min.css" as="style">
-    <link rel="preload" as="image" href="imagesWebp/mexico_cancun/cancun1.webp">
+    <link rel="preload" as="image" href="imagesWebp/mexico_cancun/mexico12.webp">
     <!-- Estilos críticos del carrusel para evitar FOUC mientras components.css se carga de forma asíncrona -->
     <style>
         .slideshow .slide { display: none; }
@@ -299,11 +299,11 @@
 
         <!-- Destination header with image carousel -->
         <div class="destination-header">
-            <div class="slide">
+            <div class="slideshow">
+                <div class="slide">
                     <img src="imagesWebp/mexico_cancun/mexico12.webp" alt="Basílica de Guadalupe, hogar de oración y encuentro con María."
                         loading="lazy" decoding="async">
                 </div>
-            <div class="slideshow">
                 <div class="slide">
                     <img src="imagesWebp/mexico_cancun/cancun1.webp" alt="Cancún, donde comienza la magia del Caribe."
                         loading="eager" fetchpriority="high" decoding="async">
