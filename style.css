@@ -569,6 +569,56 @@ nav {
     background-image: url('images/Italy/Rome1.jpg');
 }
 
+/* Homepage photos use CSS-relative asset URLs, like the original cards. */
+#featured .medjugorje26 .destination-photo {
+    background-image: url('imagesWebp/Medjugorje/MedjugorjeVirgin26-800.webp');
+}
+
+#featured .holyland .destination-photo,
+#featured .tierra .destination-photo {
+    background-image: url('imagesWebp/holyland/Jerusalem_1-1600.webp');
+}
+
+#featured .mariana[data-year="2027"] .destination-photo {
+    background-image: url('imagesWebp/mariana2027/image8.webp');
+}
+
+#featured .mexico-cancun .destination-photo {
+    background-image: url('imagesWebp/mexico_cancun/mexico5.webp');
+}
+
+#featured .holyland-2027 .destination-photo,
+#featured .tierra-2027 .destination-photo {
+    background-image: url('imagesWebp/holyland/jerusalem-3-desktop-1200.webp');
+}
+
+#featured .marianos .destination-photo {
+    background-image: url('imagesWebp/SantuariosMarianos/SantuarioFatima-800.webp');
+}
+
+#featured .france .destination-photo {
+    background-image: url('imagesWebp/France/paris-800.webp');
+}
+
+#featured .mariana[data-year="2026"] .destination-photo {
+    background-image: url('imagesWebp/SantuariosMarianos/lourdesvirgin-800.webp');
+}
+
+#featured .romemedjugorje .destination-photo {
+    background-image: url('images/Italy/Rome1.jpg');
+}
+
+#featured .rome .destination-photo {
+    background-image: url('imagesWebp/Italy/Rome-800.webp');
+}
+
+@media (max-width: 768px) {
+    #featured .holyland-2027 .destination-photo,
+    #featured .tierra-2027 .destination-photo {
+        background-image: url('imagesWebp/holyland/jerusalem-3-mobile-800.webp');
+    }
+}
+
 
 /* Holy Land destination card styling */
 .destination-card.holyland {
