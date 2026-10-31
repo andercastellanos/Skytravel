@@ -154,14 +154,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
+    // Team devices: open any page once with ?internal=1 so GA4 treats this browser as internal traffic (?internal=0 undoes it).
+    (function () { try { var m = /[?&]internal=([01])(?:&|$)/.exec(location.search); if (m) localStorage.setItem('stjm_internal', m[1]); if (localStorage.getItem('stjm_internal') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {} })();
     gtag('config', 'G-6FM6Y5W6ZM');
-
-    // Track About page visits with agency focus
-    gtag('event', 'page_view', {
-      event_category: 'agency_about',
-      event_label: 'sky_travel_agency_about',
-      page_title: 'Sky Travel J&M Agency About'
-    });
   </script>
 </head>
 

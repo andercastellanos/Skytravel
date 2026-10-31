@@ -195,6 +195,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
+    // Team devices: open any page once with ?internal=1 so GA4 treats this browser as internal traffic (?internal=0 undoes it).
+    (function () { try { var m = /[?&]internal=([01])(?:&|$)/.exec(location.search); if (m) localStorage.setItem('stjm_internal', m[1]); if (localStorage.getItem('stjm_internal') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {} })();
     gtag('config', 'G-6FM6Y5W6ZM');
   </script>
 
@@ -691,6 +693,7 @@
       <div class="video-overlay"></div>
       <!-- Play Button to start the video -->
       <button id="playButton" class="play-button" aria-label="Play promotional video">▶ Play Video</button>
+      <p data-lang-suggest lang="es" style="position:absolute;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:3;margin:0;width:max-content;max-width:92%;text-align:center;background:rgba(0,0,0,0.6);color:#fff;padding:0.55rem 1.1rem;border-radius:999px;font-size:0.95rem;line-height:1.4;">¿Prefieres español? <a href="/index-es" hreflang="es" style="color:#fff;font-weight:600;text-decoration:underline;" onclick="if(window.gtag){gtag('event','language_switch',{language:'es',link_location:'page_top'})}">Ver el sitio en español&nbsp;→</a></p>
     </div>
 
     <!-- Hero Content Section (Under Video) -->

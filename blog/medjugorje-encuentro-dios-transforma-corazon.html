@@ -60,6 +60,8 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      // Team devices: open any page once with ?internal=1 so GA4 treats this browser as internal traffic (?internal=0 undoes it).
+      (function () { try { var m = /[?&]internal=([01])(?:&|$)/.exec(location.search); if (m) localStorage.setItem('stjm_internal', m[1]); if (localStorage.getItem('stjm_internal') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {} })();
       gtag('config', 'G-6FM6Y5W6ZM');
     </script>
 
@@ -284,7 +286,7 @@
             <p>¿Te gustaría vivir esta experiencia de fe? Conoce nuestras <a href="/medjugorje-es">peregrinaciones a Medjugorje</a> y descubre cómo preparar tu viaje para encontrarte con Jesús, de la mano de María.</p>
         </div>
 
-        <div class="blog-cta"><p>Conoce nuestras peregrinaciones a Medjugorje y prepara tu encuentro con Jesús, de la mano de María.</p><a href="/medjugorje-es" class="cta-button">Ver peregrinaciones a Medjugorje</a><a href="../contact-es" class="cta-button">Consultar con Sky Travel J&amp;M</a></div>
+        <div class="blog-cta"><p>Conoce nuestras peregrinaciones a Medjugorje y prepara tu encuentro con Jesús, de la mano de María. Próximas salidas: del 29 de marzo al 6 de abril y del 30 de septiembre al 8 de octubre de 2027.</p><a href="/medjugorje-es" class="cta-button">Ver peregrinaciones a Medjugorje</a><a href="https://wa.me/13056452625?text=Hola%2C%20le%C3%AD%20el%20art%C3%ADculo%20de%20Doris%20sobre%20Medjugorje%20y%20me%20interesa%20la%20peregrinaci%C3%B3n%20a%20Medjugorje%202027.%20%C2%BFMe%20pueden%20enviar%20fechas%20y%20precio%3F%20Escribo%20desde%20%28ciudad%2C%20estado%20o%20pa%C3%ADs%29%3A%20" class="cta-button whatsapp-contact-link" data-event="whatsapp_click" data-section="blog_cta" target="_blank" rel="noopener" style="background-color:#0E7C61;">Escríbenos por WhatsApp</a><a href="../contact-es" class="cta-button">Consultar con Sky Travel J&amp;M</a></div>
 
         <div class="share-section"><h4>Compartir este artículo</h4><div class="share-buttons"><a href="https://wa.me/?text=Medjugorje%3A%20un%20encuentro%20con%20Dios%20que%20transforma%20el%20coraz%C3%B3n%20https%3A%2F%2Fwww.skytraveljm.com%2Fblog%2Fmedjugorje-encuentro-dios-transforma-corazon" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp" aria-label="Compartir en WhatsApp">WhatsApp</a><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.skytraveljm.com%2Fblog%2Fmedjugorje-encuentro-dios-transforma-corazon" target="_blank" rel="noopener noreferrer" class="share-btn facebook" aria-label="Compartir en Facebook">Facebook</a><a href="mailto:?subject=Medjugorje%3A%20un%20encuentro%20con%20Dios%20que%20transforma%20el%20coraz%C3%B3n&amp;body=Lee%20este%20art%C3%ADculo%3A%20https%3A%2F%2Fwww.skytraveljm.com%2Fblog%2Fmedjugorje-encuentro-dios-transforma-corazon" class="share-btn" aria-label="Compartir por correo">Email</a><button class="share-btn" onclick="copyLink()" aria-label="Copiar enlace">Copiar enlace</button><span class="copy-confirmation" id="copy-msg" role="status">Copiado</span></div></div>
 
@@ -318,7 +320,7 @@
     <p>1000 Brickell Ave Ste 715, Miami, FL 33131 · <a href="tel:+13056452625">+1 (305) 645-2625</a> · <a href="https://wa.me/13056452625">WhatsApp</a></p>
     <p>Agencia acreditada IATAN · Código IATA 10564573 · Vendedor de Viajes de Florida (FDACS) No. ST45413</p>
   </footer></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script src="../js/navigation.min.js" defer></script><script src="../js/elegant-language-switcher.min.js" defer></script><script src="../js/contact-tracking.min.js" defer></script><script src="../js/page-init.min.js?v=20260205a" defer></script><script src="../js/blog-subscribe.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script src="../js/navigation.min.js" defer></script><script src="../js/elegant-language-switcher.min.js" defer></script><script src="../js/contact-tracking.min.js" defer></script><script src="../js/site-tracking.js" defer></script><script src="../js/page-init.min.js?v=20260205a" defer></script><script src="../js/blog-subscribe.min.js" defer></script>
     <script>
     (function(){var progressBar=document.getElementById('reading-progress');window.addEventListener('scroll',function(){var scrollTop=window.scrollY;var docHeight=document.documentElement.scrollHeight-window.innerHeight;progressBar.style.width=(docHeight>0?(scrollTop/docHeight)*100:0)+'%';});var scrollBtn=document.getElementById('scroll-top');window.addEventListener('scroll',function(){scrollBtn.classList.toggle('visible',window.scrollY>500);});scrollBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
     function copyLink(){navigator.clipboard.writeText('https://www.skytraveljm.com/blog/medjugorje-encuentro-dios-transforma-corazon').then(function(){var msg=document.getElementById('copy-msg');msg.classList.add('show');setTimeout(function(){msg.classList.remove('show');},2000);});}
