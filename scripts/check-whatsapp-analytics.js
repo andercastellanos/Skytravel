@@ -37,8 +37,8 @@ const server=http.createServer((req,res)=>{
  const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({channel:'chrome',headless:true});
  const rows=[];const failures=[];let blockedAnalytics=0;
- const pages=['/','/index-es','/medjugorje-es','/peregrinacion-tierrasanta-2027-es','/blog/medjugorje-encuentro-dios-transforma-corazon','/blog/retiro-ayuno-oracion-medjugorje','/contact-es','/es/experiences/medjugorje-2024-es','/about-es','/recibo'];
- async function contextFor(viewport){
+ const pages=['/','/index-es','/medjugorje-es','/medjugorje','/peregrinacion-tierrasanta-2027-es','/blog/medjugorje-encuentro-dios-transforma-corazon','/blog/retiro-ayuno-oracion-medjugorje','/contact-es','/es/experiences/medjugorje-2024-es','/about-es','/recibo'];
+ async function contextFor(viewport,options={}){
   const context=await browser.newContext({viewport,serviceWorkers:'block'});
   const hits=[];const errors=[];const missing=[];
   await context.route('**/*',async route=>{
@@ -48,6 +48,7 @@ const server=http.createServer((req,res)=>{
    if(/\/g\/collect|\/collect/.test(u.pathname)){
     blockedAnalytics++;hits.push({url:req.url(),body:req.postData()||''});return route.fulfill({status:204,body:''});
    }
+   if(options.loadAnalytics===false)return route.abort();
    if(u.hostname==='www.googletagmanager.com'&&u.pathname==='/gtag/js')return route.continue();
    if(['cdnjs.cloudflare.com','fonts.googleapis.com','fonts.gstatic.com'].includes(u.hostname))return route.continue();
    return route.abort();
@@ -55,7 +56,7 @@ const server=http.createServer((req,res)=>{
   const page=await context.newPage();
   page.on('pageerror',e=>errors.push(e.message));
   page.on('response',r=>{if(r.url().startsWith(origin)&&r.status()===404)missing.push(r.url());});
-  await page.addInitScript(()=>{document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('a'))e.preventDefault();},true);});
+  await page.addInitScript(()=>{for(const type of ['click','auxclick'])document.addEventListener(type,e=>{if(e.target.closest&&e.target.closest('a'))e.preventDefault();},true);});
   return {context,page,hits,errors,missing};
  }
  function pageViews(hits){return hits.flatMap(h=>[new URL(h.url).searchParams,...h.body.split('\n').map(l=>new URLSearchParams(l))]).filter(p=>p.get('en')==='page_view').length;}
@@ -83,6 +84,46 @@ const server=http.createServer((req,res)=>{
   assert.deepEqual(result.map(e=>e.name),['contact_form_submit','contact_form_'+outcome]);
   return result.map(e=>e.name);
  }
+ const samples=[];
+ const expectedTripLabels={
+  '/medjugorje':{es:'Peregrinación a Medjugorje 2027',en:'Medjugorje 2027 pilgrimage'},
+  '/peregrinacion-tierrasanta-2027':{es:'Peregrinación a Tierra Santa y Medjugorje (marzo–abril 2027)',en:'Holy Land & Medjugorje pilgrimage (March–April 2027)'},
+  '/tierrasanta2026':{es:'Peregrinación a Tierra Santa y Medjugorje (septiembre–octubre 2027)',en:'Holy Land & Medjugorje pilgrimage (September–October 2027)'},
+  '/peregrinacion_bajo_el_manto_de_maria':{es:'Peregrinación Bajo el Manto de María 2027',en:'Under Mary’s Mantle 2027 pilgrimage'},
+  '/peregrinacion_mexico_cancun_2027':{es:'Peregrinación a Guadalupe, México y Cancún 2027',en:'Guadalupe, Mexico & Cancún 2027 pilgrimage'}
+ };
+ async function whatsapp(page,selector,index=0,options={}){
+  const meta=await page.evaluate(()=>({path:location.pathname,host:location.hostname.replace(/^www\./,''),lang:document.documentElement.lang,title:document.title}));
+  const tripKey=meta.path.toLowerCase().replace(/\/$/,'').replace(/\.html$/,'').replace(/^\/peregrinaciones-2027\//,'/').replace(/-es$/,'');
+  const trip=expectedTripLabels[tripKey]?.[meta.lang];
+  const label=trip||meta.title.split(' | ')[0].trim().slice(0,60);
+  const es=meta.lang==='es',blog=meta.path.startsWith('/blog/');
+  const source=options.source||(es?'directo':'direct');
+  const section=await page.locator(selector).nth(index).getAttribute('data-section')||'unknown';
+  await recorder(page);
+  await page.locator(selector).nth(index).evaluate((link,type)=>{
+   if(type==='auxclick')link.dispatchEvent(new MouseEvent('auxclick',{bubbles:true,cancelable:true,button:1}));
+   else if(type==='modified-click')link.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,button:0,ctrlKey:true}));
+   else link.click();
+  },options.type||'click');
+  const actual=await events(page);assert.equal(actual.length,1,'one event, no contact_click');
+  const event=actual[0],code=event.params.lead_ref;
+  assert.match(code,/^[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{5}$/);
+  assert.deepEqual(event,{name:'whatsapp_click',params:{page_path:meta.path,page_language:meta.lang,section,page_label:label,lead_ref:code,source_label:source,landing_path:options.landing||meta.path}});
+  const href=await page.locator(selector).nth(index).getAttribute('href');
+  const message=new URL(href).searchParams.get('text');
+  assert.ok(message.length<500,'message below 500 characters');
+  const intro=trip?(es?`Hola, Sky Travel J&M 🙏 Me interesa la ${trip.replace(/^Peregrinación/,'peregrinación')}. ¿Me pueden enviar fechas y precio?`:`Hello Sky Travel J&M 🙏 I'm interested in the ${trip}. Could you send me dates and price?`):blog?(es?`Hola, Sky Travel J&M 🙏 Leí su artículo «${label}» y me gustaría recibir información sobre sus peregrinaciones.`:`Hello Sky Travel J&M 🙏 I read your article "${label}" and I'd like information about your pilgrimages.`):(es?'Hola, Sky Travel J&M 🙏 Me gustaría recibir información sobre sus peregrinaciones.':"Hello Sky Travel J&M 🙏 I'd like information about your pilgrimages.");
+  const sourceText=['direct','directo'].includes(source)?'':(es?' · Los encontré en: ':' · Found you on: ')+source;
+  const pageLine=(es?'Página: ':'Page: ')+(blog?'':label+' — ')+meta.host+meta.path;
+  const expected=intro+'\n('+pageLine+sourceText+' · Ref. '+code+')\n'+(es?'Escribo desde (ciudad, estado o país): ':"I'm writing from (city, state or country): ");
+  if(!options.clipped)assert.equal(message,expected,'correct complete template, page label/link, source, ref and final city prompt');
+  assert.equal(message.match(/ · Ref\. ([23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{5})\)/)?.[1],code);
+  assert.equal(message.split('\n').length,3,'real line breaks');
+  assert.ok(!message.includes('utm_source=')&&!message.includes('private-search-query'),'no query strings/referrer paths in the message');
+  return {page:meta.path,language:meta.lang,section,activation:options.type||'click',message,length:message.length,event};
+ }
+
  for(const [view,viewport]of Object.entries({phone:{width:375,height:812},desktop:{width:1440,height:1000}})){
   for(const url of pages){
    const {context,page,hits,errors,missing}=await contextFor(viewport);
@@ -97,18 +138,20 @@ const server=http.createServer((req,res)=>{
      await page.waitForFunction(()=>document.querySelector('#footer-container footer'));
      const b=page.locator('.stjm-wa-float');assert.equal(await b.count(),1);assert.equal(await b.isVisible(),true);
      const box=await b.boundingBox();assert.equal(box.width,view==='phone'?56:60);assert.equal(box.height,box.width);
-     assert.equal(Math.round(viewport.width-box.x-box.width),20);assert.equal(Math.round(viewport.height-box.y-box.height),20);
+     assert.equal(Math.round(viewport.width-box.x-box.width),20);assert.ok(Math.round(viewport.height-box.y-box.height)>=20);
+     const suggestion=page.locator('[data-lang-suggest]');
+     if(await suggestion.count())assert.equal(overlaps(box,await suggestion.boundingBox()),false);
      assert.equal(await b.getAttribute('target'),'_blank');assert.equal(await b.getAttribute('rel'),'noopener');
      assert.equal(await b.getAttribute('class'),'stjm-wa-float');
      assert.equal(await page.locator('#stjm-wa-float-css').count(),1);
-     const lang=await page.locator('html').getAttribute('lang');
-     const click=await tap(page,'.stjm-wa-float');
-     assert.deepEqual(click,[{name:'whatsapp_click',params:{page_path:url,page_language:lang,section:'floating_button'}}]);row.floating='whatsapp_click ×1 (floating_button)';
+     const floating=await whatsapp(page,'.stjm-wa-float');
+     samples.push({...floating,view,link:'floating'});row.floating='whatsapp_click ×1 (floating_button; matched lead_ref)';
      const own='a[href^="https://wa.me/13056452625"]:not(.stjm-wa-float)';
      const ownCount=await page.locator(own).count();
      for(let i=0;i<ownCount;i++){
       const expected=await page.locator(own).nth(i).getAttribute('data-section')||'unknown';
-      const actual=await tap(page,own,i);assert.equal(actual.length,1);assert.equal(actual[0].name,'whatsapp_click');assert.equal(actual[0].params.section,expected);
+      const actual=await whatsapp(page,own,i);assert.equal(actual.event.params.section,expected);
+      if(i===0)samples.push({...actual,view,link:'contact/footer'});
      }row.otherWhatsApp=`${ownCount} links: whatsapp_click ×1 each, contact_click ×0`;
      const shares='a[href^="https://wa.me/?"]';const shareCount=await page.locator(shares).count();
      for(let i=0;i<shareCount;i++)assert.deepEqual(await tap(page,shares,i),[]);
@@ -138,7 +181,7 @@ const server=http.createServer((req,res)=>{
     assert.deepEqual(errors,[],'no JS runtime errors');assert.deepEqual(missing,[],'no missing local resources');
     row.status='PASS';
    }catch(e){row.status='FAIL';row.error=e.stack;row.errors=errors;row.missing=missing;failures.push(row);}
-   rows.push(row);console.log(JSON.stringify(row));fs.writeFileSync(path.join(out,'browser-results.json'),JSON.stringify(rows,null,2));await context.close();
+   rows.push(row);fs.writeFileSync(path.join(out,'message-results.json'),JSON.stringify(samples,null,2));console.log(JSON.stringify(row));fs.writeFileSync(path.join(out,'browser-results.json'),JSON.stringify(rows,null,2));await context.close();
   }
  }
  // Visual/accessibility checks with the same outbound-analytics block.
@@ -172,7 +215,16 @@ const server=http.createServer((req,res)=>{
   await page.addScriptTag({url:origin+'/js/contact-tracking.min.js?v=20261031'});
   const one=await tap(page,'.stjm-wa-float');assert.equal(one.length,1);
   await recorder(page);await page.locator('.stjm-wa-float').evaluate(e=>{e.click();e.click();});
-  assert.deepEqual((await events(page)).map(e=>e.name),['whatsapp_click','whatsapp_click']);
+  const rapid=await events(page);
+  assert.deepEqual(rapid.map(e=>e.name),['whatsapp_click','whatsapp_click']);
+  assert.notEqual(rapid[0].params.lead_ref,rapid[1].params.lead_ref,'new reference for each tap');
+  for(const type of ['auxclick','modified-click']){
+   await whatsapp(page,'.stjm-wa-float',0,{type});
+   await whatsapp(page,'#footer-container a[href^="https://wa.me/13056452625"]',0,{type});
+  }
+  const right=await page.locator('.stjm-wa-float').getAttribute('href');
+  await recorder(page);await page.locator('.stjm-wa-float').dispatchEvent('auxclick',{button:2});
+  assert.deepEqual(await events(page),[]);assert.equal(await page.locator('.stjm-wa-float').getAttribute('href'),right);
   await page.locator('footer').evaluate(e=>e.scrollIntoView());
   await page.waitForFunction(()=>document.querySelector('.stjm-wa-float').hasAttribute('data-hidden'));
   assert.equal(await page.locator('.stjm-wa-float').isVisible(),false);
@@ -229,7 +281,8 @@ const server=http.createServer((req,res)=>{
    await aliasPage.waitForSelector('.stjm-wa-float');
    const actual=new URL(await aliasPage.locator('.stjm-wa-float').getAttribute('href')).searchParams.get('text');
    assert.equal(actual,message,url);
-   aliasResults.push({url,message,status:'PASS'});
+   const activation=await whatsapp(aliasPage,'.stjm-wa-float',0,{source:'direct',landing:aliasResults[0]?.url||url});
+   aliasResults.push({url,fallback:message,message:activation.message,lead_ref:activation.event.params.lead_ref,status:'PASS'});
   }
  }
  fs.writeFileSync(path.join(out,'trip-message-results.json'),JSON.stringify(aliasResults,null,2));
@@ -261,6 +314,98 @@ const server=http.createServer((req,res)=>{
  }
  await aliasContext.close();
  fs.writeFileSync(path.join(out,'extra-results.json'),JSON.stringify({tripAliases:aliasResults.length,excludedVariants:exclusionCount,noindex:true,internalPersistence:true,nonLeadCases:5,status:'PASS'},null,2));
+
+ // Keep the English homepage suggestion clear at every requested phone size.
+ const overlapResults=[];
+ for(const viewport of [{width:375,height:812},{width:390,height:844},{width:360,height:740}]){
+  const {context,page}=await contextFor(viewport,{loadAnalytics:false});
+  await page.goto(origin+'/',{waitUntil:'domcontentloaded'});
+  await page.waitForSelector('.stjm-wa-float');
+  await page.waitForTimeout(100);
+  const button=await page.locator('.stjm-wa-float').boundingBox();
+  const suggestion=await page.locator('[data-lang-suggest]').boundingBox();
+  assert.equal(await page.locator('.stjm-wa-float').isVisible(),true);
+  assert.equal(overlaps(button,suggestion),false,'English homepage Spanish suggestion unobstructed');
+  const result={viewport,button,suggestion,gap:suggestion.y-button.y-button.height,overlap:false,status:'PASS'};
+  assert.ok(result.gap>=11.5,'at least 12px between button and suggestion');
+  overlapResults.push(result);await page.screenshot({path:path.join(out,`homepage-clear-${viewport.width}x${viewport.height}.png`)});
+  await context.close();
+ }
+ fs.writeFileSync(path.join(out,'overlap-results.json'),JSON.stringify(overlapResults,null,2));
+ console.log('HOMEPAGE OVERLAP',JSON.stringify(overlapResults));
+
+ const sourceCases=[
+  {name:'Google',referrer:'https://google.com/search?q=private-search-query',source:'Google'},
+  {name:'Google subdomain',referrer:'https://news.google.com/',source:'Google'},
+  {name:'Google country domain',referrer:'https://www.google.co.uk/search',source:'Google'},
+  {name:'Gemini',referrer:'https://gemini.google.com/app/hidden',source:'Gemini'},
+  {name:'Gemini country domain',referrer:'https://gemini.google.co.uk/app',source:'Gemini'},
+  {name:'Bing',referrer:'https://www.bing.com/search',source:'Bing'},
+  {name:'Yahoo',referrer:'https://search.yahoo.com/search',source:'Yahoo'},
+  {name:'DuckDuckGo',referrer:'https://duckduckgo.com/',source:'DuckDuckGo'},
+  {name:'ChatGPT',referrer:'https://chatgpt.com/c/private',source:'ChatGPT'},
+  {name:'ChatGPT legacy domain',referrer:'https://chat.openai.com/',source:'ChatGPT'},
+  {name:'Perplexity',referrer:'https://perplexity.ai/search/private',source:'Perplexity'},
+  {name:'Copilot',referrer:'https://copilot.microsoft.com/',source:'Copilot'},
+  {name:'Claude',referrer:'https://claude.ai/chat/private',source:'Claude'},
+  {name:'Facebook link redirect',referrer:'https://l.facebook.com/l.php',source:'Facebook'},
+  {name:'Facebook mobile',referrer:'https://m.facebook.com/',source:'Facebook'},
+  {name:'Facebook short link',referrer:'https://fb.me/test',source:'Facebook'},
+  {name:'Instagram',referrer:'https://instagram.com/',source:'Instagram'},
+  {name:'Instagram link redirect',referrer:'https://l.instagram.com/',source:'Instagram'},
+  {name:'TikTok',referrer:'https://www.tiktok.com/',source:'TikTok'},
+  {name:'YouTube',referrer:'https://www.youtube.com/',source:'YouTube'},
+  {name:'Centro Medjugorje',referrer:'https://www.centromedjugorje.org/',source:'Centro Medjugorje'},
+  {name:'WhatsApp short link',referrer:'https://wa.me/',source:'WhatsApp'},
+  {name:'WhatsApp web',referrer:'https://web.whatsapp.com/',source:'WhatsApp'},
+  {name:'Unknown external host',referrer:'https://www.parish.example/news?private-search-query',source:'parish.example'},
+  ...Object.entries({facebook:'Facebook',fb:'Facebook',instagram:'Instagram',ig:'Instagram',whatsapp:'WhatsApp',wa:'WhatsApp',email:'Email',newsletter:'Email'}).map(([utm,source])=>({name:'utm_source='+utm,first:'/?utm_source='+utm,referrer:'https://google.com/',source})),
+  {name:'Unknown UTM source preserved',first:'/?utm_source=Parish%20Partner',source:'Parish Partner'},
+  {name:'Direct English',source:'direct'},
+  {name:'Direct Spanish',first:'/index-es',source:'directo'},
+  {name:'Own domain without an earlier stored source',referrer:'https://www.skytraveljm.com/contact',source:'direct'},
+  {name:'Netlify preview without an earlier stored source',referrer:'https://deploy-preview-84--skytraveljm.netlify.app/',source:'direct'}
+ ];
+ const sourceResults=[];
+ for(const test of sourceCases){
+  const {context,page}=await contextFor({width:375,height:812},{loadAnalytics:false});
+  const first=test.first||'/',landing=new URL(first,origin).pathname;
+  // Mock referrers before scripts execute; no navigation to the referring site occurs.
+  await page.addInitScript(({firstPath,referrer})=>Object.defineProperty(document,'referrer',{configurable:true,get:()=>location.pathname===firstPath?referrer:'https://deploy-preview-84--skytraveljm.netlify.app/'}),{firstPath:landing,referrer:test.referrer||''});
+  await page.goto(origin+first,{waitUntil:'domcontentloaded'});
+  await page.waitForSelector('.stjm-wa-float');
+  const firstClick=await whatsapp(page,'.stjm-wa-float',0,{source:test.source,landing});
+  assert.equal(await page.evaluate(()=>sessionStorage.getItem('stjm_src')),test.source);
+  assert.equal(await page.evaluate(()=>sessionStorage.getItem('stjm_landing_path')),landing);
+  // Later UTMs and an own preview referrer must not replace first-page attribution.
+  await page.goto(origin+'/about-es?utm_source=second-page-source',{waitUntil:'domcontentloaded'});
+  await page.waitForSelector('.stjm-wa-float');
+  const secondClick=await whatsapp(page,'.stjm-wa-float',0,{source:test.source,landing});
+  assert.equal(await page.evaluate(()=>sessionStorage.getItem('stjm_src')),test.source);
+  assert.equal(await page.evaluate(()=>sessionStorage.getItem('stjm_landing_path')),landing);
+  sourceResults.push({case:test.name,referrer:test.referrer||'',first,source:test.source,landing_path:landing,firstMessage:firstClick.message,secondMessage:secondClick.message,secondSource:secondClick.event.params.source_label,secondLanding:secondClick.event.params.landing_path,status:'PASS'});
+  await context.close();
+ }
+ fs.writeFileSync(path.join(out,'source-results.json'),JSON.stringify(sourceResults,null,2));
+ console.log('FIRST-PAGE SOURCES',sourceResults.length,'cases × 2 pages PASS');
+ // Unusually long campaigns still produce an encodable message below 500 characters.
+ const longMessages=[];
+ for(const longSource of ['Parish Campaign '.repeat(60),'🙏'.repeat(600)]){
+  const {context:longContext,page:longPage}=await contextFor({width:375,height:812},{loadAnalytics:false});
+  await longPage.goto(origin+'/medjugorje-es?utm_source='+encodeURIComponent(longSource),{waitUntil:'domcontentloaded'});
+  await longPage.waitForSelector('.stjm-wa-float');
+  const longClick=await whatsapp(longPage,'.stjm-wa-float',0,{source:longSource,landing:'/medjugorje-es',clipped:true});
+  assert.ok(longClick.message.endsWith('Escribo desde (ciudad, estado o país): '));
+  assert.ok(longClick.message.includes('… · Ref. '));
+  longMessages.push(longClick.message.length);await longContext.close();
+ }
+ // Blocking storage cannot prevent a link rewrite or its single GA4 event.
+ const {context:blockedContext,page:blockedPage}=await contextFor({width:375,height:812},{loadAnalytics:false});
+ await blockedPage.addInitScript(()=>Object.defineProperty(window,'sessionStorage',{get(){throw new Error('Blocked storage');}}));
+ await blockedPage.goto(origin+'/index-es',{waitUntil:'domcontentloaded'});
+ await blockedPage.waitForSelector('.stjm-wa-float');
+ await whatsapp(blockedPage,'.stjm-wa-float');await blockedContext.close();
+ fs.writeFileSync(path.join(out,'follow-up-summary.json'),JSON.stringify({sourceCases:sourceResults.length,sourcePageChecks:sourceResults.length*2,overlapSizes:overlapResults.length,samples:samples.length,longMessages,storageUnavailable:'PASS',status:failures.length?'FAIL':'PASS'},null,2));
 
  await browser.close();server.close();console.log(JSON.stringify({rows:rows.length,failures:failures.length,blockedAnalytics}));if(failures.length)process.exitCode=1;
 })().catch(async e=>{console.error(e);if(browser)await browser.close();server.close();process.exitCode=1;});

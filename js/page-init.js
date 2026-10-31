@@ -330,8 +330,8 @@
             button.style.setProperty('--stjm-wa-offset', '0px');
             var origin = button.getBoundingClientRect();
             var offset = 0;
-            // Move above toasts, submit controls and existing back-to-top buttons.
-            document.querySelectorAll('#toast-container, .toast-container, button[type="submit"], input[type="submit"], .scroll-to-top.visible').forEach(function (element) {
+            // Move above the language suggestion, toasts, submit and back-to-top controls.
+            document.querySelectorAll('#toast-container, .toast-container, button[type="submit"], input[type="submit"], .scroll-to-top.visible, [data-lang-suggest]').forEach(function (element) {
                 if (window.getComputedStyle(element).visibility === 'hidden') return;
                 var rect = element.getBoundingClientRect();
                 if (!rect.width || !rect.height || rect.bottom <= 0 || rect.top >= window.innerHeight) return;
