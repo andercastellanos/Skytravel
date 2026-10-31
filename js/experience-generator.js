@@ -891,6 +891,8 @@ function generateHTML(data, lang) {
   html += '  window.dataLayer = window.dataLayer || [];\n';
   html += '  function gtag(){dataLayer.push(arguments);}\n';
   html += '  gtag(\'js\', new Date());\n';
+  html += '  // Team devices: open any page once with ?internal=1 so GA4 treats this browser as internal traffic (?internal=0 undoes it).\n';
+  html += '  (function () { try { var m = /[?&]internal=([01])(?:&|$)/.exec(location.search); if (m) localStorage.setItem(\'stjm_internal\', m[1]); if (localStorage.getItem(\'stjm_internal\') === \'1\') gtag(\'set\', { traffic_type: \'internal\' }); } catch (e) {} })();\n';
   html += '  gtag(\'config\', \'G-6FM6Y5W6ZM\');\n';
   html += '  </script>\n';
 
