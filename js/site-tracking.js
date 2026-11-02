@@ -132,13 +132,24 @@
     return text.slice(0, Math.max(0, limit)).replace(/[\uD800-\uDBFF]$/, '');
   }
 
+  function clipPageLabel(text, limit) {
+    if (text.length <= limit) return text;
+    // Reserve the ellipsis and use clipText to avoid splitting a surrogate pair.
+    var prefix = clipText(text, limit - 1);
+    if (/\S/.test(text.charAt(prefix.length))) {
+      var boundary = prefix.search(/\s+\S*$/);
+      prefix = boundary === -1 ? '' : prefix.slice(0, boundary);
+    }
+    return prefix.trimEnd() + '…';
+  }
+
   function pageDetails() {
     var path = window.location.pathname.toLowerCase().replace(/\/$/, '').replace(/\.html$/, '')
       .replace(/^\/peregrinaciones-2027\//, '/').replace(/-es$/, '');
     var trip = tripNames[path];
     return {
       trip: trip ? trip[isSpanish ? 'es' : 'en'] : '',
-      label: trip ? trip[isSpanish ? 'es' : 'en'] : clipText(document.title.split(' | ')[0].trim(), 60),
+      label: trip ? trip[isSpanish ? 'es' : 'en'] : clipPageLabel(document.title.split(' | ')[0].trim(), 90),
       link: window.location.hostname.replace(/^www\./, '') + window.location.pathname,
       blog: window.location.pathname.indexOf('/blog/') === 0
     };

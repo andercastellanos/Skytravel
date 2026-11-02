@@ -30,6 +30,13 @@ for(const file of htmlFiles){
  }
 }
 console.log('STATIC WHATSAPP MESSAGES',staticWhatsAppMessages,'decoded hrefs across',htmlFiles.length,'HTML files PASS');
+const publicHtmlFiles=htmlFiles.filter(file=>{
+ if(file.startsWith('components/'))return false;
+ if(/(?:^|\/)(recibo|estado|pagar|pay|empleados|cumpleanos|crear-destino|crear-experiencia|trip-gallery|galeria-viaje)(-es)?\.html$/.test(file))return false;
+ const source=fs.readFileSync(path.join(root,file),'utf8');
+ return !/<meta\b[^>]*name=["'](?:robots|googlebot)["'][^>]*content=["'][^"']*\bnoindex\b/i.test(source);
+});
+
 const out=path.resolve(process.env.SKYTRAVEL_QA_OUTPUT || path.join(require('node:os').tmpdir(),'skytravel-whatsapp-qa'));
 fs.mkdirSync(out,{recursive:true});
 let browser;
@@ -109,11 +116,37 @@ const server=http.createServer((req,res)=>{
   '/peregrinacion_bajo_el_manto_de_maria':{es:'Peregrinación Bajo el Manto de María 2027',en:'Under Mary’s Mantle 2027 pilgrimage'},
   '/peregrinacion_mexico_cancun_2027':{es:'Peregrinación a Guadalupe, México y Cancún 2027',en:'Guadalupe, Mexico & Cancún 2027 pilgrimage'}
  };
+// An independent expectation based on complete word end positions in document.title.
+function expectedTitleLabel(title){
+ const text=title.split(' | ')[0].trim();
+ if(text.length<=90)return text;
+ let end=0;
+ for(const match of text.matchAll(/\S+/gu)){
+  const wordEnd=match.index+match[0].length;
+  if(wordEnd>89)break;
+  end=wordEnd;
+ }
+ return text.slice(0,end)+'…';
+}
+function assertWholeTitleLabel(label,title){
+ const text=title.split(' | ')[0].trim();
+ assert.ok(label.length<=90,'title label is at most 90 characters');
+ assert.equal(label,expectedTitleLabel(title),'label retains the longest complete-word prefix');
+ if(text.length<=90)assert.equal(label,text,'no ellipsis when nothing was cut');
+ else{
+  assert.ok(label.endsWith('…'),'cut labels have an ellipsis');
+  const prefix=label.slice(0,-1);
+  assert.ok(text.startsWith(prefix),'label is a prefix of document.title');
+  if(prefix)assert.match(text.slice(prefix.length),/^\s/u,'label never ends inside a word');
+ }
+ assert.doesNotMatch(label,/[\uD800-\uDBFF]$/,'no dangling high surrogate');
+}
+
  async function whatsapp(page,selector,index=0,options={}){
   const meta=await page.evaluate(()=>({path:location.pathname,host:location.hostname.replace(/^www\./,''),lang:document.documentElement.lang,title:document.title}));
   const tripKey=meta.path.toLowerCase().replace(/\/$/,'').replace(/\.html$/,'').replace(/^\/peregrinaciones-2027\//,'/').replace(/-es$/,'');
   const trip=expectedTripLabels[tripKey]?.[meta.lang];
-  const label=trip||meta.title.split(' | ')[0].trim().slice(0,60);
+  const label=trip||expectedTitleLabel(meta.title);
   const es=meta.lang==='es',blog=meta.path.startsWith('/blog/');
   const source=options.source||(es?'directo':'direct');
   const section=await page.locator(selector).nth(index).getAttribute('data-section')||'unknown';
@@ -125,6 +158,8 @@ const server=http.createServer((req,res)=>{
   },options.type||'click');
   const actual=await events(page);assert.equal(actual.length,1,'one event, no contact_click');
   const event=actual[0],code=event.params.lead_ref;
+  assert.ok(event.params.page_label.length<100,'GA4 page_label stays below 100 characters');
+  if(!trip)assertWholeTitleLabel(event.params.page_label,meta.title);
   assert.match(code,/^[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{5}$/);
   assert.deepEqual(event,{name:'whatsapp_click',params:{page_path:meta.path,page_language:meta.lang,section,page_label:label,lead_ref:code,source_label:source,landing_path:options.landing||meta.path}});
   const href=await page.locator(selector).nth(index).getAttribute('href');
@@ -164,6 +199,7 @@ const server=http.createServer((req,res)=>{
      assert.equal(await b.getAttribute('target'),'_blank');assert.equal(await b.getAttribute('rel'),'noopener');
      assert.equal(await b.getAttribute('class'),'stjm-wa-float');
      assert.equal(await page.locator('#stjm-wa-float-css').count(),1);
+     assert.equal(await page.evaluate(()=>Array.from(window.dataLayer||[]).filter(e=>e[0]==='config'&&e[1]==='G-6FM6Y5W6ZM').length),1,'public floating-button page ran exactly one GA4 config');
      const floating=await whatsapp(page,'.stjm-wa-float');
      samples.push({...floating,view,link:'floating'});row.floating='whatsapp_click ×1 (floating_button; matched lead_ref)';
      const own='a[href^="https://wa.me/13056452625"]:not(.stjm-wa-float)';
@@ -231,7 +267,7 @@ const server=http.createServer((req,res)=>{
   assert.ok(await page.locator('.stjm-wa-float').evaluate(e=>parseFloat(getComputedStyle(e).transitionDuration)<=0.00001));
   await page.emulateMedia({reducedMotion:'no-preference'});
   // Reload both owners twice; dynamic/footer links must still generate one event.
-  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261101'});
+  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261102'});
   await page.addScriptTag({url:origin+'/js/contact-tracking.min.js?v=20261031'});
   const one=await tap(page,'.stjm-wa-float');assert.equal(one.length,1);
   await recorder(page);await page.locator('.stjm-wa-float').evaluate(e=>{e.click();e.click();});
@@ -427,7 +463,47 @@ const server=http.createServer((req,res)=>{
  await blockedPage.goto(origin+'/index-es',{waitUntil:'domcontentloaded'});
  await blockedPage.waitForSelector('.stjm-wa-float');
  await whatsapp(blockedPage,'.stjm-wa-float');await blockedContext.close();
- fs.writeFileSync(path.join(out,'follow-up-summary.json'),JSON.stringify({sourceCases:sourceResults.length,sourcePageChecks:sourceResults.length*2,overlapSizes:overlapResults.length,samples:samples.length,longMessages,storageUnavailable:'PASS',status:failures.length?'FAIL':'PASS'},null,2));
+ // Check every standalone public HTML page, including the previously missing GA4 page.
+ const publicChecks=[];let publicIndex=0;
+ async function checkPublicPages(){
+  while(publicIndex<publicHtmlFiles.length){
+   const file=publicHtmlFiles[publicIndex++],url=file==='index.html'?'/':'/'+file.replace(/\.html$/,'');
+   const {context,page}=await contextFor({width:390,height:844},{loadAnalytics:false});
+   const row={file,path:url};
+   try{
+    await page.goto(origin+url,{waitUntil:'domcontentloaded'});
+    await page.waitForSelector('.stjm-wa-float');
+    const configs=await page.evaluate(()=>Array.from(window.dataLayer||[]).filter(e=>e[0]==='config'&&e[1]==='G-6FM6Y5W6ZM').length);
+    assert.equal(configs,1,'every public page with a float must run exactly one GA4 config');
+    const capture=await whatsapp(page,'.stjm-wa-float');
+    row.ga4Configs=configs;row.pageLabel=capture.event.params.page_label;row.messageLength=capture.length;row.status='PASS';
+   }catch(e){row.status='FAIL';row.error=e.stack;failures.push(row);}
+   publicChecks.push(row);await context.close();
+  }
+ }
+ await Promise.all([checkPublicPages(),checkPublicPages(),checkPublicPages()]);
+ fs.writeFileSync(path.join(out,'public-contract-results.json'),JSON.stringify(publicChecks,null,2));
+ console.log('PUBLIC GA4 + WHOLE-WORD LABELS',publicChecks.length,'pages;',publicChecks.filter(r=>r.status==='FAIL').length,'failures');
+ const boundaryTitles=[
+  'How We Lived Our 2026 Pilgrimage to Medjugorje, Rome and Assisi',
+  'El mejor regalo que podemos dar a nuestros hijos: la libertad',
+  'I Will Make You a Suitable Helper (Gen 2:18): Waiting & Choosing Wisely',
+  'Let Us Continue the Journey: Two Powerful Weapons to Grow and Fight for Our Children and Our Families',
+  'A'.repeat(90),
+  'A'.repeat(83)+' ABCD'+String.fromCodePoint(0x1F64F)+'EFGHIJK'
+ ];
+ const boundaries=[];
+ for(const title of boundaryTitles){
+  const {context,page}=await contextFor({width:390,height:844},{loadAnalytics:false});
+  await page.goto(origin+'/',{waitUntil:'domcontentloaded'});await page.waitForSelector('.stjm-wa-float');
+  await page.evaluate(title=>document.title=title,title);
+  const capture=await whatsapp(page,'.stjm-wa-float');
+  boundaries.push({title,label:capture.event.params.page_label,length:capture.event.params.page_label.length,messageLength:capture.length,status:'PASS'});
+  await context.close();
+ }
+ fs.writeFileSync(path.join(out,'label-boundary-results.json'),JSON.stringify(boundaries,null,2));
+ console.log('LABEL BOUNDARIES',boundaries.length,'PASS');
+ fs.writeFileSync(path.join(out,'follow-up-summary.json'),JSON.stringify({publicPageChecks:publicChecks.length,labelBoundaryChecks:boundaries.length,sourceCases:sourceResults.length,sourcePageChecks:sourceResults.length*2,overlapSizes:overlapResults.length,samples:samples.length,longMessages,storageUnavailable:'PASS',status:failures.length?'FAIL':'PASS'},null,2));
 
  await browser.close();server.close();console.log(JSON.stringify({rows:rows.length,failures:failures.length,blockedAnalytics}));if(failures.length)process.exitCode=1;
 })().catch(async e=>{console.error(e);if(browser)await browser.close();server.close();process.exitCode=1;});
