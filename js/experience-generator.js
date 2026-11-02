@@ -1333,7 +1333,7 @@ function generateHTML(data, lang) {
   html += '  <script src="' + prefix + 'js/contact-tracking.min.js?v=20261031" defer></script>\n';
   html += '\n';
   html += '  <!-- Shared page init: tabs, contact, footer, conditional slideshow -->\n';
-  html += '  <script src="' + prefix + 'js/page-init.min.js?v=20261031" defer></script>\n';
+  html += '  <script src="' + prefix + 'js/page-init.min.js?v=20261101" defer></script>\n';
 
   html += '</body>\n';
   html += '</html>';

@@ -199,23 +199,23 @@
     }
 
     var tripWhatsAppMessages = {
-        "/peregrinacion_bajo_el_manto_de_maria": "Hello, I’m interested in the Under Mary’s Mantle 2027 pilgrimage (Fátima, Lourdes and Garabandal). Could you send me dates and price? I’m writing from (city, state or country): ",
-        "/medjugorje": "Hello, I’m interested in the Medjugorje 2027 pilgrimage. Could you send me dates and price? I’m writing from (city, state or country): ",
-        "/tierrasanta2026": "Hello, I’m interested in the Holy Land & Medjugorje pilgrimage (September–October 2027). Could you send me dates and price? I’m writing from (city, state or country): ",
-        "/tierrasanta2026-es": "Hola, me interesa la peregrinación a Tierra Santa y Medjugorje de septiembre–octubre 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
-        "/peregrinacion_mexico_cancun_2027": "Hello, I’m interested in the Guadalupe, Mexico & Cancún 2027 pilgrimage. Could you send me dates and price? I’m writing from (city, state or country): ",
-        "/peregrinacion_mexico_cancun_2027-es": "Hola, me interesa la peregrinación a Guadalupe, México y Cancún 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
-        "/peregrinacion-tierrasanta-2027-es": "Hola, me interesa la peregrinación a Tierra Santa y Medjugorje de marzo–abril 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
-        "/peregrinacion_bajo_el_manto_de_maria-es": "Hola, me interesa la peregrinación Bajo el Manto de María 2027 (Fátima, Lourdes y Garabandal). ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
-        "/medjugorje-es": "Hola, me interesa la peregrinación a Medjugorje 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
-        "/peregrinacion-tierrasanta-2027": "Hello, I’m interested in the Holy Land & Medjugorje pilgrimage (March–April 2027). Could you send me dates and price? I’m writing from (city, state or country): "
+        "/peregrinacion_bajo_el_manto_de_maria": "Hello, Sky Travel J&M. I’m interested in the Under Mary’s Mantle 2027 pilgrimage (Fátima, Lourdes and Garabandal). Could you send me dates and price? I’m writing from (city, state or country): ",
+        "/medjugorje": "Hello, Sky Travel J&M. I’m interested in the Medjugorje 2027 pilgrimage. Could you send me dates and price? I’m writing from (city, state or country): ",
+        "/tierrasanta2026": "Hello, Sky Travel J&M. I’m interested in the Holy Land & Medjugorje pilgrimage (September–October 2027). Could you send me dates and price? I’m writing from (city, state or country): ",
+        "/tierrasanta2026-es": "Hola, Sky Travel J&M. Me interesa la peregrinación a Tierra Santa y Medjugorje de septiembre–octubre 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
+        "/peregrinacion_mexico_cancun_2027": "Hello, Sky Travel J&M. I’m interested in the Guadalupe, Mexico & Cancún 2027 pilgrimage. Could you send me dates and price? I’m writing from (city, state or country): ",
+        "/peregrinacion_mexico_cancun_2027-es": "Hola, Sky Travel J&M. Me interesa la peregrinación a Guadalupe, México y Cancún 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
+        "/peregrinacion-tierrasanta-2027-es": "Hola, Sky Travel J&M. Me interesa la peregrinación a Tierra Santa y Medjugorje de marzo–abril 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
+        "/peregrinacion_bajo_el_manto_de_maria-es": "Hola, Sky Travel J&M. Me interesa la peregrinación Bajo el Manto de María 2027 (Fátima, Lourdes y Garabandal). ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
+        "/medjugorje-es": "Hola, Sky Travel J&M. Me interesa la peregrinación a Medjugorje 2027. ¿Me pueden enviar fechas y precio? Escribo desde (ciudad, estado o país): ",
+        "/peregrinacion-tierrasanta-2027": "Hello, Sky Travel J&M. I’m interested in the Holy Land & Medjugorje pilgrimage (March–April 2027). Could you send me dates and price? I’m writing from (city, state or country): "
     };
 
     /* ---------- Shared analytics and floating WhatsApp ---------- */
 
     function ensureSiteTracking() {
         if (window.SkyTravelTracking) return Promise.resolve();
-        return loadScript(basePath + 'js/site-tracking.js?v=20261031');
+        return loadScript(basePath + 'js/site-tracking.js?v=20261101');
     }
 
     function initFloatingWhatsApp() {

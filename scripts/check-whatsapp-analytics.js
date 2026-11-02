@@ -12,7 +12,24 @@ const http=require('node:http');
 const fs=require('node:fs');
 const path=require('node:path');
 const assert=require('node:assert/strict');
+function assertNoAstral(message){
+ assert.doesNotMatch(message,/[\u{10000}-\u{10FFFF}]/u,'WhatsApp message contains a character above U+FFFF');
+}
+// Verify the regression guard rejects supplementary-plane characters and permits accents.
+assert.throws(()=>assertNoAstral(String.fromCodePoint(0x1F64F)),/above U\+FFFF/);
+assertNoAstral('España — ¿Cómo?');
 const root=path.resolve(__dirname,'..');
+// Decode all static WhatsApp hrefs, including percent-encoded text on unvisited pages.
+const htmlFiles=require('node:child_process').execFileSync('git',['ls-files','-z','--','*.html'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
+let staticWhatsAppMessages=0;
+for(const file of htmlFiles){
+ const source=fs.readFileSync(path.join(root,file),'utf8');
+ for(const match of source.matchAll(/\bhref\s*=\s*(["'])(https:\/\/wa\.me\/[^"']*)\1/gi)){
+  const text=new URL(match[2].replace(/&amp;/g,'&')).searchParams.get('text');
+  if(text!==null){assertNoAstral(text);staticWhatsAppMessages++;}
+ }
+}
+console.log('STATIC WHATSAPP MESSAGES',staticWhatsAppMessages,'decoded hrefs across',htmlFiles.length,'HTML files PASS');
 const out=path.resolve(process.env.SKYTRAVEL_QA_OUTPUT || path.join(require('node:os').tmpdir(),'skytravel-whatsapp-qa'));
 fs.mkdirSync(out,{recursive:true});
 let browser;
@@ -112,8 +129,9 @@ const server=http.createServer((req,res)=>{
   assert.deepEqual(event,{name:'whatsapp_click',params:{page_path:meta.path,page_language:meta.lang,section,page_label:label,lead_ref:code,source_label:source,landing_path:options.landing||meta.path}});
   const href=await page.locator(selector).nth(index).getAttribute('href');
   const message=new URL(href).searchParams.get('text');
+  assertNoAstral(message);
   assert.ok(message.length<500,'message below 500 characters');
-  const intro=trip?(es?`Hola, Sky Travel J&M 🙏 Me interesa la ${trip.replace(/^Peregrinación/,'peregrinación')}. ¿Me pueden enviar fechas y precio?`:`Hello Sky Travel J&M 🙏 I'm interested in the ${trip}. Could you send me dates and price?`):blog?(es?`Hola, Sky Travel J&M 🙏 Leí su artículo «${label}» y me gustaría recibir información sobre sus peregrinaciones.`:`Hello Sky Travel J&M 🙏 I read your article "${label}" and I'd like information about your pilgrimages.`):(es?'Hola, Sky Travel J&M 🙏 Me gustaría recibir información sobre sus peregrinaciones.':"Hello Sky Travel J&M 🙏 I'd like information about your pilgrimages.");
+  const intro=trip?(es?`Hola, Sky Travel J&M. Me interesa la ${trip.replace(/^Peregrinación/,'peregrinación')}. ¿Me pueden enviar fechas y precio?`:`Hello, Sky Travel J&M. I'm interested in the ${trip}. Could you send me dates and price?`):blog?(es?`Hola, Sky Travel J&M. Leí su artículo «${label}» y me gustaría recibir información sobre sus peregrinaciones.`:`Hello, Sky Travel J&M. I read your article "${label}" and I'd like information about your pilgrimages.`):(es?'Hola, Sky Travel J&M. Me gustaría recibir información sobre sus peregrinaciones.':"Hello, Sky Travel J&M. I'd like information about your pilgrimages.");
   const sourceText=['direct','directo'].includes(source)?'':(es?' · Los encontré en: ':' · Found you on: ')+source;
   const pageLine=(es?'Página: ':'Page: ')+(blog?'':label+' — ')+meta.host+meta.path;
   const expected=intro+'\n('+pageLine+sourceText+' · Ref. '+code+')\n'+(es?'Escribo desde (ciudad, estado o país): ':"I'm writing from (city, state or country): ");
@@ -136,6 +154,8 @@ const server=http.createServer((req,res)=>{
     }else{
      await page.waitForFunction(()=>document.querySelector('#contact-form')?.dataset.trackingInitialized==='true');
      await page.waitForFunction(()=>document.querySelector('#footer-container footer'));
+     const fallbacks=await page.locator('a[href*="wa.me/"]').evaluateAll(links=>links.map(link=>new URL(link.href).searchParams.get('text')).filter(text=>text!==null));
+     fallbacks.forEach(assertNoAstral);
      const b=page.locator('.stjm-wa-float');assert.equal(await b.count(),1);assert.equal(await b.isVisible(),true);
      const box=await b.boundingBox();assert.equal(box.width,view==='phone'?56:60);assert.equal(box.height,box.width);
      assert.equal(Math.round(viewport.width-box.x-box.width),20);assert.ok(Math.round(viewport.height-box.y-box.height)>=20);
@@ -211,7 +231,7 @@ const server=http.createServer((req,res)=>{
   assert.ok(await page.locator('.stjm-wa-float').evaluate(e=>parseFloat(getComputedStyle(e).transitionDuration)<=0.00001));
   await page.emulateMedia({reducedMotion:'no-preference'});
   // Reload both owners twice; dynamic/footer links must still generate one event.
-  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261031'});
+  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261101'});
   await page.addScriptTag({url:origin+'/js/contact-tracking.min.js?v=20261031'});
   const one=await tap(page,'.stjm-wa-float');assert.equal(one.length,1);
   await recorder(page);await page.locator('.stjm-wa-float').evaluate(e=>{e.click();e.click();});
@@ -273,6 +293,7 @@ const server=http.createServer((req,res)=>{
  await aliasContext.route('**/gtag/js**',r=>r.abort());
  const originals=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/whatsapp-trip-messages.json'),'utf8'));
  const aliasResults=[];
+ Object.values(originals).forEach(assertNoAstral);
  for(const [file,message]of Object.entries(originals)){
   const html=fs.readFileSync(path.join(root,file),'utf8');
   const canonical=new URL(html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/)[1]).pathname;
@@ -280,6 +301,7 @@ const server=http.createServer((req,res)=>{
    await aliasPage.goto(origin+url,{waitUntil:'domcontentloaded'});
    await aliasPage.waitForSelector('.stjm-wa-float');
    const actual=new URL(await aliasPage.locator('.stjm-wa-float').getAttribute('href')).searchParams.get('text');
+   assertNoAstral(actual);
    assert.equal(actual,message,url);
    const activation=await whatsapp(aliasPage,'.stjm-wa-float',0,{source:'direct',landing:aliasResults[0]?.url||url});
    aliasResults.push({url,fallback:message,message:activation.message,lead_ref:activation.event.params.lead_ref,status:'PASS'});
@@ -390,7 +412,7 @@ const server=http.createServer((req,res)=>{
  console.log('FIRST-PAGE SOURCES',sourceResults.length,'cases × 2 pages PASS');
  // Unusually long campaigns still produce an encodable message below 500 characters.
  const longMessages=[];
- for(const longSource of ['Parish Campaign '.repeat(60),'🙏'.repeat(600)]){
+ for(const longSource of ['Parish Campaign '.repeat(60),'Á'.repeat(1200)]){
   const {context:longContext,page:longPage}=await contextFor({width:375,height:812},{loadAnalytics:false});
   await longPage.goto(origin+'/medjugorje-es?utm_source='+encodeURIComponent(longSource),{waitUntil:'domcontentloaded'});
   await longPage.waitForSelector('.stjm-wa-float');

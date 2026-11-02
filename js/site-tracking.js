@@ -148,16 +148,16 @@
     var intro;
     if (page.trip) {
       intro = isSpanish
-        ? 'Hola, Sky Travel J&M 🙏 Me interesa la ' + page.trip.replace(/^Peregrinación/, 'peregrinación') + '. ¿Me pueden enviar fechas y precio?'
-        : "Hello Sky Travel J&M 🙏 I'm interested in the " + page.trip + '. Could you send me dates and price?';
+        ? 'Hola, Sky Travel J&M. Me interesa la ' + page.trip.replace(/^Peregrinación/, 'peregrinación') + '. ¿Me pueden enviar fechas y precio?'
+        : "Hello, Sky Travel J&M. I'm interested in the " + page.trip + '. Could you send me dates and price?';
     } else if (page.blog) {
       intro = isSpanish
-        ? 'Hola, Sky Travel J&M 🙏 Leí su artículo «' + page.label + '» y me gustaría recibir información sobre sus peregrinaciones.'
-        : 'Hello Sky Travel J&M 🙏 I read your article "' + page.label + '" and I\'d like information about your pilgrimages.';
+        ? 'Hola, Sky Travel J&M. Leí su artículo «' + page.label + '» y me gustaría recibir información sobre sus peregrinaciones.'
+        : 'Hello, Sky Travel J&M. I read your article "' + page.label + '" and I\'d like information about your pilgrimages.';
     } else {
       intro = isSpanish
-        ? 'Hola, Sky Travel J&M 🙏 Me gustaría recibir información sobre sus peregrinaciones.'
-        : "Hello Sky Travel J&M 🙏 I'd like information about your pilgrimages.";
+        ? 'Hola, Sky Travel J&M. Me gustaría recibir información sobre sus peregrinaciones.'
+        : "Hello, Sky Travel J&M. I'd like information about your pilgrimages.";
     }
     var pageLine = (isSpanish ? 'Página: ' : 'Page: ') + (page.blog ? '' : page.label + ' — ') + page.link;
     var ending = isSpanish ? 'Escribo desde (ciudad, estado o país): ' : "I'm writing from (city, state or country): ";
