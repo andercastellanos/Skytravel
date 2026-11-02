@@ -651,4 +651,16 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/peregrinaciones-2027/peregrinacion_mexico_cancun_2027-es.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/peregrinaciones-2027/peregrinacion_mexico_cancun_2027.html"/>
   </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/peregrinacion-mariana-fatima-lourdes-espana-es</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/peregrinacion-mariana-fatima-lourdes-espana-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/marian-pilgrimage-fatima-lourdes-spain"/>
+  </url>
+  <url>
+    <loc>https://www.skytraveljm.com/blog/marian-pilgrimage-fatima-lourdes-spain</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.skytraveljm.com/blog/peregrinacion-mariana-fatima-lourdes-espana-es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.skytraveljm.com/blog/marian-pilgrimage-fatima-lourdes-spain"/>
+  </url>
 </urlset>
