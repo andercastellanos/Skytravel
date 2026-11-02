@@ -508,6 +508,8 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
+        // Team devices: open any page once with ?internal=1 so GA4 treats this browser as internal traffic (?internal=0 undoes it).
+        (function () { try { var m = /[?&]internal=([01])(?:&|$)/.exec(location.search); if (m) localStorage.setItem('stjm_internal', m[1]); if (localStorage.getItem('stjm_internal') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {} })();
         gtag('config', 'G-6FM6Y5W6ZM');
     </script>
 </head>
@@ -711,6 +713,7 @@
                 <div class="header-text">
                     <h1>Holy Land & Medjugorje Pilgrimage 2027 – 18-Day Journey of Faith</h1>
                     <p>Experience the Grace of walking where Jesus walked</p>
+                    <p data-lang-suggest lang="es" style="margin:0.75rem 0 0;font-size:0.95rem;color:inherit;">¿Prefieres español? <a href="/peregrinacion-tierrasanta-2027-es" hreflang="es" style="color:inherit;font-weight:600;text-decoration:underline;" onclick="if(window.gtag){gtag('event','language_switch',{language:'es',link_location:'page_top'})}">Ver esta página en español&nbsp;→</a></p>
                 </div>
             </div>
         </div>
@@ -1370,10 +1373,10 @@
     <script src="js/elegant-language-switcher.min.js" defer></script>
 
     <!-- Contact tracking and form handler -->
-    <script src="js/contact-tracking.min.js" defer></script>
+    <script src="js/contact-tracking.min.js?v=20261031" defer></script>
 
     <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
-    <script src="js/page-init.min.js?v=20260204b" defer></script>
+    <script src="js/page-init.min.js?v=20261102" defer></script>
 </body>
 
 </html>

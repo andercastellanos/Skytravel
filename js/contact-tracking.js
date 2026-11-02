@@ -4,7 +4,7 @@
  * ============================================
  *
  * This script handles:
- * 1. GA4 event tracking for contact method clicks
+ * 1. GA4 event tracking for contact form submissions and outcomes
  * 2. Lead capture form validation and submission
  * 3. Netlify function integration for Notion database
  * 4. Toast notifications for user feedback
@@ -15,7 +15,7 @@
  * - Netlify function at /.netlify/functions/contact-lead
  *
  * GA4 EVENTS TRACKED:
- * - contact_click: When user clicks any contact card (sms/call/whatsapp/email)
+ * - Contact links are tracked exclusively by site-tracking.js.
  * - contact_form_submit: When form is submitted (before API call)
  * - contact_form_success: When lead is saved successfully
  * - contact_form_error: When there's an error saving the lead
@@ -153,31 +153,6 @@
         } else {
             console.warn('GA4 gtag() not available. Event not tracked:', eventName, params);
         }
-    }
-
-    /**
-     * Tracks contact method clicks (sms, call, whatsapp, email)
-     */
-    function setupContactClickTracking() {
-        const contactMethods = [
-            { selector: '.sms-contact-link', method: 'sms' },
-            { selector: '.call-contact-link', method: 'call' },
-            { selector: '.whatsapp-contact-link', method: 'whatsapp' },
-            { selector: '.email-contact-link', method: 'email' }
-        ];
-
-        contactMethods.forEach(function(item) {
-            const links = document.querySelectorAll(item.selector);
-            links.forEach(function(link) {
-                link.addEventListener('click', function() {
-                    trackEvent('contact_click', {
-                        method: item.method,
-                        page: window.location.pathname,
-                        event_category: 'engagement'
-                    });
-                });
-            });
-        });
     }
 
     // ============================================
@@ -338,6 +313,8 @@
 
         const form = e.target;
         const submitBtn = document.getElementById('submit-btn');
+        // Ignore another submit while this request is in flight.
+        if (form.dataset.submitting === 'true') return;
         const originalBtnText = submitBtn.textContent;
 
         // Clear previous errors
@@ -376,6 +353,8 @@
         // Get values for tracking
         const preferredContact = formData.get('preferredContact');
         const pilgrimageInterest = (formData.get('pilgrimageInterest') || '').trim().substring(0, 80);
+
+        form.dataset.submitting = 'true';
 
         // Fire GA4 contact_form_submit event
         trackEvent('contact_form_submit', {
@@ -449,6 +428,7 @@
             // Show error toast
             showToast(strings.errorToast, 'error');
         } finally {
+            delete form.dataset.submitting;
             // Re-enable submit button
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
@@ -491,9 +471,6 @@
      * Sets up all tracking and form handlers once the form is available
      */
     function setupAll() {
-        // Setup contact click tracking
-        setupContactClickTracking();
-
         // Setup form handling
         const form = document.getElementById('contact-form');
         if (form && !form.dataset.trackingInitialized) {

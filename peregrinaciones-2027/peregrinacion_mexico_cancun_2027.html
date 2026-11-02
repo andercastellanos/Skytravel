@@ -255,6 +255,8 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
+        // Team devices: open any page once with ?internal=1 so GA4 treats this browser as internal traffic (?internal=0 undoes it).
+        (function () { try { var m = /[?&]internal=([01])(?:&|$)/.exec(location.search); if (m) localStorage.setItem('stjm_internal', m[1]); if (localStorage.getItem('stjm_internal') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {} })();
         gtag('config', 'G-6FM6Y5W6ZM');
     </script>
 </head>
@@ -432,6 +434,7 @@
         <!-- Trip Details Section -->
         <section class="trip-details">
             <h1 style="color: #333; font-size: 2rem; line-height: 1.3; margin-bottom: 1rem;">Grand Jubilee Year Pilgrimage to Our Lady of Guadalupe 2027</h1>
+            <p data-lang-suggest lang="es" style="margin:0.75rem 0 0;font-size:0.95rem;color:inherit;">¿Prefieres español? <a href="/peregrinaciones-2027/peregrinacion_mexico_cancun_2027-es.html" hreflang="es" style="color:inherit;font-weight:600;text-decoration:underline;" onclick="if(window.gtag){gtag('event','language_switch',{language:'es',link_location:'page_top'})}">Ver esta página en español&nbsp;→</a></p>
             <p>Experience a Catholic pilgrimage through Mexico City, Cholula, Puebla and Cancún, where the faith, history and beauty of Mexico accompany every step. Visit the Basilica of Our Lady of Guadalupe, offer your prayers at the Shrine of Our Lady of Remedies and entrust your intentions to Mary Undoer of Knots. A journey of encounter with Our Lady that invites you to renew your hope and strengthen your relationship with God.</p>
             <h2>What makes this pilgrimage through Mexico, Cholula, Puebla and Cancún unique?</h2>
             <p>One itinerary brings together three Marian devotions that inspire love, trust and comfort. Draw close to the motherly love of Our Lady of Guadalupe, find refuge in Our Lady of Remedies and entrust the difficulties of your life to Mary Undoer of Knots, while discovering the cultural richness of Mexico and the serenity of the Caribbean.</p>
@@ -646,11 +649,11 @@
     <script src="js/elegant-language-switcher.min.js" defer></script>
 
     <!-- Contact tracking and form handler -->
-    <script src="js/site-tracking.js" defer></script>
-    <script src="js/contact-tracking.min.js" defer></script>
+    <script src="js/site-tracking.js?v=20261102" defer></script>
+    <script src="js/contact-tracking.min.js?v=20261031" defer></script>
 
     <!-- Shared page init: tabs, contact, footer, conditional slideshow -->
-    <script src="js/page-init.min.js?v=20260204b" defer></script>
+    <script src="js/page-init.min.js?v=20261102" defer></script>
 </body>
 
 </html>
