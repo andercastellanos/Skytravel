@@ -837,6 +837,79 @@ nav {
     list-style-type: none;
 }
 
+/* Key facts box (trip pages): answer-first summary of dates, price and what's included.
+   Lives here, not in the async components.css, because it renders near the top of the page. */
+.key-facts {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1.75rem 2rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-top: 4px solid #c8a97e;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.key-facts h2 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.key-facts__list {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.6rem 1.5rem;
+    margin: 0;
+}
+
+.key-facts__list dt,
+.key-facts__list dd {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.key-facts__list dt {
+    font-weight: 600;
+    color: #333;
+}
+
+.key-facts__list dd {
+    margin: 0;
+    color: #555;
+}
+
+.key-facts__cta {
+    margin: 1.25rem 0 0;
+    font-weight: 600;
+}
+
+.key-facts__cta a {
+    color: #7a5c2e;
+    text-decoration: underline;
+}
+
+.key-facts__cta a:hover,
+.key-facts__cta a:focus-visible {
+    color: #5c4420;
+}
+
+@media (max-width: 600px) {
+    .key-facts {
+        margin: 1.5rem 1rem;
+        padding: 1.25rem;
+    }
+
+    .key-facts__list {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+    }
+
+    .key-facts__list dd {
+        margin-bottom: 0.6rem;
+    }
+}
+
 /* Detailed Information Section */
 .destination-info {
     background-color: #f9f9f9;

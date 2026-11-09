@@ -110,6 +110,15 @@ const OTHER_GROUP = {
 const TRIP_PAGES = [
   { file: 'peregrinaciones-2027/Medjugorje-es.html', language: 'es', tags: ['medjugorje'], limit: 6, title: 'Testimonios de peregrinos a Medjugorje' },
   { file: 'peregrinaciones-2027/Medjugorje.html', language: 'en', tags: ['medjugorje'], limit: 6, title: 'Medjugorje pilgrim testimonials' },
+  // Holy Land + Medjugorje 2027 (March and September departures). Testimonials tagged with both trips rank
+  // first, then the newest single-trip matches, so the heading stays generic.
+  { file: 'peregrinaciones-2027/peregrinacion-tierrasanta-2027-es.html', language: 'es', tags: ['tierrasanta', 'medjugorje'], limit: 6, title: 'Testimonios de nuestros peregrinos' },
+  { file: 'peregrinaciones-2027/peregrinacion-tierrasanta-2027.html', language: 'en', tags: ['tierrasanta', 'medjugorje'], limit: 6, title: 'Testimonials from our pilgrims' },
+  { file: 'peregrinaciones-2027/TierraSanta2026-es.html', language: 'es', tags: ['tierrasanta', 'medjugorje'], limit: 6, title: 'Testimonios de nuestros peregrinos' },
+  { file: 'peregrinaciones-2027/TierraSanta2026.html', language: 'en', tags: ['tierrasanta', 'medjugorje'], limit: 6, title: 'Testimonials from our pilgrims' },
+  // Bajo el manto de María 2027 (Fátima, Lourdes, Garabandal...). The English page keeps its hand-translated
+  // block for now, so only the Spanish page is regenerated.
+  { file: 'peregrinaciones-2027/peregrinacion_bajo_el_manto_de_maria-es.html', language: 'es', tags: ['mariana'], limit: 4, title: 'Testimonios de la peregrinación mariana' },
   { file: 'peregrinaciones-2026/peregrinacion-medjugorje-roma-es.html', language: 'es', tags: ['medjugorje', 'italia'], limit: 4, title: 'Testimonios de peregrinos a Medjugorje, Roma e Italia' },
   { file: 'peregrinaciones-2026/peregrinacion-medjugorje-roma.html', language: 'en', tags: ['medjugorje', 'italia'], limit: 4, title: 'Medjugorje, Rome and Italy pilgrim testimonials' },
   { file: 'peregrinaciones-2025/Italy-es.html', language: 'es', tags: ['italia'], limit: 4, title: 'Testimonios de peregrinos a Roma e Italia' },

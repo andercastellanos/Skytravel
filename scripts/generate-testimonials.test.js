@@ -5,6 +5,9 @@ const test = require('node:test');
 const vm = require('node:vm');
 
 const source = fs.readFileSync(path.join(__dirname, 'generate-testimonials.js'), 'utf8');
+// One write per testimonial list page (es + en) plus one per configured trip page.
+const TRIP_PAGE_COUNT = vm.runInNewContext(`${source}\nTRIP_PAGES.length;`, { require, module: { exports: {} }, __dirname });
+const ALL_WRITES = 2 + TRIP_PAGE_COUNT;
 const apiUrl = 'https://api.github.com/repos/andercastellanos/Skytravel/issues';
 const originalHtml = '<!-- GENERATED_TESTIMONIALS_START --><div class="testimonial-card" data-generated-testimonial data-testimonial-id="999">old content</div><!-- GENERATED_TESTIMONIALS_END -->';
 
@@ -86,7 +89,7 @@ test('generates both languages from every page, even when page one has no verifi
     assert.equal(url.searchParams.get('labels'), 'testimony');
     assert.equal(request.options.headers.Authorization, 'Bearer test-token');
   }
-  assert.equal(app.writes.length, 12);
+  assert.equal(app.writes.length, ALL_WRITES);
   assert.deepEqual(app.writes.slice(0, 2).map(({ filePath }) => path.basename(filePath)), ['testimonios.html', 'testimonials.html']);
   const expectedIds = Array.from({ length: 105 }, (_, index) => index + 101).filter((id) => id !== 150);
   for (const { html } of app.writes.slice(0, 2)) {
@@ -124,7 +127,7 @@ for (const [name, failure, message] of [
 }
 
 function assertEmptyPages(writes) {
-  assert.equal(writes.length, 12);
+  assert.equal(writes.length, ALL_WRITES);
   for (const { html } of writes.slice(2)) {
     assert.ok(!html.includes('old trip content'));
     assert.ok(!html.includes('class="trip-testimonials"'));
@@ -169,10 +172,10 @@ test('repeated empty generation is stable and a new verified testimonial replace
   await app.main();
   assertEmptyPages(app.writes);
   await app.main();
-  assert.equal(app.writes.length, 12, 'An unchanged empty state should not be rewritten');
+  assert.equal(app.writes.length, ALL_WRITES, 'An unchanged empty state should not be rewritten');
   await app.main();
-  assert.equal(app.writes.length, 14);
-  for (const { html } of app.writes.slice(12)) {
+  assert.equal(app.writes.length, ALL_WRITES + 2);
+  for (const { html } of app.writes.slice(ALL_WRITES)) {
     assert.ok(html.includes('data-testimonial-id="3"'));
     assert.ok(!html.includes('testimonials-empty'));
     assert.ok(!html.includes('old content'));
@@ -191,7 +194,7 @@ test('preserves destination groups, trip selection, limits and links to full tes
   ];
   const app = harness([response(issues)]);
   await app.main();
-  assert.equal(app.writes.length, 12);
+  assert.equal(app.writes.length, ALL_WRITES);
   for (const { html } of app.writes.slice(0, 2)) {
     for (const group of ['medjugorje', 'mariana', 'italia']) {
       assert.ok(html.includes('id="grupo-' + group + '"'));
@@ -203,12 +206,32 @@ test('preserves destination groups, trip selection, limits and links to full tes
     const linkedIds = Array.from(html.matchAll(/#testimonio-(\d+)/g), (match) => Number(match[1]));
     let expected;
     if (filePath.includes('peregrinacion-medjugorje-roma')) expected = [1, 2, 3, 4];
+    else if (/tierrasanta/i.test(filePath)) expected = [1, 2, 3, 4, 5, 6];
     else if (filePath.includes('Medjugorje')) expected = [1, 2, 3, 4, 5, 6];
     else if (filePath.includes('Italy')) expected = [20];
     else expected = [21];
     assert.deepEqual(linkedIds, expected);
     const listHtml = filePath.endsWith('-es.html') ? app.writes[0].html : app.writes[1].html;
     for (const id of linkedIds) assert.ok(listHtml.includes('id="testimonio-' + id + '"'));
+  }
+});
+
+test('Holy Land and Medjugorje pages rank testimonials that match both trips first', async () => {
+  function forTrip(number, trip, createdAt) {
+    return { ...issue(number), created_at: createdAt, body: '---\nname: Traveler ' + number + '\ntrip: ' + trip + '\n---\nA meaningful pilgrimage.' };
+  }
+  const app = harness([response([
+    forTrip(1, 'Medjugorje', '2026-10-01T12:00:00Z'),
+    forTrip(2, 'Tierra Santa', '2025-09-27T12:00:00Z'),
+    forTrip(3, 'Tierra Santa y Medjugorje', '2024-05-01T12:00:00Z'),
+    forTrip(4, 'Lourdes', '2026-10-02T12:00:00Z'),
+  ])]);
+  await app.main();
+  const holyLand = app.writes.filter(({ filePath }) => /tierrasanta/i.test(filePath));
+  assert.equal(holyLand.length, 4);
+  for (const { html } of holyLand) {
+    // Both destinations first (even when oldest), then single-trip matches newest first; Lourdes never.
+    assert.deepEqual(Array.from(html.matchAll(/#testimonio-(\d+)/g), (match) => Number(match[1])), [3, 1, 2]);
   }
 });
 
