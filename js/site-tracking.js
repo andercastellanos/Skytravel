@@ -155,35 +155,12 @@
     };
   }
 
-  function buildMessage(page, code) {
-    var intro;
-    if (page.trip) {
-      intro = isSpanish
-        ? 'Hola, Sky Travel J&M. Me interesa la ' + page.trip.replace(/^Peregrinación/, 'peregrinación') + '. ¿Me pueden enviar fechas y precio?'
-        : "Hello, Sky Travel J&M. I'm interested in the " + page.trip + '. Could you send me dates and price?';
-    } else if (page.blog) {
-      intro = isSpanish
-        ? 'Hola, Sky Travel J&M. Leí su artículo «' + page.label + '» y me gustaría recibir información sobre sus peregrinaciones.'
-        : 'Hello, Sky Travel J&M. I read your article "' + page.label + '" and I\'d like information about your pilgrimages.';
-    } else {
-      intro = isSpanish
-        ? 'Hola, Sky Travel J&M. Me gustaría recibir información sobre sus peregrinaciones.'
-        : "Hello, Sky Travel J&M. I'd like information about your pilgrimages.";
-    }
-    var pageLine = (isSpanish ? 'Página: ' : 'Page: ') + (page.blog ? '' : page.label + ' — ') + page.link;
-    var ending = isSpanish ? 'Escribo desde (ciudad, estado o país): ' : "I'm writing from (city, state or country): ";
-    var sourcePrefix = isSpanish ? ' · Los encontré en: ' : ' · Found you on: ';
-    var base = intro + '\n(' + pageLine;
-    var suffix = ' · Ref. ' + code + ')\n' + ending;
-    var source = visit.source_label;
-    var attribution = '';
-    if (source !== 'direct' && source !== 'directo') {
-      // Unknown campaign source values are kept as written; bound only their message display
-      // if an unusually long value would push the complete message beyond 499 characters.
-      var budget = Math.max(0, 499 - base.length - suffix.length - sourcePrefix.length);
-      attribution = sourcePrefix + (source.length > budget ? clipText(source, budget - 1) + '…' : source);
-    }
-    return base + attribution + suffix;
+  // Short greeting: only that the visitor comes from the website and which page.
+  // Source and lead reference still go to GA4 with the whatsapp_click event.
+  function buildMessage(page) {
+    return isSpanish
+      ? 'Hola, vengo de la página web de Sky Travel J&M. Página: ' + page.label
+      : "Hello, I'm coming from the Sky Travel J&M website. Page: " + page.label;
   }
 
   function handleLinkActivation(event) {
@@ -200,7 +177,7 @@
       var page = pageDetails();
       var reference = newLeadReference();
       // Rewrite synchronously; normal, keyboard, Ctrl/Cmd and middle clicks all use this href.
-      link.href = 'https://wa.me/13056452625?text=' + encodeURIComponent(buildMessage(page, reference));
+      link.href = 'https://wa.me/13056452625?text=' + encodeURIComponent(buildMessage(page));
       fireGtagEvent('whatsapp_click', {
         section: link.dataset.section || (link.classList.contains('stjm-wa-float') ? 'floating_button' : 'unknown'),
         page_label: clipText(page.label, 100),

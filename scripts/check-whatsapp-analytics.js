@@ -166,13 +166,9 @@ function assertWholeTitleLabel(label,title){
   const message=new URL(href).searchParams.get('text');
   assertNoAstral(message);
   assert.ok(message.length<500,'message below 500 characters');
-  const intro=trip?(es?`Hola, Sky Travel J&M. Me interesa la ${trip.replace(/^Peregrinación/,'peregrinación')}. ¿Me pueden enviar fechas y precio?`:`Hello, Sky Travel J&M. I'm interested in the ${trip}. Could you send me dates and price?`):blog?(es?`Hola, Sky Travel J&M. Leí su artículo «${label}» y me gustaría recibir información sobre sus peregrinaciones.`:`Hello, Sky Travel J&M. I read your article "${label}" and I'd like information about your pilgrimages.`):(es?'Hola, Sky Travel J&M. Me gustaría recibir información sobre sus peregrinaciones.':"Hello, Sky Travel J&M. I'd like information about your pilgrimages.");
-  const sourceText=['direct','directo'].includes(source)?'':(es?' · Los encontré en: ':' · Found you on: ')+source;
-  const pageLine=(es?'Página: ':'Page: ')+(blog?'':label+' — ')+meta.host+meta.path;
-  const expected=intro+'\n('+pageLine+sourceText+' · Ref. '+code+')\n'+(es?'Escribo desde (ciudad, estado o país): ':"I'm writing from (city, state or country): ");
-  if(!options.clipped)assert.equal(message,expected,'correct complete template, page label/link, source, ref and final city prompt');
-  assert.equal(message.match(/ · Ref\. ([23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{5})\)/)?.[1],code);
-  assert.equal(message.split('\n').length,3,'real line breaks');
+  const expected=es?`Hola, vengo de la página web de Sky Travel J&M. Página: ${label}`:`Hello, I'm coming from the Sky Travel J&M website. Page: ${label}`;
+  assert.equal(message,expected,'short greeting: from the website plus the page');
+  assert.ok(!message.includes(code)&&!message.includes('\n'),'no ref code or extra lines in the message');
   assert.ok(!message.includes('utm_source=')&&!message.includes('private-search-query'),'no query strings/referrer paths in the message');
   return {page:meta.path,language:meta.lang,section,activation:options.type||'click',message,length:message.length,event};
  }
@@ -267,7 +263,7 @@ function assertWholeTitleLabel(label,title){
   assert.ok(await page.locator('.stjm-wa-float').evaluate(e=>parseFloat(getComputedStyle(e).transitionDuration)<=0.00001));
   await page.emulateMedia({reducedMotion:'no-preference'});
   // Reload both owners twice; dynamic/footer links must still generate one event.
-  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261102'});
+  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261110'});
   await page.addScriptTag({url:origin+'/js/contact-tracking.min.js?v=20261031'});
   const one=await tap(page,'.stjm-wa-float');assert.equal(one.length,1);
   await recorder(page);await page.locator('.stjm-wa-float').evaluate(e=>{e.click();e.click();});
@@ -453,8 +449,7 @@ function assertWholeTitleLabel(label,title){
   await longPage.goto(origin+'/medjugorje-es?utm_source='+encodeURIComponent(longSource),{waitUntil:'domcontentloaded'});
   await longPage.waitForSelector('.stjm-wa-float');
   const longClick=await whatsapp(longPage,'.stjm-wa-float',0,{source:longSource,landing:'/medjugorje-es',clipped:true});
-  assert.ok(longClick.message.endsWith('Escribo desde (ciudad, estado o país): '));
-  assert.ok(longClick.message.includes('… · Ref. '));
+  assert.ok(!longClick.message.includes('Parish Campaign')&&!longClick.message.includes('ÁÁ'),'campaign source stays out of the message');
   longMessages.push(longClick.message.length);await longContext.close();
  }
  // Blocking storage cannot prevent a link rewrite or its single GA4 event.

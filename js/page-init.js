@@ -215,7 +215,7 @@
 
     function ensureSiteTracking() {
         if (window.SkyTravelTracking) return Promise.resolve();
-        return loadScript(basePath + 'js/site-tracking.js?v=20261102');
+        return loadScript(basePath + 'js/site-tracking.js?v=20261110');
     }
 
     function initFloatingWhatsApp() {
