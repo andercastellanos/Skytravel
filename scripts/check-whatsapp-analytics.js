@@ -166,7 +166,8 @@ function assertWholeTitleLabel(label,title){
   const message=new URL(href).searchParams.get('text');
   assertNoAstral(message);
   assert.ok(message.length<500,'message below 500 characters');
-  const expected=es?`Hola, vengo de la página web de Sky Travel J&M. Página: ${label}`:`Hello, I'm coming from the Sky Travel J&M website. Page: ${label}`;
+  const shown=/[.!?…]$/.test(label)?label:label+'.';
+  const expected=es?`Hola, vengo de la página web de Sky Travel J&M. Página: ${shown} Quiero saber más información.`:`Hello, I'm coming from the Sky Travel J&M website. Page: ${shown} I'd like more information.`;
   assert.equal(message,expected,'short greeting: from the website plus the page');
   assert.ok(!message.includes(code)&&!message.includes('\n'),'no ref code or extra lines in the message');
   assert.ok(!message.includes('utm_source=')&&!message.includes('private-search-query'),'no query strings/referrer paths in the message');
@@ -263,7 +264,7 @@ function assertWholeTitleLabel(label,title){
   assert.ok(await page.locator('.stjm-wa-float').evaluate(e=>parseFloat(getComputedStyle(e).transitionDuration)<=0.00001));
   await page.emulateMedia({reducedMotion:'no-preference'});
   // Reload both owners twice; dynamic/footer links must still generate one event.
-  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261110'});
+  await page.addScriptTag({url:origin+'/js/site-tracking.js?v=20261110b'});
   await page.addScriptTag({url:origin+'/js/contact-tracking.min.js?v=20261031'});
   const one=await tap(page,'.stjm-wa-float');assert.equal(one.length,1);
   await recorder(page);await page.locator('.stjm-wa-float').evaluate(e=>{e.click();e.click();});

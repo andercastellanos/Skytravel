@@ -158,9 +158,11 @@
   // Short greeting: only that the visitor comes from the website and which page.
   // Source and lead reference still go to GA4 with the whatsapp_click event.
   function buildMessage(page) {
+    // Avoid a double period when the page label already ends in punctuation.
+    var label = /[.!?…]$/.test(page.label) ? page.label : page.label + '.';
     return isSpanish
-      ? 'Hola, vengo de la página web de Sky Travel J&M. Página: ' + page.label
-      : "Hello, I'm coming from the Sky Travel J&M website. Page: " + page.label;
+      ? 'Hola, vengo de la página web de Sky Travel J&M. Página: ' + label + ' Quiero saber más información.'
+      : "Hello, I'm coming from the Sky Travel J&M website. Page: " + label + " I'd like more information.";
   }
 
   function handleLinkActivation(event) {
