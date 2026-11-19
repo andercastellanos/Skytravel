@@ -109,6 +109,19 @@
   status = 301
   force = true
 
+# Old/mistyped addresses Google found in structured data (Nov 2026)
+[[redirects]]
+  from = "/index-en"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-en"
+  to = "/blog"
+  status = 301
+  force = true
+
 # Redirect .html variants to extensionless canonical URLs
 [[redirects]]
   from = "/index.html"
