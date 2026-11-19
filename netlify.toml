@@ -212,6 +212,80 @@
   status = 200
   force = true
 
+
+# Camino de Santiago and Italy 2027: clean URLs (Nov 19, 2026), same pattern as Medjugorje
+[[redirects]]
+  from = "/camino-de-santiago"
+  to = "/peregrinaciones-2027/camino-de-santiago-avila-2027.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/camino-de-santiago-es"
+  to = "/peregrinaciones-2027/camino-de-santiago-avila-2027-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/italy-rome-cinque-terre-amalfi-coast"
+  to = "/peregrinaciones-2027/roma-cinque-costa-amalfitana.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/italia-roma-cinque-terre-costa-amalfitana-es"
+  to = "/peregrinaciones-2027/roma-cinque-costa-amalfitana-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/camino-de-santiago-avila-2027.html"
+  to = "/camino-de-santiago"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/camino-de-santiago-avila-2027"
+  to = "/camino-de-santiago"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/camino-de-santiago-avila-2027-es.html"
+  to = "/camino-de-santiago-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/camino-de-santiago-avila-2027-es"
+  to = "/camino-de-santiago-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/roma-cinque-costa-amalfitana.html"
+  to = "/italy-rome-cinque-terre-amalfi-coast"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/roma-cinque-costa-amalfitana"
+  to = "/italy-rome-cinque-terre-amalfi-coast"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/roma-cinque-costa-amalfitana-es.html"
+  to = "/italia-roma-cinque-terre-costa-amalfitana-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/roma-cinque-costa-amalfitana-es"
+  to = "/italia-roma-cinque-terre-costa-amalfitana-es"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/medjugorje"
   to = "/peregrinaciones-2027/Medjugorje.html"
