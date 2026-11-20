@@ -30,7 +30,23 @@
       es: 'Peregrinación Bajo el Manto de María 2027',
       en: 'Under Mary’s Mantle 2027 pilgrimage'
     },
+    '/peregrinacion-fatima-lourdes-garabandal': {
+      es: 'Peregrinación Bajo el Manto de María 2027',
+      en: 'Under Mary’s Mantle 2027 pilgrimage'
+    },
+    '/fatima-lourdes-garabandal-pilgrimage': {
+      es: 'Peregrinación Bajo el Manto de María 2027',
+      en: 'Under Mary’s Mantle 2027 pilgrimage'
+    },
     '/peregrinacion_mexico_cancun_2027': {
+      es: 'Peregrinación a Guadalupe, México y Cancún 2027',
+      en: 'Guadalupe, Mexico & Cancún 2027 pilgrimage'
+    },
+    '/peregrinacion-guadalupe-mexico-cancun': {
+      es: 'Peregrinación a Guadalupe, México y Cancún 2027',
+      en: 'Guadalupe, Mexico & Cancún 2027 pilgrimage'
+    },
+    '/guadalupe-mexico-cancun-pilgrimage': {
       es: 'Peregrinación a Guadalupe, México y Cancún 2027',
       en: 'Guadalupe, Mexico & Cancún 2027 pilgrimage'
     }
