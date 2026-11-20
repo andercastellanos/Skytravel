@@ -1,5 +1,7 @@
 [build]
   publish = "."
+  # Clean-URL rule: fails the deploy (and prints how to fix) if any page/sitemap uses a .html URL. See CLAUDE.md.
+  command = "node scripts/check-clean-urls.js"
 
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "NOTIFICATION_EMAIL,CLOUDINARY_CLOUD_NAME_GALLERY"
@@ -948,5 +950,151 @@
 [[redirects]]
   from = "/peregrinaciones-2027/TierraSanta2026-es"
   to = "/tierrasanta2026-es"
+  status = 301
+  force = true
+
+# Bajo el Manto de María and Guadalupe-México-Cancún 2027: clean URLs (Nov 20, 2026)
+[[redirects]]
+  from = "/peregrinacion-fatima-lourdes-garabandal-es"
+  to = "/peregrinaciones-2027/peregrinacion_bajo_el_manto_de_maria-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/fatima-lourdes-garabandal-pilgrimage"
+  to = "/peregrinaciones-2027/peregrinacion_bajo_el_manto_de_maria.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/peregrinacion-guadalupe-mexico-cancun-es"
+  to = "/peregrinaciones-2027/peregrinacion_mexico_cancun_2027-es.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/guadalupe-mexico-cancun-pilgrimage"
+  to = "/peregrinaciones-2027/peregrinacion_mexico_cancun_2027.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_bajo_el_manto_de_maria-es.html"
+  to = "/peregrinacion-fatima-lourdes-garabandal-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_bajo_el_manto_de_maria-es"
+  to = "/peregrinacion-fatima-lourdes-garabandal-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_bajo_el_manto_de_maria.html"
+  to = "/fatima-lourdes-garabandal-pilgrimage"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_bajo_el_manto_de_maria"
+  to = "/fatima-lourdes-garabandal-pilgrimage"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_mexico_cancun_2027-es.html"
+  to = "/peregrinacion-guadalupe-mexico-cancun-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_mexico_cancun_2027-es"
+  to = "/peregrinacion-guadalupe-mexico-cancun-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_mexico_cancun_2027.html"
+  to = "/guadalupe-mexico-cancun-pilgrimage"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/peregrinacion_mexico_cancun_2027"
+  to = "/guadalupe-mexico-cancun-pilgrimage"
+  status = 301
+  force = true
+
+# 2026 pages: 301 the physical .html paths to their existing clean URLs (Nov 20, 2026)
+[[redirects]]
+  from = "/peregrinaciones-2026/Mariana2026.html"
+  to = "/mariana2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/Mariana2026"
+  to = "/mariana2026"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/Mariana2026-es.html"
+  to = "/mariana2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/Mariana2026-es"
+  to = "/mariana2026-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/SantuariosMarianos.html"
+  to = "/santuariosmarianos"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/SantuariosMarianos"
+  to = "/santuariosmarianos"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/SantuariosMarianos-es.html"
+  to = "/santuariosmarianos-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/SantuariosMarianos-es"
+  to = "/santuariosmarianos-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/France.html"
+  to = "/france"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/France"
+  to = "/france"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/France-es.html"
+  to = "/france-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2026/France-es"
+  to = "/france-es"
   status = 301
   force = true

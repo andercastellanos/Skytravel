@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "netlify dev",
     "check:links": "node scripts/check-internal-links.js",
+    "check:urls": "node scripts/check-clean-urls.js",
     "optimize-images": "node scripts/optimize-images.js"
   },
   "devDependencies": {
