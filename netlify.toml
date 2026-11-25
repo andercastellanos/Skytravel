@@ -863,3 +863,29 @@
   to = "/tierrasanta2026-es"
   status = 301
   force = true
+
+# Medjugorje, Dubrovnik and Split 2027: extensionless public URL.
+[[redirects]]
+  from = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027-es.html"
+  to = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027-es"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027-es"
+  to = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027-es.html"
+  status = 200
+  force = true
+
+# English Medjugorje, Dubrovnik and Split 2027.
+[[redirects]]
+  from = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027.html"
+  to = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027"
+  to = "/peregrinaciones-2027/medjugorje-dubrovnik-split-2027.html"
+  status = 200
+  force = true
